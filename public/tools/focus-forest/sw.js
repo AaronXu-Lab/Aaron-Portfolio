@@ -5,7 +5,7 @@
  * vendor/ 下是版本锁定的 three 构建产物，内容不变，走缓存优先，不必每次回源 700 KB;
  * 其余同源资源走网络优先，断网回退缓存，发版即自动更新。
  */
-const CACHE = 'forest-v1';
+const CACHE = 'forest-v2';
 const SHELL = [
   '/tools/focus-forest/',
   '/tools/focus-forest/?source=pwa',
@@ -41,6 +41,18 @@ self.addEventListener('activate', (event) => {
         )
       )
       .then(() => self.clients.claim())
+  );
+});
+
+// 完成通知(app.js 经 registration.showNotification 发出)被点开:聚焦已有窗口,没有就开一个
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const SCOPE = '/tools/focus-forest/';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      const open = list.find((client) => client.url.includes(SCOPE));
+      return open ? open.focus() : self.clients.openWindow(SCOPE);
+    })
   );
 });
 

@@ -257,11 +257,11 @@ body.no-3d #stage {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   justify-self: center;
-  padding: 24px 26px;
+  padding: 16px 20px;
   border: 1px solid var(--line);
   border-radius: var(--r);
   background: var(--card);
@@ -287,7 +287,7 @@ body[data-view='forest'] #view-forest {
 
 h1,
 h2 {
-  font-size: clamp(19px, 4.6vw, 23px);
+  font-size: clamp(17px, 4.2vw, 20px);
   font-weight: 650;
   letter-spacing: -0.01em;
 }
@@ -333,6 +333,11 @@ button:focus-visible {
 button {
   font: inherit;
   cursor: pointer;
+  /* 触屏:去掉系统灰色点按高亮与长按选中,按下反馈只留我们自己的 :active 缩放 */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 /* ---------- 分段控件（时长选择） ---------- */
@@ -372,7 +377,7 @@ button {
   position: relative;
   z-index: 1;
   min-width: 0;
-  padding: 10px 6px;
+  padding: 8px 5px;
   border: 0;
   border-radius: 999px;
   background: none;
@@ -380,10 +385,6 @@ button {
   font-size: 13px;
   white-space: nowrap;
   transition: color 0.2s var(--ease);
-}
-
-.seg:hover {
-  color: var(--ink);
 }
 
 .seg.is-on {
@@ -424,11 +425,6 @@ button {
   height: 20px;
 }
 
-.corner:hover {
-  background: color-mix(in oklch, var(--leaf) 14%, transparent);
-  color: var(--leaf-deep);
-}
-
 .corner:active {
   transform: scale(0.92);
 }
@@ -458,7 +454,6 @@ button {
   right: 0;
 }
 
-.corner:hover::after,
 .corner:focus-visible::after {
   opacity: 1;
 }
@@ -474,7 +469,7 @@ button {
 
 button.primary,
 button.ghost {
-  padding: 11px 20px;
+  padding: 10px 18px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--card-solid);
@@ -485,20 +480,11 @@ button.ghost {
 
 /* 居中构图下主按钮不再拉满,给个舒服的固定下限即可 */
 button.primary {
-  min-width: 200px;
+  min-width: 176px;
   border-color: var(--leaf-deep);
   background: var(--leaf-deep);
   color: var(--on-leaf);
   font-weight: 600;
-}
-
-button.primary:hover {
-  background: var(--leaf-hover);
-  border-color: var(--leaf-hover);
-}
-
-button.ghost:hover {
-  border-color: var(--leaf);
 }
 
 button.primary:active,
@@ -515,10 +501,6 @@ button.danger {
   color: var(--danger);
 }
 
-button.danger:hover {
-  border-color: var(--danger);
-}
-
 /* 两段式确认的第二段:实底红,把「这一下真的会删」说清楚 */
 button.danger.armed {
   border-color: var(--danger-fill);
@@ -527,15 +509,49 @@ button.danger.armed {
   font-weight: 600;
 }
 
-button.danger.armed:hover {
-  border-color: var(--danger-hover);
-  background: var(--danger-hover);
+/* hover 只给真有悬停的设备:触屏上点一下会把 hover 态留在按钮上,难看且误导 */
+@media (hover: hover) {
+  .seg:hover {
+    color: var(--ink);
+  }
+
+  .corner:hover {
+    background: color-mix(in oklch, var(--leaf) 14%, transparent);
+    color: var(--leaf-deep);
+  }
+
+  .corner:hover::after {
+    opacity: 1;
+  }
+
+  button.primary:hover {
+    background: var(--leaf-hover);
+    border-color: var(--leaf-hover);
+  }
+
+  button.ghost:hover {
+    border-color: var(--leaf);
+  }
+
+  button.danger:hover {
+    border-color: var(--danger);
+  }
+
+  button.danger.armed:hover {
+    border-color: var(--danger-hover);
+    background: var(--danger-hover);
+  }
+
+  .fold:hover {
+    color: var(--leaf-deep);
+    border-color: var(--leaf);
+  }
 }
 
 /* ---------- 专注中 ---------- */
 .clock {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: clamp(44px, 15vw, 68px);
+  font-size: clamp(36px, 11vw, 52px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -552,7 +568,7 @@ body.is-dim .clock {
 
 /* ---------- 完成 / 森林 ---------- */
 .done-sum b {
-  font-size: 22px;
+  font-size: 20px;
   color: var(--leaf-deep);
 }
 
@@ -579,8 +595,8 @@ body.is-dim .clock {
   justify-content: center;
   align-items: center;
   gap: 4px;
-  min-height: 65px;
-  padding: 12px 16px;
+  min-height: 56px;
+  padding: 10px 14px;
   border-radius: 10px;
   border: 1px dashed var(--line);
 }
@@ -596,6 +612,64 @@ body.is-dim .clock {
 
 .detail .mono {
   color: var(--ink-3);
+}
+
+/* ---------- 面板收起/展开 ---------- */
+/* 把手与面板同格:展开时骑在卡片顶边中央,收起时卡片整个隐掉,把手落到底部当展开入口 */
+.fold {
+  grid-row: 3;
+  grid-column: 1;
+  z-index: 2;
+  justify-self: center;
+  align-self: start;
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card-solid);
+  box-shadow: 0 4px 14px oklch(0.3 0.03 160 / 0.14);
+  color: var(--ink-2);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.14s var(--ease);
+}
+
+.fold:active {
+  transform: scale(0.94);
+}
+
+.fold svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+  transition: rotate 0.3s var(--ease);
+}
+
+#fold-clock {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
+/* 倒计时只在「收起 + 专注中」时出现在把手里;JS 只管写内容,显隐归 CSS */
+body:not(.ui-min) #fold-clock,
+#fold-clock:empty {
+  display: none;
+}
+
+/* 收起:面板整个隐掉(!important 压过 body[data-view] #id 的显示规则),3D 让出全屏 */
+body.ui-min .panel {
+  visibility: hidden !important;
+  animation: none;
+}
+
+body.ui-min .fold {
+  align-self: end;
+  translate: 0 0;
+}
+
+body.ui-min .fold svg {
+  rotate: 180deg;
 }
 
 /* 窄屏：时长排成 2×2,按钮各自占满一行,居中构图才不会歪 */

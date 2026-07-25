@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>专注森林 · Focus Forest</title>
 <meta name="description" content="一株 3D 植物随专注进度长大，完成后种进你的森林。离线可用的 PWA 专注工具。">
-<meta name="theme-color" content="#7cc46b">
+<!-- 状态栏颜色跟天空(--sky)走,深浅各一份;别用品牌绿,安装后状态栏会跟页面割裂 -->
+<meta name="theme-color" content="#daebf1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2b36" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="/tools/focus-forest/manifest.webmanifest">
 <link rel="icon" href="/tools/focus-forest/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="/tools/focus-forest/icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="专注森林">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -134,6 +136,12 @@
     <!-- 会丢数据,所以走两段式确认:第一下变实底红并把 tooltip 换成「确认清空？」;没有树时收起 -->
     <button id="clear-forest" class="corner right danger" type="button" hidden aria-label="清空森林" data-tip="清空森林"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg></button>
   </section>
+
+  <!-- 面板收起/展开的把手:展开时骑在卡片顶边,收起时整卡隐藏、只剩这颗药丸(专注中带倒计时) -->
+  <button id="fold" class="fold" type="button" aria-expanded="true" aria-label="收起面板">
+    <span id="fold-clock" class="mono"></span>
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+  </button>
 
   <footer class="bar foot">
     <span class="mono">FOCUS FOREST · XUWEINAN.COM</span>

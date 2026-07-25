@@ -1,10 +1,12 @@
 /**
  * 专注森林 · 3D 场景层 —— 只负责场景与动画，不承载任何界面文字。
  *
- * 植物不是离散的阶段模型,而是一份「生长脚本」:整株按部件登记(birth, span,
- * retire)排期,setProgress(0–1) 连续驱动。每个部件只做一件事 —— 从自身轴心
- * 等比缩放:枝干轴心在基点所以会抽长变粗,叶团轴心在中心所以原地鼓出,
- * 幼叶到期谢幕。方法论与新增植物样式的步骤见 workflows/focus-forest-plants.md。
+ * 植物不是离散的阶段模型,而是一份「生长脚本」:整株按部件登记(anchor, birth,
+ * span, retire)排期,setProgress(0–1) 连续驱动。每个部件只做一件事 —— 从自己的
+ * 「挂点」等比缩放:枝干挂在基点上,所以是从基点抽长变粗;叶 / 叶团 / 花挂在树干或
+ * 主冠内部,所以是从那里鼓出来再推到就位 —— 幼小时贴着母体,不会在半空凭空出现一个
+ * 缩小版的自己;幼叶到期沿原路缩回挂点谢幕。
+ * 方法论与新增植物样式的步骤见 workflows/focus-forest-plants.md。
  *
  * 环境动感：画面静止时视角仍在极缓慢地摆动，全场树木像被轻风吹拂一样轻晃。
  * 代价是可见时会持续渲染(不再「静止即停 rAF」);低性能与 prefers-reduced-motion
@@ -29,9 +31,11 @@ const CAM = {
 };
 const POLAR_MIN = 0.5;
 const POLAR_MAX = 1.36;
-/** 滚轮缩放只在森林里开放,倍率相对该模式的默认机位。 */
+/** 滚轮 / 双指捏合缩放只在森林里开放,倍率相对该模式的默认机位。 */
 const ZOOM_MIN = 0.55;
 const ZOOM_MAX = 1.7;
+/** 森林取景要装进画面的半宽:岛半径(2.5 × 2.6)加一点呼吸边。 */
+const FOREST_FIT = 7.2;
 
 /** 环境运镜：极慢、幅度极小,只为让画面不死。 */
 const DRIFT = { azSpeed: 0.13, azAmp: 0.11, polarSpeed: 0.09, polarAmp: 0.025 };
@@ -92,6 +96,9 @@ const GEO = {
   rock: new THREE.DodecahedronGeometry(1, 1),
 };
 
+/** 枝干方向换算用的基准轴（GEO.stem 沿 +Y）。 */
+const UP = new THREE.Vector3(0, 1, 0);
+
 function part(geo, mat, [x, y, z], [sx, sy, sz], rot) {
   const mesh = new THREE.Mesh(geo, mat);
   mesh.position.set(x, y, z);
@@ -108,83 +115,99 @@ const blobOf = (mat, pos, r, rot) => part(GEO.blob, mat, pos, [r, r * 0.86, r * 
 const bloomOf = (mat, pos, r) => part(GEO.leaf, mat, pos, [r, r, r], [r * 9, r * 5, r * 3]);
 
 /**
- * 生长脚本:整株植物是一张部件清单,每个部件登记 birth(出生进度)、span(生长跨度)、
- * 可选 retire = [开始, 跨度](到期原路缩回退场 —— 幼叶谢幕)。
- * 驱动只有一个原语:从自身轴心等比缩放 0→1。轴心决定语义 ——
- * 枝干包一层「基点组」,缩放即从基点抽长变粗(幼年主干天然又细又矮,就是芽);
- * 叶团 / 花轴心在几何中心,缩放即原地鼓出。
- * 排期约束:部件的 birth 必须晚于挂点可达的进度(树干长过该高度),否则悬空。
- * 成品(p=1)与原成熟株完全一致:约 740 三角面、5 种材质、零贴图。
+ * 生长脚本:整株植物是一张部件清单,每个部件登记 anchor(挂点)、birth(出生进度)、
+ * span(生长跨度)、可选 retire = [开始, 跨度](到期原路缩回挂点退场 —— 幼叶谢幕)。
+ * 驱动只有一个原语:从挂点等比缩放 0→1。挂点决定语义 ——
+ * 枝干挂在自己的基点上,缩放即从基点抽长变粗(幼年主干天然又细又矮,就是芽);
+ * 叶 / 叶团 / 花挂在树干或主冠内部,缩放同时把它从挂点推到就位,所以是「从母体鼓出来」。
+ * 挂点不能省:几何中心就是终点位置,只缩放的话幼小时是一个悬在终点半空的缩小版自己。
+ * 排期约束:birth 必须晚于挂点可达的进度(树干长过挂点高度),否则挂点本身就是悬空的。
+ * 成品(p=1)silhouette 与原成熟株一致:约 740 三角面、5 种材质、零贴图。
  */
 function buildPlant(mat) {
   const root = new THREE.Group();
   const parts = [];
-  const axis = new THREE.Vector3();
 
-  const enroll = (node, birth, span, ease, retire) => {
+  const enroll = (node, anchor, birth, span, ease, retire) => {
     root.add(node);
-    parts.push({ node, base: node.scale.clone(), birth, span, ease, retire });
+    parts.push({
+      node,
+      base: node.scale.clone(),
+      home: node.position.clone(),
+      anchor: anchor ? new THREE.Vector3(...anchor) : null,
+      birth,
+      span,
+      ease,
+      retire,
+    });
     return node;
   };
-  /** 叶团 / 花 / 种子:原地鼓出,带一点回弹。 */
-  const pop = (mesh, birth, span, retire) => enroll(mesh, birth, span, backOut01, retire);
-  /** 枝干:center / len 与静态建模同口径,内部换算成基点组,从基点抽长。 */
-  const limbFrom = (center, thick, len, rot, birth, span) => {
+  /** 叶 / 叶团 / 花 / 种子:从挂点鼓出并推到就位,带一点回弹。 */
+  const pop = (mesh, anchor, birth, span, retire) =>
+    enroll(mesh, anchor, birth, span, backOut01, retire);
+  /** 枝干:直接给基点与末端,挂点即基点,不必再手算欧拉角与中点。 */
+  const limb = (base, tip, thick, birth, span) => {
+    const from = new THREE.Vector3(...base);
+    const dir = new THREE.Vector3(...tip).sub(from);
+    const len = dir.length();
     const g = new THREE.Group();
-    g.rotation.set(...(rot || [0, 0, 0]));
-    axis.set(0, 1, 0).applyEuler(g.rotation);
-    g.position.set(...center).addScaledVector(axis, -len / 2);
+    g.position.copy(from);
+    g.quaternion.setFromUnitVectors(UP, dir.normalize());
     g.add(part(GEO.stem, mat.bark, [0, len / 2, 0], [thick, len, thick]));
-    return enroll(g, birth, span, smooth);
+    // 组本身就落在基点上,缩放天然从基点起算,不需要额外的挂点
+    return enroll(g, null, birth, span, smooth);
   };
 
-  // 0–0.25 种子:一摊土 + 半埋的豆,主干破壳而出后谢幕
-  pop(part(GEO.rock, mat.soil, [0, 0.02, 0], [0.44, 0.085, 0.44], [0, 0.4, 0]), -0.01, 0.01, [0.16, 0.14]);
-  pop(part(GEO.leaf, mat.seed, [0, 0.115, 0], [0.17, 0.13, 0.17], [0.4, 0.3, 0.2]), -0.01, 0.01, [0.1, 0.12]);
+  // 0–0.25 种子:一摊土 + 半埋的豆,主干破壳而出后缩回土里(挂点在地面)
+  pop(part(GEO.rock, mat.soil, [0, 0.02, 0], [0.44, 0.085, 0.44], [0, 0.4, 0]), [0, 0, 0], -0.01, 0.01, [0.16, 0.14]);
+  pop(part(GEO.leaf, mat.seed, [0, 0.115, 0], [0.17, 0.13, 0.17], [0.4, 0.3, 0.2]), [0, 0, 0], -0.01, 0.01, [0.1, 0.12]);
 
-  // 0.02–0.52 主干:从细芽到树干始终是同一根,等比缩放让幼年自然又细又矮
-  limbFrom([0, 0.85, 0], 0.15, 1.7, null, 0.02, 0.5);
+  // 0.02–0.52 主干:从细芽到树干始终是同一根,自地面抽长
+  limb([0, 0, 0], [0, 1.7, 0], 0.15, 0.02, 0.5);
 
-  // 初叶与中层叶:发芽期 / 幼苗期的主角,树冠成形前后陆续谢幕
-  pop(leafOf(mat.leaf, [0.13, 0.33, 0.01], 0.17, [0, 0, -0.55]), 0.14, 0.08, [0.5, 0.14]);
-  pop(leafOf(mat.leaf, [-0.11, 0.28, 0.04], 0.14, [0, 0.4, 0.6]), 0.11, 0.08, [0.46, 0.14]);
-  pop(leafOf(mat.leafDeep, [0.02, 0.42, -0.08], 0.11, [0.4, 0, 0.1]), 0.17, 0.08, [0.54, 0.14]);
-  pop(leafOf(mat.leaf, [0.22, 0.6, 0.05], 0.2, [0, 0, -0.5]), 0.24, 0.1, [0.62, 0.16]);
-  pop(leafOf(mat.leafDeep, [-0.2, 0.5, -0.06], 0.17, [0, 0.5, 0.55]), 0.21, 0.1, [0.58, 0.16]);
+  // 初叶与中层叶:挂点沿树干由低到高,各自等树干长过挂点才出现;树冠成形前后依次缩回树干
+  pop(leafOf(mat.leaf, [-0.11, 0.28, 0.04], 0.14, [0, 0.4, 0.6]), [0, 0.24, 0], 0.15, 0.08, [0.46, 0.14]);
+  pop(leafOf(mat.leaf, [0.13, 0.33, 0.01], 0.17, [0, 0, -0.55]), [0, 0.28, 0], 0.17, 0.08, [0.5, 0.14]);
+  pop(leafOf(mat.leafDeep, [0.02, 0.42, -0.08], 0.11, [0.4, 0, 0.1]), [0, 0.38, 0], 0.19, 0.08, [0.54, 0.14]);
+  pop(leafOf(mat.leafDeep, [-0.2, 0.5, -0.06], 0.17, [0, 0.5, 0.55]), [0, 0.46, 0], 0.21, 0.1, [0.58, 0.16]);
+  pop(leafOf(mat.leaf, [0.22, 0.6, 0.05], 0.2, [0, 0, -0.5]), [0, 0.55, 0], 0.23, 0.1, [0.62, 0.16]);
 
-  // 0.24–0.55 分枝:树干长过各自挂点后陆续萌出;0.42 起根盘鼓出
-  limbFrom([0.3, 1.0, 0.06], 0.07, 0.62, [0, 0, -0.8], 0.24, 0.14);
-  limbFrom([-0.28, 1.14, -0.07], 0.06, 0.54, [0, 0.5, 0.75], 0.3, 0.14);
-  limbFrom([0.22, 0.78, 0.26], 0.05, 0.46, [-0.6, 0, -0.5], 0.36, 0.14);
-  limbFrom([-0.2, 1.42, -0.22], 0.048, 0.42, [0.55, 0, 0.36], 0.42, 0.13);
-  pop(part(GEO.rock, mat.bark, [0, 0.05, 0], [0.25, 0.11, 0.25], [0, 0.6, 0]), 0.42, 0.16);
+  // 0.24–0.55 分枝:基点埋在树干里(末端不动,只把根挪进去),树干长过基点后依次萌出;0.42 起根盘鼓出
+  limb([0.01, 0.58, 0.02], [0.33, 0.95, 0.15], 0.05, 0.24, 0.14);
+  limb([0.02, 0.74, 0.01], [0.52, 1.22, 0.06], 0.07, 0.29, 0.14);
+  limb([-0.02, 0.92, -0.02], [-0.44, 1.34, 0.02], 0.06, 0.34, 0.14);
+  limb([-0.02, 1.2, -0.03], [-0.27, 1.59, -0.12], 0.048, 0.41, 0.13);
+  pop(part(GEO.rock, mat.bark, [0, 0.05, 0], [0.25, 0.11, 0.25], [0, 0.6, 0]), [0, 0, 0], 0.42, 0.16);
 
-  // 0.5–0.88 树冠:六团深浅相间,一团一团鼓起来
-  pop(blobOf(mat.leaf, [0, 2.05, 0], 0.56), 0.5, 0.18);
-  pop(blobOf(mat.leaf, [0.5, 1.76, 0.12], 0.38, [0, 0.7, 0.2]), 0.56, 0.16);
-  pop(blobOf(mat.leafDeep, [-0.47, 1.86, -0.14], 0.34, [0.3, 0, 0.4]), 0.61, 0.16);
-  pop(blobOf(mat.leafDeep, [0.27, 1.6, 0.33], 0.27, [0.2, 0.5, 0]), 0.66, 0.15);
-  pop(blobOf(mat.leaf, [-0.22, 2.0, -0.34], 0.26, [0, 0.9, 0.3]), 0.7, 0.15);
-  pop(blobOf(mat.leafDeep, [0.1, 1.66, -0.24], 0.22, [0.4, 0, 0.2]), 0.74, 0.14);
+  // 0.5–0.88 树冠:第一团自树干顶端鼓出,其余五团从主冠内部推出去,一团一团鼓起来
+  pop(blobOf(mat.leaf, [0, 2.05, 0], 0.56), [0, 1.66, 0], 0.5, 0.18);
+  pop(blobOf(mat.leaf, [0.5, 1.76, 0.12], 0.38, [0, 0.7, 0.2]), [0.05, 1.85, 0.02], 0.56, 0.16);
+  pop(blobOf(mat.leafDeep, [-0.47, 1.86, -0.14], 0.34, [0.3, 0, 0.4]), [-0.05, 1.9, -0.02], 0.61, 0.16);
+  pop(blobOf(mat.leafDeep, [0.27, 1.6, 0.33], 0.27, [0.2, 0.5, 0]), [0.04, 1.8, 0.05], 0.66, 0.15);
+  pop(blobOf(mat.leaf, [-0.22, 2.0, -0.34], 0.26, [0, 0.9, 0.3]), [-0.03, 1.98, -0.05], 0.7, 0.15);
+  pop(blobOf(mat.leafDeep, [0.1, 1.66, -0.24], 0.22, [0.4, 0, 0.2]), [0.02, 1.82, -0.04], 0.74, 0.14);
 
-  // 0.84–1 开花:收尾,最后一朵恰好在 1.0 长完
-  pop(bloomOf(mat.blossom, [0.28, 2.52, 0.1], 0.075), 0.84, 0.07);
-  pop(bloomOf(mat.blossom, [0.72, 1.82, 0.24], 0.068), 0.87, 0.07);
-  pop(bloomOf(mat.blossom, [-0.66, 1.98, -0.06], 0.062), 0.9, 0.07);
-  pop(bloomOf(mat.blossom, [0.34, 1.62, 0.56], 0.058), 0.93, 0.06);
-  pop(bloomOf(mat.blossom, [-0.3, 2.36, -0.3], 0.055), 0.96, 0.04);
+  // 0.84–1 开花:各自从贴着的那团叶子里挤出来,最后一朵恰好在 1.0 长完
+  pop(bloomOf(mat.blossom, [0.28, 2.52, 0.1], 0.075), [0.2, 2.38, 0.07], 0.84, 0.07);
+  pop(bloomOf(mat.blossom, [0.72, 1.82, 0.24], 0.068), [0.55, 1.8, 0.18], 0.87, 0.07);
+  pop(bloomOf(mat.blossom, [-0.66, 1.98, -0.06], 0.062), [-0.5, 1.94, -0.05], 0.9, 0.07);
+  pop(bloomOf(mat.blossom, [0.34, 1.62, 0.56], 0.058), [0.26, 1.66, 0.42], 0.93, 0.06);
+  pop(bloomOf(mat.blossom, [-0.3, 2.36, -0.3], 0.055), [-0.22, 2.26, -0.22], 0.96, 0.04);
 
   applyGrowth(parts, 1);
   return { root, parts };
 }
 
-/** 把进度应用到整份生长脚本:局部进度 → 缓动 → 谢幕衰减 → 从轴心等比缩放。 */
+/** 把进度应用到整份生长脚本:局部进度 → 缓动 → 谢幕衰减 → 从挂点等比缩放并推到就位。 */
 function applyGrowth(parts, p) {
   for (const it of parts) {
     let k = it.ease(clamp((p - it.birth) / it.span, 0, 1));
     if (it.retire) k *= 1 - smooth(clamp((p - it.retire[0]) / it.retire[1], 0, 1));
     it.node.visible = k > 0.001;
-    it.node.scale.copy(it.base).multiplyScalar(Math.max(k, 0.001));
+    const s = Math.max(k, 0.001);
+    it.node.scale.copy(it.base).multiplyScalar(s);
+    // 挂点在别处的部件:缩放的同时把位置从挂点插到终点,等价于「轴心在挂点上」
+    if (it.anchor) it.node.position.lerpVectors(it.anchor, it.home, s);
   }
 }
 
@@ -208,10 +231,11 @@ const smooth = (x) => x * x * (3 - 2 * x);
 
 export function createScene(canvas, { motion = true } = {}) {
   // 透明画布：天空由 CSS 的 --sky 提供，深浅色与「离开页面变暗」都归样式表管，不在这里再存一份颜色
+  // MSAA 一律打开:这点面数在手机上也不构成负担,关掉的锯齿感远比开销显眼
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
-    antialias: !matchMedia('(hover: none)').matches,
+    antialias: true,
     powerPreference: 'high-performance',
   });
   renderer.shadowMap.enabled = false;
@@ -301,9 +325,16 @@ export function createScene(canvas, { motion = true } = {}) {
     );
     const sinP = Math.sin(polar);
     spherical.set(Math.sin(azimuth) * sinP, Math.cos(polar), Math.cos(azimuth) * sinP);
-    // 竖屏可视宽度不够，往后退一点，让主体宁可左右出画也不要上下切头
-    const radius = conf.radius * zoom * (camera.aspect < 1 ? 1.25 : 1);
-    camera.position.copy(target).addScaledVector(spherical, radius);
+    // 竖屏可视宽度不够:植物模式往后退一点即可;森林按宽高比精确退到整座岛进画,
+    // 否则手机上默认机位只装得下岛中央一小块
+    let radius = conf.radius;
+    if (mode === 'forest') {
+      const halfW = Math.tan((camera.fov * Math.PI) / 360) * Math.max(camera.aspect, 0.01);
+      radius = Math.max(radius, FOREST_FIT / halfW);
+    } else if (camera.aspect < 1) {
+      radius *= 1.25;
+    }
+    camera.position.copy(target).addScaledVector(spherical, radius * zoom);
     camera.lookAt(target);
   }
 
@@ -404,20 +435,26 @@ export function createScene(canvas, { motion = true } = {}) {
   }
 
   /**
-   * 低性能自动降档：开头采样 90 帧,过半慢于 24ms 就降画质。
+   * 低性能自动降档：跳过启动期(加载 / 编译着色器的卡顿不算数)再采样 120 帧,
+   * 过半慢于 34ms(跌破 30fps)才降画质。原来从第一帧就采、24ms 就算慢,
+   * 手机启动抖动几乎必然被误判成低画质,然后整段会话都顶着 DPR=1 的马赛克。
    * ponytail: 只看帧耗时的粗启发式；误判的代价仅是画质更低,不影响功能
    */
+  const WARMUP = 30;
+  const SAMPLE = 120;
   function sampleQuality(dt) {
-    if (quality !== 'auto' || frames >= 90) return;
+    if (quality !== 'auto' || frames >= WARMUP + SAMPLE) return;
     frames++;
-    if (dt > 0.024) slowFrames++;
-    if (frames >= 90 && slowFrames > 45) setQuality('low');
+    if (frames <= WARMUP) return;
+    if (dt > 0.034) slowFrames++;
+    if (frames >= WARMUP + SAMPLE && slowFrames > SAMPLE / 2) setQuality('low');
   }
 
   function setQuality(next) {
     const was = quality;
     quality = next;
-    renderer.setPixelRatio(next === 'low' ? 1 : Math.min(devicePixelRatio || 1, 1.5));
+    // 3x 屏上 1.5 倍渲染的插值放大是锯齿感的另一半来源,上限提到 2;低画质档才压到 1
+    renderer.setPixelRatio(next === 'low' ? 1 : Math.min(devicePixelRatio || 1, 2));
     if (next === 'low') {
       particles.clear();
       // 环境动画停在中位,别把树留在歪着的姿态上
@@ -567,27 +604,49 @@ export function createScene(canvas, { motion = true } = {}) {
     else requestRender();
   }
 
-  // ---- 拖动旋转（水平可无限转,俯仰有限;不支持缩放 / 平移 / 自由移动） ----
+  // ---- 单指拖动旋转 + 双指捏合缩放（森林限定;不支持平移 / 自由移动） ----
   const drag = { id: null, x: 0, y: 0, moved: 0 };
+  const touches = new Map(); // pointerId → [x, y],同时按下的所有指针
+  let pinch = null; // 双指落定瞬间的基准 { dist, zoom }
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
 
+  const touchDist = () => {
+    const [a, b] = [...touches.values()];
+    return Math.hypot(a[0] - b[0], a[1] - b[1]) || 1;
+  };
+
   canvas.addEventListener('pointerdown', (e) => {
-    if (drag.id !== null) return;
-    drag.id = e.pointerId;
-    drag.x = e.clientX;
-    drag.y = e.clientY;
-    drag.moved = 0;
+    touches.set(e.pointerId, [e.clientX, e.clientY]);
     try {
       canvas.setPointerCapture(e.pointerId);
     } catch {
       /* 合成事件没有活动指针,忽略 */
+    }
+    if (touches.size === 2) {
+      // 第二根手指落下:拖转手势转为捏合,本次不再算「点了一下」
+      pinch = { dist: touchDist(), zoom };
+      drag.id = null;
+    } else if (touches.size === 1) {
+      drag.id = e.pointerId;
+      drag.x = e.clientX;
+      drag.y = e.clientY;
+      drag.moved = 0;
     }
     holds.add('drag');
     start();
   });
 
   canvas.addEventListener('pointermove', (e) => {
+    if (!touches.has(e.pointerId)) return;
+    touches.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pinch && touches.size >= 2) {
+      // 触屏没有滚轮,捏合承担森林缩放;与滚轮同一套 zoom 与上下限
+      if (mode === 'forest') {
+        zoom = clamp((pinch.zoom * pinch.dist) / touchDist(), ZOOM_MIN, ZOOM_MAX);
+      }
+      return;
+    }
     if (e.pointerId !== drag.id) return;
     const dx = e.clientX - drag.x;
     const dy = e.clientY - drag.y;
@@ -619,10 +678,13 @@ export function createScene(canvas, { motion = true } = {}) {
   );
 
   function endDrag(e) {
-    if (e.pointerId !== drag.id) return;
-    drag.id = null;
-    holds.delete('drag');
-    if (drag.moved < 8) pickAt(e);
+    if (!touches.delete(e.pointerId)) return;
+    if (touches.size < 2) pinch = null;
+    if (!touches.size) holds.delete('drag');
+    if (e.pointerId === drag.id) {
+      drag.id = null;
+      if (drag.moved < 8) pickAt(e);
+    }
     requestRender();
   }
   canvas.addEventListener('pointerup', endDrag);

@@ -106,6 +106,7 @@ function show(view) {
   syncMode();
   if (view === 'focus') startTicker();
   else stopTicker();
+  if (view !== 'focus') $('fold-clock').textContent = '';
   // 换视图就撤掉所有待确认状态，不留一个「确认清空？」在那儿等着被误点
   disarmGiveUp();
   disarmClear();
@@ -116,6 +117,7 @@ function show(view) {
 // ---------------------------------------------------------------- 专注流程
 
 function beginFocus() {
+  askNotify(); // 借这次点击(用户手势)申请通知权限,完成时才有资格提醒
   const session = createSession({ minutes, now: Date.now() });
   // 先落盘，再碰场景
   active = session;
@@ -138,11 +140,50 @@ function finishFocus() {
   active = null;
   saveActive(null);
   stopTicker();
+  notifyDone(done.minutes);
 
   $('done-min').textContent = formatDuration(done.minutes);
   applyProgress(1, false);
+  setFold(false); // 完成卡不该被收起状态吞掉
   show('done');
   scene?.celebrate();
+}
+
+// ---------------------------------------------------------------- 完成通知
+
+/** 只在权限还没问过时申请;必须由用户手势触发,所以挂在「开始专注」的点击里。 */
+function askNotify() {
+  try {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  } catch {
+    /* iOS 未安装为 PWA 时没有这个 API,忽略 */
+  }
+}
+
+/** 完成提醒：人不在页面上才发系统通知(看着的话庆祝动画就够了),Android 上再加一下震动。 */
+async function notifyDone(min) {
+  navigator.vibrate?.([120, 60, 120]);
+  if (!('Notification' in window) || Notification.permission !== 'granted' || !document.hidden) return;
+  const options = {
+    body: `专注 ${formatDuration(min)} 完成，这棵树已经种进你的森林。`,
+    icon: '/tools/focus-forest/icon-192.png',
+    badge: '/tools/focus-forest/icon-192.png',
+    tag: 'focus-forest-done',
+  };
+  // 独立窗口 / Android 里 new Notification() 会抛错,优先走 Service Worker
+  try {
+    const reg = await navigator.serviceWorker?.getRegistration();
+    if (reg?.showNotification) return void (await reg.showNotification('专注完成', options));
+  } catch {
+    /* 落到下面的兜底 */
+  }
+  try {
+    new Notification('专注完成', options);
+  } catch {
+    /* 两条路都不通就算了,记录本身没丢 */
+  }
 }
 
 /**
@@ -205,7 +246,9 @@ function renderFocus() {
   if (!active) return;
   const now = Date.now();
   progressShown = progressOf(active, now);
-  $('clock').textContent = formatClock(remainingMs(active, now));
+  const left = formatClock(remainingMs(active, now));
+  $('clock').textContent = left;
+  $('fold-clock').textContent = left; // 收起状态下把手兼任迷你倒计时,显隐归 CSS 管
   // 3D 的生长由场景每帧自算，这里只同步 2D 降级画面的阶段
   document.documentElement.dataset.stage = String(stageOf(progressShown));
   if (isDone(active, now)) finishFocus();
@@ -332,6 +375,31 @@ $('next-page').addEventListener('click', () => {
   renderForest();
 });
 $('retry-3d').addEventListener('click', mount3D);
+
+// ---------------------------------------------------------------- 面板收起/展开
+
+const foldButton = $('fold');
+const KEY_FOLD = 'ff.v1.fold';
+
+function setFold(min) {
+  body.classList.toggle('ui-min', min);
+  foldButton.setAttribute('aria-expanded', String(!min));
+  foldButton.setAttribute('aria-label', min ? '展开面板' : '收起面板');
+  try {
+    localStorage.setItem(KEY_FOLD, min ? '1' : '');
+  } catch {
+    /* 存不上就不记住,功能照常 */
+  }
+}
+
+foldButton.addEventListener('click', () => setFold(!body.classList.contains('ui-min')));
+
+// 上次的收起状态跨启动记住(完成页会强制展开,不怕被永远收起)
+try {
+  if (localStorage.getItem(KEY_FOLD) === '1') setFold(true);
+} catch {
+  /* ignore */
+}
 
 /**
  * 离开页面：计一次中断并把环境压暗；不可见时停渲染，计时靠 endsAt 继续走。
