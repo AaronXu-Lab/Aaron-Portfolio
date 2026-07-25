@@ -1,0 +1,629 @@
+/*
+ * 专注森林 —— 独立壳工具，自己的视觉语言（玩具感、柔和、低对比）。
+ * 不引用主站 token:工具页设计独立。
+ */
+
+/* 三级文字色都按 WCAG AA(4.5:1)对着 --card-solid 校过，深浅色各一套 */
+:root {
+  --ink: oklch(0.32 0.03 160);
+  --ink-2: oklch(0.4 0.025 160);
+  --ink-3: oklch(0.47 0.02 160);
+  --card: oklch(1 0 0 / 0.84);
+  --card-solid: oklch(0.99 0.004 160);
+  --line: oklch(0.87 0.015 160);
+  --leaf: oklch(0.66 0.15 145);
+  --leaf-deep: oklch(0.46 0.13 148);
+  --leaf-hover: oklch(0.4 0.13 148);
+  --on-leaf: oklch(0.99 0.01 145);
+  --bloom: oklch(0.8 0.1 5);
+  --sky: oklch(0.93 0.02 220);
+  --danger: oklch(0.52 0.16 25);
+  --danger-fill: oklch(0.47 0.17 25);
+  --danger-hover: oklch(0.41 0.17 25);
+  --on-danger: oklch(0.99 0.01 25);
+  --r: 14px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: oklch(0.94 0.01 160);
+    --ink-2: oklch(0.8 0.015 160);
+    --ink-3: oklch(0.68 0.015 160);
+    --card: oklch(0.26 0.02 165 / 0.82);
+    --card-solid: oklch(0.24 0.02 165);
+    --line: oklch(0.38 0.02 165);
+    --leaf: oklch(0.76 0.14 145);
+    --leaf-deep: oklch(0.68 0.13 148);
+    --leaf-hover: oklch(0.78 0.14 145);
+    --on-leaf: oklch(0.2 0.03 150);
+    --sky: oklch(0.28 0.03 235);
+    --danger: oklch(0.72 0.14 25);
+    --danger-fill: oklch(0.68 0.16 25);
+    --danger-hover: oklch(0.76 0.16 25);
+    --on-danger: oklch(0.2 0.04 25);
+    color-scheme: dark;
+  }
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 画布是透明的，天空就是这里的背景色；离开页面时整片环境一起压暗 */
+body {
+  background: var(--sky);
+  transition: background-color 0.5s var(--ease);
+  color: var(--ink);
+  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- 3D 画布：铺满视口，UI 覆盖其上 ---------- */
+#stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+#stage:active {
+  cursor: grabbing;
+}
+
+body.no-3d #stage {
+  display: none;
+}
+
+/* ---------- 2D 降级 ---------- */
+/* .flat 自带 display,必须让 hidden 属性重新盖回去 */
+.flat[hidden] {
+  display: none;
+}
+
+.flat {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  /* 底部留出面板最高时占的高度，别让「重试 3D」被压住 */
+  padding: 8vh 20px 56vh;
+}
+
+.flat-plant {
+  width: min(38vw, 150px);
+  height: auto;
+}
+
+.f-soil {
+  fill: oklch(0.62 0.06 70);
+}
+.f-seed {
+  fill: oklch(0.45 0.06 60);
+}
+.f-stem,
+.f-trunk {
+  stroke: var(--leaf-deep);
+  stroke-width: 4;
+  stroke-linecap: round;
+  fill: none;
+}
+/* 主干是木色的，和 3D 里木质化后的树干一个说法 */
+.f-trunk {
+  stroke: oklch(0.52 0.06 55);
+  stroke-width: 7;
+}
+.f-leaf {
+  fill: var(--leaf);
+}
+.f-leaf-deep {
+  fill: var(--leaf-deep);
+}
+.f-blossom {
+  fill: var(--bloom);
+}
+
+.f-stage {
+  display: none;
+}
+
+[data-stage='0'] .f-stage[data-s='0'],
+[data-stage='1'] .f-stage[data-s='1'],
+[data-stage='2'] .f-stage[data-s='2'],
+[data-stage='3'] .f-stage[data-s='3'],
+[data-stage='4'] .f-stage[data-s='4'] {
+  display: block;
+}
+
+.flat-note {
+  color: var(--ink-2);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------- 覆盖层：顶部 / 留空给拖动 / 面板 / 页脚 ---------- */
+.shell {
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  padding: calc(10px + env(safe-area-inset-top)) 16px calc(10px + env(safe-area-inset-bottom));
+  max-width: 620px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.shell > * {
+  pointer-events: auto;
+}
+
+.void {
+  pointer-events: none;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.brand {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.brand i {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  margin-left: 6px;
+}
+
+.foot {
+  grid-row: 4; /* 面板都被钉在第 3 行了,页脚也明写一下,不靠自动排布 */
+  margin-top: 10px;
+  justify-content: center;
+  color: var(--ink-3);
+  flex-wrap: wrap;
+}
+
+/* 顶部行要能挂住绝对定位的安装提示浮层 */
+.top {
+  position: relative;
+}
+
+/* 安装反馈：绝对定位的浮层,不参与布局;右对齐到安装按钮下方 */
+.pwa-hint {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 3;
+  max-width: min(300px, 90vw);
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card-solid);
+  box-shadow: 0 8px 22px oklch(0.3 0.03 160 / 0.14);
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.65;
+  text-align: left;
+  animation: rise 0.24s var(--ease) backwards;
+}
+
+/* 安装提示是浮层，没话说时不占位置(默认就是空的) */
+.pwa-hint:empty {
+  display: none;
+}
+
+/* ---------- 面板：居中构图 ---------- */
+/*
+ * 四张卡叠在同一个网格格子里(只有当前那张 visible),格子高度因此恒等于「最高的那张」,
+ * 切换状态时底部卡片不再跳高跳低 —— 也不用写死一个像素值,换字号 / 换语言都自适应。
+ * 内容在固定高度里垂直居中,矮的状态四周留白,不是靠顶。
+ */
+.panel {
+  position: relative;
+  grid-row: 3;
+  grid-column: 1;
+  height: 100%;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 520px;
+  justify-self: center;
+  padding: 24px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px oklch(0.3 0.03 160 / 0.1);
+}
+
+body[data-view='home'] #view-home,
+body[data-view='focus'] #view-focus,
+body[data-view='done'] #view-done,
+body[data-view='forest'] #view-forest {
+  visibility: visible;
+  animation: rise 0.36s var(--ease) backwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+h1,
+h2 {
+  font-size: clamp(19px, 4.6vw, 23px);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+/* 角落按钮占了卡片顶部两端,标题往里收一点才不会压到 */
+.panel > h1,
+.panel > h2 {
+  padding-inline: 34px;
+}
+
+/* h2 也会用这个类(专注页的可访问标题),所以要压掉标题字号与字重 */
+.eyebrow {
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* 卡里的说明文字：空着也保留一行 —— 第一棵树种下 / 清空森林时卡片高度不该跟着变 */
+.hint {
+  min-height: 1.35em;
+  color: var(--ink-3);
+  font-size: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%; /* 分段控件的 100% 要有个参照,否则会缩成内容宽 */
+}
+
+.field > span {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--leaf);
+  outline-offset: 1px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- 分段控件（时长选择） ---------- */
+/* 留白靠控件整体宽度给,不靠每格的 padding —— 后者的 min-content 会在窄屏撑破卡片 */
+.segment {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: 100%;
+  max-width: 400px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--line) 30%, transparent);
+}
+
+/* 滑块：宽度正好是内宽的 1/--n（格数,syncChips() 写）,按 --i 平移一格 */
+.segment::before {
+  content: '';
+  position: absolute;
+  inset: 3px auto 3px 3px;
+  width: calc((100% - 6px) / var(--n, 4));
+  border-radius: 999px;
+  background: var(--card-solid);
+  box-shadow: 0 1px 3px oklch(0.3 0.03 160 / 0.16);
+  translate: calc(var(--i, 1) * 100%) 0;
+  transition: translate 0.28s var(--ease);
+}
+
+/* 当前时长不在任何一档里(旧数据)时不要让滑块停在错的位置 */
+.segment[data-off]::before {
+  opacity: 0;
+}
+
+.seg {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: 10px 6px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-2);
+  font-size: 13px;
+  white-space: nowrap;
+  transition: color 0.2s var(--ease);
+}
+
+.seg:hover {
+  color: var(--ink);
+}
+
+.seg.is-on {
+  color: var(--leaf-deep);
+  font-weight: 600;
+}
+
+/* ---------- 卡片角落的 ghost 图标按钮 + hover tooltip ---------- */
+.corner {
+  position: absolute;
+  top: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-3);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.14s var(--ease);
+}
+
+/* display: grid 会盖掉 UA 的 [hidden]，得自己补一条 */
+.corner[hidden] {
+  display: none;
+}
+
+.corner.left {
+  left: 10px;
+}
+
+.corner.right {
+  right: 10px;
+}
+
+.corner svg {
+  width: 20px;
+  height: 20px;
+}
+
+.corner:hover {
+  background: color-mix(in oklch, var(--leaf) 14%, transparent);
+  color: var(--leaf-deep);
+}
+
+.corner:active {
+  transform: scale(0.92);
+}
+
+/* tooltip:纯 CSS,hover 与键盘聚焦都出;按钮自带 aria-label,读屏不依赖它。
+   角落按钮贴着卡片顶边,所以朝下弹 */
+.corner::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 6px);
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--card-solid);
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--ease);
+}
+
+.corner.left::after {
+  left: 0;
+}
+
+.corner.right::after {
+  right: 0;
+}
+
+.corner:hover::after,
+.corner:focus-visible::after {
+  opacity: 1;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+button.primary,
+button.ghost {
+  padding: 11px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card-solid);
+  color: var(--ink);
+  font-size: 14px;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.14s var(--ease);
+}
+
+/* 居中构图下主按钮不再拉满,给个舒服的固定下限即可 */
+button.primary {
+  min-width: 200px;
+  border-color: var(--leaf-deep);
+  background: var(--leaf-deep);
+  color: var(--on-leaf);
+  font-weight: 600;
+}
+
+button.primary:hover {
+  background: var(--leaf-hover);
+  border-color: var(--leaf-hover);
+}
+
+button.ghost:hover {
+  border-color: var(--leaf);
+}
+
+button.primary:active,
+button.ghost:active {
+  transform: scale(0.97);
+}
+
+button.sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+button.danger {
+  color: var(--danger);
+}
+
+button.danger:hover {
+  border-color: var(--danger);
+}
+
+/* 两段式确认的第二段:实底红,把「这一下真的会删」说清楚 */
+button.danger.armed {
+  border-color: var(--danger-fill);
+  background: var(--danger-fill);
+  color: var(--on-danger);
+  font-weight: 600;
+}
+
+button.danger.armed:hover {
+  border-color: var(--danger-hover);
+  background: var(--danger-hover);
+}
+
+/* ---------- 专注中 ---------- */
+.clock {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(44px, 15vw, 68px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+body.is-dim {
+  background: color-mix(in oklch, var(--sky) 62%, oklch(0.28 0.02 240));
+}
+
+body.is-dim .clock {
+  color: var(--ink-2);
+}
+
+/* ---------- 完成 / 森林 ---------- */
+.done-sum b {
+  font-size: 22px;
+  color: var(--leaf-deep);
+}
+
+/* 只有一页时翻页箭头会收起，min-height 兜住行高，卡片不跟着缩 */
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 31px;
+}
+
+.pager .mono {
+  color: var(--ink-2);
+}
+
+/*
+ * 树的详情：始终占位（min-height 兜住两行内容），点开 / 收起只切 visibility ——
+ * 否则它一出现就把卡片顶高，前面那份「高度恒定」的努力就白费了。
+ */
+.detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  min-height: 65px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px dashed var(--line);
+}
+
+.detail[hidden] {
+  display: flex;
+  visibility: hidden;
+}
+
+.detail b {
+  font-size: 14px;
+}
+
+.detail .mono {
+  color: var(--ink-3);
+}
+
+/* 窄屏：时长排成 2×2,按钮各自占满一行,居中构图才不会歪 */
+@media (max-width: 420px) {
+  .row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .row > button {
+    width: 100%;
+    max-width: 288px;
+    min-width: 0;
+  }
+}
+
+/* ?qa:跳过入场动画，截图稳定 */
+body.qa .panel {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .track i {
+    transition: none;
+  }
+}

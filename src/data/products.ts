@@ -128,6 +128,19 @@ export const tools: ToolEntry[] = [
     date: '2026.07',
   },
   {
+    slug: 'focus-forest',
+    name: '专注森林',
+    en: 'FOCUS FOREST',
+    description:
+      '开始专注就种下一颗种子：一株低多边形 3D 植物随进度长过种子、发芽、幼苗、成长、成熟五个阶段，完成后种进你的森林，点开每棵树都能看到它对应的那次专注。数据只存在本机，离线可用。',
+    pwa: true,
+    status: 'shipped',
+    tags: ['PWA', 'Three.js', '专注计时'],
+    date: '2026.07',
+    href: '/tools/focus-forest/',
+    newTab: true,
+  },
+  {
     slug: 'travel-maps',
     name: '出发吧打工人！',
     en: 'TRAVEL MAPS',
