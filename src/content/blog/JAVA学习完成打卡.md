@@ -1,7 +1,7 @@
 ---
 title: JAVA学习完成打卡
 date: '2016-03-09T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

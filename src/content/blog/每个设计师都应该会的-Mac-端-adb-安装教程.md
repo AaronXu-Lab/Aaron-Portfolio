@@ -1,7 +1,7 @@
 ---
 title: 每个设计师都应该会的 Mac 端 adb 安装教程
 date: '2019-09-01T00:51:50.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 教程
   - 交互设计

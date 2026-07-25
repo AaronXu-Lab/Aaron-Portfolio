@@ -1,7 +1,7 @@
 ---
 title: GPT 5.4 发布，这是你感兴趣的一切
 date: '2026-03-06T11:19:41.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
 categories:

@@ -1,7 +1,7 @@
 ---
 title: GPT 调试工具 隐私政策
 date: '2023-09-13T07:42:03.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 隐私政策
   - App

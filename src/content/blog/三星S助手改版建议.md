@@ -1,7 +1,7 @@
 ---
 title: 三星S助手改版建议
 date: '2017-07-20T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 三星

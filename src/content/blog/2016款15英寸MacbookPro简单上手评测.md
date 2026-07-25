@@ -1,7 +1,7 @@
 ---
 title: 2016款15英寸MacbookPro简单上手评测
 date: '2016-11-24T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

@@ -1,6 +1,6 @@
-# 徐炜楠个人网站 · 项目指南
+# Aaron Xu 个人网站 · 项目指南
 
-徐炜楠(Aaron Xu,UX Engineer)的作品集 + 站内博客 + Skill / 产品集。Astro 5 静态站,部署在 Cloudflare Pages,绑定 [xuweinan.com](https://www.xuweinan.com)。视觉语言为 oklch 编辑部风格,自 `portfolio/site` 原型迁移而来;博客内容源自本地 Hexo 旧站(iCloud `Share/xuweinanblog`)。
+Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 静态站,部署在 Cloudflare Pages,绑定 [xuweinan.com](https://www.xuweinan.com)。视觉语言为 oklch 编辑部风格,自 `portfolio/site` 原型迁移而来;博客内容源自本地 Hexo 旧站(iCloud `Share/xuweinanblog`)。
 
 ## 目录速览
 

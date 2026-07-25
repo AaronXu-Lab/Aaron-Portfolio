@@ -1,7 +1,7 @@
 ---
 title: APP-想读
 date: '2017-03-01T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 实习日志

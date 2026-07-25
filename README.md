@@ -1,4 +1,4 @@
-# 徐炜楠个人网站 · xuweinan.com
+# Aarxon Xu 个人网站 · xuweinan.com
 
 UX Engineer 作品集 + 站内博客 + Skill / 产品集。基于 [Astro 5](https://astro.build) 静态生成，视觉语言延续手搓原型（oklch 色系 · Inter + JetBrains Mono · 编辑部风格），博客一次性导入自本地 Hexo 文件夹，部署在 Cloudflare Pages 并绑定 [xuweinan.com](https://www.xuweinan.com)。
 

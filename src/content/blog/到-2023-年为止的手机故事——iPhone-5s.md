@@ -1,7 +1,7 @@
 ---
 title: 到 2023 年为止的手机故事——iPhone 5s
 date: '2024-09-07T10:51:13.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 到 2023 年为止的手机故事

@@ -35,7 +35,7 @@ import MediaSlot from '../../components/MediaSlot.astro';
 ---
 
 <CaseLayout
-  title="<案例名> - 案例 · 徐炜楠"
+  title="<案例名> - 案例 · Aaron Xu"
   description="<SEO 一句话>"
   index="CASE 0X"
   category="<分类>"

@@ -21,7 +21,7 @@ const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Base title={`${post.data.title} - 徐炜楠的博客`} description={post.data.excerpt}>
+<Base title={`${post.data.title} - Aaron Xu 的博客`} description={post.data.excerpt}>
   <div class="progress" aria-hidden="true"><span></span></div>
 
   <article class="post prose-width">
@@ -52,7 +52,7 @@ const { Content } = await render(post);
     <footer class="post-foot">
       <div class="author">
         <span class="mono-label">Written by</span>
-        <span class="name">{post.data.author ?? '徐炜楠'}</span>
+        <span class="name">{post.data.author ?? 'Aaron Xu'}</span>
       </div>
       <nav class="post-nav" aria-label="相邻文章">
         {

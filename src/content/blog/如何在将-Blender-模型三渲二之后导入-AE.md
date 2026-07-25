@@ -1,7 +1,7 @@
 ---
 title: 如何在将 Blender 模型三渲二之后导入 AE
 date: '2021-12-15T02:22:30.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - Blender
   - 动效设计

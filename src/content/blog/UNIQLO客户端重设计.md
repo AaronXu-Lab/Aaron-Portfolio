@@ -1,7 +1,7 @@
 ---
 title: UNIQLO客户端重设计
 date: '2015-07-19T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 交互设计
   - 作品集

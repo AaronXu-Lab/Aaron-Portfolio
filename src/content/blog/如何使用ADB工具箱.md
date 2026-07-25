@@ -1,7 +1,7 @@
 ---
 title: 如何使用ADB工具箱
 date: '2022-09-20T14:07:54.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 全栈设计师
 categories:

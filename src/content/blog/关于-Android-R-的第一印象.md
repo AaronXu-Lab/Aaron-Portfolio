@@ -1,7 +1,7 @@
 ---
 title: 关于 Android R 的第一印象
 date: '2020-02-24T08:02:44.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 交互设计

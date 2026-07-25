@@ -1,7 +1,7 @@
 ---
 title: MGX 功能体验分析
 date: '2025-04-02T11:18:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - AI产品
   - 多智能体

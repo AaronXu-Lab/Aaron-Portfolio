@@ -1,7 +1,7 @@
 ---
 title: Vfun7周年祝福动画
 date: '2016-05-30T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

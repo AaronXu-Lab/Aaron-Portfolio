@@ -1,7 +1,7 @@
 ---
 title: Icon 字体化——我管理 Icon 的方式
 date: '2024-12-11T23:20:44.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 设计

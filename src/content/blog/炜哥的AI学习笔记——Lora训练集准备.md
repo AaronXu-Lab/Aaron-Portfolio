@@ -1,7 +1,7 @@
 ---
 title: 炜哥的AI学习笔记——Lora训练集准备
 date: '2023-06-11T15:08:44.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - AIGC
   - Stable Diffusion

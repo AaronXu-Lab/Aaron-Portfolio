@@ -65,7 +65,7 @@ export function buildPostFile({ title, date, author, tags, categories, body }) {
   return matter.stringify(cleanBody, {
     title,
     date: date.toISOString(),
-    author: author ? String(author) : '徐炜楠',
+    author: author ? String(author) : 'Aaron Xu',
     tags,
     categories,
     excerpt,

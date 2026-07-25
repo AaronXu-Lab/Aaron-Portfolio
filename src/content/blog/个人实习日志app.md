@@ -1,7 +1,7 @@
 ---
 title: 个人实习日志app
 date: '2017-04-17T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 交互设计
   - 作品集

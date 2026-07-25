@@ -1,7 +1,7 @@
 ---
 title: AI绘图 Stable Difussion 配置过程
 date: '2023-05-04T08:01:58.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - Stable Diffusion
   - WebUI

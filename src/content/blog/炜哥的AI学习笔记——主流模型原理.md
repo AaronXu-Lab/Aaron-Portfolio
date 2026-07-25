@@ -1,7 +1,7 @@
 ---
 title: 炜哥的AI学习笔记——主流模型原理
 date: '2023-07-02T07:10:08.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - Stable Diffusion
   - 扩散模型

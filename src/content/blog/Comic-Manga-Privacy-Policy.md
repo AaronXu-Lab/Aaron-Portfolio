@@ -1,7 +1,7 @@
 ---
 title: Comic&Manga Privacy Policy
 date: '2025-03-31T15:24:16.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 隐私政策
   - App

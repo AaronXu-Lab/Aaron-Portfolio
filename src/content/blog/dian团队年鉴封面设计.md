@@ -1,7 +1,7 @@
 ---
 title: dian团队年鉴封面设计
 date: '2016-12-14T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

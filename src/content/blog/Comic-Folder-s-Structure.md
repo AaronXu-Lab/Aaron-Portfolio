@@ -1,7 +1,7 @@
 ---
 title: Comic Folder's Structure
 date: '2025-03-26T09:12:51.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 漫画
   - 文件夹结构

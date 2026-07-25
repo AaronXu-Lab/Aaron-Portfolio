@@ -26,7 +26,7 @@ npm run add:post -- --force <文章.md>    # 覆盖同名旧文
 | 图片 | **相对路径图片会被自动复制**到 `public/blog-assets/<slug>/` 并改写引用;http(s) 外链与 `/` 绝对路径保持不动 |
 | 文件名 | 即 slug:`我的文章.md` → `/blog/我的文章/`(URL 经 github-slugger 处理:小写化、剥标点) |
 
-脚本自动补齐:`author: 徐炜楠`、`excerpt`、`minutes`(按中文 400 字/分钟)。
+脚本自动补齐:`author: Aaron Xu`、`excerpt`、`minutes`(按中文 400 字/分钟)。
 
 ## 示例
 

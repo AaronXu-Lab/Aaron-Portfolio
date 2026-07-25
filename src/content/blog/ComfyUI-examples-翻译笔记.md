@@ -1,7 +1,7 @@
 ---
 title: ComfyUI_examples 翻译笔记
 date: '2024-05-02T03:32:42.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - ComfyUI
   - Stable Diffusion

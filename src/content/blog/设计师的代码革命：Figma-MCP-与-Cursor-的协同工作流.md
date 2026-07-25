@@ -1,7 +1,7 @@
 ---
 title: 设计师的代码革命：Figma MCP 与 Cursor 的协同工作流
 date: '2026-01-31T09:46:30.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - MCP
   - Figma

@@ -1,7 +1,7 @@
 ---
 title: How to Set Up AI Repaint Server Locally
 date: '2025-03-24T03:14:56.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - AI绘画
   - ComfyUI

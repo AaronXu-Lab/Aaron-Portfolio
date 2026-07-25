@@ -1,7 +1,7 @@
 ---
 title: "惠州跳伞\U0001FA82 - what’s up danger"
 date: '2021-11-29T02:16:20.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 视频作品
   - VLOG

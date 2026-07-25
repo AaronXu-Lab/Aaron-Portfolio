@@ -1,7 +1,7 @@
 ---
 title: VIVO告别不快——点线篇
 date: '2016-07-03T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

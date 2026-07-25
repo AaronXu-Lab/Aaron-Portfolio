@@ -1,7 +1,7 @@
 ---
 title: 炜哥的AI学习笔记——SD基础原理
 date: '2023-06-18T12:31:05.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - Stable Diffusion
   - 扩散模型

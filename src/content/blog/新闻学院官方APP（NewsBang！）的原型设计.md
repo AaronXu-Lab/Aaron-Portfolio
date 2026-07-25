@@ -1,7 +1,7 @@
 ---
 title: 新闻学院官方APP（NewsBang！）的原型设计
 date: '2016-02-28T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 交互设计
   - 作品集

@@ -1,7 +1,7 @@
 ---
 title: 内测QQ群
 date: '2017-02-19T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 实习日志

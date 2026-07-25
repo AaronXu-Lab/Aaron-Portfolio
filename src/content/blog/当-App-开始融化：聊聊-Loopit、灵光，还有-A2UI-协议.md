@@ -1,7 +1,7 @@
 ---
 title: 当 App 开始融化：聊聊 Loopit、灵光，还有 A2UI 协议
 date: '2026-02-25T02:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
 categories:

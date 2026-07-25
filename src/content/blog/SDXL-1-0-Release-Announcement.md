@@ -1,7 +1,7 @@
 ---
 title: SDXL 1.0 Release Announcement
 date: '2023-07-29T13:32:10.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - SDXL 1.0
   - Stable Diffusion

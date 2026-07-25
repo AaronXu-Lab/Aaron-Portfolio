@@ -1,7 +1,7 @@
 ---
 title: V-fun15年招新视频
 date: '2015-09-15T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

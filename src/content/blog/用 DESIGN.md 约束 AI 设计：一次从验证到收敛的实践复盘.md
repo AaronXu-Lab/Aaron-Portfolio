@@ -1,7 +1,7 @@
 ---
 title: 用 DESIGN.md 约束 AI 设计：一次从验证到收敛的实践复盘
 date: '2026-06-18T00:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
 categories:

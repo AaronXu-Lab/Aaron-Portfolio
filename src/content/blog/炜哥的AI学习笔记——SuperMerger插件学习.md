@@ -1,7 +1,7 @@
 ---
 title: 炜哥的AI学习笔记——SuperMerger插件学习
 date: '2023-06-28T10:11:33.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - Stable Diffusion
   - WebUI

@@ -1,7 +1,7 @@
 ---
 title: Vfun16招新海报
 date: '2016-08-31T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

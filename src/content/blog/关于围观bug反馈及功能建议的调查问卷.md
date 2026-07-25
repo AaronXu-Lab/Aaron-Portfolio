@@ -1,7 +1,7 @@
 ---
 title: 关于围观bug反馈及功能建议的调查问卷
 date: '2017-03-14T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 实习日志

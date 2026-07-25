@@ -1,7 +1,7 @@
 ---
 title: 炜哥的AI学习笔记——One Button Prompt 插件学习
 date: '2023-06-16T04:51:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - Stable Diffusion
   - A1111

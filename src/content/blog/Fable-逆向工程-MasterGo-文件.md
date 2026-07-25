@@ -1,7 +1,7 @@
 ---
 title: Fable 逆向工程 MasterGo 文件
 date: '2026-07-07T00:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
 categories:

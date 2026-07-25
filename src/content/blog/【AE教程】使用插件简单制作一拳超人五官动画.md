@@ -1,7 +1,7 @@
 ---
 title: 【AE教程】使用插件简单制作一拳超人五官动画
 date: '2017-05-01T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 作品集
   - 搬运自WordPress

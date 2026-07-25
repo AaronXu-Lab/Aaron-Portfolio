@@ -1,7 +1,7 @@
 ---
 title: 如何搭建一个个人博客（Hexo）
 date: '2017-08-29T16:00:00.000Z'
-author: 徐炜楠
+author: Aaron Xu
 tags:
   - 随笔
   - 实习日志
