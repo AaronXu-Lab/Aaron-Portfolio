@@ -1,0 +1,21 @@
+{
+  "name": "专注森林 · Focus Forest",
+  "short_name": "专注森林",
+  "description": "一株 3D 植物随专注进度长大,完成后种进你的森林。纯本地数据,离线可用。",
+  "id": "/tools/focus-forest/",
+  "start_url": "/tools/focus-forest/?source=pwa",
+  "scope": "/tools/focus-forest/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["productivity", "lifestyle", "utilities"],
+  "background_color": "#dfeef4",
+  "theme_color": "#7cc46b",
+  "icons": [
+    { "src": "/tools/focus-forest/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/tools/focus-forest/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/tools/focus-forest/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

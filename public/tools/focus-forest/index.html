@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-stage="0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>专注森林 · Focus Forest</title>
+<meta name="description" content="一株 3D 植物随专注进度长大，完成后种进你的森林。离线可用的 PWA 专注工具。">
+<meta name="theme-color" content="#7cc46b">
+<link rel="manifest" href="/tools/focus-forest/manifest.webmanifest">
+<link rel="icon" href="/tools/focus-forest/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/tools/focus-forest/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="专注森林">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-view="home">
+
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<!-- WebGL 不可用 / three 加载失败时的 2D 植物，计时与记录照常工作 -->
+<div id="flat" class="flat" hidden aria-hidden="true">
+  <svg viewBox="0 0 120 140" class="flat-plant">
+    <ellipse cx="60" cy="126" rx="46" ry="11" class="f-soil"/>
+    <g class="f-stage" data-s="0">
+      <ellipse cx="60" cy="120" rx="7" ry="5" class="f-seed"/>
+    </g>
+    <g class="f-stage" data-s="1">
+      <path d="M60 122V104" class="f-stem"/>
+      <ellipse cx="69" cy="103" rx="9" ry="5" class="f-leaf"/>
+      <ellipse cx="52" cy="107" rx="7" ry="4" class="f-leaf"/>
+    </g>
+    <g class="f-stage" data-s="2">
+      <path d="M60 122V78" class="f-stem"/>
+      <ellipse cx="74" cy="88" rx="13" ry="6" class="f-leaf"/>
+      <ellipse cx="47" cy="96" rx="11" ry="5" class="f-leaf"/>
+      <circle cx="60" cy="74" r="11" class="f-leaf"/>
+    </g>
+    <g class="f-stage" data-s="3">
+      <path d="M60 122V56" class="f-stem"/>
+      <path d="M60 84l14-10M60 94l-12-8" class="f-stem"/>
+      <circle cx="60" cy="50" r="20" class="f-leaf"/>
+      <circle cx="80" cy="68" r="11" class="f-leaf-deep"/>
+      <circle cx="42" cy="62" r="10" class="f-leaf"/>
+    </g>
+    <g class="f-stage" data-s="4">
+      <path d="M60 122V44" class="f-trunk"/>
+      <path d="M60 70l19-13M60 84l-17-11M60 56l13 9" class="f-stem"/>
+      <circle cx="60" cy="34" r="25" class="f-leaf"/>
+      <circle cx="86" cy="56" r="14" class="f-leaf-deep"/>
+      <circle cx="33" cy="50" r="13" class="f-leaf"/>
+      <circle cx="74" cy="76" r="10" class="f-leaf-deep"/>
+      <circle cx="45" cy="74" r="9" class="f-leaf-deep"/>
+      <circle cx="82" cy="32" r="4" class="f-blossom"/>
+      <circle cx="40" cy="28" r="3.4" class="f-blossom"/>
+      <circle cx="63" cy="8" r="3.6" class="f-blossom"/>
+      <circle cx="30" cy="66" r="3" class="f-blossom"/>
+    </g>
+  </svg>
+  <p id="flat-note" class="flat-note">当前设备未启用 3D，已切换为简版画面。</p>
+  <button id="retry-3d" class="ghost" type="button">重试 3D</button>
+</div>
+
+<div class="shell">
+  <!-- PWA 相对独立，不做返回上级；顶栏右侧给安装入口 -->
+  <div class="top">
+    <header class="bar">
+      <span class="brand">专注森林 <i>FOCUS FOREST</i></span>
+      <button id="install" class="ghost sm" type="button">安装应用</button>
+    </header>
+    <!-- 安装反馈用浮层,不占布局;默认为空,点击后浮出并自动消失 -->
+    <p id="pwa-hint" class="pwa-hint" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="void" aria-hidden="true"></div>
+
+  <!-- ============ 首页 ============ -->
+  <section class="panel" id="view-home" aria-labelledby="home-title">
+    <h1 id="home-title">种一棵树，做一件事</h1>
+    <div class="field">
+      <span id="dur-label">专注时长</span>
+      <!-- 分段控件：滑块位置由 --i 决定,syncChips() 负责写 -->
+      <div class="segment" role="radiogroup" aria-labelledby="dur-label">
+        <!-- 15 秒是预览档：一口气看完整株植物的生长。data-dev 表示只在 ?dev 下保留 -->
+        <button class="seg" type="button" role="radio" data-min="0.25" data-dev aria-checked="false">15 秒</button>
+        <button class="seg" type="button" role="radio" data-min="15" aria-checked="false">15 分钟</button>
+        <button class="seg is-on" type="button" role="radio" data-min="25" aria-checked="true">25 分钟</button>
+        <button class="seg" type="button" role="radio" data-min="45" aria-checked="false">45 分钟</button>
+        <button class="seg" type="button" role="radio" data-min="60" aria-checked="false">60 分钟</button>
+      </div>
+    </div>
+    <button id="to-forest" class="corner right" type="button" aria-label="查看森林" data-tip="查看森林"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M198.1,62.59a76,76,0,0,0-140.2,0A71.71,71.71,0,0,0,16,127.8C15.9,166,48,199,86.14,200A72.09,72.09,0,0,0,120,192.47V232a8,8,0,0,0,16,0V192.47A72.17,72.17,0,0,0,168,200l1.82,0C208,199,240.11,166,240,127.8A71.71,71.71,0,0,0,198.1,62.59ZM169.45,184a56.08,56.08,0,0,1-33.45-10v-41l43.58-21.78a8,8,0,1,0-7.16-14.32L136,115.06V88a8,8,0,0,0-16,0v51.06L83.58,120.84a8,8,0,1,0-7.16,14.32L120,156.94v17a56,56,0,0,1-33.45,10C56.9,183.23,31.92,157.52,32,127.84A55.77,55.77,0,0,1,67.11,76a8,8,0,0,0,4.53-4.67,60,60,0,0,1,112.72,0A8,8,0,0,0,188.89,76,55.79,55.79,0,0,1,224,127.84C224.08,157.52,199.1,183.23,169.45,184Z"/></svg></button>
+    <div class="row">
+      <button id="start" class="primary" type="button">开始专注</button>
+    </div>
+    <p class="hint" id="home-stat"></p>
+  </section>
+
+  <!-- ============ 专注中：只留倒计时和放弃按钮,进度看 3D 里的植物 ============ -->
+  <section class="panel" id="view-focus" aria-label="专注中">
+    <p class="clock" id="clock" role="timer" aria-live="off">25:00</p>
+    <div class="row">
+      <button id="give-up" class="ghost danger" type="button">放弃专注</button>
+    </div>
+  </section>
+
+  <!-- ============ 完成 ============ -->
+  <section class="panel" id="view-done" aria-labelledby="done-title">
+    <p class="eyebrow">这棵树已经种下</p>
+    <h2 id="done-title">专注完成</h2>
+    <p class="done-sum"><b id="done-min">25 分钟</b></p>
+    <button id="see-forest" class="corner right" type="button" aria-label="查看森林" data-tip="查看森林"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M198.1,62.59a76,76,0,0,0-140.2,0A71.71,71.71,0,0,0,16,127.8C15.9,166,48,199,86.14,200A72.09,72.09,0,0,0,120,192.47V232a8,8,0,0,0,16,0V192.47A72.17,72.17,0,0,0,168,200l1.82,0C208,199,240.11,166,240,127.8A71.71,71.71,0,0,0,198.1,62.59ZM169.45,184a56.08,56.08,0,0,1-33.45-10v-41l43.58-21.78a8,8,0,1,0-7.16-14.32L136,115.06V88a8,8,0,0,0-16,0v51.06L83.58,120.84a8,8,0,1,0-7.16,14.32L120,156.94v17a56,56,0,0,1-33.45,10C56.9,183.23,31.92,157.52,32,127.84A55.77,55.77,0,0,1,67.11,76a8,8,0,0,0,4.53-4.67,60,60,0,0,1,112.72,0A8,8,0,0,0,188.89,76,55.79,55.79,0,0,1,224,127.84C224.08,157.52,199.1,183.23,169.45,184Z"/></svg></button>
+    <div class="row">
+      <button id="again" class="primary" type="button">再次专注</button>
+    </div>
+  </section>
+
+  <!-- ============ 森林 ============ -->
+  <section class="panel" id="view-forest" aria-labelledby="forest-title">
+    <button id="back-home" class="corner left" type="button" aria-label="返回" data-tip="返回"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg></button>
+    <p class="eyebrow">点一棵树看它的来历</p>
+    <h2 id="forest-title">我的森林</h2>
+    <p class="hint" id="forest-stat"></p>
+    <div class="pager">
+      <button id="prev-page" class="ghost sm" type="button" aria-label="更早的森林">←</button>
+      <span id="page-label" class="mono" aria-live="polite"></span>
+      <button id="next-page" class="ghost sm" type="button" aria-label="更近的森林">→</button>
+    </div>
+    <div class="detail" id="detail" hidden>
+      <b id="d-min"></b>
+      <span id="d-meta" class="mono"></span>
+    </div>
+    <!-- 会丢数据,所以走两段式确认:第一下变实底红并把 tooltip 换成「确认清空？」;没有树时收起 -->
+    <button id="clear-forest" class="corner right danger" type="button" hidden aria-label="清空森林" data-tip="清空森林"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg></button>
+  </section>
+
+  <footer class="bar foot">
+    <span class="mono">FOCUS FOREST · XUWEINAN.COM</span>
+  </footer>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

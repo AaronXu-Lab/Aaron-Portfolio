@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test:flypy": "node --test tests/flypy-core.test.mjs",
+    "test:forest": "node --test tests/focus-forest-core.test.mjs",
     "import:blog": "node scripts/import-blog.mjs",
     "add:post": "node scripts/add-post.mjs",
     "new": "node scripts/new-post.mjs",
