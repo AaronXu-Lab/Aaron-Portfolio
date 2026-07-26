@@ -35,6 +35,9 @@ export interface ToolEntry {
   name: string;
   en: string;
   description: string;
+  /** 工具卡片使用的方形图标（public 路径） */
+  icon: string;
+  iconAlt: string;
   /** 是否为可安装的 PWA（可添加到手机主屏幕） */
   pwa: boolean;
   status: 'shipped' | 'wip';
@@ -111,6 +114,8 @@ export const tools: ToolEntry[] = [
     en: 'CANDY MATCH',
     description:
       '一场装进口袋的无限流糖果三消：限时完成随机出现的收集、积分与技能任务，赢取糖果券并不断挑战更高分；四消、L 形与五消会生成带连锁效果的技能糖。成绩只存在本机，支持离线游玩。',
+    icon: '/tools/candy-match/icon.svg',
+    iconAlt: '糖果漫游图标',
     pwa: true,
     status: 'shipped',
     tags: ['PWA', '三消游戏', '离线可玩'],
@@ -124,6 +129,8 @@ export const tools: ToolEntry[] = [
     en: 'FLYPY TRAINER',
     description:
       '专注小鹤双拼的离线练习器：支持实体键盘与可收起的触屏软键盘，逐键提示声母和韵母；也可以粘贴自己的中文文本反复练习。',
+    icon: '/tools/flypy/icon-192.png',
+    iconAlt: '小鹤双拼练习器图标',
     pwa: true,
     status: 'shipped',
     tags: ['PWA', '小鹤双拼', '离线可用'],
@@ -135,6 +142,8 @@ export const tools: ToolEntry[] = [
     en: 'PUNCT FIXER',
     description:
       '粘贴中文文案，一键把紧跟在中文后的半角标点 , : ; ! ? 转为全角，并修正含中文的半角括号对。离线可用，适合发文前最后一道校对。',
+    icon: '/tools/punct/icon.svg',
+    iconAlt: '标点修正图标',
     pwa: true,
     status: 'shipped',
     tags: ['PWA', '排版', '离线可用'],
@@ -146,6 +155,8 @@ export const tools: ToolEntry[] = [
     en: 'FOCUS FOREST',
     description:
       '开始专注就种下一颗种子：一株低多边形 3D 植物随进度长过种子、发芽、幼苗、成长、成熟五个阶段，完成后种进你的森林，点开每棵树都能看到它对应的那次专注。数据只存在本机，离线可用。',
+    icon: '/tools/focus-forest/icon.svg',
+    iconAlt: '专注森林图标',
     pwa: true,
     status: 'shipped',
     tags: ['PWA', 'Three.js', '专注计时'],
@@ -159,6 +170,8 @@ export const tools: ToolEntry[] = [
     en: 'TRAVEL MAPS',
     description:
       '一张手账风格的真实等时旅行地图：支持上海 / 北京 / 广州 / 深圳 / 杭州五个出发地，按高铁 / 飞机 / 驾车算出近 190 个城市的门到门耗时，配水彩等时圈与逐城攻略手账。',
+    icon: '/tools/travel-maps/travel-logo.png',
+    iconAlt: '出发吧打工人旅行地图图标',
     pwa: false,
     status: 'shipped',
     tags: ['地图', 'D3', '旅行'],
