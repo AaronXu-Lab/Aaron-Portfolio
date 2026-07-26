@@ -21,7 +21,7 @@ minutes: 9
 ---
 这次对目前主流的一些模型原理进行介绍，也就是 C 站目前比较常见的这几种模型。
 
-![image-20230702222058879](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230702222058879.png)
+![image-20230702222058879](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230702222058879.png)
 
 这个文章会更偏向于讲述这些模型之间的区别，训练方式也会稍微带一下，不过不会很具体。
 
@@ -33,7 +33,7 @@ minutes: 9
 
 我也先把这一个流程图放在这里，方便后续对照着进行理解。
 
-![image-20230702175342450](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230702175342450.png)
+![image-20230702175342450](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230702175342450.png)
 
 （实际结构会复杂很多，这里使用相对易于理解的方式对流程进行拆解）
 
@@ -53,7 +53,7 @@ minutes: 9
 
 还是用一个具体的例子来说明，Checkpoint 目前的主要训练方式是使用 Dreambooth ，Stable Diffusion 有对应的插件，或者也可以像我一样使用 Kohya_ss 进行训练。
 
-![image-20230702180242578](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230702180242578.png)
+![image-20230702180242578](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230702180242578.png)
 
 这里按照 Kohya 官方的教程，我训练一个青蛙的概念。
 
@@ -63,7 +63,7 @@ minutes: 9
 
 训练过程就不展开了。不过为了避免误导我还是多说一句，这种方式只是 Checkpoint 的一种训练方法，Checkpoint 也是可以通过打标然后使用标签进行训练的（目前常用的 LoRA 训练方法就是这样），具体可以看 Kohya 官方的教程。
 
-![image-20230702181136839](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230702181136839.png)
+![image-20230702181136839](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230702181136839.png)
 
 言归正传，其实抽象出来看事物，我希望 AI 学会画训练集中的这种青蛙，而在训练过程中教给 AI 的就是两件事，第一件事是 sls 这个“新词语”，第二件事就是这种特殊青蛙的“概念”。而这两件事对应也就是 **Text Encoder** 和 **UNet**，这也就是训练完成后的模型相比原模型不一样的地方了。
 
@@ -83,7 +83,7 @@ minutes: 9
 
 还是以上图的 sls 举例，这个 sls 青蛙，是不是可以用普通的 frog，还有 illustration ，还有 cartoon ，等等这些词语的词向量组合来描述呢？听起来似乎有些不可思议，但是实际它的确成功了。当然实际的训练过程比我提到的例子还会复杂数倍，或者说把它理解成一种对于“词典”中内容的重新排布会更加合适。
 
-![image-20230702212357508](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230702212357508.png)模型的**特点**也是显而易见的，首先它只是对于“词典”进行改动，所以文件非常非常小，基本上是以 KB 为单位的。不过使用的时候需要搭配 Checkpoint 进行使用，可以理解成对于 Checkpoint 里的“词典”部分进行了加强。
+![image-20230702212357508](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230702212357508.png)模型的**特点**也是显而易见的，首先它只是对于“词典”进行改动，所以文件非常非常小，基本上是以 KB 为单位的。不过使用的时候需要搭配 Checkpoint 进行使用，可以理解成对于 Checkpoint 里的“词典”部分进行了加强。
 
 然后它的效果，虽然我并不是很常使用这种模型，不过根据网络上使用 TI 的作品来看，TI 更多是起到“改善”的作用，对于概念的学习效果比较有限。这应该也很好理解，毕竟只是改动了“词典”，“画家”的绘图本领还没有进化。
 
@@ -93,7 +93,7 @@ LoRA 应该是最近最火的模型种类了。虽然说 Checkpoint 这种模型
 
 所以，Low-Rank Adaptation 技术，也就是 LoRA 就出现了。我之前在 [SuperMerger的用法]()这篇文章中讲过，Checkpoint 中一共有 26 个分层，而需要 AI 学习的概念就在这 26 个分层中。但并不是所有的分层都和概念的学习紧密相关，LoRA 就是在其中一些分层中再加入额外的一些东西，去调整其中的几个层。
 
-![image-20230702220718123](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230702220718123.png)
+![image-20230702220718123](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230702220718123.png)
 
 下半张图是正常的 Checkpoint 模型，一层一层传递信息，而上半张图红色部分则是 LoRA ，在原模型的一些层中插入了额外的层，去控制这些层所学到概念。在训练 LoRA 的时候就是训练这部分的内容，间接的控制出图的效果。
 

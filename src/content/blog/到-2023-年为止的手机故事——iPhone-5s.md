@@ -27,7 +27,7 @@ minutes: 3
 
 获得时间: 上大学前（2014年）
 
-![image-20240907185616546](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20240907185616546.png)
+![image-20240907185616546](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20240907185616546.png)
 
 这部手机虽然是亲戚送的，但是属于电信的合约机，3G 信号，100元每个月2G的流量，在当时算是价格尚可。
 
@@ -47,6 +47,6 @@ minutes: 3
 
 其次，是小米 4 的缺货问题。米4是7月22日发布的，这也彻底证明了小米没有计划发布 3s，虽然我很喜欢米3的 Lumia 外观，但是也只能把购买目标转向了外观平庸的米4。但是在前几轮的发售我一直都没有抢到，对小米的愤怒也就一直在积累。
 
-![image-20240907185629126](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20240907185629126.png)
+![image-20240907185629126](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20240907185629126.png)
 
 最后，就是被赠予 iPhone 5s。在抢了好几次都没有货之后，正好亲戚送了这台 iPhone 5s，我就直接拿来用了。我觉得我是很幸运的，十年过去了，人们还会记得土豪金的 iPhone，用着它开创的指纹识别交互，但是已经没有多少人还记得小米3/4的样子。

@@ -27,13 +27,13 @@ minutes: 10
 
 Stable Diffusion、Midjourney（尚未开源但是可以从图片生成的过程中推测） 以及现在网上流行的一堆 AI 图片生成算法，基本上都依赖于 Diffusion Model 扩散模型，其核心思想是**从一张充满了噪声的图片中，还原出具有特定元素的图片。**
 
-![X-Y_plot_of_algorithmically-generated_AI_art_of_European-style_castle_in_Japan_demonstrating_DDIM_diffusion_steps](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/1678247458932861-7097235.png)
+![X-Y_plot_of_algorithmically-generated_AI_art_of_European-style_castle_in_Japan_demonstrating_DDIM_diffusion_steps](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/1678247458932861-7097235.png)
 
 这个过程中，主要涉及到两个部分的模块，基于 CLIP 的文本编码器 Text Encoder，负责噪声处理的的 U-Net 。
 
 在训练模型，调参的过程中，也经常会去设置这两个参数。以我常用的 Kohya_ss 为例，就支持在训练时单独设置 Text Encoder 的学习率和 Unet 的学习率。
 
-![image-20230618152614195](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230618152614195-7097235.png)
+![image-20230618152614195](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230618152614195-7097235.png)
 
 当然这个学习率的调整讲起来又是复杂的一节课，这里先不展开了。
 
@@ -45,7 +45,7 @@ Stable Diffusion、Midjourney（尚未开源但是可以从图片生成的过程
 
 Stable Diffusion 的模型生成，都是从一张随机噪点的图片开始。而这张噪点图片，是通过 Seed 值，也就是我们平时使用 Stable Diffusion 中的 Seed 生成的。
 
-![image-20230618154017982](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230618154017982-7097235.png)
+![image-20230618154017982](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230618154017982-7097235.png)
 
 所以如果将这个值固定，也就意味着一开始生成的初始噪声图片都是固定的的，那么在相同的 Prompt 和模型的作用下，生成出来的图片也会大差不差。在一些特殊的场景，比如调试 Prompt、测试插件，经常会使用这个特性来对比前后生成的图片。
 
@@ -57,11 +57,11 @@ Stable Diffusion 的模型生成，都是从一张随机噪点的图片开始。
 
 特征学习，就是将大量成对的文本和图片输入到机器学习中，让 AI 学习到文本特征和图片特征之间的关联，最终生成模型。
 
-![CLIP](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/CLIP-7097235.png)
+![CLIP](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/CLIP-7097235.png)
 
 这一部分的训练方式就叫做 CLIP ，全称 Contrastive Language-Image Pre-Training，对比语言图像预训练。当然这种数据量是非常巨大的，Stable Diffusion 也是使用了 OpenAI 训练好的现有模型来理解 Prompt 。
 
-![image-20230618205803809](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230618205803809-7097235.png)
+![image-20230618205803809](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230618205803809-7097235.png)
 
 所以在一开始安装 Stable Diffusion 的时候，会下载 clip 和 openclip 这两个github上的代码仓库。（因为 openai 原始 clip 虽然算法开源了，但是训练集没有开源，因此后续版本 Stable Diffusion 使用了开源的 openclip 版本，所以这里两个都下载）
 
@@ -77,13 +77,13 @@ Stable Diffusion 的模型生成，都是从一张随机噪点的图片开始。
 
 在 Prompts 被模型理解之后，就是一个降噪的过程，U-Net 网络结构会进行不断地迭代，每一次迭代都去除一部分的噪声。
 
-![tmpxrqyvi4q](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/tmpxrqyvi4q.png)
+![tmpxrqyvi4q](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/tmpxrqyvi4q.png)
 
 （因为 VAE 的关系，过程图不会出现肉眼可见的噪点，至于 VAE 的作用一会再讲）
 
 在每次去除噪声的过程中，还会使用一种叫做“Classifier Free Guidance”的方法去强化和 Prompts 相关的噪声，直到完全还原元素。而这个方法的缩写 CFG 也就是 WebUI 中的 CFG scale 值，即强化的倍数。因此不难理解为何一堆速成教程中都提到这个值和 Prompt 的关联度强相关，以及调整过头为什么会导致图片结构变形。
 
-![世界名画 篮球和鸡](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/tmpc17od_pu-7097235.png)
+![世界名画 篮球和鸡](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/tmpc17od_pu-7097235.png)
 
 ### U-Net 是怎么降噪的？
 
@@ -93,7 +93,7 @@ Stable Diffusion 的模型生成，都是从一张随机噪点的图片开始。
 
 对于一张已有图片，对它一步一步的加上噪声，并在每一步进行深度学习，这样 AI 就有能力理解在不断增加噪声的过程中，更好的学习到图像的特征。
 
-![image-20230618164917740](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230618164917740-7097235.png)
+![image-20230618164917740](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230618164917740-7097235.png)
 
 然后这种步骤重复上千上万次，AI 就可以从其中找到规律，知道如何根据 Prompts 将噪声逐渐还原到对应的图片。而这一部分的“经验”（实质上是一堆复杂函数）就被作为模型文件保存下来，也就是我们经常看到的 checkpoint 等模型文件。
 
@@ -109,11 +109,11 @@ Stable Diffusion 的模型生成，都是从一张随机噪点的图片开始。
 
 而使用 AI 生成图片的过程也是一样的，先从随机种子种生成“潜在空间“的随机噪声图片，然后就和训练的逆过程一样，在”潜在空间“里完成对噪声图片的还原，最后再把还原后的图片从”潜在空间“里拿出来，把图片反”压缩“回正常的图片。
 
-![Everything you need to know about stable diffusion :: Päpper's Machine ...](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/stable-diffusion-vae.png)
+![Everything you need to know about stable diffusion :: Päpper's Machine ...](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/stable-diffusion-vae.png)
 
 而这种用到的压缩/还原方式，也是一种模型，叫做 VAE。在 Stable Diffusion 中也经常用到，有一些 checkpoint 需要搭配特定的 VAE 使用，这种 VAE 提取了特定的图片特征，生成到”潜在空间“，方便对应的 checkpoint 模型进行更好的训练。所以在没有使用对应 VAE 的 checkpoint 的模型文件中，生成出来的图片总是会有一些颜色不对，此时 SD 检测到模型没有 VAE 所以使用了默认的，而默认 VAE 压缩的图片特征又难以和模型的训练方式对应。
 
-![img](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/386533-7097235.png)
+![img](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/386533-7097235.png)
 
 我还见到过一些据说是可以修复手或脸部问题的 VAE，我还没有使用过，不过应该也不难理解，这类 VAE 在压缩和还原图片特征时，可能对手或脸部做了特殊处理，让效果更好。
 
@@ -121,7 +121,7 @@ Stable Diffusion 的模型生成，都是从一张随机噪点的图片开始。
 
 总之，AI 生成图片的过程可以参考下面这张图：
 
-![sd-pipeline](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/stable_diffusion-7097235.png)
+![sd-pipeline](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/stable_diffusion-7097235.png)
 
 首先是在”潜在空间“生产噪声图，然后用 UNet 逐渐降噪，这里是一个循环，不断地迭代直到达到一个好的效果。当在”潜在空间“迭代到指定步数（Steps）之后，通过 VAE 将图像还原到正常人类可以理解的程度。
 

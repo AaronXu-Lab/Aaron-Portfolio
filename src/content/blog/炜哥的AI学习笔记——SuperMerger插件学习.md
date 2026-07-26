@@ -39,7 +39,7 @@ This extension allows merged models to be loaded as models for image generation 
 1. Model A\B\C。这个就是选择需要融合的几个模型。 
 2. Merge Mode。模型的融合方式，这里涉及到两个变量，alpha 和 beta，计算方式直接见图。
 
-![image-20230620143623548](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230620143623548.png)
+![image-20230620143623548](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230620143623548.png)
 
 如 Weight sum ，当 alpha 等于 0.4 时，就是 0.6 的 A 模型融合上 0.4 的 B 模型。
 
@@ -49,7 +49,7 @@ This extension allows merged models to be loaded as models for image generation 
 
    需要注意的是，在勾选了使用 MBW 后，会使用页面底部设置的每一项的 alpha 值，而最上面设置的 alpha 和 beta 值就没有用了。
 
-![image-20230626215211625](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626215211625.png)
+![image-20230626215211625](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626215211625.png)
 
 两个输入框，第一个是分层的 alpha 权重，第二个是分层的 beta 权重。
 
@@ -57,13 +57,13 @@ This extension allows merged models to be loaded as models for image generation 
 
 当然如果麻烦的话可以使用后面一个 Tab 的"Weights Presets"中的字母进行替代，比如说我可以使用 "OUT07" 来替代掉上面的一长串数字。这个也是支持自己自定义的，和 LoRA-Block-Weight 一样。
 
-![image-20230626215617370](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626215617370.png)
+![image-20230626215617370](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626215617370.png)
 
 5. Merge、Gen、Stop。控制按钮三人组，Merge 就是开始融合，Gen 是 generation 的缩写，会根据 txt2img 中的设置生成图片（使用当前的模型，可以看右侧 Current Model 中是哪个模型）如果指点击 Gen 按钮的话，就是用上一次 Merge 的模型，只有用 Merge&Gen 才会在融合之后用融合后的模型生成图片看效果。Stop 即停止。
 
 5. save settings
 
-![image-20230620172646141](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230620172646141.png)
+![image-20230620172646141](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230620172646141.png)
 
 这里的设置项……虽然不是很难，不过非常的直接，不是很“用户友好”，我还是快速说一遍。
 
@@ -85,7 +85,7 @@ This extension allows merged models to be loaded as models for image generation 
 
 每次 Merge 一个模型，History 标签中都会有记录这次操作的详细信息，包括模型名称、权重等。这些都被记录下来，那么 model ID 就是对应的记录 ID 了。
 
-![img](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/tmp50rgf1jj.png)
+![img](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/tmp50rgf1jj.png)
 
 勾选了 image 的，生成的图片左上角就会出现对应的 ID 信息，方便后续查询记录。而 PNG info 就是将这个信息写入到图片文件内，就和 txt2img 中的 Prompt 等其他设置一样。
 
@@ -102,7 +102,7 @@ This extension allows merged models to be loaded as models for image generation 
 
 XYZ 的具体用法就不介绍了，主要说一下每个参数的意义。
 
-![image-20230626205745098](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626205745098.png)
+![image-20230626205745098](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626205745098.png)
 
 1. alpha。即上面的 alpha 值，这边设置之后会代替上面设置的 alpha 值进多次生成图片。比如这边设置“0.25,0.5,0.75”，效果等同于将上面的 alpha 分别设置成三个值进行图片生成。
 2. beta。同 alpha。
@@ -111,7 +111,7 @@ XYZ 的具体用法就不介绍了，主要说一下每个参数的意义。
 
 这里单独提一下右侧的那个 number of -1 。
 
-![image-20230626210316727](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626210316727.png)
+![image-20230626210316727](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626210316727.png)
 
 插件开发者做了这个应该是用来方便快速输入指定个数的-1的，用在 seed 值这里倒是很方便。
 
@@ -127,13 +127,13 @@ XYZ 的具体用法就不介绍了，主要说一下每个参数的意义。
 
 9. calcmode。Calcutation Mode 的缩写，对应着上面的这个选项。
 
-![image-20230626212757854](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626212757854.png)
+![image-20230626212757854](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626212757854.png)
 
 10. prompt。图片生成默认会使用 txt2img 中的 Prompt，但是也可以在这里进行多组的设置，然后也需要改成使用换行符做分隔符。
 
 然后是控制区。XYZ 的图片生成不能使用上面的 Merge、Gen 按钮。
 
-![image-20230626213326085](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626213326085.png)
+![image-20230626213326085](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626213326085.png)
 
 介绍完列表项后，还有 XY plot settings ，都比较直接，也不介绍了。
 
@@ -141,11 +141,11 @@ XYZ 的具体用法就不介绍了，主要说一下每个参数的意义。
 
 可以在最下方的 Reservation 里查看预约的列表，也可以用来删除已预约的任务。
 
-![image-20230626220123957](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626220123957.png)
+![image-20230626220123957](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626220123957.png)
 
 然后还有个区域，也不知道该叫什么。
 
-![image-20230626215855533](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230626215855533.png)
+![image-20230626215855533](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230626215855533.png)
 
 它严格来说也是 XYZ 的一部分，会列出所有的 Block ID 和识别到的 checkpoint，这样需要输入的时候不需要再单独一个个名称输入了，可以直接勾选然后会出现在上面的选框里，点击 Add to Sequence X/Y 就可以发送到上面的 X 或 Y 的参数框里了。
 
@@ -155,7 +155,7 @@ XYZ 的具体用法就不介绍了，主要说一下每个参数的意义。
 
 这个标签就比较简单，所以我换一种方式讲解，即使用任务导向。
 
-![image-20230628122431980](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230628122431980.png)
+![image-20230628122431980](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230628122431980.png)
 
 ##### 任务一 将 LoRA 融合进大模型
 
@@ -163,7 +163,7 @@ LoRA 本身是需要搭配大模型使用的，但这个插件也提供了将 Lo
 
 需要融合模型的话，需要先在 Checkpoint A 处选择大模型，然后再在下面的 "LoRAname1:ratio1:Blocks1,LoRAname2:ratio2:Blocks2,...(":blocks" is option, not necessary)" 这一长串下方的输入框中输入要融合的 LoRA 名称，可以选择多个，但是需要 LoRA 的维度都保持一样，也就是在训练 LoRA 选择的 Network Rank(Dimension)。
 
-![image-20230628122747160](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230628122747160.png)
+![image-20230628122747160](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230628122747160.png)
 
 如果不知道 LoRA 的维度的话，可以通过左下方的按钮 calculate dimension of LoRAs，计算出所有 LoRA 模型的维度。
 
@@ -189,7 +189,7 @@ LoRA 本身是需要搭配大模型使用的，但这个插件也提供了将 Lo
 
 其他是一些无关紧要的选项
 
-![image-20230628141544432](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230628141544432.png)
+![image-20230628141544432](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230628141544432.png)
 
 1. same to Strength
 
@@ -198,7 +198,7 @@ LoRA 本身是需要搭配大模型使用的，但这个插件也提供了将 Lo
 If the same to Strength option is not used, the result is the same as the merge in the script created by kohya-ss. In this case, the result is different from the case where LoRA is applied on Web-ui as shown in the figure below. The reason for this is related to the mathematical formula used to adopt LoRA into U-net. kohya-ss's script multiplies the ratio as it is, but the formula used to apply LoRA squares the ratio, so if the ratio is set to a number other than 1, or to a negative value, the result will differ from Strength (strength when applied). Using the SAME TO STRENGTH option, the square root of the ratio is driven at merge time, so that Strength and the ratio are calculated to have the same meaning at apply time. It is also calculated so that a negative value will have the same effect. If you are not doing additional learning, for example, you may be fine using the SAME TO STRENGTH option, but if you are doing additional learning on the merged LoRA, you may not want to use anyone else's option.
 The following figures show the generated images for each case of normal image generation/same to Strength option/normal merge, using merged LoRAs of figmization and ukiyoE. You can see that in the case of normal merge, even in the negative direction, the image is squared and positive.
 
-![xyz_grid-0014-1534704891](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/218322034-b7171298-5159-4619-be1d-ac684da92ed9.jpg)
+![xyz_grid-0014-1534704891](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/218322034-b7171298-5159-4619-be1d-ac684da92ed9.jpg)
 
 我大致的理解是，如果勾选了 same to Strength（第二行），效果将会和在 Prompt 中同时使用两个 LoRA 效果差不多（第一行），不勾选的时候，则是结合两个 Lora 学习到的内容。不过从图片来看似乎也只有在最终 LoRA 强度为负数时才有明显差别。这个后续有机会再搞懂吧。
 

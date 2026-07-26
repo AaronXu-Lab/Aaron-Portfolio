@@ -63,13 +63,13 @@ export ALL_PROXY=socks5://127.0.0.1:****
 
 点击顶部 ClashX 图标，在弹出的菜单中选择“打开配置文件夹”。
 
-![image-20230504133939428](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504133939428.png)
+![image-20230504133939428](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504133939428.png)
 
 找到 config.yaml 文件，打开后可以看到关于端口的数字
 
-![image-20230504134045126](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504134045126.png)
+![image-20230504134045126](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504134045126.png)
 
-![image-20230504134335226](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504134335226.png)
+![image-20230504134335226](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504134335226.png)
 
 输入之后，现在终端流量都会通过 ClashX 进行代理，再次尝试使用 curl cip.cc 命令进行 IP 查看，提示：
 
@@ -125,11 +125,11 @@ URL    : http://www.cip.cc/140.99.149.34
 
 在下载完成后，会自动搭建本地的服务器，终端里会提示：
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504143230067.png)
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504143230067.png)
 
 这样就说明是成功了，现在可以通过 <u>127.0.0.1:7860</u> 进行访问。
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504143616882.png
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504143616882.png
 
 只要终端还开着，就可以随时访问这个网页。而关闭终端或手动结束命令后，需要再使用 `./webui.sh` 再次进行配置。
 
@@ -139,11 +139,11 @@ URL    : http://www.cip.cc/140.99.149.34
 
 光有 SD 这个壳子还无法进行 AI 绘图，我们还需要一些数据模型，网上有很多别人训练好的模型我们可以直接使用。我经常使用的是 https://civitai.com/ 这个网站，会有网友分享自己训练好的模型以及一些优质的 Prompts。
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/download.jpg)
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/download.jpg)
 
 任意点进一个页面，在右侧点击 Download 进行下载。
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/download-1.jpg)
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/download-1.jpg)
 
 一般来说，模型使用 .ckpt 或 .safetensors 作为后缀名。
 
@@ -155,13 +155,13 @@ URL    : http://www.cip.cc/140.99.149.34
 
 下载完成后将文件放置在 ./models/Stable-diffusion/ 目录下。
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504145624695.png)
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504145624695.png)
 
 不同的模型有着不同的绘图风格，可以想象成是不同的画家。
 
 然后，我们重新打开 <u>127.0.0.1:7860</u> 进行尝试，可以通过在第一个输入框简单的 Prompt 来验证是否配置成功，例如我输入 dog ，点击 Generate ，可以在右下角空白区域正常生成：
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230504145904909.png)
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230504145904909.png)
 
 如果生成图片就说明成功了，左下角还有一些详细的参数可以调整，不过这里不再继续介绍。
 

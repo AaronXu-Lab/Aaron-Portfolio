@@ -46,13 +46,13 @@ minutes: 9
 
 不过在 Lora 训练中，因为不怎么用到分类训练\正则化图像训练的方式，所以一般不怎么使用`<class>`
 
-![image-20230611233637560](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611233637560.png)
+![image-20230611233637560](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611233637560.png)
 
 ## 训练集素材命名建议
 
 1. 规范化命名。使用全英文+序号命名，全英文是为了训练软件能准确识别到，序号命名是为了后面整理起来方便。
 
-   ![image-20230611234237815](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611234237815.png)
+   ![image-20230611234237815](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611234237815.png)
 
 2. 统一尺寸。所有图片尺寸统一成一样的宽高，宽高最好保持在 512*512 上下。这里没有找到准确的理由，猜测是统一的尺寸可以减少计算机二次处理图片带来的压力，以及在二次处理图片时可能带来的一些特征损失。
 
@@ -70,7 +70,7 @@ minutes: 9
 
 而对于标签的格式，目前是有两种，自然语言描述和标签集描述。如果是使用 Stable Diffusion Webui 进行机器自动生成打标的话，对应的就是这下图两种选项。
 
-![image-20230611134516577](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611134516577.png)
+![image-20230611134516577](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611134516577.png)
 
 其中 BLIP 会生成自然语言描述，deepbooru 则是标签集描述。这两者并不是对立的，甚至可以全部勾选混在一起使用，不过大概率会出现描述重复。
 
@@ -78,13 +78,13 @@ minutes: 9
 
 网上看到一种说法，说如果是训练人像的 Lora ，使用自然语言描述，比如 [Kohya_ss 官方](https://www.youtube.com/watch?v=N4_-fB62Hwk)就使用了 Jennifer Aniston 的诸多照片进行训练（当然这并不建议，因为 Jennifer Aniston 作为一个知名人士，她的一些特征应该早已被底模收录，视频作者在后半段也有提及），其中使用的打标方法就是自然语言处理，使用自然语言可以对人物的姿态有一个较好的描述。
 
-![image-20230611142455406](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611142455406.png)
+![image-20230611142455406](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611142455406.png)
 
 而国内的教程中，使用标签集打标的方式则是主流。
 
 究其原因我想应该有两个，其一是国内目前的教程以二次元人物为主，这类人物往往会夸大一部分的特征，尤其是日系的人物，所以需要丰富的标签集来描述画面内容；其二是国内的语言问题，毕竟流畅的写出英语语句还是有一些门槛，而使用三方翻译软件翻译长句又可能出现一些细节上的错误，不如单词翻译精准。
 
-![img](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/2f0dde8103d9a514abc4cdedf792b3afb391364f.png@942w_531h_progressive.png)
+![img](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/2f0dde8103d9a514abc4cdedf792b3afb391364f.png@942w_531h_progressive.png)
 
 当然，在我实际的训练过程中，一般不会使用默认的打标工具，而是使用三方插件（Tagger）进行更有效率的打标，不过这里不过多展开了。
 
@@ -96,7 +96,7 @@ minutes: 9
 
 **举例：**
 
-![image-20230611163040191](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611163040191.png)
+![image-20230611163040191](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611163040191.png)
 
 在对于这张图片进行描述的过程中，我将内容分为了三部分：
 
@@ -110,7 +110,7 @@ minutes: 9
 
 还是上面的例子，我随便找了一个模型先看下效果。
 
-![image-20230611165513891](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611165513891.png)
+![image-20230611165513891](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611165513891.png)
 
 画面中的元素应该是都具备了，和训练的图片能对应上，除了双脚站立这一点。不过双脚站立的猫本身就不是常态，这个可以忽略（找了个二次元模型倒是能对应上，不过太色了不好放出来）。
 
@@ -118,7 +118,7 @@ minutes: 9
 
 在标签的作用中提到，标签就是教给 AI “这张图里有什么”，换句话说，就是让 AI 将画面与标签关联上。唤醒词在这里的作用至关重要，我们训练集里的所有图片，不管是训练画风还是训练人物也好，都是围绕着一个“概念”来训练的（虽然也有训练多个概念的情况，但这里先简化不展开讲述），那么，我们需要在每个训练图片的标签中都打上一个词，让 AI 意识到“这个词语就代表着这个概念”。
 
-![image-20230611181057342](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611181057342.png)
+![image-20230611181057342](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611181057342.png)
 
 对于我这个例子来说，我希望 AI 学习到的概念是，“适用于教材的水彩风格的卡通插画”，所以我使用自己造的一个词语“teachWC”，来指代这个概念，并在每一张图的标签的最开始都加上了这个词语。
 
@@ -132,7 +132,7 @@ minutes: 9
 
 唤醒词设置后，在训练时需要将 "Keep n tokens"设置为唤醒词的个数，例如在这里我设置为 1。
 
-![](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611184840419.png)
+![](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611184840419.png)
 
 在 Kohya_ss 中，这个选项具体的位置在：Training parameters - Advanced Configuration - Keep n tokens。
 
@@ -150,7 +150,7 @@ minutes: 9
 
 2. 人类都认不出来的事物就不用打标了。
 
-![image-20230611163040191](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230611163040191.png)
+![image-20230611163040191](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230611163040191.png)
 
 还是以这张图片为例，我在这张图片中没有对背景的元素进行描述，因为我的确不知道背景在描写什么，这种情况下可以选择不写这一部分的标签，写了反而会对 AI 造成误导。比如对黄色的植物写一个“bamboo”，AI 会以为在这种风格下竹子就应该是黄色而且抽象的，若后续有生成竹子的需求那反而会造成反效果。
 

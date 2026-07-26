@@ -42,7 +42,7 @@ It generates an entire prompt from scratch. It is random, but controlled. You si
 
 启用后界面效果如下：
 
-![image-20230613132014421](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230613132014421.png)
+![image-20230613132014421](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230613132014421.png)
 
 #### Main 标签
 
@@ -126,7 +126,7 @@ This also creates the option of adding a subject that requires a LoRA.
 
 插件提供了一个 Workflow mode，通过这个标签启用。启用后停止自动 Prompt 生成图片的功能，转而使用 Wrrkflow prompt 输入框中的 Prompt 进行图片生成。
 
-![image-20230614135329642](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230614135329642.png)
+![image-20230614135329642](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230614135329642.png)
 
 简单来说就是根据 Main 标签中设置的规则，自动生成五条 Prompt ，可以先看效果，适当调整，然后使用”Send prompt up“快速把 Prompt 发送到上面的 Workflow prompt 中进行生成。方便对比不同 Prompt 的效果。
 
@@ -134,7 +134,7 @@ This also creates the option of adding a subject that requires a LoRA.
 
 一般来说是创建一组随机提示，通过调整 Prompt 数值，可以生成多组提示并合并在一起。
 
-![image-20230614140824213](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230614140824213.png)
+![image-20230614140824213](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230614140824213.png)
 
 作者是建议可以试试 2。
 
@@ -144,11 +144,11 @@ This also creates the option of adding a subject that requires a LoRA.
 
 #### One Button Run and Upscale 标签
 
-![image-20230614141504559](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230614141504559.png)
+![image-20230614141504559](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230614141504559.png)
 
 先看官方介绍：
 
-![image-20230614141552444](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230614141552444.png)
+![image-20230614141552444](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230614141552444.png)
 
 粗略看了一下，这个功能是在 WebUI API 启动的情况下才使用到的，用来提升现有图片的质量。因为暂时用不到就不详细了解了。
 

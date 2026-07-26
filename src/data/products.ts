@@ -78,7 +78,7 @@ export const products: ProductEntry[] = [
     links: [
       {
         label: 'GitHub',
-        href: 'https://github.com/XuWeinan123/MasterGo2Figma',
+        href: 'https://github.com/AaronXu-Lab/MasterGo2Figma',
         icon: 'github-logo',
       },
     ],
@@ -96,7 +96,7 @@ export const products: ProductEntry[] = [
     links: [
       {
         label: 'GitHub',
-        href: 'https://github.com/XuWeinan123/EncryptNotes_for_TRAE',
+        href: 'https://github.com/AaronXu-Lab/EncryptNotes_for_TRAE',
         icon: 'github-logo',
       },
     ],

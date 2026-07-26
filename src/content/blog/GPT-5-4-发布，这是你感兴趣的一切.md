@@ -13,7 +13,7 @@ minutes: 6
 ---
 北京时间 3月6日 凌晨，OpenAI 正式发布了 GPT 新一版本，5.4。面向 Plus 及以上用户开始推出，取代 GPT-5.2 Thinking，非推理模型。
 
-![image-20260306182742087](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20260306182742087.png)
+![image-20260306182742087](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20260306182742087.png)
 
 不愧是 OpenAI，模型命名是一贯的乱。前几天推出的 5.3-Instant 取代了 5.2-Instant，前几天还说会推出 5.3-Thinking 和 Pro，结果到了今天 Sam 反手直接掏出了 5.4 系列。
 

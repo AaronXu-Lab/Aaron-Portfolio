@@ -12,13 +12,13 @@ minutes: 9
 ---
 最近我将自己团队的图标们升级了一下，现在的图标是这个样子的：
 
-![image-20241211231230720](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241211231230720.png)
+![image-20241211231230720](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241211231230720.png)
 
 
 
 对，我将图标变成了一种字体，后续都可以直接通过字体的方式调用。只要安装了字体，哪怕不在设计软件中也能使用。
 
-![image-20241211231751270](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241211231751270.png)
+![image-20241211231751270](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241211231751270.png)
 
 如果是对 Apple 的设计比较熟悉的人可能发现了，Apple 的图标“SF Symbol” 也是通过这种方式管理的。如果你平常使用的是 SF Pro 或者 PingFang SC 等字体，可以直接通过 Apple 官方的 [SF Symbols](https://developer.apple.com/sf-symbols/) 来查找复制并使用。
 
@@ -80,11 +80,11 @@ icon font 因为本身就是一种字体，而字体是有独特的 id 的。比
 
 首先是要调整 Figma 中的图标，因为越简单的图标越不容易出问题，所以我建议是将形状中的 line 先 outline，然后全部合并 ，最后 flatten，总之是保证最后只有一个形状。
 
-![image-20241212004559310](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212004559310.png)
+![image-20241212004559310](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212004559310.png)
 
 按理来说三板斧下来这个图标应该只剩下填充，没有描边了，不过以防万一还是要确认一下。
 
-![image-20241212005028804](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212005028804.png)
+![image-20241212005028804](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212005028804.png)
 
 对了填充最好统一用同一个颜色，虽然不影响最后使用，但是一致了看着舒服。
 
@@ -96,19 +96,19 @@ icon font 因为本身就是一种字体，而字体是有独特的 id 的。比
 
 Anyway，上一部中导出的 SVG 们，可以直接导入到这个平台中。
 
-![image-20241212010229584](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212010229584.png)
+![image-20241212010229584](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212010229584.png)
 
 
 
 甚至还可以做一些简单的编辑，比如去色裁剪缩放。上一步里如果忘记去色了可以在这一步完成。
 
-![image-20241212010330080](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212010330080.png)
+![image-20241212010330080](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212010330080.png)
 
 
 
 > 需要注意的是，一些复杂的图标可能无法按你预期的。例如，如果我使用了不同的方式画了 googledrive 的图标，即使在 Figma 和系统中看上去一样，但导入后就会有明显的差异。
 >
-> ![image-20241212011229087](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212011229087.png)
+> ![image-20241212011229087](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212011229087.png)
 >
 > 
 >
@@ -118,9 +118,9 @@ Anyway，上一部中导出的 SVG 们，可以直接导入到这个平台中。
 
 如果图标后续还存在迭代的可能，务必认真填写发布参数，不然后面版本会乱掉。
 
-![image-20241212011910508](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212011910508.png)
+![image-20241212011910508](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212011910508.png)
 
-<img src="https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212012020579.png" alt="image-20241212012020579" style="zoom:25%;" />
+<img src="https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212012020579.png" alt="image-20241212012020579" style="zoom:25%;" />
 
 * 最下面的 Version 是最重要的，Major 是大版本号，Minor 是小版本号，高版本可以覆盖低版本。建议每次有新增图标就将 Minor 加一，如果图标整体风格改动较大就增加 Major
 * 字体的名字和前后缀可以任意填写，不过最好先和开发确认，避免和他们定义的变量名重合了
@@ -131,7 +131,7 @@ Anyway，上一部中导出的 SVG 们，可以直接导入到这个平台中。
 
 最终导出后，是一个压缩包，里面包含了字体文件和用于连接网页的 css，以及一些 demo 和简单教程。
 
-![image-20241212012850952](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20241212012850952.png)
+![image-20241212012850952](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20241212012850952.png)
 
 剩下的事情就是交付开发了。
 

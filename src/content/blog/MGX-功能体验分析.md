@@ -58,7 +58,7 @@ If anything you not understand, free to ask!
 
 通俗一点说，就是我作为一个甲方，在和 AI Team 沟通的过程中，主要沟通的方式是和 Team Leader 以及 Product Manager 进行沟通，这个是我这次体验中主要的反馈来源；而后续与 Architect、Engineer、Data Analyst 的沟通则偏少而且比较困难，因为是这三位是以代码为主。
 
-![image-20250402114114982](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402114114982.png)
+![image-20250402114114982](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402114114982.png)
 
 所以现状就是：
 
@@ -66,7 +66,7 @@ If anything you not understand, free to ask!
 
 其次，当任务进入到开发流程后，此时 Architect 和 Engineer 开始工作，任务开始集中在右侧部分，此时我能做的事情已经比较少了，大部分时间只有等待而已。即使我试图理解右侧的产出内容，对于 non-coder 的我来说，也有着不小的难度。
 
-![image-20250402130225387](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402130225387.png)
+![image-20250402130225387](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402130225387.png)
 
 上图是一个很经典的用户行为模型，描述了用户的行为从产生到执行到反馈的完整流程。重点关注“明确意图”这一部分，在过往的工作经历中，我发现意图的明确也是一件非常困难的事情，直白一点说就是“将事情想清楚说清楚”这个能力，在职场上也是非常稀缺的，这也是为什么大公司都会有一些明确的规章制度来确保基础的沟通。
 
@@ -80,9 +80,9 @@ If anything you not understand, free to ask!
 
 在用户界面上，我建议移除右侧部分。类似 IDE workspace 的界面虽然方便 Coder 组织文件，但是在需求明确阶段时，显得有些多余。该阶段还是应该以聊天界面为主，可以尝试 Claude 和 Manus 的方式，聊天界面+可扩展的画布
 
-![image-20250402131648480](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402131648480.png)
+![image-20250402131648480](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402131648480.png)
 
-![image-20250402131748192](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402131748192.png)
+![image-20250402131748192](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402131748192.png)
 
 产出的部分直接添加在聊天记录中，更加符合企业 IM 的使用方式。也就是更加注重沟通本身，将注意力集中在沟通的内容上，以文档作为辅助。
 
@@ -104,7 +104,7 @@ Architect 可以在自己一开始划分了实现结构的基础上，在每个�
 
 这个 AI 交互的方式其他产品也已经用上了，Cursor 就是一个很好的例子。
 
-![image-20250402135539503](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402135539503.png)
+![image-20250402135539503](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402135539503.png)
 
 虽然是一个很小的需求，但是 cursor 依然在构建的过程中临时生成了一些阶段性的代码，方便我了解目前是什么样的一个进度，并在方向跑偏时及时纠正。
 
@@ -120,7 +120,7 @@ Manus 其实也有类似的交互，不过我是在一次直播中看到的，�
 
 这个阶段应该是所有人都能参与的，所以页面布局沿用上一个节点的即可。
 
-![image-20250402141500567](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402141500567.png)
+![image-20250402141500567](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402141500567.png)
 
 对于成品的反馈理应是非常直观的，因为此时用户将成品对比的，是自己脑子中的预期产品，将两者的样子进行对比。
 
@@ -128,9 +128,9 @@ Manus 其实也有类似的交互，不过我是在一次直播中看到的，�
 
 几个可以参考的产品例子是，Figma 的画圈评论和 三星手机的圈定即搜，虽然并不是 AI 产品，但足以证明画圈指定范围是人类最自然的交互方式。
 
-![image-20250402142108664](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402142108664.png)
+![image-20250402142108664](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402142108664.png)
 
-![通过“圈出可进行搜索”功能使用 Galaxy S Pen 圈出图像。](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/23-12-2-hero.png)
+![通过“圈出可进行搜索”功能使用 Galaxy S Pen 圈出图像。](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/23-12-2-hero.png)
 
 ## 问题二：在 首页结构 中
 
@@ -145,7 +145,7 @@ Manus 其实也有类似的交互，不过我是在一次直播中看到的，�
 
 接下来结合一下当前的页面，我解释一下之前提到过的两个核心问题。
 
-![image-20250402165045834](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402165045834.png)
+![image-20250402165045834](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402165045834.png)
 
 ### 认识负荷
 
@@ -169,7 +169,7 @@ Product Hunt 的确是重要的引流方式，但是也并非所有的流量都�
 
 这里有一个正面的例子，Bolt.new。既使用不影响 Slogan 的方式展示一些信息，同时也使用了 prompt 模板的方式展示功能。
 
-![image-20250402171209867](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402171209867.png)
+![image-20250402171209867](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402171209867.png)
 
 可以看到整个页面都让用户的注意力集中在 Slogan 上了
 
@@ -187,7 +187,7 @@ Product Hunt 的确是重要的引流方式，但是也并非所有的流量都�
 
 > 前两个问题占据了比较大的篇幅比较冗杂，接下来我会加速一些，简略的进行描述。
 
-![image-20250402173945657](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20250402173945657.png)
+![image-20250402173945657](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20250402173945657.png)
 
 **期望**：选择一个既能实现我当前开发工作需求，又比较实惠的方案
 

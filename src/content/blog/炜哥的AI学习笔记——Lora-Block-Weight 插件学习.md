@@ -42,7 +42,7 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 不过，目前我只有在一个三方的插件中找到关于 LoRA Blocks 信息的描述，暂时不知道这个分层是 Lora 就有的还是这个插件作者人为划分的。
 
-![17层的具体划分](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230616130306123.png)
+![17层的具体划分](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230616130306123.png)
 
 而所有的 Blocks 的权重都可以在这个插件中进行调节，从而达到进一步调整 Lora 效果的目的。
 
@@ -56,7 +56,7 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 参数设置说明之后，就要说每个 Block 对应的作用了。
 
-![image-20230616134805231](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230616134805231.png)
+![image-20230616134805231](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230616134805231.png)
 
 作者给出了上图的例子，不过遗憾的是，并未明确的说明每一个 Block 所对应的效果如何。实际上很有可能也无法明确的将图片的“部分概念”和具体的 Block 对应起来，因为在官方文档随后的一个章节中，作者重点介绍了一个用于对比的工具 XYZ Plot。
 
@@ -64,7 +64,7 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 ### 界面介绍
 
-![image-20230616163123587](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230616163123587.png)
+![image-20230616163123587](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230616163123587.png)
 
 勾选 Active 后启用这个脚本。
 
@@ -74,7 +74,7 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 刚才提到过的 XYZ 工具，可以交叉改变参数来验证模型效果。和 SD 自带的 XYZ 脚本非常相似。
 
-![image-20230616164606620](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230616164606620.png)
+![image-20230616164606620](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230616164606620.png)
 
 首先需要在 Active 中选择 XYZ plot 来启用这个工具。同时，在需要生效的 LoRA 脚本中，加上 XYZ 作为特殊标记，例如`<lora:"lora name":1:XYZ>`。
 
@@ -100,9 +100,9 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 那么点击生成后，会生成两组不同 seed 的图，每一组图有四张图，分别是 IN01 和 IN08 被设置为 0.5、 IN01 和 IN08 被设置为 0.8、 IN05 和 OUT05 被设置为 0.5、 IN05 和 OUT05 被设置为 0.8。
 
-![tmpq9w2y6y3](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/tmpq9w2y6y3.png)
+![tmpq9w2y6y3](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/tmpq9w2y6y3.png)
 
-![tmp3xpn22ic](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/tmp3xpn22ic.png)
+![tmp3xpn22ic](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/tmp3xpn22ic.png)
 
 当然在实际应用中应该会更加复杂，每个轴都会设置更多的值，来找出最合适的效果。
 
@@ -110,7 +110,7 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 这个功能有有些像简化版本的 XYZ Plot ，主要是用于部分参数改变后快速对比，默认生成结果是三列，第二列是修改权重后的图片，第三列是默认权重的图片，第一列则是两者之间的差异（会使用黑底或白底图片标出不同部分）。
 
-![image-20230616211249194](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/image-20230616211249194.png)
+![image-20230616211249194](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/image-20230616211249194.png)
 
 还是先解释参数：
 
@@ -125,7 +125,7 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 我希望看一下 COOLKIDS_MERGE 这个模型的不同 Block 的作用，所以我将部分 Blocks 的权重分别设置为了 0.2 ，看下在弱化某个 Block 的情况下图片会如何变化。
 
-![file-2](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/file-2.png)
+![file-2](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/file-2.png)
 
 可以看到，在弱化 IN01 时，男生的姿态衣服和女生的姿态衣服都有所变化；而弱化 IN02 时，女生变化不明显，男生的衣物有所变化。
 
@@ -161,9 +161,9 @@ Lora is a powerful tool, but it is sometimes difficult to use and can affect are
 
 网上找了一些常见的权重组合，也许有用，仅做保存。
 
-![截屏2023-06-16 22.08.34](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/%E6%88%AA%E5%B1%8F2023-06-16%2022.08.34.png)
+![截屏2023-06-16 22.08.34](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/%E6%88%AA%E5%B1%8F2023-06-16%2022.08.34.png)
 
-![截屏2023-06-16 22.17.41](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage@main/img/%E6%88%AA%E5%B1%8F2023-06-16%2022.17.41.png)
+![截屏2023-06-16 22.17.41](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage@main/img/%E6%88%AA%E5%B1%8F2023-06-16%2022.17.41.png)
 
 ### 参考资料
 

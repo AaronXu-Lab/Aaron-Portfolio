@@ -52,7 +52,7 @@ OpenClaw、AI Skills、Cowork……。2025 年是 AI 很精彩的一年，各种
 
 **平民版本的交互艺术**
 
-![image-20260223211202418](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20260223211202418.png)
+![image-20260223211202418](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20260223211202418.png)
 
 上面这个是我在那一小时里花的时间最久的一个游戏。不过说是游戏却有些名不副实，只是跟随着一只魔性小鸟的跳舞节奏打着拍子而已，这点程度即使连 4399 上最简单的小游戏都比不上。
 
@@ -81,7 +81,7 @@ TouchDesigner 可交互艺术，在几年前我在 OPPO 从事交互动效工作
 
 再来说说 Loopit 应用本身吧。它有个机制我觉得是神来一笔，就是 Remix。
 
-![image-20260223214834084](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/image-20260223214834084.png)
+![image-20260223214834084](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/image-20260223214834084.png)
 
 Remix 并非 Loopit 首创（我在 MetaGPT 上也见过），但它与 Loopit 的相性极佳。
 
@@ -109,7 +109,7 @@ Remix 并非 Loopit 首创（我在 MetaGPT 上也见过），但它与 Loopit �
 
 目前看来，阿里千问似乎找到了一条相对正确的路子。他们在 2026 年春节通过打通内部服务，用“点奶茶”这个极其专一却下沉的场景，不仅缩短了付费路径，更重要的是成功重塑了用户的心智模型——用户开始意识到 AI 能做除了问答娱乐之外的事情。
 
-![千问当前功能截图](https://cdn.jsdelivr.net/gh/XuWeinan123/blogImage/img/a4fe579e0041281c3bcc902880b76ffa.jpeg)
+![千问当前功能截图](https://cdn.jsdelivr.net/gh/AaronXu-Lab/blogImage/img/a4fe579e0041281c3bcc902880b76ffa.jpeg)
 
 **是时候研究 A2UI 协议了**
 25 年底，Google 推出了 A2UI（Agent-to-UI）协议，我觉得可能是千问&灵光未来可能的方向。
