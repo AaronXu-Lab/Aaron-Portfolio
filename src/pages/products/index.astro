@@ -125,26 +125,24 @@ import { products, tools } from '../../data/products';
                   <span class="mono-sm en">{t.en}</span>
                   {t.pwa && <span class="chip pwa mono-sm">PWA</span>}
                 </div>
-                <div class="tool-main">
+                <div class="tool-heading">
                   <img
                     class="tool-icon"
                     src={t.icon}
                     alt={t.iconAlt}
-                    width="64"
-                    height="64"
+                    width="44"
+                    height="44"
                     loading="lazy"
                     decoding="async"
                   />
-                  <div class="tool-copy">
-                    <h3>
-                      {t.name}
-                      <span class="arr" aria-hidden="true">
-                        →
-                      </span>
-                    </h3>
-                    <p>{t.description}</p>
-                  </div>
+                  <h3>
+                    {t.name}
+                    <span class="arr" aria-hidden="true">
+                      →
+                    </span>
+                  </h3>
                 </div>
+                <p>{t.description}</p>
               </a>
             </li>
           ))
@@ -404,28 +402,21 @@ import { products, tools } from '../../data/products';
     transform: translateY(0) scale(0.995);
   }
 
-  .tool-main {
+  .tool-heading {
     min-width: 0;
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
   }
 
   .tool-icon {
-    width: clamp(52px, 6vw, 64px);
-    height: clamp(52px, 6vw, 64px);
+    width: clamp(38px, 4vw, 44px);
+    height: clamp(38px, 4vw, 44px);
     flex: 0 0 auto;
     object-fit: cover;
     border-radius: 22%;
     background: var(--surface-2);
     box-shadow: var(--shadow-card);
-  }
-
-  .tool-copy {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
   }
 
   /* 固定高度:有无 PWA 徽标的卡片，标题与正文都能对齐 */
