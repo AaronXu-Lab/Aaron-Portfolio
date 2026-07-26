@@ -1,4 +1,4 @@
-const CACHE = 'candy-match-v1';
+const CACHE = 'candy-match-v2';
 const SHELL = [
   '/tools/candy-match/',
   '/tools/candy-match/?source=pwa',

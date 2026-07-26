@@ -1,38 +1,35 @@
 import {
   CANDIES,
-  LEVELS,
+  SPECIALS,
+  advanceTask,
   areAdjacent,
   createBoard,
+  createTask,
   findValidMoves,
-  getLevel,
-  isLevelComplete,
-  makeIce,
-  mergeCollected,
-  remainingIce,
+  isTaskComplete,
   resolveTurn,
   seededRandom,
-  starsFor,
+  specialOf,
   swap,
+  typeOf,
 } from './core.js';
 
 const $ = (selector) => document.querySelector(selector);
 const boardEl = $('#board');
 const liveStatus = $('#live-status');
 const boardStatus = $('#board-status');
-const levelDialog = $('#level-dialog');
-const resultDialog = $('#result-dialog');
+const gameOverDialog = $('#game-over-dialog');
 const installDialog = $('#install-dialog');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-const PROGRESS_KEY = 'candy-match.v1.progress';
-const SOUND_KEY = 'candy-match.v1.sound';
+const STATS_KEY = 'candy-match.v2.stats';
+const SOUND_KEY = 'candy-match.v2.sound';
 const candyColors = ['#e84169', '#e7b130', '#7a48c5', '#48b67d', '#36a8d0', '#ef6e3f'];
 const comboWords = ['', '', '甜蜜连锁！', '糖果风暴！', '太精彩了！', '漫游奇迹！'];
 
 function readJSON(key, fallback) {
   try {
-    const value = JSON.parse(localStorage.getItem(key));
-    return value ?? fallback;
+    return JSON.parse(localStorage.getItem(key)) ?? fallback;
   } catch {
     return fallback;
   }
@@ -46,41 +43,56 @@ function saveJSON(key, value) {
   }
 }
 
-function normalizeProgress(raw) {
-  const unlocked = Math.min(LEVELS.length, Math.max(1, Number(raw?.unlocked) || 1));
-  const stars = {};
-  for (const level of LEVELS) {
-    const value = Number(raw?.stars?.[level.id]) || 0;
-    stars[level.id] = Math.min(3, Math.max(0, value));
-  }
-  return { unlocked, stars };
+function normalizeStats(value) {
+  return {
+    bestScore: Math.max(0, Number(value?.bestScore) || 0),
+    totalTickets: Math.max(0, Number(value?.totalTickets) || 0),
+  };
 }
 
-let progress = normalizeProgress(readJSON(PROGRESS_KEY, null));
+let stats = normalizeStats(readJSON(STATS_KEY, null));
 let soundOn = localStorage.getItem(SOUND_KEY) !== 'off';
 let audioContext = null;
 let deferredInstallPrompt = null;
-let levelRandom = seededRandom(1);
-let suppressClick = false;
+let runRandom = seededRandom(Date.now());
+let refillRandom = seededRandom(Date.now() + 91);
 let dragStart = null;
+let suppressClick = false;
+let timer = 0;
 
 const state = {
-  level: LEVELS[0],
   board: [],
-  ice: [],
-  movesLeft: 0,
-  score: 0,
-  collected: Array(CANDIES.length).fill(0),
   selected: null,
   locked: false,
+  gameOver: false,
+  completingTask: false,
+  timeExpired: false,
+  task: null,
+  taskProgress: 0,
+  taskStartedAt: 0,
+  taskEndsAt: 0,
+  tasksDone: 0,
+  runScore: 0,
+  runTickets: 0,
+  recordToBeat: 0,
 };
 
 const wait = (ms) =>
-  new Promise((resolve) => setTimeout(resolve, reducedMotion.matches ? Math.min(ms, 10) : ms));
+  new Promise((resolve) => setTimeout(resolve, reducedMotion.matches ? Math.min(10, ms) : ms));
 
 function setStatus(message, boardMessage = message) {
   liveStatus.textContent = message;
   boardStatus.textContent = boardMessage;
+}
+
+function formatNumber(value) {
+  return Math.max(0, Number(value) || 0).toLocaleString('zh-CN');
+}
+
+function formatClock(ms) {
+  const seconds = Math.max(0, Math.ceil(ms / 1000));
+  const minutes = Math.floor(seconds / 60);
+  return `${String(minutes).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
 }
 
 function playSound(kind, cascade = 1) {
@@ -92,46 +104,50 @@ function playSound(kind, cascade = 1) {
       select: [440],
       error: [180, 155],
       clear: [510 + cascade * 70, 650 + cascade * 85],
-      win: [523, 659, 784, 1047],
+      skill: [660, 880, 1100],
+      reward: [523, 659, 784, 1047],
       lose: [330, 277, 220],
     }[kind] ?? [440];
     notes.forEach((frequency, index) => {
       const oscillator = audioContext.createOscillator();
       const gain = audioContext.createGain();
-      oscillator.type = kind === 'clear' ? 'sine' : 'triangle';
+      oscillator.type = kind === 'clear' || kind === 'skill' ? 'sine' : 'triangle';
       oscillator.frequency.value = frequency;
-      gain.gain.setValueAtTime(0.0001, now + index * 0.07);
-      gain.gain.exponentialRampToValueAtTime(0.055, now + index * 0.07 + 0.012);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.07 + 0.16);
+      gain.gain.setValueAtTime(0.0001, now + index * 0.055);
+      gain.gain.exponentialRampToValueAtTime(0.05, now + index * 0.055 + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.055 + 0.15);
       oscillator.connect(gain).connect(audioContext.destination);
-      oscillator.start(now + index * 0.07);
-      oscillator.stop(now + index * 0.07 + 0.18);
+      oscillator.start(now + index * 0.055);
+      oscillator.stop(now + index * 0.055 + 0.17);
     });
   } catch {
     // Web Audio 不可用时静默降级。
   }
 }
 
-function candyLabel(index, type) {
+function candyLabel(index, cell) {
   const row = Math.floor(index / 8) + 1;
   const column = (index % 8) + 1;
-  const jelly = state.ice[index]
-    ? `，${state.ice[index] === 2 ? '双层' : '单层'}果冻`
-    : '';
-  return `第 ${row} 行第 ${column} 列，${CANDIES[type].name}${jelly}`;
+  const special = specialOf(cell);
+  const skill = special ? `，${SPECIALS[special].name}，${SPECIALS[special].effect}` : '';
+  return `第 ${row} 行第 ${column} 列，${CANDIES[typeOf(cell)].name}${skill}`;
 }
 
 function renderBoard() {
   const focusedIndex = document.activeElement?.closest?.('.candy-cell')?.dataset.index;
   const fragment = document.createDocumentFragment();
-  state.board.forEach((type, index) => {
+
+  state.board.forEach((cell, index) => {
+    const type = typeOf(cell);
+    const special = specialOf(cell);
     const button = document.createElement('button');
     button.className = 'candy-cell';
     button.type = 'button';
     button.dataset.index = index;
     button.dataset.kind = type;
+    if (special) button.dataset.special = special;
     button.setAttribute('role', 'gridcell');
-    button.setAttribute('aria-label', candyLabel(index, type));
+    button.setAttribute('aria-label', candyLabel(index, cell));
     button.setAttribute('aria-selected', String(state.selected === index));
     if (state.selected === index) button.classList.add('is-selected');
 
@@ -140,289 +156,254 @@ function renderBoard() {
     piece.setAttribute('aria-hidden', 'true');
     button.append(piece);
 
-    if (state.ice[index] > 0) {
-      const ice = document.createElement('span');
-      ice.className = 'ice';
-      ice.dataset.layers = state.ice[index];
-      ice.setAttribute('aria-hidden', 'true');
-      button.append(ice);
+    if (special) {
+      const mark = document.createElement('span');
+      mark.className = 'special-mark';
+      mark.dataset.special = special;
+      mark.setAttribute('aria-hidden', 'true');
+      if (special === 'burst') mark.textContent = '✦';
+      button.append(mark);
     }
     fragment.append(button);
   });
+
   boardEl.replaceChildren(fragment);
   if (focusedIndex != null) {
     boardEl.querySelector(`[data-index="${focusedIndex}"]`)?.focus({ preventScroll: true });
   }
 }
 
-function objectiveRow({ icon, label, value, target, color }) {
-  const complete = value >= target;
-  const item = document.createElement('li');
-  item.className = `objective${complete ? ' is-done' : ''}`;
-  item.style.setProperty('--objective-color', color);
-  item.innerHTML = `
-    <span class="objective-icon">${complete ? '✓' : icon}</span>
-    <span class="objective-copy">
-      <b>${label}</b>
-      <i style="--progress:${Math.min(100, (value / target) * 100)}%"></i>
-    </span>
-    <span class="objective-value">${Math.min(value, target)} / ${target}</span>
-  `;
-  return item;
+function describeTask(task) {
+  if (task.kind === 'collect') return `收集 ${task.target} 颗${CANDIES[task.type].short}`;
+  if (task.kind === 'skill') return `制造或触发 ${task.target} 颗技能糖`;
+  return `获得 ${formatNumber(task.target)} 分`;
 }
 
-function renderObjectives() {
-  const list = $('#objective-list');
-  const rows = [
-    {
-      icon: '◆',
-      label: '获得旅行积分',
-      value: state.score,
-      target: state.level.score,
-      color: '#6f3cc3',
-    },
-  ];
+function renderTask() {
+  const task = state.task;
+  $('#task-number').textContent = `任务 ${String(task.id).padStart(2, '0')}`;
+  $('#task-reward').textContent = `+${task.reward}`;
+  $('#task-title').textContent = describeTask(task);
+  $('#task-progress-label').textContent =
+    `${formatNumber(state.taskProgress)} / ${formatNumber(task.target)}`;
+  $('#task-progress-bar').style.width = `${(state.taskProgress / task.target) * 100}%`;
 
-  for (const [type, target] of Object.entries(state.level.collect)) {
-    const candy = Number(type);
-    rows.push({
-      icon: `<span class="mini-objective-candy" style="--objective-color:${candyColors[candy]}"></span>`,
-      label: `收集${CANDIES[candy].short}`,
-      value: state.collected[candy],
-      target,
-      color: candyColors[candy],
-    });
+  const icon = $('#task-icon');
+  icon.dataset.kind = task.kind;
+  icon.textContent = task.kind === 'skill' ? '✦' : task.kind === 'collect' ? '' : '◆';
+  icon.style.setProperty('--task-color', task.kind === 'collect' ? candyColors[task.type] : '');
+}
+
+function updateRunStats() {
+  if (state.runScore > stats.bestScore) {
+    stats.bestScore = state.runScore;
+    saveJSON(STATS_KEY, stats);
   }
-
-  const iceTarget = state.level.ice.reduce((sum, [, layers]) => sum + layers, 0);
-  if (iceTarget) {
-    rows.push({
-      icon: '◇',
-      label: '敲开全部果冻',
-      value: iceTarget - remainingIce(state.ice),
-      target: iceTarget,
-      color: '#36a8d0',
-    });
-  }
-
-  list.replaceChildren(...rows.map(objectiveRow));
+  $('#run-score').textContent = formatNumber(state.runScore);
+  $('#tasks-done').textContent = state.tasksDone;
+  $('#run-tickets').textContent = state.runTickets;
+  $('#best-score').textContent = formatNumber(stats.bestScore);
+  $('#total-tickets').textContent = stats.totalTickets;
 }
 
-function updateHUD() {
-  $('#chapter-label').textContent = state.level.chapter;
-  $('#level-number').textContent = String(state.level.id).padStart(2, '0');
-  $('#level-title').textContent = state.level.name;
-  $('#route-level').textContent = `${String(state.level.id).padStart(2, '0')} / ${LEVELS.length}`;
-  $('#route-chapter').textContent = state.level.chapter;
-  $('#moves-left').textContent = state.movesLeft;
-  $('#moves-left').classList.toggle('is-low', state.movesLeft <= 5);
-  $('#score').textContent = state.score.toLocaleString('zh-CN');
-  renderObjectives();
+function beginTask() {
+  const previousKind = state.task?.kind ?? null;
+  state.task = createTask({
+    number: state.tasksDone + 1,
+    random: runRandom,
+    avoidKind: previousKind,
+  });
+  state.taskProgress = 0;
+  state.taskStartedAt = Date.now();
+  state.taskEndsAt = state.taskStartedAt + state.task.timeMs;
+  state.completingTask = false;
+  state.timeExpired = false;
+  renderTask();
+  updateTimer();
+  setStatus(describeTask(state.task), '新任务已出现');
 }
 
-function startLevel(levelId) {
-  const requested = getLevel(levelId);
-  const safeId = Math.min(requested.id, progress.unlocked);
-  state.level = getLevel(safeId);
-  levelRandom = seededRandom(state.level.seed + Date.now());
-  state.board = createBoard({ seed: state.level.seed });
-  state.ice = makeIce(state.level);
-  state.movesLeft = state.level.moves;
-  state.score = 0;
-  state.collected = Array(CANDIES.length).fill(0);
+function startRun() {
+  runRandom = seededRandom(Date.now());
+  refillRandom = seededRandom(Date.now() + 91);
+  state.board = createBoard({ seed: Date.now() });
   state.selected = null;
   state.locked = false;
+  state.gameOver = false;
+  state.completingTask = false;
+  state.timeExpired = false;
+  state.task = null;
+  state.taskProgress = 0;
+  state.tasksDone = 0;
+  state.runScore = 0;
+  state.runTickets = 0;
+  state.recordToBeat = stats.bestScore;
   renderBoard();
-  updateHUD();
-  renderLevelMap();
-  setStatus(`第 ${state.level.id} 关，${state.level.name}。请选择一颗糖果开始。`, '旅程开始');
-  history.replaceState(null, '', `?level=${state.level.id}`);
+  updateRunStats();
+  beginTask();
+  clearInterval(timer);
+  timer = window.setInterval(updateTimer, 100);
+}
+
+function updateTimer() {
+  if (!state.task || state.gameOver || state.completingTask) return;
+  const now = Date.now();
+  const remaining = Math.max(0, state.taskEndsAt - now);
+  const ratio = Math.max(0, Math.min(1, remaining / state.task.timeMs));
+  const urgent = remaining <= 8000;
+  $('#time-label').textContent = formatClock(remaining);
+  $('#time-label').classList.toggle('is-urgent', urgent);
+  $('#time-bar').style.width = `${ratio * 100}%`;
+  $('#time-bar').classList.toggle('is-urgent', urgent);
+
+  if (remaining <= 0) {
+    if (state.locked) state.timeExpired = true;
+    else endRun();
+  }
 }
 
 function selectCell(index) {
   state.selected = index;
   renderBoard();
   playSound('select');
-  setStatus(`已选中${CANDIES[state.board[index]].name}。请选择相邻糖果交换。`, '已选择糖果');
+  setStatus(`已选中${CANDIES[typeOf(state.board[index])].name}。`, '选择相邻糖果');
+}
+
+function showBurst(element, text) {
+  element.textContent = text;
+  element.classList.remove('is-visible');
+  void element.offsetWidth;
+  element.classList.add('is-visible');
+}
+
+function playSkillEffects(step) {
+  const layer = $('#effect-layer');
+  layer.replaceChildren();
+  for (const index of step.activated) {
+    const special = specialOf(step.boardBefore[index]);
+    if (!special) continue;
+    const effect = document.createElement('i');
+    effect.className = `effect ${special}`;
+    effect.style.setProperty('--row', Math.floor(index / 8));
+    effect.style.setProperty('--column', index % 8);
+    layer.append(effect);
+  }
+  if (step.activated.length) playSound('skill');
+  window.setTimeout(() => layer.replaceChildren(), reducedMotion.matches ? 20 : 520);
+}
+
+async function completeTask() {
+  state.completingTask = true;
+  state.tasksDone += 1;
+  state.runTickets += state.task.reward;
+  stats.totalTickets += state.task.reward;
+  saveJSON(STATS_KEY, stats);
+  updateRunStats();
+  showBurst($('#reward-burst'), `+${state.task.reward} 糖果券`);
+  setStatus(`任务完成，获得 ${state.task.reward} 张糖果券。`, '奖励已收入');
+  playSound('reward');
+  await wait(720);
+  if (state.gameOver) return;
+  beginTask();
+  state.locked = false;
 }
 
 async function attemptSwap(a, b) {
-  if (state.locked || !areAdjacent(a, b)) return;
+  if (state.locked || state.gameOver || !areAdjacent(a, b)) return;
   state.locked = true;
   state.selected = null;
 
-  const result = resolveTurn(state.board, a, b, {
-    ice: state.ice,
-    random: levelRandom,
-  });
-
+  const result = resolveTurn(state.board, a, b, { random: refillRandom });
   if (!result.valid) {
     renderBoard();
-    const cells = [a, b].map((index) => boardEl.querySelector(`[data-index="${index}"]`));
-    cells.forEach((cell) => cell?.classList.add('is-invalid'));
+    [a, b].forEach((index) =>
+      boardEl.querySelector(`[data-index="${index}"]`)?.classList.add('is-invalid')
+    );
     playSound('error');
-    setStatus('这一步没有组成三连，换个方向试试。', '没有组成三连');
-    await wait(360);
-    state.locked = false;
+    setStatus('没有组成消除，换个方向试试。', '无效交换');
+    await wait(340);
+    if (state.timeExpired || Date.now() >= state.taskEndsAt) endRun();
+    else state.locked = false;
     return;
   }
 
   state.board = swap(state.board, a, b);
   renderBoard();
-  await wait(150);
+  await wait(110);
 
   for (const step of result.steps) {
     state.board = step.boardBefore;
     renderBoard();
-    for (const index of step.matched) {
-      boardEl.querySelector(`[data-index="${index}"]`)?.classList.add('is-matched');
-    }
-    playSound('clear', step.cascade);
-    if (step.cascade > 1) showCombo(step.cascade);
-    setStatus(
-      step.cascade > 1
-        ? `连续消除 ${step.cascade} 次，本轮获得 ${step.score} 分。`
-        : `消除 ${step.matched.length} 颗糖果，获得 ${step.score} 分。`,
-      step.cascade > 1 ? `${step.cascade} 连锁` : '甜蜜消除'
+    step.matched.forEach((index) =>
+      boardEl.querySelector(`[data-index="${index}"]`)?.classList.add('is-matched')
     );
-    await wait(310);
+    playSkillEffects(step);
+    playSound('clear', step.cascade);
+    if (step.cascade > 1) {
+      showBurst(
+        $('#combo-burst'),
+        comboWords[Math.min(comboWords.length - 1, step.cascade)] ?? `${step.cascade} 连锁！`
+      );
+    }
+    const skillCopy = step.activated.length
+      ? `，触发 ${step.activated.length} 颗技能糖`
+      : step.created.length
+        ? `，生成 ${step.created.length} 颗技能糖`
+        : '';
+    setStatus(
+      `消除 ${step.matched.length} 颗糖果${skillCopy}，获得 ${step.score} 分。`,
+      step.activated.length ? '技能连锁' : step.created.length ? '技能糖已生成' : '甜蜜消除'
+    );
+    await wait(280);
     state.board = step.boardAfter;
     renderBoard();
-    await wait(170);
+    await wait(140);
   }
 
   state.board = result.board;
-  state.ice = result.ice;
-  state.movesLeft -= 1;
-  state.score += result.score;
-  state.collected = mergeCollected(state.collected, result.collected);
+  state.runScore += result.score;
+  state.taskProgress = advanceTask(state.task, state.taskProgress, result);
   renderBoard();
-  updateHUD();
+  renderTask();
+  updateRunStats();
 
-  if (result.shuffled) {
-    setStatus('没有可走的交换，糖果罐已自动重新摇匀。', '棋盘已摇匀');
-  }
+  if (result.shuffled) setStatus('没有可走的交换，糖果已自动摇匀。', '棋盘已摇匀');
 
-  if (isLevelComplete(state.level, state)) {
-    finishLevel(true);
-    return;
-  }
-  if (state.movesLeft <= 0) {
-    finishLevel(false);
-    return;
-  }
-
-  state.locked = false;
-}
-
-function showCombo(cascade) {
-  const burst = $('#combo-burst');
-  burst.textContent = comboWords[Math.min(comboWords.length - 1, cascade)] ?? `${cascade} 连锁！`;
-  burst.classList.remove('is-visible');
-  void burst.offsetWidth;
-  burst.classList.add('is-visible');
-}
-
-function finishLevel(won) {
-  state.locked = true;
-  const resultEmblem = $('#result-emblem');
-  const nextButton = $('#next-level-button');
-  const stars = won ? starsFor(state.level, state.movesLeft) : 0;
-  resultEmblem.dataset.stars = stars;
-  $('#result-score').textContent = state.score.toLocaleString('zh-CN');
-  $('#result-moves').textContent = `${state.movesLeft} 步`;
-
-  if (won) {
-    progress.stars[state.level.id] = Math.max(progress.stars[state.level.id] || 0, stars);
-    progress.unlocked = Math.max(
-      progress.unlocked,
-      Math.min(LEVELS.length, state.level.id + 1)
-    );
-    saveJSON(PROGRESS_KEY, progress);
-    renderLevelMap();
-    $('#result-kicker').textContent =
-      state.level.id === LEVELS.length ? '整段旅程完成' : '下一站已解锁';
-    $('#result-title').textContent = `${state.level.name}，到站`;
-    $('#result-copy').textContent =
-      stars === 3
-        ? '步数规划得很漂亮，整罐糖果都在为你鼓掌。'
-        : '旅行清单已经全部完成，地图上又亮起了一站。';
-    nextButton.textContent =
-      state.level.id === LEVELS.length ? '查看关卡地图' : '前往下一站';
-    playSound('win');
-    setStatus(`关卡完成，获得 ${stars} 颗星。`, '旅行完成');
+  if (state.timeExpired || Date.now() >= state.taskEndsAt) {
+    endRun();
+  } else if (isTaskComplete(state.task, state.taskProgress)) {
+    await completeTask();
   } else {
-    $('#result-kicker').textContent = '步数已经用完';
-    $('#result-title').textContent = '差一点到站';
-    $('#result-copy').textContent = '留意旅行清单里还差哪一项，连锁消除能更快累积分数。';
-    nextButton.textContent = '选择其他关卡';
-    playSound('lose');
-    setStatus('步数用完了，可以重新挑战本关。', '差一点到站');
+    state.locked = false;
   }
-
-  nextButton.dataset.won = String(won);
-  resultDialog.showModal();
 }
 
-function chapterGroups() {
-  const groups = [];
-  for (const level of LEVELS) {
-    const last = groups.at(-1);
-    if (!last || last.name !== level.chapter) groups.push({ name: level.chapter, levels: [] });
-    groups.at(-1).levels.push(level);
-  }
-  return groups;
-}
-
-function renderLevelMap() {
-  const totalStars = Object.values(progress.stars).reduce((sum, value) => sum + value, 0);
-  $('#journey-progress').textContent = `已解锁 ${progress.unlocked} / ${LEVELS.length}`;
-  $('#journey-stars').textContent = `${totalStars} 颗星`;
-  $('#journey-bar').style.width = `${(progress.unlocked / LEVELS.length) * 100}%`;
-
-  const fragment = document.createDocumentFragment();
-  chapterGroups().forEach((chapter, chapterIndex) => {
-    const section = document.createElement('section');
-    section.className = 'chapter-block';
-    const label = document.createElement('div');
-    label.className = 'chapter-name';
-    label.innerHTML = `<span>CHAPTER ${String(chapterIndex + 1).padStart(2, '0')}</span><b>${chapter.name}</b>`;
-
-    const levels = document.createElement('div');
-    levels.className = 'chapter-levels';
-    chapter.levels.forEach((level) => {
-      const unlocked = level.id <= progress.unlocked;
-      const button = document.createElement('button');
-      button.className = `level-node${level.id === state.level.id ? ' is-current' : ''}`;
-      button.type = 'button';
-      button.dataset.level = level.id;
-      button.disabled = !unlocked;
-      button.setAttribute(
-        'aria-label',
-        unlocked
-          ? `第 ${level.id} 关，${level.name}，${progress.stars[level.id] || 0} 颗星`
-          : `第 ${level.id} 关尚未解锁`
-      );
-      button.innerHTML = `
-        ${unlocked ? '' : '<span class="lock" aria-hidden="true">◆</span>'}
-        <strong>${String(level.id).padStart(2, '0')}</strong>
-        <small>${'★'.repeat(progress.stars[level.id] || 0)}</small>
-      `;
-      levels.append(button);
-    });
-
-    section.append(label, levels);
-    fragment.append(section);
-  });
-  $('#level-map').replaceChildren(fragment);
+function endRun() {
+  if (state.gameOver) return;
+  state.gameOver = true;
+  state.locked = true;
+  state.completingTask = false;
+  clearInterval(timer);
+  const wasRecord = state.runScore > state.recordToBeat;
+  if (state.runScore > stats.bestScore) stats.bestScore = state.runScore;
+  saveJSON(STATS_KEY, stats);
+  updateRunStats();
+  $('#final-score').textContent = formatNumber(state.runScore);
+  $('#final-tasks').textContent = state.tasksDone;
+  $('#final-tickets').textContent = state.runTickets;
+  $('#record-note').textContent = wasRecord ? '新的最佳成绩！' : `最佳成绩 ${formatNumber(stats.bestScore)}`;
+  playSound('lose');
+  setStatus('任务超时，本局结束。', '时间到');
+  gameOverDialog.showModal();
 }
 
 function showHint() {
-  if (state.locked) return;
+  if (state.locked || state.gameOver) return;
   const move = findValidMoves(state.board)[0];
   if (!move) return;
-  boardEl.querySelectorAll('.is-hint').forEach((cell) => cell.classList.remove('is-hint'));
-  move.forEach((index) => boardEl.querySelector(`[data-index="${index}"]`)?.classList.add('is-hint'));
+  move.forEach((index) =>
+    boardEl.querySelector(`[data-index="${index}"]`)?.classList.add('is-hint')
+  );
   setStatus('闪动的两颗糖果可以交换。', '提示已标出');
   playSound('select');
 }
@@ -441,8 +422,7 @@ function openInstallGuide() {
     confirm.textContent = '知道了';
     confirm.dataset.mode = 'close';
   } else if (deferredInstallPrompt) {
-    $('#install-copy').textContent =
-      '安装后可以从主屏幕直接打开，断网也能继续旅程。游戏进度仍只保存在这台设备上。';
+    $('#install-copy').textContent = '安装后可以从主屏幕直接打开，断网也能继续游戏。';
     steps.replaceChildren();
     confirm.textContent = '安装应用';
     confirm.dataset.mode = 'prompt';
@@ -467,13 +447,12 @@ function openInstallGuide() {
 }
 
 boardEl.addEventListener('click', (event) => {
-  if (suppressClick || state.locked) return;
+  if (suppressClick || state.locked || state.gameOver) return;
   const cell = event.target.closest('.candy-cell');
   if (!cell) return;
   const index = Number(cell.dataset.index);
-  if (state.selected == null) {
-    selectCell(index);
-  } else if (state.selected === index) {
+  if (state.selected == null) selectCell(index);
+  else if (state.selected === index) {
     state.selected = null;
     renderBoard();
     setStatus('已取消选择。', '选择一颗糖果');
@@ -503,7 +482,7 @@ boardEl.addEventListener('keydown', (event) => {
 });
 
 boardEl.addEventListener('pointerdown', (event) => {
-  if (state.locked || event.button !== 0) return;
+  if (state.locked || state.gameOver || event.button !== 0) return;
   const cell = event.target.closest('.candy-cell');
   if (!cell) return;
   dragStart = {
@@ -514,15 +493,13 @@ boardEl.addEventListener('pointerdown', (event) => {
 });
 
 boardEl.addEventListener('pointerup', (event) => {
-  if (!dragStart || state.locked) return;
+  if (!dragStart || state.locked || state.gameOver) return;
   const dx = event.clientX - dragStart.x;
   const dy = event.clientY - dragStart.y;
-  const threshold = 18;
-  if (Math.max(Math.abs(dx), Math.abs(dy)) < threshold) {
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 18) {
     dragStart = null;
     return;
   }
-
   let target = dragStart.index;
   if (Math.abs(dx) > Math.abs(dy)) target += dx > 0 ? 1 : -1;
   else target += dy > 0 ? 8 : -8;
@@ -540,40 +517,13 @@ boardEl.addEventListener('pointercancel', () => {
   dragStart = null;
 });
 
-$('#level-button').addEventListener('click', () => {
-  renderLevelMap();
-  levelDialog.showModal();
-});
-
-$('#level-map').addEventListener('click', (event) => {
-  const button = event.target.closest('[data-level]');
-  if (!button || button.disabled) return;
-  levelDialog.close();
-  startLevel(Number(button.dataset.level));
-});
-
 $('#hint-button').addEventListener('click', showHint);
-$('#restart-button').addEventListener('click', () => startLevel(state.level.id));
-$('#retry-button').addEventListener('click', () => {
-  resultDialog.close();
-  startLevel(state.level.id);
+$('#restart-button').addEventListener('click', startRun);
+$('#play-again-button').addEventListener('click', () => {
+  gameOverDialog.close();
+  startRun();
 });
-
-$('#next-level-button').addEventListener('click', (event) => {
-  resultDialog.close();
-  const won = event.currentTarget.dataset.won === 'true';
-  if (won && state.level.id < LEVELS.length) startLevel(state.level.id + 1);
-  else {
-    renderLevelMap();
-    levelDialog.showModal();
-  }
-});
-
-document.addEventListener('click', (event) => {
-  const close = event.target.closest('[data-close]');
-  if (!close) return;
-  document.getElementById(close.dataset.close)?.close();
-});
+gameOverDialog.addEventListener('cancel', (event) => event.preventDefault());
 
 $('#sound-button').addEventListener('click', (event) => {
   soundOn = !soundOn;
@@ -600,10 +550,14 @@ $('#confirm-install-button').addEventListener('click', async (event) => {
   }
 });
 
+document.addEventListener('click', (event) => {
+  const close = event.target.closest('[data-close]');
+  if (close) document.getElementById(close.dataset.close)?.close();
+});
+
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
   deferredInstallPrompt = event;
-  $('#install-button').textContent = '安装应用';
 });
 
 window.addEventListener('appinstalled', () => {
@@ -622,5 +576,6 @@ if ('serviceWorker' in navigator) {
 
 $('#sound-button').setAttribute('aria-pressed', String(soundOn));
 $('#sound-button').setAttribute('aria-label', soundOn ? '关闭音效' : '开启音效');
-const requestedLevel = Number(new URLSearchParams(location.search).get('level')) || 1;
-startLevel(requestedLevel);
+history.replaceState(null, '', location.pathname);
+updateRunStats();
+startRun();

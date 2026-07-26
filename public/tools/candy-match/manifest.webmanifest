@@ -1,7 +1,7 @@
 {
   "name": "糖果漫游 · Candy Match",
   "short_name": "糖果漫游",
-  "description": "沿着糖果地图完成分数、收集与果冻目标。十二关离线可玩的糖果三消游戏。",
+  "description": "限时完成随机任务，制造技能糖并不断挑战更高分。离线可玩的无限流糖果三消游戏。",
   "id": "/tools/candy-match/",
   "start_url": "/tools/candy-match/?source=pwa",
   "scope": "/tools/candy-match/",
