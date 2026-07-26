@@ -106,6 +106,19 @@ export const products: ProductEntry[] = [
 
 export const tools: ToolEntry[] = [
   {
+    slug: 'candy-match',
+    name: '糖果漫游',
+    en: 'CANDY MATCH',
+    description:
+      '一场装进口袋的糖果三消旅行：在限定步数内完成分数、糖果收集与果冻清除目标，沿四个章节闯过 12 个关卡。进度只存在本机，支持离线游玩。',
+    pwa: true,
+    status: 'shipped',
+    tags: ['PWA', '三消游戏', '离线可玩'],
+    date: '2026.07',
+    href: '/tools/candy-match/',
+    newTab: true,
+  },
+  {
     slug: 'flypy',
     name: '小鹤双拼练习器',
     en: 'FLYPY TRAINER',

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="糖果漫游图标">
+  <defs>
+    <linearGradient id="bg" x1="74" y1="49" x2="441" y2="462" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF2D8"/>
+      <stop offset="1" stop-color="#E9DBFF"/>
+    </linearGradient>
+    <linearGradient id="candy" x1="156" y1="153" x2="356" y2="359" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A77AF0"/>
+      <stop offset="1" stop-color="#6836B8"/>
+    </linearGradient>
+    <filter id="shadow" x="84" y="105" width="344" height="326" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="19" stdDeviation="16" flood-color="#482474" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="118" fill="url(#bg)"/>
+  <circle cx="94" cy="105" r="24" fill="#FF7A64" opacity=".9"/>
+  <circle cx="424" cy="98" r="15" fill="#F3B83F" opacity=".9"/>
+  <circle cx="420" cy="404" r="27" fill="#6AC69E" opacity=".84"/>
+  <path d="M105 279c36-42 58-61 90-82m211 34c-35 17-61 43-89 78" fill="none" stroke="#7551A8" stroke-width="9" stroke-linecap="round" stroke-dasharray="2 25" opacity=".26"/>
+  <g filter="url(#shadow)">
+    <path d="m145 197-70 41 26 28-26 31 70 28V197Z" fill="#7544C3"/>
+    <path d="m367 197 70 41-26 28 26 31-70 28V197Z" fill="#7544C3"/>
+    <rect x="135" y="145" width="242" height="222" rx="74" fill="white"/>
+    <rect x="151" y="161" width="210" height="190" rx="61" fill="url(#candy)"/>
+    <path d="M196 196c24-17 58-22 87-15" fill="none" stroke="white" stroke-width="19" stroke-linecap="round" opacity=".48"/>
+    <path d="M188 291c45 27 91 29 137-1" fill="none" stroke="#452080" stroke-width="12" stroke-linecap="round" opacity=".35"/>
+    <circle cx="213" cy="248" r="12" fill="white" opacity=".9"/>
+    <circle cx="299" cy="248" r="12" fill="white" opacity=".9"/>
+  </g>
+</svg>

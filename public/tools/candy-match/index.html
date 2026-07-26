@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>糖果漫游 · Candy Match</title>
+    <meta
+      name="description"
+      content="沿着糖果地图完成分数、收集与果冻目标。十二关离线可玩的糖果三消 PWA。"
+    >
+    <meta name="theme-color" content="#fff4e7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#211a38" media="(prefers-color-scheme: dark)">
+    <link rel="manifest" href="/tools/candy-match/manifest.webmanifest">
+    <link rel="icon" href="/tools/candy-match/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="/tools/candy-match/icon-192.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="糖果漫游">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/tools/candy-match/" aria-label="糖果漫游首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>
+          <b>糖果漫游</b>
+          <small>CANDY MATCH</small>
+        </span>
+      </a>
+      <div class="top-actions">
+        <button
+          class="icon-button"
+          id="sound-button"
+          type="button"
+          aria-label="关闭音效"
+          aria-pressed="true"
+        >
+          <span class="sound-glyph" aria-hidden="true">♪</span>
+          <span class="action-label">音效</span>
+        </button>
+        <button class="install-button" id="install-button" type="button">安装应用</button>
+      </div>
+    </header>
+
+    <main class="game-shell">
+      <aside class="mission-card" aria-labelledby="level-title">
+        <div class="chapter-row">
+          <span class="chapter" id="chapter-label">晨光糖铺</span>
+          <button class="level-switch" id="level-button" type="button">
+            <span>选择关卡</span>
+            <b id="level-number">01</b>
+          </button>
+        </div>
+
+        <div class="level-heading">
+          <span class="level-pin" aria-hidden="true"><i></i></span>
+          <div>
+            <p>当前目的地</p>
+            <h1 id="level-title">糖霜小径</h1>
+          </div>
+        </div>
+
+        <section class="objectives" aria-labelledby="objective-title">
+          <div class="section-title">
+            <h2 id="objective-title">旅行清单</h2>
+            <span>全部完成即可过关</span>
+          </div>
+          <ul id="objective-list"></ul>
+        </section>
+
+        <div class="stats" aria-label="本关状态">
+          <div>
+            <span>剩余步数</span>
+            <strong id="moves-left">18</strong>
+          </div>
+          <div>
+            <span>本关得分</span>
+            <strong id="score">0</strong>
+          </div>
+        </div>
+
+        <div class="mission-actions">
+          <button class="secondary-button" id="hint-button" type="button">
+            <span aria-hidden="true">✦</span>
+            提示一步
+          </button>
+          <button class="text-button" id="restart-button" type="button">重新开始</button>
+        </div>
+
+        <details class="how-to">
+          <summary>怎么玩</summary>
+          <p>交换相邻糖果，连成三个或更多。每次有效交换会消耗一步；连锁消除分数更高。</p>
+        </details>
+      </aside>
+
+      <section class="board-stage" aria-label="糖果棋盘">
+        <div class="route-card" aria-hidden="true">
+          <span class="route-dot is-past"></span>
+          <span class="route-line is-past"></span>
+          <span class="route-dot is-current"></span>
+          <span class="route-line"></span>
+          <span class="route-dot"></span>
+          <span class="route-copy">
+            <b id="route-level">01 / 12</b>
+            <small id="route-chapter">晨光糖铺</small>
+          </span>
+        </div>
+
+        <div class="board-frame">
+          <div class="board-caption">
+            <span>交换相邻糖果</span>
+            <span id="board-status">旅程开始</span>
+          </div>
+          <div class="board" id="board" role="grid" aria-label="8 乘 8 糖果棋盘"></div>
+          <div class="combo-burst" id="combo-burst" aria-hidden="true"></div>
+          <div class="board-lock" id="board-lock" hidden>
+            <span class="spinner" aria-hidden="true"></span>
+            <p>正在装满糖果罐……</p>
+          </div>
+        </div>
+
+        <p class="live-status" id="live-status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>糖果漫游 · 本地保存进度</span>
+      <span>12 站甜味旅程</span>
+    </footer>
+
+    <dialog class="sheet level-dialog" id="level-dialog" aria-labelledby="level-dialog-title">
+      <div class="dialog-head">
+        <div>
+          <span class="dialog-kicker">TRAVEL MAP</span>
+          <h2 id="level-dialog-title">选择下一站</h2>
+        </div>
+        <button class="close-button" data-close="level-dialog" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="level-summary">
+        <span id="journey-progress">已解锁 1 / 12</span>
+        <div class="progress-track"><i id="journey-bar"></i></div>
+        <span id="journey-stars">0 颗星</span>
+      </div>
+      <div class="level-map" id="level-map"></div>
+    </dialog>
+
+    <dialog class="sheet result-dialog" id="result-dialog" aria-labelledby="result-title">
+      <button class="close-button result-close" data-close="result-dialog" type="button" aria-label="关闭">×</button>
+      <div class="result-emblem" id="result-emblem" aria-hidden="true">
+        <span>★</span><span>★</span><span>★</span>
+      </div>
+      <span class="dialog-kicker" id="result-kicker">下一站已解锁</span>
+      <h2 id="result-title">旅行完成</h2>
+      <p id="result-copy"></p>
+      <dl class="result-stats">
+        <div><dt>得分</dt><dd id="result-score">0</dd></div>
+        <div><dt>剩余</dt><dd id="result-moves">0 步</dd></div>
+      </dl>
+      <div class="result-actions">
+        <button class="primary-button" id="next-level-button" type="button">前往下一站</button>
+        <button class="secondary-button" id="retry-button" type="button">再玩一次</button>
+      </div>
+    </dialog>
+
+    <dialog class="sheet install-dialog" id="install-dialog" aria-labelledby="install-title">
+      <div class="dialog-head">
+        <div>
+          <span class="dialog-kicker">PLAY OFFLINE</span>
+          <h2 id="install-title">把糖果罐带回家</h2>
+        </div>
+        <button class="close-button" data-close="install-dialog" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="install-art" aria-hidden="true">
+        <span class="mini-candy c0"></span>
+        <span class="mini-candy c1"></span>
+        <span class="mini-candy c2"></span>
+      </div>
+      <p id="install-copy">
+        安装后可以从主屏幕直接打开，断网也能继续旅程。游戏进度仍只保存在这台设备上。
+      </p>
+      <ol class="install-steps" id="install-steps"></ol>
+      <button class="primary-button" id="confirm-install-button" type="button">安装应用</button>
+    </dialog>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
