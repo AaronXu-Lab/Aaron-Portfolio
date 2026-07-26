@@ -24,7 +24,6 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const STATS_KEY = 'candy-match.v2.stats';
 const SOUND_KEY = 'candy-match.v2.sound';
-const candyColors = ['#e84169', '#e7b130', '#7a48c5', '#48b67d', '#36a8d0', '#ef6e3f'];
 const comboWords = ['', '', '甜蜜连锁！', '糖果风暴！', '太精彩了！', '漫游奇迹！'];
 
 function readJSON(key, fallback) {
@@ -133,7 +132,66 @@ function candyLabel(index, cell) {
   return `第 ${row} 行第 ${column} 列，${CANDIES[typeOf(cell)].name}${skill}`;
 }
 
-function renderBoard() {
+function createCandyVisual(cell) {
+  const special = specialOf(cell);
+  const motion = document.createElement('span');
+  motion.className = 'candy-motion';
+  motion.setAttribute('aria-hidden', 'true');
+
+  const piece = document.createElement('span');
+  piece.className = 'candy-piece';
+  motion.append(piece);
+
+  if (special) {
+    const mark = document.createElement('span');
+    mark.className = 'special-mark';
+    mark.dataset.special = special;
+    if (special === 'burst') mark.textContent = '✦';
+    motion.append(mark);
+  }
+
+  return motion;
+}
+
+function animateCandyDrops(movements) {
+  if (!movements?.length || reducedMotion.matches) return Promise.resolve();
+
+  const firstCell = boardEl.querySelector('[data-index="0"]');
+  const nextRowCell = boardEl.querySelector('[data-index="8"]');
+  const rowStep =
+    firstCell && nextRowCell
+      ? nextRowCell.getBoundingClientRect().top - firstCell.getBoundingClientRect().top
+      : boardEl.clientHeight / 8;
+  const animations = [];
+
+  for (const movement of movements) {
+    if (movement.distance <= 0) continue;
+    const motion = boardEl.querySelector(`[data-index="${movement.to}"] .candy-motion`);
+    if (!motion) continue;
+    const animation = motion.animate(
+      [
+        {
+          transform: `translateY(${-movement.distance * rowStep}px)`,
+          opacity: movement.spawned ? 0.28 : 1,
+        },
+        { transform: 'translateY(0)', opacity: 1 },
+      ],
+      {
+        duration: 230,
+        delay: (movement.to % 8) * 8,
+        easing: 'cubic-bezier(0.77, 0, 0.175, 1)',
+        fill: 'both',
+      }
+    );
+    animations.push(animation);
+  }
+
+  return Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
+    animations.forEach((animation) => animation.cancel());
+  });
+}
+
+function renderBoard({ movements = [] } = {}) {
   const focusedIndex = document.activeElement?.closest?.('.candy-cell')?.dataset.index;
   const fragment = document.createDocumentFragment();
 
@@ -151,19 +209,7 @@ function renderBoard() {
     button.setAttribute('aria-selected', String(state.selected === index));
     if (state.selected === index) button.classList.add('is-selected');
 
-    const piece = document.createElement('span');
-    piece.className = 'candy-piece';
-    piece.setAttribute('aria-hidden', 'true');
-    button.append(piece);
-
-    if (special) {
-      const mark = document.createElement('span');
-      mark.className = 'special-mark';
-      mark.dataset.special = special;
-      mark.setAttribute('aria-hidden', 'true');
-      if (special === 'burst') mark.textContent = '✦';
-      button.append(mark);
-    }
+    button.append(createCandyVisual(cell));
     fragment.append(button);
   });
 
@@ -171,6 +217,7 @@ function renderBoard() {
   if (focusedIndex != null) {
     boardEl.querySelector(`[data-index="${focusedIndex}"]`)?.focus({ preventScroll: true });
   }
+  return animateCandyDrops(movements);
 }
 
 function describeTask(task) {
@@ -190,8 +237,14 @@ function renderTask() {
 
   const icon = $('#task-icon');
   icon.dataset.kind = task.kind;
-  icon.textContent = task.kind === 'skill' ? '✦' : task.kind === 'collect' ? '' : '◆';
-  icon.style.setProperty('--task-color', task.kind === 'collect' ? candyColors[task.type] : '');
+  delete icon.dataset.candy;
+  icon.replaceChildren();
+  if (task.kind === 'collect') {
+    icon.dataset.candy = task.type;
+    icon.append(createCandyVisual(task.type));
+  } else {
+    icon.textContent = task.kind === 'skill' ? '✦' : '◆';
+  }
 }
 
 function updateRunStats() {
@@ -356,8 +409,8 @@ async function attemptSwap(a, b) {
     );
     await wait(280);
     state.board = step.boardAfter;
-    renderBoard();
-    await wait(140);
+    await renderBoard({ movements: step.movements });
+    await wait(60);
   }
 
   state.board = result.board;

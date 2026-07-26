@@ -350,19 +350,48 @@ export function createBoard({
 
 function collapseAndRefill(board, random, width, height, types) {
   const next = cloneBoard(board);
+  const movements = [];
   for (let column = 0; column < width; column += 1) {
     const remaining = [];
     for (let row = height - 1; row >= 0; row -= 1) {
       const value = next[row * width + column];
-      if (value != null) remaining.push(value);
+      if (value != null) {
+        remaining.push({
+          cell: value,
+          from: row * width + column,
+        });
+      }
     }
+    let spawnOffset = 0;
     for (let row = height - 1; row >= 0; row -= 1) {
       const fromBottom = height - 1 - row;
-      next[row * width + column] =
-        remaining[fromBottom] ?? makeCell(Math.floor(random() * types));
+      const destination = row * width + column;
+      const existing = remaining[fromBottom];
+      if (existing) {
+        next[destination] = existing.cell;
+        const sourceRow = Math.floor(existing.from / width);
+        if (sourceRow !== row) {
+          movements.push({
+            from: existing.from,
+            to: destination,
+            distance: row - sourceRow,
+            spawned: false,
+          });
+        }
+      } else {
+        const sourceRow = -1 - spawnOffset;
+        next[destination] = makeCell(Math.floor(random() * types));
+        movements.push({
+          from: sourceRow * width + column,
+          to: destination,
+          distance: row - sourceRow,
+          spawned: true,
+        });
+        spawnOffset += 1;
+      }
     }
   }
-  return next;
+  return { board: next, movements };
 }
 
 function remix(board, random, width, height, types) {
@@ -462,7 +491,8 @@ export function resolveTurn(
     score += stepScore;
     specialsCreated += creations.length;
     specialsActivated += expanded.activated.length;
-    current = collapseAndRefill(current, random, width, height, types);
+    const collapsed = collapseAndRefill(current, random, width, height, types);
+    current = collapsed.board;
     steps.push({
       cascade,
       boardBefore,
@@ -470,6 +500,7 @@ export function resolveTurn(
       created: creations,
       activated: expanded.activated,
       boardAfter: cloneBoard(current),
+      movements: collapsed.movements,
       score: stepScore,
     });
     manualClear = null;

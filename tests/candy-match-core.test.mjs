@@ -139,6 +139,23 @@ test('无匹配的交换回滚，合法交换会结算并保持棋盘可玩', ()
   assert.ok(result.score >= 240);
   assert.ok(result.collected.reduce((sum, count) => sum + count, 0) >= 3);
   assert.ok(result.steps.length >= 1);
+  result.steps.forEach((step) => {
+    assert.ok(step.movements.length > 0);
+    assert.ok(step.movements.some((movement) => movement.spawned));
+    step.movements.forEach((movement) => {
+      assert.ok(movement.distance > 0);
+      assert.ok(movement.to >= 0 && movement.to < BOARD_SIZE);
+      assert.equal(
+        ((movement.from % 8) + 8) % 8,
+        movement.to % 8,
+        '糖果只能在同一列内下落'
+      );
+      assert.equal(
+        Math.floor(movement.to / 8) - Math.floor(movement.from / 8),
+        movement.distance
+      );
+    });
+  });
   assert.equal(hasMatch(result.board), false);
   assert.ok(findValidMoves(result.board).length > 0);
 

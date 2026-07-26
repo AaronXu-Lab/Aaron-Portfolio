@@ -265,6 +265,7 @@ a:focus-visible {
 }
 
 .task-icon {
+  position: relative;
   width: 42px;
   height: 42px;
   flex: 0 0 auto;
@@ -280,8 +281,11 @@ a:focus-visible {
 }
 
 .task-icon[data-kind='collect'] {
-  background: var(--task-color, var(--peach));
-  border-radius: 50%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
 }
 
 .task-icon[data-kind='skill'] {
@@ -544,6 +548,7 @@ a:focus-visible {
   width: 100%;
   aspect-ratio: 1;
   padding: clamp(6px, 1.2vw, 11px);
+  overflow: hidden;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -600,8 +605,16 @@ a:focus-visible {
   animation: invalid 340ms ease;
 }
 
-.candy-cell.is-matched .candy-piece {
+.candy-cell.is-matched .candy-motion {
   animation: pop 280ms ease forwards;
+}
+
+.candy-motion {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
 }
 
 .candy-piece {
@@ -626,7 +639,7 @@ a:focus-visible {
   pointer-events: none;
 }
 
-.candy-cell[data-kind='0'] .candy-piece {
+:is(.candy-cell[data-kind='0'], .task-icon[data-candy='0']) .candy-piece {
   border: clamp(2px, 0.32vw, 4px) solid rgba(255, 255, 255, 0.82);
   border-radius: 50%;
   background:
@@ -635,7 +648,7 @@ a:focus-visible {
   box-shadow: inset -5px -6px 0 rgba(127, 25, 74, 0.15);
 }
 
-.candy-cell[data-kind='0'] .candy-piece::after {
+:is(.candy-cell[data-kind='0'], .task-icon[data-candy='0']) .candy-piece::after {
   inset: 18% 9%;
   border: 2px solid rgba(151, 30, 75, 0.24);
   border-left-color: transparent;
@@ -644,7 +657,7 @@ a:focus-visible {
   transform: rotate(-31deg);
 }
 
-.candy-cell[data-kind='1'] .candy-piece {
+:is(.candy-cell[data-kind='1'], .task-icon[data-candy='1']) .candy-piece {
   width: 61%;
   border: clamp(2px, 0.32vw, 4px) solid rgba(255, 255, 255, 0.86);
   border-radius: 23%;
@@ -655,8 +668,8 @@ a:focus-visible {
   transform: rotate(9deg);
 }
 
-.candy-cell[data-kind='1'] .candy-piece::before,
-.candy-cell[data-kind='1'] .candy-piece::after {
+:is(.candy-cell[data-kind='1'], .task-icon[data-candy='1']) .candy-piece::before,
+:is(.candy-cell[data-kind='1'], .task-icon[data-candy='1']) .candy-piece::after {
   top: 18%;
   bottom: 18%;
   width: 24%;
@@ -665,16 +678,16 @@ a:focus-visible {
   clip-path: polygon(100% 0, 100% 100%, 0 80%, 22% 52%, 0 20%);
 }
 
-.candy-cell[data-kind='1'] .candy-piece::before {
+:is(.candy-cell[data-kind='1'], .task-icon[data-candy='1']) .candy-piece::before {
   left: -18%;
 }
 
-.candy-cell[data-kind='1'] .candy-piece::after {
+:is(.candy-cell[data-kind='1'], .task-icon[data-candy='1']) .candy-piece::after {
   right: -18%;
   transform: rotate(180deg);
 }
 
-.candy-cell[data-kind='2'] .candy-piece {
+:is(.candy-cell[data-kind='2'], .task-icon[data-candy='2']) .candy-piece {
   width: 60%;
   height: 72%;
   border: clamp(2px, 0.32vw, 4px) solid rgba(255, 255, 255, 0.82);
@@ -686,7 +699,7 @@ a:focus-visible {
   transform: rotate(-7deg);
 }
 
-.candy-cell[data-kind='3'] .candy-piece {
+:is(.candy-cell[data-kind='3'], .task-icon[data-candy='3']) .candy-piece {
   width: 69%;
   height: 55%;
   border: clamp(2px, 0.32vw, 4px) solid rgba(255, 255, 255, 0.82);
@@ -698,7 +711,7 @@ a:focus-visible {
   transform: rotate(-26deg);
 }
 
-.candy-cell[data-kind='3'] .candy-piece::after {
+:is(.candy-cell[data-kind='3'], .task-icon[data-candy='3']) .candy-piece::after {
   width: 54%;
   height: 2px;
   left: 24%;
@@ -707,7 +720,7 @@ a:focus-visible {
   background: rgba(22, 105, 69, 0.22);
 }
 
-.candy-cell[data-kind='4'] .candy-piece {
+:is(.candy-cell[data-kind='4'], .task-icon[data-candy='4']) .candy-piece {
   width: 64%;
   border: clamp(2px, 0.32vw, 4px) solid rgba(255, 255, 255, 0.84);
   border-radius: 50%;
@@ -715,14 +728,14 @@ a:focus-visible {
   box-shadow: inset -5px -6px 0 rgba(12, 97, 139, 0.13);
 }
 
-.candy-cell[data-kind='4'] .candy-piece::before {
+:is(.candy-cell[data-kind='4'], .task-icon[data-candy='4']) .candy-piece::before {
   inset: 27%;
   border-radius: 50%;
   background: #f5eff7;
   box-shadow: inset 2px 2px 3px rgba(52, 85, 118, 0.18);
 }
 
-.candy-cell[data-kind='5'] .candy-piece {
+:is(.candy-cell[data-kind='5'], .task-icon[data-candy='5']) .candy-piece {
   width: 72%;
   border-radius: 18%;
   background:
@@ -1319,7 +1332,7 @@ dialog::backdrop {
     background: rgba(255, 255, 255, 0.11);
   }
 
-  .candy-cell[data-kind='4'] .candy-piece::before {
+  :is(.candy-cell[data-kind='4'], .task-icon[data-candy='4']) .candy-piece::before {
     background: #2e263f;
   }
 }
