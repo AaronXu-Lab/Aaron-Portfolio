@@ -25,7 +25,7 @@ export interface SkillEntry {
 export const skills: SkillEntry[] = [
   {
     slug: 'aw-design-md-author',
-    name: 'Design MD Author',
+    name: 'DESIGN.md 编写助手',
     description:
       '按 Google Labs 官方规范创建、审查和维护完整的 DESIGN.md 视觉契约，统一处理 Token 所有权、语义命名、标准章节与官方 lint 验证。',
     status: 'shipped',
@@ -34,7 +34,7 @@ export const skills: SkillEntry[] = [
   },
   {
     slug: 'aw-design-token-consistency-auditor',
-    name: 'Design Token Consistency Auditor',
+    name: '设计 Token 一致性审计',
     description:
       '审计 Figma Variables、DESIGN.md 与 CSS / Less Token 之间的覆盖、映射和值一致性，输出可追溯的 Markdown、JSON 与 CSV 报告。',
     status: 'shipped',
@@ -43,7 +43,7 @@ export const skills: SkillEntry[] = [
   },
   {
     slug: 'aw-figma-component-governance',
-    name: 'Figma Component Governance',
+    name: 'Figma 组件治理',
     description:
       '治理 Figma 组件库的语义命名、Variant、Property、Slot 与排序；通过窄范围编辑、人工调整说明和结构化审计保证变更安全。',
     status: 'shipped',
@@ -52,7 +52,7 @@ export const skills: SkillEntry[] = [
   },
   {
     slug: 'aw-find-and-port-ui-component',
-    name: 'Find And Port UI Component',
+    name: 'UI 组件查找与移植',
     description:
       '分两个阶段搜索、比较、验证并移植 UI 组件实现：先完成来源与兼容性调研，再由用户明确选择后适配目标项目。',
     status: 'shipped',
@@ -61,7 +61,7 @@ export const skills: SkillEntry[] = [
   },
   {
     slug: 'aw-comic-dossier-packer',
-    name: 'Comic Dossier Packer',
+    name: '漫画档案打包',
     description:
       '从漫画标题出发，收集单行本封面与可靠资料，生成中文介绍、小红书封面图和包含来源链接的完整 Markdown 档案。',
     status: 'shipped',
