@@ -24,6 +24,7 @@ export const SPECIALS = {
   burst: { name: '爆爆糖', effect: '区域消除' },
   color: { name: '彩虹糖', effect: '同类消除' },
 };
+export const SPECIAL_TYPES = Object.keys(SPECIALS);
 
 export function makeCell(type, special = null) {
   return { type: Number(type), special: special || null };
@@ -44,6 +45,27 @@ function cloneCell(value) {
 
 function cloneBoard(board) {
   return board.map(cloneCell);
+}
+
+export function createRandomSpecial(
+  board,
+  {
+    random = seededRandom(),
+    specials = SPECIAL_TYPES,
+  } = {}
+) {
+  const next = cloneBoard(board);
+  const candidates = next
+    .map((cell, index) => (cell != null && !specialOf(cell) ? index : -1))
+    .filter((index) => index >= 0);
+  if (!candidates.length || !specials.length) {
+    return { board: next, index: -1, special: null };
+  }
+
+  const index = candidates[Math.floor(random() * candidates.length)];
+  const special = specials[Math.floor(random() * specials.length)];
+  next[index] = makeCell(typeOf(next[index]), special);
+  return { board: next, index, special };
 }
 
 export function seededRandom(seed = Date.now()) {

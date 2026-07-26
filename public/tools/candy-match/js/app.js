@@ -4,6 +4,7 @@ import {
   advanceTask,
   areAdjacent,
   createBoard,
+  createRandomSpecial,
   createTask,
   findValidMoves,
   isTaskComplete,
@@ -25,6 +26,14 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const STATS_KEY = 'candy-match.v2.stats';
 const SOUND_KEY = 'candy-match.v2.sound';
 const comboWords = ['', '', '甜蜜连锁！', '糖果风暴！', '太精彩了！', '漫游奇迹！'];
+const POWER_COSTS = {
+  hints: 2,
+  skill: 3,
+  skip: 4,
+  time: 2,
+};
+const HINT_PACK_SIZE = 3;
+const TIME_BONUS_MS = 15000;
 
 function readJSON(key, fallback) {
   try {
@@ -64,13 +73,16 @@ const state = {
   selected: null,
   locked: false,
   gameOver: false,
+  runActive: false,
   completingTask: false,
   timeExpired: false,
   task: null,
+  taskNumber: 0,
   taskProgress: 0,
   taskStartedAt: 0,
   taskEndsAt: 0,
   tasksDone: 0,
+  hintCredits: 1,
   runScore: 0,
   runTickets: 0,
   recordToBeat: 0,
@@ -257,18 +269,43 @@ function updateRunStats() {
   $('#run-tickets').textContent = state.runTickets;
   $('#best-score').textContent = formatNumber(stats.bestScore);
   $('#total-tickets').textContent = stats.totalTickets;
+  $('#hint-count').textContent = state.hintCredits;
+  document.querySelectorAll('.ticket-tool').forEach((button) => {
+    button.dataset.affordable = String(stats.totalTickets >= Number(button.dataset.cost));
+  });
+}
+
+function spendTickets(cost) {
+  if (stats.totalTickets < cost) {
+    playSound('error');
+    setStatus(`糖果券不足，还需要 ${cost - stats.totalTickets} 张。`, '糖果券不足');
+    return false;
+  }
+  stats.totalTickets -= cost;
+  saveJSON(STATS_KEY, stats);
+  updateRunStats();
+  return true;
+}
+
+function activateRun() {
+  if (state.runActive || state.gameOver || !state.task) return;
+  state.runActive = true;
+  state.taskStartedAt = Date.now();
+  state.taskEndsAt = state.taskStartedAt + state.task.timeMs;
+  updateTimer();
 }
 
 function beginTask() {
   const previousKind = state.task?.kind ?? null;
+  state.taskNumber += 1;
   state.task = createTask({
-    number: state.tasksDone + 1,
+    number: state.taskNumber,
     random: runRandom,
     avoidKind: previousKind,
   });
   state.taskProgress = 0;
-  state.taskStartedAt = Date.now();
-  state.taskEndsAt = state.taskStartedAt + state.task.timeMs;
+  state.taskStartedAt = state.runActive ? Date.now() : 0;
+  state.taskEndsAt = state.runActive ? state.taskStartedAt + state.task.timeMs : 0;
   state.completingTask = false;
   state.timeExpired = false;
   renderTask();
@@ -283,11 +320,14 @@ function startRun() {
   state.selected = null;
   state.locked = false;
   state.gameOver = false;
+  state.runActive = false;
   state.completingTask = false;
   state.timeExpired = false;
   state.task = null;
+  state.taskNumber = 0;
   state.taskProgress = 0;
   state.tasksDone = 0;
+  state.hintCredits = 1;
   state.runScore = 0;
   state.runTickets = 0;
   state.recordToBeat = stats.bestScore;
@@ -296,26 +336,30 @@ function startRun() {
   beginTask();
   clearInterval(timer);
   timer = window.setInterval(updateTimer, 100);
+  setStatus('选择一颗糖果后才会开始计时。', '等待首次操作');
 }
 
 function updateTimer() {
   if (!state.task || state.gameOver || state.completingTask) return;
   const now = Date.now();
-  const remaining = Math.max(0, state.taskEndsAt - now);
+  const remaining = state.runActive
+    ? Math.max(0, state.taskEndsAt - now)
+    : state.task.timeMs;
   const ratio = Math.max(0, Math.min(1, remaining / state.task.timeMs));
-  const urgent = remaining <= 8000;
+  const urgent = state.runActive && remaining <= 8000;
   $('#time-label').textContent = formatClock(remaining);
   $('#time-label').classList.toggle('is-urgent', urgent);
   $('#time-bar').style.width = `${ratio * 100}%`;
   $('#time-bar').classList.toggle('is-urgent', urgent);
 
-  if (remaining <= 0) {
+  if (state.runActive && remaining <= 0) {
     if (state.locked) state.timeExpired = true;
     else endRun();
   }
 }
 
 function selectCell(index) {
+  activateRun();
   state.selected = index;
   renderBoard();
   playSound('select');
@@ -363,6 +407,7 @@ async function completeTask() {
 
 async function attemptSwap(a, b) {
   if (state.locked || state.gameOver || !areAdjacent(a, b)) return;
+  activateRun();
   state.locked = true;
   state.selected = null;
 
@@ -452,13 +497,93 @@ function endRun() {
 
 function showHint() {
   if (state.locked || state.gameOver) return;
+  activateRun();
+  if (state.hintCredits <= 0) {
+    playSound('error');
+    setStatus('提示次数用完了，可以用糖果券购买。', '需要提示次数');
+    return;
+  }
   const move = findValidMoves(state.board)[0];
   if (!move) return;
+  state.hintCredits -= 1;
+  updateRunStats();
+  boardEl.querySelectorAll('.is-hint').forEach((cell) => cell.classList.remove('is-hint'));
   move.forEach((index) =>
     boardEl.querySelector(`[data-index="${index}"]`)?.classList.add('is-hint')
   );
-  setStatus('闪动的两颗糖果可以交换。', '提示已标出');
+  setStatus(
+    `闪动的两颗糖果可以交换，还剩 ${state.hintCredits} 次提示。`,
+    '提示已标出'
+  );
   playSound('select');
+}
+
+function buyHints() {
+  if (state.locked || state.gameOver) return;
+  activateRun();
+  if (!spendTickets(POWER_COSTS.hints)) return;
+  state.hintCredits += HINT_PACK_SIZE;
+  updateRunStats();
+  playSound('reward');
+  setStatus(`已购买 ${HINT_PACK_SIZE} 次提示。`, '提示已补充');
+}
+
+async function createSkillWithTickets() {
+  if (state.locked || state.gameOver) return;
+  activateRun();
+  const created = createRandomSpecial(state.board, { random: refillRandom });
+  if (created.index < 0) {
+    setStatus('棋盘上暂时没有可转化的普通糖果。', '无法创建技能糖');
+    return;
+  }
+  if (!spendTickets(POWER_COSTS.skill)) return;
+
+  state.locked = true;
+  state.board = created.board;
+  state.taskProgress = advanceTask(state.task, state.taskProgress, {
+    specialsCreated: 1,
+    specialsActivated: 0,
+  });
+  renderBoard();
+  renderTask();
+  boardEl.querySelector(`[data-index="${created.index}"]`)?.classList.add('is-powered');
+  playSound('skill');
+  setStatus(
+    `糖果券变出了${SPECIALS[created.special].name}。`,
+    `${SPECIALS[created.special].effect}已就位`
+  );
+  await wait(420);
+
+  if (state.timeExpired || Date.now() >= state.taskEndsAt) {
+    endRun();
+  } else if (isTaskComplete(state.task, state.taskProgress)) {
+    await completeTask();
+  } else {
+    state.locked = false;
+  }
+}
+
+function skipTask() {
+  if (state.locked || state.gameOver) return;
+  activateRun();
+  if (!spendTickets(POWER_COSTS.skip)) return;
+  state.locked = true;
+  state.selected = null;
+  beginTask();
+  state.locked = false;
+  playSound('select');
+  setStatus(`已跳过，${describeTask(state.task)}。`, '任务已更换');
+}
+
+function extendTaskTime() {
+  if (state.locked || state.gameOver) return;
+  activateRun();
+  if (!spendTickets(POWER_COSTS.time)) return;
+  state.task.timeMs += TIME_BONUS_MS;
+  state.taskEndsAt += TIME_BONUS_MS;
+  updateTimer();
+  playSound('reward');
+  setStatus('当前任务已延长 15 秒。', '时间已延长');
 }
 
 function openInstallGuide() {
@@ -571,6 +696,10 @@ boardEl.addEventListener('pointercancel', () => {
 });
 
 $('#hint-button').addEventListener('click', showHint);
+$('#buy-hints-button').addEventListener('click', buyHints);
+$('#create-skill-button').addEventListener('click', createSkillWithTickets);
+$('#skip-task-button').addEventListener('click', skipTask);
+$('#extend-time-button').addEventListener('click', extendTaskTime);
 $('#restart-button').addEventListener('click', startRun);
 $('#play-again-button').addEventListener('click', () => {
   gameOverDialog.close();

@@ -164,6 +164,7 @@ a:focus-visible {
 .install-button,
 .hint-button,
 .restart-button,
+.ticket-tool,
 .primary-button,
 .close-button {
   border: 0;
@@ -218,8 +219,7 @@ a:focus-visible {
 }
 
 .task-card,
-.run-stats,
-.skill-guide {
+.run-stats {
   border: 1px solid rgba(61, 45, 76, 0.1);
   background: rgba(255, 252, 247, 0.8);
   box-shadow: 0 12px 34px rgba(67, 45, 83, 0.09);
@@ -358,6 +358,55 @@ a:focus-visible {
   opacity: 0.35;
 }
 
+.ticket-tools {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.ticket-tool {
+  min-width: 0;
+  min-height: 30px;
+  padding: 5px 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  border-radius: 9px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid var(--line);
+  transition: border-color 140ms ease, color 140ms ease, transform 140ms ease, opacity 140ms ease;
+}
+
+.ticket-tool span {
+  overflow: hidden;
+  font-size: 8px;
+  font-weight: 800;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ticket-tool small {
+  flex: 0 0 auto;
+  color: #9b6208;
+  font: 800 7px/1 ui-monospace, 'SFMono-Regular', monospace;
+}
+
+.ticket-tool[data-affordable='false'] {
+  opacity: 0.48;
+}
+
+.ticket-tool:hover {
+  color: var(--plum);
+  border-color: rgba(111, 60, 195, 0.28);
+}
+
+.ticket-tool:active {
+  transform: scale(0.97);
+}
+
 .run-stats {
   min-height: 66px;
   display: grid;
@@ -406,8 +455,22 @@ a:focus-visible {
 }
 
 .hint-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   color: var(--plum);
   background: #eee5ff;
+}
+
+.hint-button b {
+  min-width: 18px;
+  padding: 3px 5px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--plum);
+  font: 800 8px/1 ui-monospace, 'SFMono-Regular', monospace;
 }
 
 .restart-button {
@@ -426,88 +489,6 @@ a:focus-visible {
 .install-button:active,
 .primary-button:active {
   transform: translateY(1px);
-}
-
-.skill-guide {
-  padding: 14px 16px;
-  border-radius: 18px;
-}
-
-.skill-guide h2 {
-  margin: 0 0 10px;
-  color: var(--muted);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-}
-
-.skill-guide ul {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.skill-guide li {
-  display: grid;
-  grid-template-columns: 20px 1fr auto;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  font-size: 8px;
-}
-
-.skill-guide li b {
-  color: var(--ink);
-  font-size: 8px;
-}
-
-.skill-sample {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  display: block;
-  border: 2px solid #fff;
-  border-radius: 6px;
-  background: #8659d0;
-  box-shadow: 0 2px 5px rgba(69, 36, 100, 0.16);
-}
-
-.skill-sample.row::after,
-.skill-sample.column::after {
-  position: absolute;
-  content: '';
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 2px;
-}
-
-.skill-sample.row::after {
-  width: 14px;
-  height: 3px;
-  left: 0;
-  top: 5px;
-}
-
-.skill-sample.column::after {
-  width: 3px;
-  height: 14px;
-  left: 5px;
-  top: 0;
-}
-
-.skill-sample.burst::after {
-  position: absolute;
-  inset: 1px;
-  display: grid;
-  place-items: center;
-  content: '✦';
-  color: #fff;
-  font-size: 10px;
-}
-
-.skill-sample.color {
-  border-radius: 50%;
-  background: conic-gradient(#ff627d, #ffd04e, #55cf8e, #4ac8e5, #8f65e4, #ff627d);
 }
 
 .board-stage {
@@ -603,6 +584,14 @@ a:focus-visible {
 
 .candy-cell.is-invalid {
   animation: invalid 340ms ease;
+}
+
+.candy-cell.is-powered {
+  z-index: 5;
+}
+
+.candy-cell.is-powered .candy-motion {
+  animation: power-created 420ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
 }
 
 .candy-cell.is-matched .candy-motion {
@@ -1054,6 +1043,12 @@ dialog::backdrop {
   100% { opacity: 0; transform: scale(0.2) rotate(-16deg); }
 }
 
+@keyframes power-created {
+  0% { opacity: 0.35; transform: scale(0.9) rotate(-8deg); }
+  55% { opacity: 1; transform: scale(1.16) rotate(4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
 @keyframes line-row {
   0% { opacity: 0; transform: translateY(-50%) scaleX(0.05); }
   40% { opacity: 1; transform: translateY(-50%) scaleX(1); }
@@ -1174,6 +1169,20 @@ dialog::backdrop {
     display: none;
   }
 
+  .ticket-tools {
+    margin-top: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .ticket-tool {
+    min-height: 34px;
+    padding: 4px 3px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .run-stats {
     min-height: 43px;
     border-radius: 13px;
@@ -1211,12 +1220,21 @@ dialog::backdrop {
     content: '✦';
   }
 
-  .restart-button::before {
-    content: '↻';
+  .hint-button span {
+    display: none;
   }
 
-  .skill-guide {
-    display: none;
+  .hint-button b {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    min-width: 13px;
+    padding: 2px 3px;
+    font-size: 7px;
+  }
+
+  .restart-button::before {
+    content: '↻';
   }
 
   .board-stage {
@@ -1299,7 +1317,6 @@ dialog::backdrop {
 
   .task-card,
   .run-stats,
-  .skill-guide,
   .top-score,
   .round-button {
     background: rgba(43, 35, 62, 0.8);

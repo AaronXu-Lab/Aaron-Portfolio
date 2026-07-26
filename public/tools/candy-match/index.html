@@ -76,6 +76,45 @@
                 <em id="time-bar"></em>
               </div>
             </div>
+
+            <div class="ticket-tools" aria-label="糖果券道具">
+              <button
+                class="ticket-tool"
+                id="buy-hints-button"
+                type="button"
+                data-cost="2"
+                aria-label="用 2 张糖果券购买 3 次提示"
+              >
+                <span>+3 提示</span><small>2 券</small>
+              </button>
+              <button
+                class="ticket-tool"
+                id="create-skill-button"
+                type="button"
+                data-cost="3"
+                aria-label="用 3 张糖果券随机创建一颗技能糖"
+              >
+                <span>随机技能</span><small>3 券</small>
+              </button>
+              <button
+                class="ticket-tool"
+                id="skip-task-button"
+                type="button"
+                data-cost="4"
+                aria-label="用 4 张糖果券跳过当前任务"
+              >
+                <span>跳过任务</span><small>4 券</small>
+              </button>
+              <button
+                class="ticket-tool"
+                id="extend-time-button"
+                type="button"
+                data-cost="2"
+                aria-label="用 2 张糖果券为当前任务增加 15 秒"
+              >
+                <span>+15 秒</span><small>2 券</small>
+              </button>
+            </div>
           </section>
 
           <section class="run-stats" aria-label="本局数据">
@@ -94,19 +133,12 @@
           </section>
 
           <div class="hud-actions">
-            <button class="hint-button" id="hint-button" type="button">提示一步</button>
+            <button class="hint-button" id="hint-button" type="button">
+              <span>使用提示</span>
+              <b id="hint-count" aria-label="剩余提示次数">1</b>
+            </button>
             <button class="restart-button" id="restart-button" type="button">重新开局</button>
           </div>
-
-          <section class="skill-guide" aria-label="技能糖生成规则">
-            <h2>技能糖</h2>
-            <ul>
-              <li><i class="skill-sample row"></i><span>横向四消</span><b>行消除</b></li>
-              <li><i class="skill-sample column"></i><span>竖向四消</span><b>列消除</b></li>
-              <li><i class="skill-sample burst"></i><span>L 形四消</span><b>区域消除</b></li>
-              <li><i class="skill-sample color"></i><span>直线五消</span><b>同类消除</b></li>
-            </ul>
-          </section>
         </aside>
 
         <section class="board-stage" aria-label="糖果棋盘">

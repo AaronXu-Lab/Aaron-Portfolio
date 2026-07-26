@@ -6,6 +6,7 @@ import {
   advanceTask,
   areAdjacent,
   createBoard,
+  createRandomSpecial,
   createTask,
   expandSpecialClears,
   findMatches,
@@ -227,4 +228,24 @@ test('特殊糖保留类型与技能标记', () => {
   const special = makeCell(4, 'column');
   assert.equal(typeOf(special), 4);
   assert.equal(specialOf(special), 'column');
+});
+
+test('糖果券道具只会把普通糖果随机转化为技能糖', () => {
+  const board = [
+    makeCell(0),
+    makeCell(1, 'row'),
+    null,
+    makeCell(5),
+  ];
+  const snapshot = structuredClone(board);
+  const values = [0.99, 0.6];
+  const result = createRandomSpecial(board, {
+    random: () => values.shift(),
+  });
+
+  assert.deepEqual(board, snapshot);
+  assert.equal(result.index, 3);
+  assert.equal(typeOf(result.board[3]), 5);
+  assert.equal(specialOf(result.board[3]), 'burst');
+  assert.equal(specialOf(result.board[1]), 'row');
 });
