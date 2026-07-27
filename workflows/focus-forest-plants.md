@@ -49,6 +49,16 @@ function applyGrowth(parts, p) {
 
 `shown` 每帧按 `1 - e^(-dt/τ)`（τ = `GROW_TAU` = 0.3s）指数逼近 `goal`。选指数而不是匀速追赶，是因为目标移动时它的速度连续 —— 匀速追赶在目标每次跳变处有折角，看起来就是一顿一顿的。`prefers-reduced-motion` 下直接钉到目标值。
 
+### 取景怎么居中
+
+构图要落在**可用空间**（顶栏底边 → 卡片顶边；卡片收起时是把手顶边）的正中，卡片收起后这块地方变高，构图就得整体下移。
+
+- 上层 `syncBand()` 量出这块空间的中心占视口高度的比例，交给 `scene.setBand(ratio)`；视图切换、收起/展开、`resize` 时各调一次。
+- 场景用 `camera.setViewOffset` 做**镜头平移**（离轴投影）把画面整体上下挪 —— 不动机位也不动 `target`，所以环境运镜、拖动、滚轮缩放都不受影响。
+- 每套取景的 `CAM[mode].center` 是它的「构图中心」：该世界点会被摆到可用空间正中。这个值按**成品**的剪影标定（量渲染结果的上下边界，不是几何中心），因此不随植物生长漂移。
+- `syncBand()` 一律用 `offsetTop` / `offsetHeight` 这类**不含 transform** 的量。面板与把手此刻正走 0.3 秒的收起过渡，`getBoundingClientRect()` 拿到的是过渡途中的位置 —— 那等于读到上一个状态的几何，收起与展开的取景会刚好互换，症状是「收起后树往上跑」。
+- 偏移按 `SHIFT_TAU`（0.22s）指数追赶，和卡片收起是同一个节奏；首帧与 `prefers-reduced-motion` 下直接到位。
+
 ## 性能
 
 - 每帧只改 transform（visible + scale），**零几何重建**；progress 不变时一次都不算。

@@ -65,6 +65,12 @@ body {
   font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
+  /*
+   * 全局禁选：这是个像应用一样用的工具，拖动转视角、连点按钮时选中文字只会碍事，
+   * 而且页面里没有一处内容是拿来复制的。
+   */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .mono {
@@ -233,11 +239,14 @@ body.no-3d #stage {
   line-height: 1.65;
   text-align: left;
   animation: rise 0.24s var(--ease) backwards;
+  transition: opacity 0.18s var(--ease), translate 0.18s var(--ease);
 }
 
-/* 安装提示是浮层，没话说时不占位置(默认就是空的) */
+/* 安装提示是浮层，没话说时不占位置(绝对定位),所以不用切 display,淡出即可 */
 .pwa-hint:empty {
-  display: none;
+  opacity: 0;
+  translate: 0 -4px;
+  pointer-events: none;
 }
 
 /* ---------- 面板：居中构图 ---------- */
@@ -268,6 +277,8 @@ body.no-3d #stage {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 12px 30px oklch(0.3 0.03 160 / 0.1);
+  /* visibility 不过渡,只用延迟决定「什么时候真的消失」(见 body.ui-min .panel) */
+  transition: opacity 0.3s var(--ease), translate 0.3s var(--ease), visibility 0s;
 }
 
 body[data-view='home'] #view-home,
@@ -599,11 +610,16 @@ body.is-dim .clock {
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px dashed var(--line);
+  transition: opacity 0.2s var(--ease), translate 0.2s var(--ease), visibility 0s;
 }
 
+/* 始终占位(高度恒定),开合只切 opacity —— 隐藏同样延后到淡出放完 */
 .detail[hidden] {
   display: flex;
   visibility: hidden;
+  opacity: 0;
+  translate: 0 6px;
+  transition-delay: 0s, 0s, 0.2s;
 }
 
 .detail b {
@@ -632,7 +648,13 @@ body.is-dim .clock {
   background: var(--card-solid);
   box-shadow: 0 4px 14px oklch(0.3 0.03 160 / 0.14);
   color: var(--ink-2);
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.14s var(--ease);
+  transition: translate 0.34s var(--ease), color 0.2s var(--ease),
+    border-color 0.2s var(--ease), transform 0.14s var(--ease);
+}
+
+/* 箭头跟着翻面,别在把手滑动的同时瞬间倒过来 */
+.fold svg {
+  transition: rotate 0.34s var(--ease);
 }
 
 .fold:active {
@@ -657,15 +679,22 @@ body:not(.ui-min) #fold-clock,
   display: none;
 }
 
-/* 收起:面板整个隐掉(!important 压过 body[data-view] #id 的显示规则),3D 让出全屏 */
+/*
+ * 收起:面板先淡出下滑,放完再真正 hidden(visibility 的 0.3s 延迟)——
+ * 直接切 visibility 会啪地一下没了,和 3D 那边缓缓下移的构图对不上。
+ * !important 是为了压过 body[data-view] #id 的显示规则。
+ */
 body.ui-min .panel {
   visibility: hidden !important;
+  opacity: 0;
+  translate: 0 12px;
+  transition-delay: 0s, 0s, 0.3s;
   animation: none;
 }
 
+/* 把手滑到面板原本占位的底边:距离用 --panel-h(JS 量好写进来),这样 translate 可过渡 */
 body.ui-min .fold {
-  align-self: end;
-  translate: 0 0;
+  translate: 0 calc(var(--panel-h, 268px) - 100%);
 }
 
 body.ui-min .fold svg {
@@ -695,6 +724,11 @@ body.qa .panel {
   * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* 上面只压时长，不压延迟：收起时那 0.3s 的隐藏延迟得单独取消，否则卡片会赖 0.3 秒才走 */
+  body.ui-min .panel {
+    transition-delay: 0s !important;
   }
 
   .track i {

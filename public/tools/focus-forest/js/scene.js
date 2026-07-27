@@ -25,15 +25,22 @@ const FOREST_LIMIT = 30;
  * target 压到接近地面：被摄主体（植物）因此落在画面上半部，底部留给 HTML 面板。
  */
 const CAM = {
-  plant: { fov: 38, radius: 10, polar: 1.13, target: [0, -0.35, 0] },
+  // center 是这套取景的「构图中心」:该世界点会被摆到可用空间的正中(见 setBand)。
+  // 植株连岛大致占 y -0.4 ~ 2.6,所以中心在 1.1;森林是一片矮树冠,压到 0.9。
+  plant: { fov: 38, radius: 10, polar: 1.13, target: [0, -0.35, 0], center: [0, 0.86, 0] },
   // 森林用更长的焦段 + 拉远，压掉近大远小，像个手办盆景
-  forest: { fov: 26, radius: 26, polar: 1.05, target: [0, 0.6, 0] },
+  forest: { fov: 26, radius: 26, polar: 1.05, target: [0, 0.6, 0], center: [0, -0.29, 0] },
 };
 const POLAR_MIN = 0.5;
 const POLAR_MAX = 1.36;
-/** 滚轮 / 双指捏合缩放只在森林里开放,倍率相对该模式的默认机位。 */
-const ZOOM_MIN = 0.55;
-const ZOOM_MAX = 1.7;
+/**
+ * 滚轮 / 双指捏合缩放的倍率区间,相对各自模式的默认机位。
+ * 植株只有一株,拉太远会剩一堆空,所以幅度比森林收敛。
+ */
+const ZOOM = {
+  plant: { min: 0.72, max: 1.45 },
+  forest: { min: 0.55, max: 1.7 },
+};
 /** 森林取景要装进画面的半宽:岛半径(2.5 × 2.6)加一点呼吸边。 */
 const FOREST_FIT = 7.2;
 
@@ -51,6 +58,19 @@ const LIGHT = { hemi: 2.1, sun: 2.4 };
  * 那正是「秒级刷新驱动生长」看起来卡顿的来源。0.3 秒既跟得上又能吃掉抖动。
  */
 const GROW_TAU = 0.3;
+/**
+ * 森林植株进出场：单株 dur 秒长完 / out 秒缩回，彼此错开 gap 秒，
+ * 但整批的排队窗口封顶在 window —— 30 株按 0.04 排要 1.2 秒，翻一页就太拖了。
+ */
+const POP = { dur: 0.26, out: 0.3, gap: 0.04, window: 0.5 };
+/** 点中一棵树时的一下轻弹（幅度、时长）。 */
+const BUMP = { amp: 0.06, dur: 0.18 };
+
+/**
+ * 取景重新居中的时间常数。指数逼近三倍 τ 才收敛，取 0.12 让它在 ≈0.36 秒落定 ——
+ * 和卡片收起那条 0.3–0.34 秒的 CSS 过渡同一个节奏，两边看起来是一个动作。
+ */
+const SHIFT_TAU = 0.12;
 
 export function isWebGLAvailable() {
   try {
@@ -287,6 +307,11 @@ export function createScene(canvas, { motion = true } = {}) {
   let span = null; // 专注中的时间区间:非空则每帧自算目标进度
   let tween = 0;
   let onPick = null;
+  /** 可用空间的中心占视口高度的比例(0.5 = 正中);由上层量出面板实际占位后告知。 */
+  let bandRatio = 0.5;
+  let shift = 0; // 当前镜头偏移(CSS px,正 = 构图往下)
+  let shiftGoal = 0;
+  let framed = false;
 
   /** 环境动画开关：低性能或 reduced-motion 下彻底关掉。 */
   const ambient = () => motion && quality !== 'low';
@@ -301,6 +326,11 @@ export function createScene(canvas, { motion = true } = {}) {
 
   const target = new THREE.Vector3();
   const spherical = new THREE.Vector3();
+
+  /** 森林植株的进出场队列与「点了哪棵」的一下轻弹。 */
+  const entering = [];
+  const exiting = [];
+  let bump = null;
 
   /**
    * 活株的生长：部件排期 + 木质化。
@@ -336,6 +366,38 @@ export function createScene(canvas, { motion = true } = {}) {
     }
     camera.position.copy(target).addScaledVector(spherical, radius * zoom);
     camera.lookAt(target);
+    applyShift(radius * zoom);
+  }
+
+  /**
+   * 取景偏移：用「镜头平移」(setViewOffset 的离轴投影)把画面整体上下挪,
+   * 不动机位也不动 target —— 环境运镜、拖动、缩放全都不受影响。
+   */
+  function applyShift(dist) {
+    const w = canvas.clientWidth || 1;
+    const h = canvas.clientHeight || 1;
+    // center 相对 target 的高度差,换算成像素:这是「构图中心」当前偏离画面正中的量
+    const conf = CAM[mode];
+    const unitsPerPx = (2 * dist * Math.tan((camera.fov * Math.PI) / 360)) / h;
+    const centerUp = ((conf.center[1] - conf.target[1]) * Math.sin(orbit.polar)) / unitsPerPx;
+    // 目标:构图中心落在可用空间的中心。两项都是「画面要往下挪多少像素」
+    shiftGoal = centerUp + (bandRatio - 0.5) * h;
+    // 首帧与无动效时直接到位,别让页面一打开就先滑一下
+    if (!motion || !framed) {
+      shift = shiftGoal;
+      framed = true;
+    }
+    if (Math.abs(shift) < 0.01) camera.clearViewOffset();
+    else camera.setViewOffset(w, h, 0, -shift, w, h);
+  }
+
+  /** 上层量出可用空间(顶栏底边 → 卡片顶边)的中心比例后调这里。 */
+  function setBand(ratio) {
+    const next = clamp(Number(ratio) || 0.5, 0.2, 0.8);
+    if (next === bandRatio) return;
+    bandRatio = next;
+    start();
+    requestRender();
   }
 
   function render() {
@@ -372,6 +434,24 @@ export function createScene(canvas, { motion = true } = {}) {
       shown = motion ? shown + gap * (1 - Math.exp(-dt / GROW_TAU)) : goal;
       if (Math.abs(goal - shown) < 0.0004) shown = goal; // 收尾,免得无限逼近
       grow(shown);
+      alive = true;
+    }
+
+    if (entering.length && advance(entering, dt, POP.dur, backOut01)) alive = true;
+    if (exiting.length && advance(exiting, dt, POP.out, smooth, true)) alive = true;
+
+    if (bump) {
+      bump.t = Math.min(1, bump.t + dt / BUMP.dur);
+      // 一去一回:sin 的半个周期,起终点都正好是原尺寸
+      bump.g.scale.setScalar(bump.base * (1 + Math.sin(bump.t * Math.PI) * BUMP.amp));
+      if (bump.t >= 1) bump = null;
+      alive = true;
+    }
+
+    // 卡片收起 / 展开后重新居中：镜头平移跟着滑过去,和卡片同一个节奏
+    if (shift !== shiftGoal) {
+      shift += (shiftGoal - shift) * (1 - Math.exp(-dt / SHIFT_TAU));
+      if (Math.abs(shiftGoal - shift) < 0.2) shift = shiftGoal;
       alive = true;
     }
 
@@ -566,6 +646,7 @@ export function createScene(canvas, { motion = true } = {}) {
   function setMode(next) {
     if (next === mode) return;
     mode = next;
+    clearHover(); // 离开森林就没有可点的树了
     orbit = { azimuth: 0, polar: CAM[next].polar };
     zoom = 1;
     camera.fov = CAM[next].fov;
@@ -576,12 +657,30 @@ export function createScene(canvas, { motion = true } = {}) {
     else requestRender();
   }
 
-  /** 渲染一页森林（≤30 株）:同株型 clone,共享几何体与材质。 */
+  /**
+   * 渲染一页森林（≤30 株）:同株型 clone,共享几何体与材质。
+   * 换页 / 清空时旧的一批按 stagger 缩回后移除,新的一批同样一株一株长出来 ——
+   * 整片树一帧内换掉太突兀,而缩放是这里唯一安全的手段(材质是共享的,改 opacity 会牵连全场)。
+   */
   function showForest(records, pick) {
     onPick = pick || null;
     forestRecords = records;
-    for (const g of forestPlants) forestView.remove(g);
+    const animate = ambient();
+
+    // 旧的一批交给退场队列(不动 forestPlants 之外的东西,拾取只认新的)
+    for (const g of forestPlants) {
+      if (!animate) forestView.remove(g);
+      else exiting.push({ g, base: g.scale.x, wait: 0, t: 0 });
+    }
+    if (animate) stagger(exiting, 0);
+    else {
+      // 不做动效时把还挂在退场队列里的旧植株一并清干净
+      for (const it of exiting) forestView.remove(it.g);
+      exiting.length = 0;
+    }
     forestPlants.length = 0;
+    entering.length = 0;
+    bump = null;
 
     // 低画质把模板定格在 0.66(相当于旧「成长期」株型),可见部件少约三分之一
     applyGrowth(forestTemplate.parts, quality === 'low' ? 0.66 : 1);
@@ -594,14 +693,50 @@ export function createScene(canvas, { motion = true } = {}) {
       g.position.set(x, 0.05, z);
       g.rotation.set(0, seed * Math.PI * 2, 0);
       // 时长越长的树略高一点，肉眼能看出差别但不夸张
-      g.scale.setScalar(0.62 + Math.min(0.45, record.minutes / 150) + seed * 0.12);
+      const base = 0.62 + Math.min(0.45, record.minutes / 150) + seed * 0.12;
+      g.scale.setScalar(animate ? 0.001 : base);
       g.userData.record = record;
       g.userData.phase = seed * Math.PI * 2;
+      g.userData.base = base;
       forestView.add(g);
       forestPlants.push(g);
+      if (animate) entering.push({ g, base, wait: 0, t: 0 });
     });
-    if (ambient()) start();
+    /*
+     * 两批用同一个顺序（都从中心往外），新的一批整体晚 POP.out 秒起步：
+     * 每个坑位上「旧的缩完」正好接「新的长出来」，既能重叠省时间又不会两株叠在一坑。
+     */
+    if (animate) stagger(entering, exiting.length ? POP.out : 0);
+    if (animate || ambient()) start();
     else requestRender();
+  }
+
+  /**
+   * 推进一条进出场队列：先耗 wait，再把 t 推到 1。
+   * back = true 时是缩回（1 → 0），放完从场里移除。返回队列这一帧是否还活着。
+   */
+  function advance(queue, dt, dur, ease, back = false) {
+    for (let i = queue.length - 1; i >= 0; i--) {
+      const it = queue[i];
+      if (it.wait > 0) {
+        it.wait -= dt;
+        continue;
+      }
+      it.t = Math.min(1, it.t + dt / dur);
+      const k = back ? 1 - ease(it.t) : ease(it.t);
+      it.g.scale.setScalar(Math.max(0.001, it.base * k));
+      if (it.t < 1) continue;
+      if (back) forestView.remove(it.g);
+      else it.g.scale.setScalar(it.base);
+      queue.splice(i, 1);
+    }
+    return queue.length > 0;
+  }
+
+  /** 按黄金角螺旋的落点顺序（中心 → 外圈）排队，整批不超过 POP.window。 */
+  function stagger(queue, offset) {
+    const gap = queue.length > 1 ? Math.min(POP.gap, POP.window / (queue.length - 1)) : 0;
+    queue.forEach((item, i) => (item.wait = offset + i * gap));
   }
 
   // ---- 单指拖动旋转 + 双指捏合缩放（森林限定;不支持平移 / 自由移动） ----
@@ -610,6 +745,28 @@ export function createScene(canvas, { motion = true } = {}) {
   let pinch = null; // 双指落定瞬间的基准 { dist, zoom }
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
+
+  /**
+   * 鼠标划过森林里的树时给 pointer 光标 —— 那是唯一可点的东西,不给指针没人知道能点。
+   * 射线检测不便宜(30 株 × 十几个 mesh),所以只对鼠标做,并按 80ms 节流。
+   */
+  let hovering = false;
+  let hoverAt = 0;
+  function clearHover() {
+    if (!hovering) return;
+    hovering = false;
+    canvas.style.cursor = '';
+  }
+  function hover(e) {
+    if (mode !== 'forest' || !onPick || drag.id !== null) return;
+    const now = e.timeStamp || 0;
+    if (now - hoverAt < 80) return;
+    hoverAt = now;
+    const on = !!castAt(e);
+    if (on === hovering) return;
+    hovering = on;
+    canvas.style.cursor = on ? 'pointer' : '';
+  }
 
   const touchDist = () => {
     const [a, b] = [...touches.values()];
@@ -641,13 +798,13 @@ export function createScene(canvas, { motion = true } = {}) {
     if (!touches.has(e.pointerId)) return;
     touches.set(e.pointerId, [e.clientX, e.clientY]);
     if (pinch && touches.size >= 2) {
-      // 触屏没有滚轮,捏合承担森林缩放;与滚轮同一套 zoom 与上下限
-      if (mode === 'forest') {
-        zoom = clamp((pinch.zoom * pinch.dist) / touchDist(), ZOOM_MIN, ZOOM_MAX);
-      }
+      // 触屏没有滚轮,捏合承担缩放;与滚轮同一套 zoom 与上下限
+      const lim = ZOOM[mode];
+      zoom = clamp((pinch.zoom * pinch.dist) / touchDist(), lim.min, lim.max);
       return;
     }
     if (e.pointerId !== drag.id) return;
+    clearHover(); // 拖动中不做悬停判定,松手时再重新算
     const dx = e.clientX - drag.x;
     const dy = e.clientY - drag.y;
     drag.x = e.clientX;
@@ -658,17 +815,17 @@ export function createScene(canvas, { motion = true } = {}) {
   });
 
   /**
-   * 滚轮 / 触控板缩放:只在森林里生效,改的是机位距离的倍率。
+   * 滚轮 / 触控板缩放:两套取景都开放,改的是机位距离的倍率。
    * deltaMode 各设备不一样(像素 / 行 / 页),先归一化再夹紧,免得一格就冲到底。
    */
   canvas.addEventListener(
     'wheel',
     (e) => {
-      if (mode !== 'forest') return;
       e.preventDefault();
+      const lim = ZOOM[mode];
       const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1;
       const delta = clamp(e.deltaY * unit, -120, 120);
-      const next = clamp(zoom * (1 + delta * 0.0018), ZOOM_MIN, ZOOM_MAX);
+      const next = clamp(zoom * (1 + delta * 0.0018), lim.min, lim.max);
       if (next === zoom) return;
       zoom = next;
       if (ambient()) start();
@@ -689,9 +846,15 @@ export function createScene(canvas, { motion = true } = {}) {
   }
   canvas.addEventListener('pointerup', endDrag);
   canvas.addEventListener('pointercancel', endDrag);
+  // 悬停判定要在「没按下」时也跑，所以单独挂一条；触屏没有悬停，不必浪费射线
+  canvas.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse') hover(e);
+  });
+  canvas.addEventListener('pointerleave', clearHover);
 
-  function pickAt(e) {
-    if (mode !== 'forest' || !onPick || !forestPlants.length) return;
+  /** 屏幕坐标 → 命中的那株植物（没打中返回 null）。悬停与点选共用。 */
+  function castAt(e) {
+    if (!forestPlants.length) return null;
     const rect = canvas.getBoundingClientRect();
     pointer.set(
       ((e.clientX - rect.left) / rect.width) * 2 - 1,
@@ -699,10 +862,21 @@ export function createScene(canvas, { motion = true } = {}) {
     );
     raycaster.setFromCamera(pointer, camera);
     const hit = raycaster.intersectObjects(forestPlants, true)[0];
-    if (!hit) return onPick(null);
-    let node = hit.object;
+    let node = hit?.object;
     while (node && !node.userData.record) node = node.parent;
-    if (node) onPick(node.userData.record);
+    return node || null;
+  }
+
+  function pickAt(e) {
+    if (mode !== 'forest' || !onPick || !forestPlants.length) return;
+    const node = castAt(e);
+    if (!node) return onPick(null);
+    // 被点的那棵自己弹一下:详情卡才像是从这棵树里出来的,而不是凭空冒出来
+    if (ambient() && node.userData.base) {
+      bump = { g: node, base: node.userData.base, t: 0 };
+      start();
+    }
+    onPick(node.userData.record);
   }
 
   new ResizeObserver(resize).observe(canvas);
@@ -713,6 +887,7 @@ export function createScene(canvas, { motion = true } = {}) {
   return {
     resize,
     requestRender,
+    setBand,
     setProgress,
     trackProgress,
     setDim,

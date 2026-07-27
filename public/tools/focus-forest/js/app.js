@@ -64,9 +64,10 @@ async function mount3D() {
         ? '当前设备未启用 3D，已切换为简版画面。计时与记录不受影响。'
         : '3D 资源加载失败，已切换为简版画面。计时与记录不受影响。';
   }
-  // 挂载可能晚于首屏：把已经决定好的进度补给场景
+  // 挂载可能晚于首屏：把已经决定好的进度与可用空间补给场景
   syncGrowth();
   syncMode();
+  syncBand();
   if (body.dataset.view === 'forest') renderForest();
 }
 
@@ -99,6 +100,29 @@ function syncMode() {
   scene?.setMode(body.dataset.view === 'forest' ? 'forest' : 'plant');
 }
 
+/**
+ * 把「3D 还剩多少地方」量给场景：可用空间 = 顶栏底边 → 卡片顶边(收起时是把手顶边)。
+ * 收起后这块地方变高，构图就该整体往下走，才仍然是居中的 —— 场景据此做镜头平移。
+ */
+function syncBand() {
+  const panel = $(`view-${body.dataset.view}`);
+  // 把面板占位高度告诉 CSS：收起时把手要滑到这个距离之外，translate 才能做过渡
+  body.style.setProperty('--panel-h', `${panel.offsetHeight}px`);
+  if (!scene) return;
+  /*
+   * 一律用 offsetTop / offsetHeight 这类「不含 transform」的量。
+   * 面板与把手此刻正走 0.3s 的收起过渡，getBoundingClientRect 拿到的是过渡途中的位置 ——
+   * 那会读成上一个状态的几何，收起与展开的取景刚好互换，看起来就是「收起后树往上跑」。
+   */
+  const shell = document.querySelector('.shell').getBoundingClientRect().top;
+  const top = $('bar-top').getBoundingClientRect().bottom;
+  const panelTop = shell + panel.offsetTop;
+  const bottom = body.classList.contains('ui-min')
+    ? panelTop + panel.offsetHeight - $('fold').offsetHeight // 收起后把手落在面板原本占位的底边
+    : panelTop;
+  scene.setBand(((top + bottom) / 2) / (innerHeight || 1));
+}
+
 // ---------------------------------------------------------------- 视图切换
 
 function show(view) {
@@ -112,6 +136,7 @@ function show(view) {
   disarmClear();
   if (view === 'home') renderHomeStat();
   if (view === 'forest') openForest();
+  syncBand();
 }
 
 // ---------------------------------------------------------------- 专注流程
@@ -385,6 +410,7 @@ function setFold(min) {
   body.classList.toggle('ui-min', min);
   foldButton.setAttribute('aria-expanded', String(!min));
   foldButton.setAttribute('aria-label', min ? '展开面板' : '收起面板');
+  syncBand(); // 卡片让出/占回空间，构图跟着重新居中
   try {
     localStorage.setItem(KEY_FOLD, min ? '1' : '');
   } catch {
@@ -394,8 +420,12 @@ function setFold(min) {
 
 foldButton.addEventListener('click', () => setFold(!body.classList.contains('ui-min')));
 
+// 视口变了（转屏、缩放、手机地址栏收放）可用空间也变，重新量一次
+addEventListener('resize', syncBand);
+
 // 上次的收起状态跨启动记住(完成页会强制展开,不怕被永远收起)
 try {
+  syncBand(); // 先把 --panel-h 量准,免得启动就是收起态时把手用默认值落错位置
   if (localStorage.getItem(KEY_FOLD) === '1') setFold(true);
 } catch {
   /* ignore */
