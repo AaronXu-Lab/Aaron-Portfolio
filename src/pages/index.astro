@@ -215,7 +215,7 @@ const historical = [
               <div class="cap-body">
                 <div class="cap-title-row">
                   <h3>{cap.title}</h3>
-                  <span class="mono-label">{cap.en}</span>
+                  <span class="mono-sm">{cap.en}</span>
                 </div>
                 <p>{cap.body}</p>
               </div>
@@ -344,7 +344,7 @@ const historical = [
             .map((c) => (
               <a class="card minor-card reveal" href={`/work/${c.slug}/`}>
                 <div>
-                  <div class="mono-label">{c.minorLabel}</div>
+                  <div class="mono-sm minor-kicker">{c.minorLabel}</div>
                   <h3>{c.title}</h3>
                   <p>{c.minorDesc}</p>
                 </div>
@@ -356,7 +356,7 @@ const historical = [
         }
         <div class="card minor-card history reveal" style="--d:.08s">
           <div>
-            <div class="mono-label">Archive</div>
+            <div class="mono-sm minor-kicker">Archive</div>
             <h3>历史作品集</h3>
             <div class="history-chips">
               {
@@ -721,6 +721,10 @@ const historical = [
     margin-bottom: 12px;
   }
 
+  .cap-title-row .mono-sm {
+    color: var(--text-mono);
+  }
+
   .cap-title-row h3 {
     font-size: 21px;
   }
@@ -1024,7 +1028,8 @@ const historical = [
     padding: 28px 30px;
   }
 
-  .minor-card .mono-label {
+  .minor-card .minor-kicker {
+    color: var(--text-mono);
     margin-bottom: 12px;
   }
 

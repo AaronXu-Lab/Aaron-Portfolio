@@ -102,7 +102,7 @@ const playbookIdeas = [
           <div class="card scope-card reveal" style={`--d:${i * 0.07}s`}>
             <div class="scope-head">
               <span class="mono-accent">{String(i + 1).padStart(2, '0')}</span>
-              <span class="mono-label">{s.en}</span>
+              <span class="mono-sm">{s.en}</span>
             </div>
             <h3>{s.title}</h3>
             <div class="scope-sub">{s.sub}</div>
@@ -198,11 +198,11 @@ const playbookIdeas = [
 
     <div class="outcome-grid">
       <div class="card outcome reveal">
-        <span class="mono-label">Outcome 01</span>
+        <span class="mono-sm">Outcome 01</span>
         <p>🎁 开发者借助 Figma Dev + AI，轻松还原设计。</p>
       </div>
       <div class="card outcome reveal" style="--d:.08s">
-        <span class="mono-label">Outcome 02</span>
+        <span class="mono-sm">Outcome 02</span>
         <p>🎁 灵活使用 Color Token，快速实现主题色切换。</p>
       </div>
     </div>
@@ -253,7 +253,7 @@ const playbookIdeas = [
         Automation。
       </p>
       <figure class="prompt-box">
-        <figcaption class="mono-label">AI Extract Prompt · 来自设计稿</figcaption>
+        <figcaption class="mono-sm">AI Extract Prompt · 来自设计稿</figcaption>
         <pre>Extract candidate's data from mail, use candidate's name as item name,
 and extract other data: Age, Degree, Phone, Applied Position,
 Email Address, Email Subject, Email Summary, Attachment.
@@ -404,6 +404,10 @@ Also, set the Status to Pending Review always.</pre>
     align-items: baseline;
     gap: 12px;
     margin-bottom: 20px;
+  }
+
+  .scope-head .mono-sm {
+    color: var(--text-mono);
   }
 
   .scope-card h3 {
@@ -562,7 +566,7 @@ Also, set the Status to Pending Review always.</pre>
     border-color: var(--accent-border);
   }
 
-  .outcome .mono-label {
+  .outcome .mono-sm {
     color: var(--accent-strong);
     display: block;
     margin-bottom: 10px;
@@ -658,6 +662,7 @@ Also, set the Status to Pending Review always.</pre>
     padding: 12px 20px;
     border-bottom: 1px solid var(--border);
     background: var(--surface-2);
+    color: var(--text-mono);
   }
 
   .prompt-box pre {

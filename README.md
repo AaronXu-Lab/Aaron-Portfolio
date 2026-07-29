@@ -37,7 +37,6 @@ npm run preview    # 本地预览构建产物
 | `/blog/<slug>/` | 文章详情（105 篇，含 2015–2026 全部存量文章，已对照旧站校验无遗漏） |
 | `/skills/` | 自写 Agent Skill 列表（注册表：`src/data/skills.ts`） |
 | `/products/` | 自研产品与小工具（注册表：`src/data/products.ts`;`/tools/` 旧地址自动重定向） |
-| `/tools/punct/` | PWA 小工具「标点修正」：可添加到手机主屏幕，离线可用 |
 | `/design/` | 活体样式指南：全部 Design Token（双主题实时对照）+ 全局组件实渲染 |
 
 深浅色主题：右上角切换，跟随系统偏好，localStorage 记忆。

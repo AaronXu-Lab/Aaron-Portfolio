@@ -58,7 +58,7 @@ const { Content } = await render(post);
         {
           next && (
             <a class="card nav-card" href={`/blog/${next.id}/`}>
-              <span class="mono-label">较新一篇 ←</span>
+              <span class="mono-sm nav-kicker">较新一篇 ←</span>
               <span class="nav-title">{next.data.title}</span>
             </a>
           )
@@ -66,7 +66,7 @@ const { Content } = await render(post);
         {
           prev && (
             <a class="card nav-card right" href={`/blog/${prev.id}/`}>
-              <span class="mono-label">较旧一篇 →</span>
+              <span class="mono-sm nav-kicker">较旧一篇 →</span>
               <span class="nav-title">{prev.data.title}</span>
             </a>
           )
@@ -174,6 +174,10 @@ const { Content } = await render(post);
     flex-direction: column;
     gap: 10px;
     padding: 20px 22px;
+  }
+
+  .nav-card .nav-kicker {
+    color: var(--text-mono);
   }
 
   .nav-card.right {

@@ -5,7 +5,7 @@
  *  · games:小游戏（「玩个 Go」，与小工具同构，仅卡片样式不同）
  *
  * 新增产品：补一条记录 + 把缩略图放进 public/media/products/。
- * 新增小工具：参照 src/pages/tools/punct.astro(PWA)或 public/tools/travel-maps/（静态壳）。
+ * 新增小工具：参照 src/pages/tools/flypy.astro(PWA)或 public/tools/travel-maps/（静态壳）。
  */
 
 export interface ProductLink {
@@ -139,19 +139,6 @@ export const tools: ToolEntry[] = [
     pwa: true,
     status: 'shipped',
     tags: ['PWA', '小鹤双拼', '离线可用'],
-    date: '2026.07',
-  },
-  {
-    slug: 'punct',
-    name: '标点修正',
-    en: 'PUNCT FIXER',
-    description:
-      '粘贴中文文案，一键把紧跟在中文后的半角标点 , : ; ! ? 转为全角，并修正含中文的半角括号对。离线可用，适合发文前最后一道校对。',
-    icon: '/tools/punct/icon.svg',
-    iconAlt: '标点修正图标',
-    pwa: true,
-    status: 'shipped',
-    tags: ['PWA', '排版', '离线可用'],
     date: '2026.07',
   },
   {

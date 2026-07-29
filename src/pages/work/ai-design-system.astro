@@ -181,7 +181,7 @@ const Dots = (n: number, danger = false) =>
     <!-- ============ 01 封面 ============ -->
     <section id="s01" class="frame cover">
       <div class="cover-top">
-        <span class="mono-sm kicker">Composite Design System</span>
+        <span class="mono-label kicker">Composite Design System</span>
         <span class="mono-sm pager">01 / 14</span>
       </div>
       <h1 class="reveal">
@@ -223,7 +223,7 @@ const Dots = (n: number, danger = false) =>
             <div class="card pad reveal" style={`--d:${i * 0.08}s`}>
               <div class="card-kicker">
                 <span class="mono-accent">{String(i + 1).padStart(2, '0')}</span>
-                <span class="mono-label">{c.en}</span>
+                <span class="mono-sm">{c.en}</span>
               </div>
               <h3>{c.title}</h3>
               <p>{c.body}</p>
@@ -409,9 +409,9 @@ const Dots = (n: number, danger = false) =>
 
       <div class="tool-table reveal" role="table" aria-label="候选工具对比">
         <div class="tt-row tt-head" role="row">
-          <span role="columnheader" class="mono-label">候选工具</span>
-          <span role="columnheader" class="mono-label">结论</span>
-          <span role="columnheader" class="mono-label">为什么</span>
+          <span role="columnheader" class="mono-sm tt-h">候选工具</span>
+          <span role="columnheader" class="mono-sm tt-h">结论</span>
+          <span role="columnheader" class="mono-sm tt-h">为什么</span>
         </div>
         {
           tools.map((t) => (
@@ -714,7 +714,7 @@ const Dots = (n: number, danger = false) =>
         }
       </div>
       <div class="result-note reveal">
-        <span class="mono-label">Result</span>
+        <span class="mono-sm">Result</span>
         <p>
           输入固定化的页面结构文档，即可生成风格一致的界面。且有 DS 约束后，Claude Code
           直接产出逼近 Claude Design，说明好的约束系统可以省去设计工作流的纠错。
@@ -747,7 +747,7 @@ const Dots = (n: number, danger = false) =>
               <div class="issue-plan">
                 <div class="plan-head">
                   <span class="mono-accent" aria-hidden="true">→</span>
-                  <span class="mono-label">设想方案</span>
+                  <span class="mono-sm">设想方案</span>
                 </div>
                 <p>{iss.plan}</p>
               </div>
@@ -759,7 +759,7 @@ const Dots = (n: number, danger = false) =>
 
     <!-- ============ 转场 One More Thing（深色居中） ============ -->
     <section id="one-more-thing" class="frame band-frame interlude">
-      <div class="int-kicker mono-sm reveal">
+      <div class="int-kicker mono-label reveal">
         <span class="int-line" aria-hidden="true"></span>
         到这里，系统已经跑通
         <span class="int-line" aria-hidden="true"></span>
@@ -786,7 +786,7 @@ const Dots = (n: number, danger = false) =>
       </p>
       <div class="reuse-grid">
         <div class="card pad reveal">
-          <div class="mono-label ru-label">第一次 · RUN FULL</div>
+          <div class="mono-sm ru-label">第一次 · RUN FULL</div>
           <div class="ru-title">跑通设计系统</div>
           <div class="ru-flow mono-sm">
             <span class="ru-pill">目标</span><span>→</span>
@@ -796,7 +796,7 @@ const Dots = (n: number, danger = false) =>
           </div>
         </div>
         <div class="card pad reuse-hi reveal" style="--d:.08s">
-          <div class="mono-label ru-label accent">第二次 · REUSE METHOD</div>
+          <div class="mono-sm ru-label accent">第二次 · REUSE METHOD</div>
           <div class="ru-title">复用迭代方法</div>
           <div class="ru-flow mono-sm">
             <span class="ru-pill hi">改 Button</span><span>+</span>
@@ -815,7 +815,7 @@ const Dots = (n: number, danger = false) =>
     <!-- ============ 14 收尾 ============ -->
     <section id="s14" class="frame closing">
       <div class="cover-top reveal">
-        <span class="mono-sm kicker">Closing Insight</span>
+        <span class="mono-label kicker">Closing Insight</span>
         <span class="mono-sm pager">14 / 14</span>
       </div>
       <h2 class="reveal">从交付物，到可运行的约束系统</h2>
@@ -968,6 +968,10 @@ const Dots = (n: number, danger = false) =>
     margin-bottom: 20px;
   }
 
+  .card-kicker .mono-sm {
+    color: var(--text-mono);
+  }
+
   .tri-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
@@ -998,8 +1002,6 @@ const Dots = (n: number, danger = false) =>
   }
 
   .kicker {
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
     color: var(--accent);
   }
 
@@ -1510,8 +1512,9 @@ const Dots = (n: number, danger = false) =>
     border-bottom: 1px solid var(--border);
   }
 
-  .tt-head .mono-label {
-    letter-spacing: 0.12em;
+  .tt-head .tt-h {
+    font-weight: 600;
+    color: var(--text-2);
   }
 
   .tt-name {
@@ -2038,7 +2041,7 @@ const Dots = (n: number, danger = false) =>
     border-top: 1px solid var(--border-subtle);
   }
 
-  .result-note .mono-label {
+  .result-note .mono-sm {
     color: var(--accent-strong);
     padding-top: 3px;
   }
@@ -2076,7 +2079,7 @@ const Dots = (n: number, danger = false) =>
     margin-bottom: 10px;
   }
 
-  .plan-head .mono-label {
+  .plan-head .mono-sm {
     color: var(--accent-strong);
   }
 
@@ -2099,8 +2102,6 @@ const Dots = (n: number, danger = false) =>
     display: flex;
     align-items: center;
     gap: 16px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
     color: var(--band-text-3);
     margin-bottom: 40px;
   }
@@ -2147,7 +2148,7 @@ const Dots = (n: number, danger = false) =>
   }
 
   .ru-label {
-    letter-spacing: 0.1em;
+    color: var(--text-mono);
     margin-bottom: 18px;
   }
 
