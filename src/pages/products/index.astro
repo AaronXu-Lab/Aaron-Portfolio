@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import { products, tools } from '../../data/products';
+import { products, tools, games } from '../../data/products';
 ---
 
 <Base
@@ -143,6 +143,60 @@ import { products, tools } from '../../data/products';
                   </h3>
                 </div>
                 <p>{t.description}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+      </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 玩个 Go ============ -->
+    <section class="block" aria-labelledby="sec-games">
+      <button
+        class="section-head section-toggle reveal"
+        type="button"
+        aria-expanded="true"
+        aria-controls="panel-games"
+      >
+        <span class="num">03</span>
+        <span class="zh" id="sec-games">玩个 Go</span>
+        <span class="en">Play a Game</span>
+        <Icon name="caret-down" size={15} class="toggle-caret" />
+      </button>
+      <div class="collapse" id="panel-games">
+      <div class="collapse-inner">
+      <ol class="game-list">
+        {
+          games.map((g, i) => (
+            <li class="reveal" style={`--d:${0.06 * i}s`}>
+              <a
+                class="game-card"
+                href={g.href ?? `/tools/${g.slug}/`}
+                target={g.newTab ? '_blank' : undefined}
+                rel={g.newTab ? 'noopener' : undefined}
+              >
+                <div class="game-art">
+                  {g.pwa && <span class="chip pwa mono-sm">PWA</span>}
+                  <img
+                    class="game-icon"
+                    src={g.icon}
+                    alt=""
+                    width="88"
+                    height="88"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="game-body">
+                  <h3>{g.name}</h3>
+                  <p>{g.description}</p>
+                </div>
+                <span class="play mono-sm">
+                  <Icon name="game-controller" size={15} class="play-icon" />
+                  开始游戏
+                </span>
               </a>
             </li>
           ))
@@ -468,6 +522,125 @@ import { products, tools } from '../../data/products';
     color: var(--text-2);
     font-size: 14.5px;
     line-height: 1.7;
+  }
+
+  /* ---- 03 玩个 Go：与小工具同宽的竖版卡，顶部多一块图标展台 ---- */
+  .game-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .game-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    color: inherit;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.3s var(--ease-out);
+  }
+
+  .game-card:hover {
+    border-color: var(--accent-border);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .game-card:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .game-card:active {
+    transform: translateY(0) scale(0.995);
+  }
+
+  /* 展台：图标居中的浅色底板，比小工具卡多出的那截高度就在这里 */
+  .game-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: clamp(26px, 4vw, 36px) 20px;
+    background: var(--surface-accent);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .game-art .chip.pwa {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    margin-left: 0;
+  }
+
+  .game-icon {
+    width: clamp(76px, 9vw, 88px);
+    height: clamp(76px, 9vw, 88px);
+    border-radius: 22%;
+    object-fit: cover;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.36s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .game-card:hover .game-icon {
+      transform: scale(1.05) rotate(-3deg);
+    }
+  }
+
+  .game-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: clamp(20px, 3vw, 26px) clamp(20px, 3vw, 28px) 0;
+  }
+
+  .game-card h3 {
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .game-card p {
+    color: var(--text-2);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .play {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 18px clamp(20px, 3vw, 28px) clamp(20px, 3vw, 26px);
+    padding: 9px 18px;
+    border: 1px solid var(--border-strong);
+    border-radius: 100px;
+    color: var(--text-2);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .game-card:hover .play {
+    color: var(--btn-text);
+    border-color: var(--btn-bg);
+    background: var(--btn-bg);
+  }
+
+  /* Icon 是 <Fragment set:html> 注入的原始 svg，拿不到作用域属性，故用 :global */
+  .play :global(.play-icon) {
+    flex: 0 0 auto;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .game-card:hover .play :global(.play-icon) {
+      transform: translateX(-2px) rotate(-8deg);
+    }
   }
 
   @media (max-width: 560px) {

@@ -9,7 +9,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/styles/global.css` | **Design Token 唯一定义源**(`:root` 浅色 / `[data-theme='dark']` 深色)+ 全局原语 |
 | `src/data/cases.ts` | **案例注册表**:首页卡片、页脚链接、下一案例卡的唯一接线点 |
 | `src/data/skills.ts` | **Skill 注册表**:/skills/ 页的唯一接线点(自写 Agent Skill) |
-| `src/data/products.ts` | **产品注册表**:/products/ 页的唯一接线点(大产品 + 小工具两个 Section) |
+| `src/data/products.ts` | **产品注册表**:/products/ 页的唯一接线点(大产品 / 小工具 / 玩个 Go 三个 Section) |
 | `src/pages/work/*.astro` | 案例页(用 `CaseLayout` + `SectionHead` + `MediaSlot`) |
 | `src/pages/tools/*.astro` | PWA 小工具页(`punct` 标点修正 / `flypy` 小鹤双拼练习器;独立壳,不用 Base 布局) |
 | `public/tools/<slug>/` | 各 PWA 的 manifest / service worker / 图标(SW 作用域 = `/tools/<slug>/`) |
@@ -48,7 +48,7 @@ Cloudflare Pages 监听 `main` 分支,push 即部署。Build command `npm run bu
 - **新增作品案例** → 按 [workflows/add-case.md](workflows/add-case.md) 执行(先读完再动手)
 - **新增博客文章** → `npm run new` 或见 [workflows/add-post.md](workflows/add-post.md)
 - **新增 Skill** → 在 `src/data/skills.ts` 追加记录(列表页自动渲染,空数组时显示预告态)
-- **新增小工具** → 两种形态任选:① Astro 页 `src/pages/tools/<slug>.astro`(PWA 参照 `punct`:`public/tools/<slug>/` 放 manifest + sw.js + 图标,SW 作用域限定在自己路径下);② 纯静态壳直接放 `public/tools/<slug>/index.html`(参照 `travel-maps`;要做成 PWA 参照 `focus-forest`,manifest + sw.js + 图标同放该目录,并把纯逻辑抽成可被 `tests/` 导入的 `js/core.js`;登记时用 `href` + `newTab: true` 新标签页打开)。最后都要在 `src/data/products.ts` 的 `tools` 数组登记
+- **新增小工具** → 两种形态任选:① Astro 页 `src/pages/tools/<slug>.astro`(PWA 参照 `punct`:`public/tools/<slug>/` 放 manifest + sw.js + 图标,SW 作用域限定在自己路径下);② 纯静态壳直接放 `public/tools/<slug>/index.html`(参照 `travel-maps`;要做成 PWA 参照 `focus-forest`,manifest + sw.js + 图标同放该目录,并把纯逻辑抽成可被 `tests/` 导入的 `js/core.js`;登记时用 `href` + `newTab: true` 新标签页打开)。最后都要在 `src/data/products.ts` 的 `tools` 数组登记(小游戏改登记到 `games` 数组,走「玩个 Go」Section 的深色卡带卡片)
 - **travel-maps 增补目的地/出发城市** → 见 [workflows/travel-maps.md](workflows/travel-maps.md)(数据结构与信息来源口径)
 - **focus-forest 新增植物样式** → 见 [workflows/focus-forest-plants.md](workflows/focus-forest-plants.md)(生长脚本方法论:birth/span/retire 排期 + 轴心缩放,`?p=` 定格调试)
 

@@ -1,7 +1,8 @@
 /**
- * 产品注册表 —— /products/ 页面的唯一接线点，分两个 Section:
+ * 产品注册表 —— /products/ 页面的唯一接线点，分三个 Section:
  *  · products:「大」产品（独立发布的 App / 开源项目）
  *  · tools:小工具（站内自制，PWA 或独立静态壳）
+ *  · games:小游戏（「玩个 Go」，与小工具同构，仅卡片样式不同）
  *
  * 新增产品：补一条记录 + 把缩略图放进 public/media/products/。
  * 新增小工具：参照 src/pages/tools/punct.astro(PWA)或 public/tools/travel-maps/（静态壳）。
@@ -107,7 +108,8 @@ export const products: ProductEntry[] = [
   },
 ];
 
-export const tools: ToolEntry[] = [
+/** 小游戏（「玩个 Go」Section），字段与小工具同构 */
+export const games: ToolEntry[] = [
   {
     slug: 'candy-match',
     name: '糖果漫游',
@@ -123,6 +125,9 @@ export const tools: ToolEntry[] = [
     href: '/tools/candy-match/',
     newTab: true,
   },
+];
+
+export const tools: ToolEntry[] = [
   {
     slug: 'flypy',
     name: '小鹤双拼练习器',
