@@ -124,6 +124,7 @@ import { products, tools, games } from '../../data/products';
                   <span class="mono-sm num">{String(i + 1).padStart(2, '0')}</span>
                   <span class="mono-sm en">{t.en}</span>
                   {t.pwa && <span class="chip pwa mono-sm">PWA</span>}
+                  {t.badge && <span class="chip tag mono-sm">{t.badge}</span>}
                 </div>
                 <div class="tool-heading">
                   <img
@@ -179,6 +180,7 @@ import { products, tools, games } from '../../data/products';
               >
                 <div class="game-art">
                   {g.pwa && <span class="chip pwa mono-sm">PWA</span>}
+                  {g.badge && <span class="chip tag mono-sm">{g.badge}</span>}
                   <img
                     class="game-icon"
                     src={g.icon}
@@ -486,8 +488,9 @@ import { products, tools, games } from '../../data/products';
     letter-spacing: 0.12em;
   }
 
-  /* PWA 徽标:紧凑填充式小胶囊,不撑高行,与 mono 文字基线齐平 */
-  .chip.pwa {
+  /* PWA / 技术徽标:紧凑填充式小胶囊,不撑高行,与 mono 文字基线齐平 */
+  .chip.pwa,
+  .chip.tag {
     margin-left: auto;
     gap: 0;
     padding: 2px 8px;
@@ -570,7 +573,8 @@ import { products, tools, games } from '../../data/products';
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  .game-art .chip.pwa {
+  .game-art .chip.pwa,
+  .game-art .chip.tag {
     position: absolute;
     top: 12px;
     right: 14px;

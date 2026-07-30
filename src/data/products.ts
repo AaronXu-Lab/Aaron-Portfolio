@@ -41,6 +41,8 @@ export interface ToolEntry {
   iconAlt: string;
   /** 是否为可安装的 PWA（可添加到手机主屏幕） */
   pwa: boolean;
+  /** 卡片角标上的一枚技术标签（大写 mono 小胶囊，如 RUFFLE），与 PWA 徽标同槽位 */
+  badge?: string;
   status: 'shipped' | 'wip';
   tags?: string[];
   date?: string;
@@ -110,6 +112,22 @@ export const products: ProductEntry[] = [
 
 /** 小游戏（「玩个 Go」Section），字段与小工具同构 */
 export const games: ToolEntry[] = [
+  {
+    slug: 'flying-ninja-cat',
+    name: '飞天忍者猫',
+    en: 'FLYING NINJA CAT',
+    description:
+      '童年 Flash 页游的 H5 复活：原版 SWF 经自托管 Ruffle（WebAssembly 模拟器）在浏览器直接运行，画面、手感与当年一模一样。看准力量槽点击起跳，把忍者猫弹上夜空吃金币拼距离；已禁用联网与成绩提交，纯本地游玩。',
+    icon: '/tools/flying-ninja-cat/icon.png',
+    iconAlt: '飞天忍者猫游戏图标',
+    pwa: false,
+    badge: 'RUFFLE',
+    status: 'shipped',
+    tags: ['Flash 怀旧', 'Ruffle', '本地运行'],
+    date: '2026.07',
+    href: '/tools/flying-ninja-cat/',
+    newTab: true,
+  },
   {
     slug: 'candy-match',
     name: '糖果漫游',

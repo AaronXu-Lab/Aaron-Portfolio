@@ -16,6 +16,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/lib/flypy-core.mjs` | flypy 的纯逻辑核(编码/练习单元/计时统计);被 Astro 页顶层、页内客户端 `<script>`、`tests/` 三处共用,改它要跑 `npm run test:flypy` |
 | `public/tools/travel-maps/` | 独立静态壳工具「出发吧打工人」:D3 手账风等时旅行地图,支持多出发城市(`?from=`,默认上海),新标签页打开(见 [workflows/travel-maps.md](workflows/travel-maps.md)) |
 | `public/tools/focus-forest/` | 独立静态壳 PWA「专注森林」:Three.js 低多边形 3D 专注计时器。`js/core.js` 是纯逻辑核(阶段/计时/存储/分页,改它要跑 `npm run test:forest`),`js/scene.js` 只管场景与动画(植物是 progress 连续驱动的「生长脚本」,见 [workflows/focus-forest-plants.md](workflows/focus-forest-plants.md)),`vendor/` 是版本锁定的 three r185 构建产物 |
+| `public/tools/flying-ninja-cat/` | 独立静态壳小游戏「飞天忍者猫」:原版 Flash SWF 由自托管 Ruffle(`vendor/ruffle/`,WASM)在浏览器运行。`game.swf` 已摘除成绩联网上报(见 `Anti-SWF/tools/strip-score-upload.py`),播放器另设 `allowNetworking:'none'` 兜底;`FSAGOGUN_RES.swf` 是游戏运行时 loadMovie 的资源包,勿删 |
 | `src/content/blog/` | 博客文章(脚本生成,**勿手改**) |
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
 | `src/pages/design.astro` | `/design/` 活体样式指南:全部 token 与组件的实渲染 |

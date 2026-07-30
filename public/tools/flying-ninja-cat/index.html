@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>飞天忍者猫 · Flash 怀旧小游戏</title>
+<meta name="description" content="童年 Flash 小游戏「飞天忍者猫」：原版 SWF 通过自托管 Ruffle 在浏览器直接运行，无插件、无联网提交。">
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+  :root {
+    --night: #0d1526;
+    --night-2: #16233d;
+    --moon: #f4e9c8;
+    --paper: #e8ddc2;
+    --ink: #1a2233;
+    --accent: #f2a33c;
+    --tile: #2c4a55;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 78% -10%, #2a3d63 0%, transparent 60%),
+      radial-gradient(900px 500px at 12% 110%, #1d3040 0%, transparent 55%),
+      var(--night);
+    color: var(--moon);
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100dvh;
+    padding: clamp(12px, 3vh, 32px) 16px;
+    gap: clamp(10px, 2vh, 20px);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header img {
+    width: 44px;
+    height: 44px;
+    image-rendering: auto;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+  }
+  header h1 {
+    font-size: clamp(20px, 3.4vw, 28px);
+    letter-spacing: 0.12em;
+    color: var(--moon);
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  }
+  header .en {
+    display: block;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: #8fa3c8;
+    margin-top: 4px;
+  }
+  #stage-frame {
+    width: min(92vw, 880px, calc((100dvh - 190px) * 4 / 3));
+    aspect-ratio: 4 / 3;
+    position: relative;
+    border-radius: 14px;
+    padding: 10px;
+    background: linear-gradient(180deg, #223252 0%, #131e34 100%);
+    box-shadow:
+      0 0 0 1px rgba(244, 233, 200, 0.14),
+      0 18px 50px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  #stage-frame::before,
+  #stage-frame::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    height: 4px;
+    background-image: repeating-linear-gradient(90deg, rgba(244, 233, 200, 0.28) 0 14px, transparent 14px 26px);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  #stage-frame::before { top: 3px; }
+  #stage-frame::after { bottom: 3px; }
+  #player-slot {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+  }
+  #player-slot ruffle-player,
+  #player-slot ruffle-embed,
+  #player-slot ruffle-object {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #boot-msg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #8fa3c8;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+  }
+  #boot-msg .lantern {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 18px 4px rgba(242, 163, 60, 0.55);
+    animation: sway 1.2s ease-in-out infinite alternate;
+  }
+  @keyframes sway {
+    from { transform: translateY(-4px); opacity: 0.65; }
+    to { transform: translateY(4px); opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #boot-msg .lantern { animation: none; }
+  }
+  .hint {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+    font-size: 13px;
+    color: #a9b8d6;
+    line-height: 1.7;
+  }
+  .hint b { color: var(--accent); font-weight: 600; }
+  footer {
+    font-size: 12px;
+    color: #6d7fa3;
+    text-align: center;
+    line-height: 1.8;
+    max-width: 640px;
+  }
+  footer a { color: #8fa3c8; }
+</style>
+</head>
+<body>
+<header>
+  <img src="icon.png" alt="" width="44" height="44">
+  <h1>飞天忍者猫<span class="en">FLYING NINJA CAT · RUFFLE H5</span></h1>
+</header>
+
+<div id="stage-frame">
+  <div id="player-slot"></div>
+  <div id="boot-msg"><span class="lantern" aria-hidden="true"></span>正在唤醒忍者猫……</div>
+</div>
+
+<p class="hint">
+  <span><b>玩法</b>：看准下方力量槽，点击起跳，把忍者猫弹上夜空</span>
+  <span><b>目标</b>：吃金币、踩机关、飞得越远越好</span>
+</p>
+
+<footer>
+  原版 Flash 小游戏，经 <a href="https://ruffle.rs" target="_blank" rel="noopener">Ruffle</a>（WebAssembly 模拟器）在浏览器本地运行；已禁用联网与成绩提交，游戏数据不出本机。
+</footer>
+
+<script src="vendor/ruffle/ruffle.js"></script>
+<script>
+  window.RufflePlayer = window.RufflePlayer || {};
+  window.RufflePlayer.config = {
+    // 掐断一切网络能力：成绩提交、外链跳转全部失效
+    allowNetworking: 'none',
+    openUrlMode: 'deny',
+    autoplay: 'on',
+    unmuteOverlay: 'visible',
+    letterbox: 'on',
+    scale: 'showAll',
+    quality: 'high',
+    backgroundColor: '#000000',
+    contextMenu: 'rightClickOnly',
+    splashScreen: false,
+  };
+
+  window.addEventListener('load', function () {
+    var slot = document.getElementById('player-slot');
+    var boot = document.getElementById('boot-msg');
+    var ruffle = window.RufflePlayer.newest();
+    var player = ruffle.createPlayer();
+    slot.appendChild(player);
+    // 0.4.x 起 API 收敛到 player.ruffle()，旧版本直接挂在 player 上
+    var api = typeof player.ruffle === 'function' ? player.ruffle() : player;
+    api
+      .load('game.swf')
+      .then(function () {
+        boot.remove();
+      })
+      .catch(function (err) {
+        boot.textContent = '加载失败：' + err;
+      });
+  });
+</script>
+</body>
+</html>
