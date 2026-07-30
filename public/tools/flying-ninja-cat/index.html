@@ -109,6 +109,22 @@
     letter-spacing: 0.1em;
     pointer-events: none;
   }
+  #boot-msg.boot-error {
+    gap: 12px;
+    padding: 0 32px;
+    text-align: center;
+    line-height: 1.8;
+  }
+  #boot-msg.boot-error strong {
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    color: var(--moon);
+  }
+  #boot-msg.boot-error span {
+    font-size: 13px;
+    letter-spacing: 0;
+    max-width: 30em;
+  }
   #boot-msg .lantern {
     width: 18px;
     height: 18px;
@@ -181,9 +197,34 @@
     splashScreen: false,
   };
 
+  // vendor/ruffle/ 里只留了带 WebAssembly 扩展的构建（省掉 14MB 的降级版），
+  // 所以先自己探测一次 SIMD——不支持的话 Ruffle 会去取那个不存在的降级包、
+  // 报一句英文的 "failed to load .wasm"，不如在这里给句人话。
+  // 这段字节是一个最小的 SIMD 模块（i32x4.splat + i8x16.popcnt），
+  // 与 ruffle.js 内部用的探测样本一致。
+  function hasWasmSimd() {
+    try {
+      return WebAssembly.validate(new Uint8Array([
+        0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123,
+        3, 2, 1, 0, 10, 10, 1, 8, 0, 65, 0, 253, 15, 253, 98, 11,
+      ]));
+    } catch (e) {
+      return false;
+    }
+  }
+
   window.addEventListener('load', function () {
     var slot = document.getElementById('player-slot');
     var boot = document.getElementById('boot-msg');
+
+    if (!hasWasmSimd()) {
+      boot.innerHTML =
+        '<strong>这台浏览器跑不动</strong>' +
+        '<span>游戏靠 WebAssembly 模拟 Flash，需要 Chrome 91+ / Firefox 89+ / Safari 16.4+（iOS 16.4+）。<br>换个新一点的浏览器就能玩。</span>';
+      boot.classList.add('boot-error');
+      return;
+    }
+
     var ruffle = window.RufflePlayer.newest();
     var player = ruffle.createPlayer();
     slot.appendChild(player);
