@@ -5,11 +5,3 @@
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
-
-# Ruffle 的 wasm/js 文件名带内容哈希，可长期缓存
-/tools/flying-ninja-cat/vendor/ruffle/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# 游戏运行中会反复 loadMovie 资源包，别让它每次都回源
-/tools/flying-ninja-cat/*.swf
-  Cache-Control: public, max-age=86400
