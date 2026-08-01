@@ -2,7 +2,7 @@ const WIDTH = 640;
 const HEIGHT = 480;
 const FPS = 30;
 const STEP_MS = 1000 / FPS;
-const BUILD_VERSION = "20260801-1";
+const BUILD_VERSION = "20260801-2";
 const ASSET_LOAD_CONCURRENCY = 4;
 
 const CAT_X = 200;
@@ -243,6 +243,7 @@ const AUDIO_MANIFEST = {
 };
 
 const canvas = document.querySelector("#game");
+const gameShell = document.querySelector(".game-shell");
 const context = canvas.getContext("2d", { alpha: false });
 const statusNode = document.querySelector("#status");
 context.imageSmoothingEnabled = true;
@@ -454,6 +455,7 @@ class FlyingNinjaCat {
     this.hover = "";
     this.pointer = { x: 0, y: 0, down: false };
     this.spaceDown = false;
+    this.mobileFullscreenAttempted = false;
     this.accumulator = 0;
     this.previousTime = performance.now();
     this.bestScore = this.readBestScore();
@@ -516,7 +518,8 @@ class FlyingNinjaCat {
 
     canvas.addEventListener("pointerdown", (event) => {
       event.preventDefault();
-      canvas.focus();
+      this.requestMobileFullscreen(event);
+      canvas.focus({ preventScroll: true });
       canvas.setPointerCapture?.(event.pointerId);
       this.pointer = { ...this.canvasPoint(event), down: true };
       this.onActionDown();
@@ -566,6 +569,34 @@ class FlyingNinjaCat {
       this.spaceDown = false;
       if (this.player) this.player.holding = false;
     });
+  }
+
+  requestMobileFullscreen(event) {
+    if (this.mobileFullscreenAttempted) return;
+
+    const coarsePointer =
+      event.pointerType === "touch" ||
+      event.pointerType === "pen" ||
+      Boolean(
+        window.matchMedia?.("(pointer: coarse)").matches &&
+          navigator.maxTouchPoints > 0,
+      );
+    if (!coarsePointer) return;
+
+    this.mobileFullscreenAttempted = true;
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+
+    try {
+      if (gameShell.requestFullscreen) {
+        const request = gameShell.requestFullscreen({ navigationUI: "hide" });
+        request?.catch?.(() => {});
+      } else {
+        gameShell.webkitRequestFullscreen?.();
+      }
+    } catch {
+      // iOS Safari may expose no usable element fullscreen API. The viewport
+      // still stays edge-to-edge, and home-screen mode uses the mobile meta tags.
+    }
   }
 
   canvasPoint(event) {

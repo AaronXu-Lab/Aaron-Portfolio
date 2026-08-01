@@ -12,6 +12,8 @@ body {
   width: 100%;
   min-height: 100%;
   margin: 0;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -29,6 +31,7 @@ body {
   aspect-ratio: 4 / 3;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .orientation-gate {
@@ -43,10 +46,45 @@ canvas {
   outline: 0;
   touch-action: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
+canvas:focus,
 canvas:focus-visible {
-  box-shadow: 0 0 0 2px #38d8dc;
+  outline: none;
+  box-shadow: none;
+}
+
+.game-shell:fullscreen {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  place-items: center;
+  aspect-ratio: auto;
+  background: #101010;
+}
+
+.game-shell:fullscreen canvas {
+  width: min(100vw, calc(100dvh * 4 / 3));
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
+.game-shell:-webkit-full-screen {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  place-items: center;
+  aspect-ratio: auto;
+  background: #101010;
+}
+
+.game-shell:-webkit-full-screen canvas {
+  width: min(100vw, calc(100dvh * 4 / 3));
+  height: auto;
+  aspect-ratio: 4 / 3;
 }
 
 .sr-only {
