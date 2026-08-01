@@ -2,23 +2,75 @@ const WIDTH = 640;
 const HEIGHT = 480;
 const FPS = 30;
 const STEP_MS = 1000 / FPS;
-const BUILD_VERSION = "20260731-9";
+const BUILD_VERSION = "20260801-1";
+const ASSET_LOAD_CONCURRENCY = 4;
 
 const CAT_X = 200;
 const GROUND_Y = 365;
 const BLOCK_WIDTH = 150;
 const BLOCK_IMAGE_X = 127.5;
 const BLOCK_IMAGE_Y = 30;
-const CAT_IMAGE_X = 97.5;
-const CAT_IMAGE_Y = 132;
 const GROUND_HALF_WIDTH = 100;
 const ROPE_ORIGIN_X = 12.5;
 const ROPE_ORIGIN_Y = -54.4;
+const ROPE_BODY_ORIGIN_X = 14.3;
+const ROPE_BODY_ORIGIN_Y = -55.95;
+const ROPE_BODY_ANGLE_OFFSET = (70 * Math.PI) / 180;
+const ROPE_RELEASE_ANGLE = (-70 * Math.PI) / 180;
+const INITIAL_ROPE_BODY_ANGLE = (-45 * Math.PI) / 180;
 const HOOK_ORIGIN_X = 32.75;
 const HOOK_ORIGIN_Y = 15.5;
 const CAUGHT_HOOK_ANGLE = (-80 * Math.PI) / 180;
-const ITEM_ORIGIN_X = -19.5;
-const ITEM_ORIGIN_Y = -34;
+
+// Direct exports of the child timelines placed by id_gogoon. Jump and shoot
+// remain parent-space stills because those labels combine/persist siblings.
+const CAT_CLIP_FRAME_COUNTS = Object.freeze({
+  run: 6,
+  jump: 1,
+  shoot: 1,
+  rope: 1,
+  spin: 15,
+  die: 4,
+});
+
+// Placement matrices and registration offsets recovered from sprites
+// 122, 85, 107, 111, and 121. Values are pixels (SWF twips / 20).
+const CAT_CLIP_DRAW = Object.freeze({
+  run: { x: -55.75, y: -98.15, originX: 10.7, originY: -1, scale: 1 },
+  jump: { x: 0, y: 0, originX: 97.5, originY: 132, scale: 1 },
+  shoot: { x: 0, y: 0, originX: 97.5, originY: 132, scale: 1 },
+  rope: { x: 14.3, y: -55.95, originX: 86, originY: 34, scale: 1, rotate: true },
+  spin: { x: -2.95, y: -42.55, originX: 62.1, originY: 62.15, scale: 1 },
+  die: { x: 2.6, y: -43.2, originX: 36.3, originY: 44.65, scale: 1.199997 },
+});
+
+// body.item_pos is a hidden 50x60 MovieClip. Its transform differs by the
+// body child used at each id_gogoon label.
+const ITEM_MARKER_HALF_WIDTH = 25;
+const ITEM_MARKER_HALF_HEIGHT = 30;
+const ITEM_MARKER_TRANSFORMS = Object.freeze({
+  run: { x: -19.25, y: -34.7 },
+  jump: { x: -19.5, y: -34.05 },
+  shoot: { x: -19.5, y: -34.05 },
+  spin: { x: -8.45, y: -40.1 },
+  rope: {
+    bodyX: ROPE_BODY_ORIGIN_X,
+    bodyY: ROPE_BODY_ORIGIN_Y,
+    x: -24,
+    y: 30.5,
+    rotate: true,
+  },
+});
+
+// Frame-one bounds of id_item, including the child placement in sprite 136.
+const ITEM_MOVIE_BOUNDS = Object.freeze({
+  gold: { left: -20.35, right: 20.4, top: -19.85, bottom: 20.9 },
+  silver: { left: -19.8, right: 21.1, top: -20.35, bottom: 19.85 },
+});
+
+const DEATH_DELAY_FRAMES = Math.round(0.3 * FPS);
+const DEATH_TWEEN_FRAMES = Math.round(0.5 * FPS);
+const DEATH_DISTANCE = 250;
 
 const HUD_COIN_X = 8;
 const HUD_COIN_Y = 7;
@@ -37,6 +89,47 @@ const PROGRESS_TRACK_Y = 1;
 const PROGRESS_LEVEL_WIDTH = 90;
 const GAME_OVER_X = 194;
 const GAME_OVER_Y = 42;
+const HEAD_X = 239.05;
+const HEAD_Y = 130;
+const CLOUD_Y = 318.05;
+const CLOUD_WRAP_WIDTH = 832;
+const HOOK_HIT_X = 13.6;
+const HOOK_HIT_Y = 3.9;
+const HOOK_HIT_ROTATION = (110 * Math.PI) / 180;
+const SPEED_RING_X = -143.5;
+const SPEED_RING_Y = -141;
+
+const EFFECT_FRAME_COUNTS = Object.freeze({
+  bonus: 27,
+  speed: 29,
+  best: 27,
+  pickup: 9,
+  hookHit: 5,
+  speedRing: 9,
+});
+
+const EFFECT_DIRECTORIES = Object.freeze({
+  bonus: "bonus",
+  speed: "speed",
+  best: "best",
+  pickup: "pickup",
+  hookHit: "hook-hit",
+  speedRing: "speed-ring",
+});
+
+// Exported effect canvases preserve the SWF union bounds. Bonus and speed
+// begin at their registration point; Best spans -275..215px and -200..-70px.
+const EFFECT_DRAW_ORIGINS = Object.freeze({
+  bonus: { x: 191, y: 237 },
+  speed: { x: 88, y: 363 },
+  best: { x: 199, y: 128 },
+});
+
+const FADE_ALPHA = Object.freeze([
+  0, 17, 36, 54, 72, 91, 109, 127, 145, 164, 182, 200, 219, 237, 255,
+  255, 255, 255, 255, 255, 238, 221, 204, 187, 170, 153, 136, 118, 101, 84,
+  67, 50, 33, 16, 0,
+]);
 
 // Original rope_pos trapezoid on block frame 3, converted from SWF twips.
 const ROPE_TARGET_Y = 135;
@@ -57,6 +150,7 @@ const SAFE_PATTERNS = [
   [2, 2, 2],
   [2, 2, 2, 2, 2],
 ];
+const FINISH_PATTERN = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2];
 
 // Directly transcribed from MapData.as. 1 = gap, 2 = roof, 3 = tall
 // rope tower, 4 = finish.
@@ -72,6 +166,7 @@ const LEVEL_PATTERNS = [
     [2, 2, 1, 1, 2, 2],
     [2, 2, 1, 1, 3, 1, 1, 2, 2, 2],
     [2, 2, 1, 1, 1, 3, 1, 1, 2, 2],
+    [2, 2, 1, 1, 3, 1, 1, 1, 2, 2],
     [2, 2, 1, 3, 1, 3, 1, 2, 2, 2],
   ],
   [
@@ -96,18 +191,32 @@ const LEVEL_PATTERNS = [
   ],
 ];
 
+const ITEM_PATTERNS_BY_MAP = new Map();
+for (const [mapSignature, ...layout] of globalThis.NINJA_ITEM_PATTERNS || []) {
+  const key = mapSignature.join(",");
+  if (!ITEM_PATTERNS_BY_MAP.has(key)) ITEM_PATTERNS_BY_MAP.set(key, []);
+  ITEM_PATTERNS_BY_MAP.get(key).push(layout);
+}
+
 const IMAGE_MANIFEST = {
   title: "assets/backgrounds/title.jpg",
-  game: "assets/backgrounds/game.png",
+  game: "assets/backgrounds/game-base.png",
+  clouds: "assets/backgrounds/clouds.png",
   ending: "assets/backgrounds/ending.jpg",
+  headSleep: "assets/head/sleep.png",
+  headSmile: "assets/head/smile.png",
+  headSurprise: "assets/head/surprise.png",
+  headEyes: "assets/head/eyes.png",
+  block2Failed: "assets/blocks/2-failed.png",
+  block3Failed: "assets/blocks/3-failed.png",
   bestPaw: "assets/ui/best-paw.png",
   fish: "assets/ui/fish.png",
   fishHover: "assets/ui/fish-hover.png",
   startLabel: "assets/ui/start-label.png",
   helpLabel: "assets/ui/help-label.png",
   replayLabel: "assets/ui/replay-label.png",
-  progressTrack: "assets/ui/progress-track.png?v=20260731-9",
-  progressFace: "assets/ui/progress-face.png?v=20260731-9",
+  progressTrack: "assets/ui/progress-track.png?v=20260731-13",
+  progressFace: "assets/ui/progress-face.png?v=20260731-13",
   gameOver: "assets/ui/game-over.png",
   mouseUp: "assets/ui/mouse-up.png",
   mouseDown: "assets/ui/mouse-down.png",
@@ -152,6 +261,28 @@ function clamp(value, minimum, maximum) {
   return Math.max(minimum, Math.min(maximum, value));
 }
 
+function rotatedRectBounds(centerX, centerY, halfWidth, halfHeight, angle = 0) {
+  const cosine = Math.cos(angle);
+  const sine = Math.sin(angle);
+  const extentX = Math.abs(cosine) * halfWidth + Math.abs(sine) * halfHeight;
+  const extentY = Math.abs(sine) * halfWidth + Math.abs(cosine) * halfHeight;
+  return {
+    left: centerX - extentX,
+    right: centerX + extentX,
+    top: centerY - extentY,
+    bottom: centerY + extentY,
+  };
+}
+
+function boundsIntersect(left, right) {
+  return !(
+    left.right < right.left ||
+    left.left > right.right ||
+    left.bottom < right.top ||
+    left.top > right.bottom
+  );
+}
+
 function padScore(value, digits = 7) {
   return String(Math.max(0, Math.floor(value))).padStart(digits, "0");
 }
@@ -184,10 +315,12 @@ async function loadAssets(onProgress) {
       `block${index + 1}`,
       `assets/blocks/${index + 1}.png`,
     ]),
-    ...Array.from({ length: 35 }, (_, index) => [
-      `cat${index + 1}`,
-      `assets/cat/${index + 1}.png?v=20260731-1`,
-    ]),
+    ...Object.entries(CAT_CLIP_FRAME_COUNTS).flatMap(([clip, count]) =>
+      Array.from({ length: count }, (_, index) => [
+        `cat-${clip}-${index + 1}`,
+        `assets/cat/${clip}/${index + 1}.png?v=${BUILD_VERSION}`,
+      ]),
+    ),
     ...Array.from({ length: 2 }, (_, index) => [
       `coin${index + 1}`,
       `assets/coins/${index + 1}.png`,
@@ -196,6 +329,12 @@ async function loadAssets(onProgress) {
       `hook${index + 1}`,
       `assets/hook/${index + 1}.png`,
     ]),
+    ...Object.entries(EFFECT_FRAME_COUNTS).flatMap(([name, count]) =>
+      Array.from({ length: count }, (_, index) => [
+        `effect-${name}-${index + 1}`,
+        `assets/effects/${EFFECT_DIRECTORIES[name]}/${index + 1}.png`,
+      ]),
+    ),
     ...Array.from({ length: 6 }, (_, index) => [
       `help${index + 1}`,
       `assets/ui/help-${index + 1}.png`,
@@ -204,25 +343,56 @@ async function loadAssets(onProgress) {
 
   const loaded = {};
   let completed = 0;
-  await Promise.all(
-    flatManifest.map(async ([key, source]) => {
+  let cursor = 0;
+  async function loadNext() {
+    while (cursor < flatManifest.length) {
+      const [key, source] = flatManifest[cursor];
+      cursor += 1;
       loaded[key] = await loadImage(source);
       completed += 1;
       onProgress(completed / flatManifest.length);
-    }),
+    }
+  }
+  await Promise.all(
+    Array.from(
+      { length: Math.min(ASSET_LOAD_CONCURRENCY, flatManifest.length) },
+      () => loadNext(),
+    ),
   );
 
   loaded.blocks = Array.from({ length: 4 }, (_, index) => loaded[`block${index + 1}`]);
-  loaded.cat = Array.from({ length: 35 }, (_, index) => loaded[`cat${index + 1}`]);
+  loaded.cat = Object.fromEntries(
+    Object.entries(CAT_CLIP_FRAME_COUNTS).map(([clip, count]) => [
+      clip,
+      Array.from({ length: count }, (_, index) => loaded[`cat-${clip}-${index + 1}`]),
+    ]),
+  );
   loaded.coins = Array.from({ length: 2 }, (_, index) => loaded[`coin${index + 1}`]);
   loaded.hooks = Array.from({ length: 2 }, (_, index) => loaded[`hook${index + 1}`]);
   loaded.help = Array.from({ length: 6 }, (_, index) => loaded[`help${index + 1}`]);
+  loaded.head = {
+    sleep: loaded.headSleep,
+    smile: loaded.headSmile,
+    surprise: loaded.headSurprise,
+    eyes: loaded.headEyes,
+  };
+  loaded.failedBlocks = {
+    2: loaded.block2Failed,
+    3: loaded.block3Failed,
+  };
+  loaded.effects = Object.fromEntries(
+    Object.entries(EFFECT_FRAME_COUNTS).map(([name, count]) => [
+      name,
+      Array.from({ length: count }, (_, index) => loaded[`effect-${name}-${index + 1}`]),
+    ]),
+  );
   return loaded;
 }
 
 class SoundBank {
   constructor(manifest) {
     this.sounds = new Map();
+    this.loops = new Map();
     this.currentMusic = null;
 
     for (const [name, source] of Object.entries(manifest)) {
@@ -236,12 +406,22 @@ class SoundBank {
   play(name, { loop = false, volume } = {}) {
     const source = this.sounds.get(name);
     if (!source) return;
+    if (loop) this.stop(name);
 
     const audio = source.cloneNode();
     audio.loop = loop;
     audio.volume = volume ?? source.volume;
     audio.play().catch(() => {});
+    if (loop) this.loops.set(name, audio);
     return audio;
+  }
+
+  stop(name) {
+    const audio = this.loops.get(name);
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    this.loops.delete(name);
   }
 
   music(name) {
@@ -276,7 +456,6 @@ class FlyingNinjaCat {
     this.spaceDown = false;
     this.accumulator = 0;
     this.previousTime = performance.now();
-    this.animationTick = 0;
     this.bestScore = this.readBestScore();
     this.seed = (Date.now() >>> 0) || 0x12345678;
     this.orientationQuery = window.matchMedia("(orientation: landscape)");
@@ -353,6 +532,8 @@ class FlyingNinjaCat {
     canvas.addEventListener("contextmenu", (event) => event.preventDefault());
 
     window.addEventListener("keydown", (event) => {
+      if (!this.isLandscape) return;
+
       if (event.code === "Space") {
         event.preventDefault();
         if (!this.spaceDown) {
@@ -493,6 +674,8 @@ class FlyingNinjaCat {
   }
 
   startGame() {
+    this.sound.stop("run");
+    this.sound.stop("spin");
     this.state = "playing";
     this.score = 0;
     this.level = 0;
@@ -507,12 +690,18 @@ class FlyingNinjaCat {
     this.effects = [];
     this.trails = [];
     this.newBestAnnounced = false;
-    this.animationTick = 0;
+    this.cloudX = 0;
+    this.headState = "sleep";
+    this.headTimer = 0;
+    this.hookHitFrame = null;
+    this.fadeFrame = null;
     this.player = {
       x: CAT_X,
       y: GROUND_Y,
       dy: 0,
       status: "run",
+      clip: "run",
+      animationTick: 0,
       holding: false,
       rope: null,
       rotation: 0,
@@ -523,24 +712,33 @@ class FlyingNinjaCat {
     }
 
     this.sound.music("gameMusic");
+    this.sound.play("run", { loop: true });
     this.setStatus("游戏开始。点击跳跃，空中再次点击发射绳索。");
   }
 
   startJump() {
     this.player.status = "jump";
+    this.player.clip = "jump";
+    this.player.animationTick = 0;
+    this.player.rotation = 0;
     this.player.dy = JUMP_SPEED;
     this.player.rope = null;
+    this.sound.stop("run");
     this.sound.play("jump");
     this.setStatus("跳跃中。再次点击可发射绳索。");
   }
 
   startShoot() {
     this.player.status = "shoot";
+    this.player.clip = "shoot";
+    this.player.animationTick = 0;
+    this.player.rotation = 0;
     this.player.rope = {
       mode: "shoot",
       x: this.player.x + ROPE_ORIGIN_X,
       y: this.player.y + ROPE_ORIGIN_Y,
     };
+    this.sound.stop("spin");
     this.sound.play("shoot");
     this.setStatus("绳索发射中。命中后按住可向上摆动。");
   }
@@ -552,7 +750,11 @@ class FlyingNinjaCat {
     rope.y = 125;
     rope.mode = "caught";
     this.player.status = "rope";
+    this.player.clip = "rope";
+    this.player.animationTick = 0;
+    this.player.rotation = INITIAL_ROPE_BODY_ANGLE;
     this.player.dy = 15;
+    this.hookHitFrame = -1;
     this.sound.play("ropeCatch");
     this.setStatus("绳索已固定。按住上摆，松开下摆。");
   }
@@ -560,8 +762,11 @@ class FlyingNinjaCat {
   startSpin() {
     this.player.rope = null;
     this.player.status = "spin";
+    this.player.clip = "spin";
+    this.player.animationTick = 0;
+    this.player.rotation = 0;
     this.player.dy = JUMP_SPEED + 15;
-    this.sound.play("spin", { volume: 0.45 });
+    this.sound.play("spin", { loop: true, volume: 0.45 });
     this.setStatus("飞跃中。落到屋顶后继续奔跑。");
   }
 
@@ -571,33 +776,24 @@ class FlyingNinjaCat {
     return [...this.choose(LEVEL_PATTERNS[difficulty])];
   }
 
+  chooseItemLayout(pattern) {
+    const layouts = ITEM_PATTERNS_BY_MAP.get(pattern.join(","));
+    if (!layouts?.length) return pattern.map(() => []);
+    return this.choose(layouts);
+  }
+
   enqueuePattern() {
     const pattern = this.choosePattern();
+    const layout = this.chooseItemLayout(pattern);
     const groupId = ++this.groupSequence;
-    const challengeSlots = pattern
-      .map((type, index) => ({ type, index }))
-      .filter(({ type }) => type === 1 || type === 3);
-    const slotRank = new Map(challengeSlots.map(({ index }, rank) => [index, rank]));
-    let goldCount = 0;
+    const goldCount = layout.flat().filter((code) => code < 100).length;
 
     for (let index = 0; index < pattern.length; index += 1) {
-      const type = pattern[index];
-      let codes = [];
-
-      if (type === 2 || type === 4) {
-        codes = [132, 133, 134, 135];
-      } else if (challengeSlots.length > 0) {
-        const rank = slotRank.get(index);
-        const phase = challengeSlots.length === 1 ? 0.5 : rank / (challengeSlots.length - 1);
-        // Original level-one ItemData keeps reachable arcs mainly on rows 4–9.
-        // Starting at row 9 and peaking at row 5 matches those early patterns.
-        let row = Math.round(9 - Math.sin(phase * Math.PI) * 4);
-        if (type === 3) row = Math.max(1, row - 1);
-        codes = [row * 4, row * 4 + 1, row * 4 + 2, row * 4 + 3];
-        goldCount += codes.length;
-      }
-
-      this.mapQueue.push({ type, codes, groupId });
+      this.mapQueue.push({
+        type: pattern[index],
+        codes: [...(layout[index] || [])],
+        groupId,
+      });
     }
 
     if (goldCount > 0) this.goldGroups.set(groupId, goldCount);
@@ -605,6 +801,7 @@ class FlyingNinjaCat {
 
   spawnBlock(entry, x) {
     if (entry.type === 4) {
+      this.blocks.push({ type: 4, x });
       this.finishGame();
       return;
     }
@@ -618,7 +815,6 @@ class FlyingNinjaCat {
         y: 40 + Math.floor(code / 4) * 37,
         kind: silver ? "silver" : "gold",
         groupId: entry.groupId,
-        bob: this.random() * Math.PI * 2,
       });
     }
 
@@ -632,13 +828,12 @@ class FlyingNinjaCat {
     this.count = 0;
     if (this.level <= 5) {
       this.speed += this.level < 3 ? 3 : 2;
-      this.addEffect("Speed Up!!", 170, 330, "#fff37a");
-      this.sound.play("speed");
+      this.triggerGameEffect("speed");
     } else {
       this.mapQueue.push(
-        ...[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2].map((type) => ({
+        ...FINISH_PATTERN.map((type) => ({
           type,
-          codes: type === 2 ? [132, 133, 134, 135] : [],
+          codes: [],
           groupId: ++this.groupSequence,
         })),
       );
@@ -648,6 +843,8 @@ class FlyingNinjaCat {
   moveWorld() {
     for (const block of this.blocks) block.x -= this.speed;
     for (const item of this.items) item.x -= this.speed;
+    this.cloudX -= this.speed / 4;
+    if (this.cloudX < -CLOUD_WRAP_WIDTH) this.cloudX += CLOUD_WRAP_WIDTH;
     this.nextWay += this.speed;
 
     while (this.nextWay >= BLOCK_WIDTH) {
@@ -710,6 +907,11 @@ class FlyingNinjaCat {
         this.player.dy = 0;
         this.player.rope = null;
         this.player.status = "run";
+        this.player.clip = "run";
+        this.player.animationTick = 0;
+        this.player.rotation = 0;
+        this.sound.stop("spin");
+        this.sound.play("run", { loop: true });
         this.sound.play("land", { volume: 0.34 });
         this.setStatus("奔跑中。点击或按空格跳跃。");
       } else if (this.player.y > 470) {
@@ -735,40 +937,84 @@ class FlyingNinjaCat {
   updateRopeSwing() {
     const rope = this.player.rope;
     if (!rope || rope.mode !== "caught") return;
+
+    // SetGame.gRope_EnterFrame checks death before moving the rope or player.
+    if (this.player.y > 550) {
+      this.gameOver();
+      return;
+    }
+
     rope.x -= this.speed;
+
+    this.player.rotation =
+      Math.atan2(
+        rope.y - (this.player.y + ROPE_BODY_ORIGIN_Y),
+        rope.x - (this.player.x + ROPE_BODY_ORIGIN_X),
+      ) + ROPE_BODY_ANGLE_OFFSET;
 
     if (this.player.holding) {
       if (this.player.dy > -30) this.player.dy -= GRAVITY;
+      if (this.player.y < rope.y + 50) this.startSpin();
     } else if (this.player.dy < 30) {
       this.player.dy += GRAVITY;
     }
 
     this.player.y += this.player.dy;
-    const angle =
-      Math.atan2(rope.y - (this.player.y - 48), rope.x - this.player.x) +
-      Math.PI * 0.38;
-    this.player.rotation = clamp(angle, -1.05, 0.4);
+    if (this.player.rotation < ROPE_RELEASE_ANGLE) this.startSpin();
+    if (rope.x < 70) this.startSpin();
+  }
 
-    if ((this.player.holding && this.player.y < rope.y + 50) || rope.x < 70) {
-      this.startSpin();
-    } else if (this.player.y > 550) {
-      this.gameOver();
+  itemMarkerBounds() {
+    const clip = this.player.clip || this.player.status || "jump";
+    const marker = ITEM_MARKER_TRANSFORMS[clip] || ITEM_MARKER_TRANSFORMS.jump;
+
+    if (!marker.rotate) {
+      return rotatedRectBounds(
+        this.player.x + marker.x,
+        this.player.y + marker.y,
+        ITEM_MARKER_HALF_WIDTH,
+        ITEM_MARKER_HALF_HEIGHT,
+      );
     }
+
+    const angle = this.player.rotation || 0;
+    const cosine = Math.cos(angle);
+    const sine = Math.sin(angle);
+    const centerX =
+      this.player.x + marker.bodyX + cosine * marker.x - sine * marker.y;
+    const centerY =
+      this.player.y + marker.bodyY + sine * marker.x + cosine * marker.y;
+    return rotatedRectBounds(
+      centerX,
+      centerY,
+      ITEM_MARKER_HALF_WIDTH,
+      ITEM_MARKER_HALF_HEIGHT,
+      angle,
+    );
+  }
+
+  itemMovieBounds(item) {
+    const bounds = ITEM_MOVIE_BOUNDS[item.kind] || ITEM_MOVIE_BOUNDS.silver;
+    return {
+      left: item.x + bounds.left,
+      right: item.x + bounds.right,
+      top: item.y + bounds.top,
+      bottom: item.y + bounds.bottom,
+    };
   }
 
   collectItems() {
-    // Recovered from the SWF body.item_pos matrices for run/jump/shoot.
-    const bodyX = this.player.x + ITEM_ORIGIN_X;
-    const bodyY = this.player.y + ITEM_ORIGIN_Y;
+    const markerBounds = this.itemMarkerBounds();
     const remaining = [];
 
     for (const item of this.items) {
-      const dx = item.x - bodyX;
-      const dy = item.y - bodyY;
-      if (dx * dx + dy * dy > 34 * 34) {
+      // MovieClip.hitTest(otherMovieClip) compares transformed bounds.
+      if (!boundsIntersect(markerBounds, this.itemMovieBounds(item))) {
         remaining.push(item);
         continue;
       }
+
+      this.addSpriteEffect("pickup", item.x - 26.5, item.y - 25);
 
       if (item.kind === "gold") {
         const points = 50 - this.level * 5;
@@ -778,8 +1024,7 @@ class FlyingNinjaCat {
         this.goldGroups.set(item.groupId, count);
         if (count === 0) {
           this.addScore(100 + this.level * 20);
-          this.addEffect("Bonus!!", 205, 230, "#ffe45f");
-          this.sound.play("bonus");
+          this.triggerGameEffect("bonus");
         }
       } else {
         this.addScore(5);
@@ -799,33 +1044,62 @@ class FlyingNinjaCat {
       this.saveBestScore();
       if (hadRecord && !this.newBestAnnounced) {
         this.newBestAnnounced = true;
-        this.addEffect("Best!!", 430, 305, "#78f6ff");
-        this.sound.play("best");
+        this.triggerGameEffect("best");
       }
     }
   }
 
-  addEffect(text, x, y, color) {
-    this.effects.push({ text, x, y, color, life: 34, maximum: 34 });
+  setHeadState(state, duration = 0) {
+    this.headState = state;
+    this.headTimer = duration;
+  }
+
+  addSpriteEffect(kind, x = 0, y = 0) {
+    this.effects.push({ kind, x, y, frame: -1 });
+  }
+
+  triggerGameEffect(kind) {
+    const origin = EFFECT_DRAW_ORIGINS[kind];
+    if (origin) this.addSpriteEffect(kind, origin.x, origin.y);
+
+    if (kind === "bonus") {
+      this.setHeadState("eyes");
+      this.sound.play("bonus");
+    } else if (kind === "speed") {
+      this.setHeadState("surprise", FPS * 5);
+      this.addSpriteEffect("speedRing");
+      this.sound.play("speed");
+    } else if (kind === "best") {
+      this.setHeadState("surprise", FPS * 5);
+      this.sound.play("best");
+    }
   }
 
   updateEffects() {
-    for (const effect of this.effects) {
-      effect.life -= 1;
-      effect.y -= 0.9;
+    for (const effect of this.effects) effect.frame += 1;
+    this.effects = this.effects.filter(
+      (effect) => effect.frame < EFFECT_FRAME_COUNTS[effect.kind],
+    );
+
+    if (this.hookHitFrame !== null) {
+      this.hookHitFrame += 1;
+      if (this.hookHitFrame >= EFFECT_FRAME_COUNTS.hookHit) this.hookHitFrame = null;
     }
-    this.effects = this.effects.filter((effect) => effect.life > 0);
+
+    if (this.headTimer > 0) {
+      this.headTimer -= 1;
+      if (this.headTimer === 0) this.headState = "sleep";
+    }
   }
 
   updatePlaying() {
-    this.animationTick += 1;
+    this.player.animationTick = (this.player.animationTick || 0) + 1;
     this.moveWorld();
 
     this.trails.push({
       x: this.player.x,
       y: this.player.y,
-      frame: this.catFrame(),
-      rotation: this.player.rotation,
+      pose: this.catPose(),
     });
     if (this.trails.length > 3) this.trails.shift();
 
@@ -837,7 +1111,7 @@ class FlyingNinjaCat {
       this.player.status === "shoot" ||
       this.player.status === "spin"
     ) {
-      const gravity = this.player.status === "spin" ? GRAVITY * 1.5 : GRAVITY;
+      const gravity = this.player.clip === "spin" ? GRAVITY * 1.5 : GRAVITY;
       this.updateAirborne(gravity);
       if (this.player.status === "shoot") this.updateRopeShot();
     } else if (this.player.status === "rope") {
@@ -853,34 +1127,71 @@ class FlyingNinjaCat {
     if (this.state !== "playing") return;
     this.state = "dying";
     this.deathTick = 0;
+    this.deathStartY = this.player.y;
     this.player.status = "die";
+    this.player.clip = "die";
+    this.player.animationTick = 0;
+    this.player.rotation = 0;
     this.player.rope = null;
     this.player.holding = false;
     this.sound.stopMusic();
+    this.sound.stop("run");
+    this.sound.stop("spin");
     this.sound.play("gameOver");
     this.saveBestScore();
+    // Timeline effects should not freeze behind the deliberately simplified
+    // result panel when play stops.
+    this.effects = [];
+    this.hookHitFrame = null;
+    this.setHeadState("smile");
+    for (const block of this.blocks) block.failed = true;
     this.setStatus(`坠落，游戏结束。得分 ${this.score}。`);
   }
 
   finishGame() {
     if (this.state !== "playing") return;
-    this.state = "ending";
+    this.state = "finishing";
+    this.fadeFrame = 0;
+    this.speed = 0;
     this.sound.stopMusic();
-    this.sound.play("finish");
+    this.sound.stop("run");
+    this.sound.stop("spin");
+    this.sound.play("fade");
     this.saveBestScore();
-    this.setStatus(`抵达终点。最终得分 ${this.score}。`);
+    this.setStatus(`抵达终点。正在显示最终成绩 ${this.score}。`);
   }
 
   update() {
     if (this.state === "playing") {
       this.updatePlaying();
     } else if (this.state === "dying") {
-      this.animationTick += 1;
+      this.player.animationTick += 1;
       this.deathTick += 1;
-      this.player.y += 10 + this.deathTick * 0.85;
-      if (this.deathTick >= 18) {
+
+      if (this.deathTick > DEATH_DELAY_FRAMES) {
+        const tweenFrame = Math.min(
+          this.deathTick - DEATH_DELAY_FRAMES,
+          DEATH_TWEEN_FRAMES,
+        );
+        const progress = tweenFrame / DEATH_TWEEN_FRAMES;
+        this.player.y = this.deathStartY + DEATH_DISTANCE * progress * progress;
+      }
+
+      if (this.deathTick >= DEATH_DELAY_FRAMES + DEATH_TWEEN_FRAMES) {
         this.state = "gameover";
         this.setStatus(`游戏结束，得分 ${this.score}。中央按钮可重新开始。`);
+      }
+    } else if (this.state === "finishing" || this.state === "endingTransition") {
+      if (this.state === "finishing" && this.player) this.player.x += 30;
+      this.fadeFrame += 1;
+      if (this.state === "finishing" && this.fadeFrame >= 14) {
+        this.state = "endingTransition";
+        this.sound.play("finish");
+      }
+      if (this.fadeFrame >= FADE_ALPHA.length - 1) {
+        this.state = "ending";
+        this.fadeFrame = null;
+        this.setStatus(`抵达终点。最终得分 ${this.score}。`);
       }
     }
   }
@@ -906,23 +1217,18 @@ class FlyingNinjaCat {
     requestAnimationFrame((nextTime) => this.loop(nextTime));
   }
 
-  catFrame() {
-    const index = Math.floor(this.animationTick / 2);
-    switch (this.player?.status) {
-      case "jump":
-        return 6 + (index % 6);
-      case "shoot":
-        return 12 + (index % 6);
-      case "rope":
-        return 18 + (index % 6);
-      case "spin":
-        return 24 + (index % 6);
-      case "die":
-        return 30 + (index % 6);
-      case "run":
-      default:
-        return 1 + (index % 5);
-    }
+  catFrame(clip = this.player?.clip || this.player?.status || "run") {
+    const count = CAT_CLIP_FRAME_COUNTS[clip] || 1;
+    return 1 + ((this.player?.animationTick || 0) % count);
+  }
+
+  catPose() {
+    const clip = this.player?.clip || this.player?.status || "run";
+    return {
+      clip,
+      frame: this.catFrame(clip),
+      rotation: clip === "rope" ? this.player.rotation || 0 : 0,
+    };
   }
 
   draw() {
@@ -930,6 +1236,10 @@ class FlyingNinjaCat {
     if (this.state === "title") this.drawTitle();
     else if (this.state === "help") this.drawHelp();
     else if (this.state === "ending") this.drawEnding();
+    else if (this.state === "endingTransition") {
+      this.drawEnding();
+      this.drawFade();
+    }
     else this.drawGame();
   }
 
@@ -1033,11 +1343,22 @@ class FlyingNinjaCat {
 
   drawGame() {
     context.drawImage(this.assets.game, 0, 0);
+    context.save();
+    context.globalAlpha = 0.5;
+    context.drawImage(this.assets.clouds, this.cloudX || 0, CLOUD_Y);
+    context.restore();
+    context.drawImage(this.assets.head[this.headState || "sleep"], HEAD_X, HEAD_Y);
     context.drawImage(this.assets.bestPaw, BEST_PAW_X, BEST_PAW_Y);
     this.drawBestScore();
 
     for (const block of this.blocks) {
       if (block.type === 1) continue;
+      const failed = block.failed && this.assets.failedBlocks[block.type];
+      if (failed) {
+        if (block.type === 2) context.drawImage(failed, block.x - 116.5, 362);
+        else context.drawImage(failed, block.x - BLOCK_IMAGE_X, BLOCK_IMAGE_Y);
+        continue;
+      }
       const image = this.assets.blocks[block.type - 1];
       if (image) context.drawImage(image, block.x - BLOCK_IMAGE_X, BLOCK_IMAGE_Y);
     }
@@ -1057,6 +1378,17 @@ class FlyingNinjaCat {
     if (this.state === "gameover") {
       this.drawGameOver();
     }
+
+    if (this.state === "finishing") this.drawFade();
+  }
+
+  drawFade() {
+    if (this.fadeFrame === null) return;
+    context.save();
+    context.globalAlpha = FADE_ALPHA[clamp(this.fadeFrame, 0, FADE_ALPHA.length - 1)] / 255;
+    context.fillStyle = "#000";
+    context.fillRect(0, 0, WIDTH, HEIGHT);
+    context.restore();
   }
 
   drawBestScore() {
@@ -1095,16 +1427,28 @@ class FlyingNinjaCat {
         : Math.atan2(rope.y - startY, rope.x - startX);
     context.translate(rope.x, rope.y);
     context.rotate(angle);
-    const hook = this.assets.hooks[rope.mode === "caught" ? 1 : 0];
+    const hook = this.assets.hooks[0];
     context.drawImage(hook, -HOOK_ORIGIN_X, -HOOK_ORIGIN_Y);
+
+    if (
+      rope.mode === "caught" &&
+      Number.isInteger(this.hookHitFrame) &&
+      this.hookHitFrame >= 0
+    ) {
+      const frame = this.assets.effects?.hookHit?.[this.hookHitFrame];
+      if (frame) {
+        context.translate(HOOK_HIT_X, HOOK_HIT_Y);
+        context.rotate(HOOK_HIT_ROTATION);
+        context.drawImage(frame, -12, -32);
+      }
+    }
     context.restore();
   }
 
   drawItems() {
     for (const item of this.items) {
       const image = this.assets.coins[item.kind === "gold" ? 0 : 1];
-      const bob = Math.sin(this.animationTick * 0.18 + item.bob) * 2;
-      context.drawImage(image, item.x - 28, item.y - 26 + bob);
+      context.drawImage(image, item.x - 28, item.y - 26);
     }
   }
 
@@ -1114,22 +1458,28 @@ class FlyingNinjaCat {
     visible.forEach((trail, index) => {
       context.save();
       context.globalAlpha = 0.08 + index * 0.07;
-      this.drawCatAt(trail.x, trail.y, trail.frame, trail.rotation);
+      this.drawCatAt(trail.x, trail.y, trail.pose);
       context.restore();
     });
   }
 
   drawCat() {
     if (!this.player) return;
-    this.drawCatAt(this.player.x, this.player.y, this.catFrame(), this.player.rotation);
+    this.drawCatAt(this.player.x, this.player.y, this.catPose());
   }
 
-  drawCatAt(x, y, frame, rotation = 0) {
-    const image = this.assets.cat[clamp(frame - 1, 0, this.assets.cat.length - 1)];
+  drawCatAt(x, y, pose) {
+    const clip = pose?.clip || "run";
+    const frames = this.assets.cat[clip];
+    const image = frames[clamp((pose?.frame || 1) - 1, 0, frames.length - 1)];
+    const draw = CAT_CLIP_DRAW[clip] || CAT_CLIP_DRAW.run;
+
     context.save();
     context.translate(x, y);
-    context.rotate(rotation || 0);
-    context.drawImage(image, -CAT_IMAGE_X, -CAT_IMAGE_Y);
+    context.translate(draw.x, draw.y);
+    if (draw.rotate) context.rotate(pose?.rotation || 0);
+    if (draw.scale !== 1) context.scale(draw.scale, draw.scale);
+    context.drawImage(image, -draw.originX, -draw.originY);
     context.restore();
   }
 
@@ -1163,18 +1513,21 @@ class FlyingNinjaCat {
   }
 
   drawEffects() {
-    context.save();
-    context.textAlign = "center";
-    context.font = 'italic bold 25px "Trebuchet MS", "PingFang SC", sans-serif';
     for (const effect of this.effects) {
-      context.globalAlpha = clamp(effect.life / 12, 0, 1);
-      context.lineWidth = 4;
-      context.strokeStyle = "rgba(58, 30, 0, .75)";
-      context.fillStyle = effect.color;
-      context.strokeText(effect.text, effect.x, effect.y);
-      context.fillText(effect.text, effect.x, effect.y);
+      const frames = this.assets.effects[effect.kind];
+      const frame = frames?.[clamp(effect.frame, 0, frames.length - 1)];
+      if (!frame) continue;
+
+      if (effect.kind === "speedRing") {
+        context.save();
+        context.translate(this.player.x, this.player.y);
+        context.rotate(this.player.rotation || 0);
+        context.drawImage(frame, SPEED_RING_X, SPEED_RING_Y);
+        context.restore();
+      } else {
+        context.drawImage(frame, effect.x, effect.y);
+      }
     }
-    context.restore();
   }
 
   drawGameOver() {
@@ -1250,6 +1603,9 @@ class FlyingNinjaCat {
             y: Math.round(this.player.y),
             dy: Number(this.player.dy.toFixed(1)),
             status: this.player.status,
+            clip: this.player.clip,
+            frame: this.catFrame(),
+            rotation: Number(((this.player.rotation * 180) / Math.PI).toFixed(1)),
             rope: this.player.rope
               ? {
                   mode: this.player.rope.mode,
