@@ -27,8 +27,8 @@ body {
 }
 
 .game-shell {
-  width: min(100vw, calc(100svh * 4 / 3), 640px);
-  aspect-ratio: 4 / 3;
+  width: min(100vw, calc(100svh * 16 / 9), 960px);
+  aspect-ratio: 16 / 9;
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -66,9 +66,9 @@ canvas:focus-visible {
 }
 
 .game-shell:fullscreen canvas {
-  width: min(100vw, calc(100dvh * 4 / 3));
+  width: min(100vw, calc(100dvh * 16 / 9));
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
 }
 
 .game-shell:-webkit-full-screen {
@@ -82,9 +82,9 @@ canvas:focus-visible {
 }
 
 .game-shell:-webkit-full-screen canvas {
-  width: min(100vw, calc(100dvh * 4 / 3));
+  width: min(100vw, calc(100dvh * 16 / 9));
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
 }
 
 .sr-only {

@@ -1,8 +1,13 @@
 const WIDTH = 640;
 const HEIGHT = 480;
+const CANVAS_WIDTH = 960;
+const CANVAS_HEIGHT = 540;
+const VIEW_SCALE = CANVAS_HEIGHT / HEIGHT;
+const VIEW_OFFSET_X = (CANVAS_WIDTH - WIDTH * VIEW_SCALE) / 2;
+const VIEW_OFFSET_Y = 0;
 const FPS = 30;
 const STEP_MS = 1000 / FPS;
-const BUILD_VERSION = "20260801-2";
+const BUILD_VERSION = "20260803-3";
 const ASSET_LOAD_CONCURRENCY = 4;
 
 const CAT_X = 200;
@@ -10,7 +15,17 @@ const GROUND_Y = 365;
 const BLOCK_WIDTH = 150;
 const BLOCK_IMAGE_X = 127.5;
 const BLOCK_IMAGE_Y = 30;
+const WORLD_VISIBLE_RIGHT = (CANVAS_WIDTH - VIEW_OFFSET_X) / VIEW_SCALE;
+const WORLD_SPAWN_X =
+  Math.ceil((WORLD_VISIBLE_RIGHT + BLOCK_IMAGE_X) / BLOCK_WIDTH) * BLOCK_WIDTH;
+const INITIAL_BLOCK_COUNT = WORLD_SPAWN_X / BLOCK_WIDTH + 1;
 const GROUND_HALF_WIDTH = 100;
+// id_block.ground_pos is a hidden 200x50 rectangle. The block is placed at
+// y=520 and the marker at y=-3334 twips, so its world-space vertical bounds
+// are 353.3..403.3px. Keeping the y bounds prevents a fallen cat from being
+// pulled back onto a later roof after it has already dropped through a gap.
+const GROUND_MARKER_TOP = 520 - 3334 / 20;
+const GROUND_MARKER_BOTTOM = GROUND_MARKER_TOP + 1000 / 20;
 const ROPE_ORIGIN_X = 12.5;
 const ROPE_ORIGIN_Y = -54.4;
 const ROPE_BODY_ORIGIN_X = 14.3;
@@ -199,10 +214,10 @@ for (const [mapSignature, ...layout] of globalThis.NINJA_ITEM_PATTERNS || []) {
 }
 
 const IMAGE_MANIFEST = {
-  title: "assets/backgrounds/title.jpg",
-  game: "assets/backgrounds/game-base.png",
+  title: "assets/backgrounds/title-wide.jpg?v=20260803-1",
+  game: "assets/backgrounds/game-wide.png?v=20260803-1",
   clouds: "assets/backgrounds/clouds.png",
-  ending: "assets/backgrounds/ending.jpg",
+  ending: "assets/backgrounds/ending-wide.jpg?v=20260803-1",
   headSleep: "assets/head/sleep.png",
   headSmile: "assets/head/smile.png",
   headSurprise: "assets/head/surprise.png",
@@ -260,6 +275,12 @@ function pointIn(point, rect) {
 
 function clamp(value, minimum, maximum) {
   return Math.max(minimum, Math.min(maximum, value));
+}
+
+function enterLogicalViewport() {
+  context.save();
+  context.translate(VIEW_OFFSET_X, VIEW_OFFSET_Y);
+  context.scale(VIEW_SCALE, VIEW_SCALE);
 }
 
 function rotatedRectBounds(centerX, centerY, halfWidth, halfHeight, angle = 0) {
@@ -601,9 +622,11 @@ class FlyingNinjaCat {
 
   canvasPoint(event) {
     const bounds = canvas.getBoundingClientRect();
+    const canvasX = ((event.clientX - bounds.left) / bounds.width) * CANVAS_WIDTH;
+    const canvasY = ((event.clientY - bounds.top) / bounds.height) * CANVAS_HEIGHT;
     return {
-      x: ((event.clientX - bounds.left) / bounds.width) * WIDTH,
-      y: ((event.clientY - bounds.top) / bounds.height) * HEIGHT,
+      x: (canvasX - VIEW_OFFSET_X) / VIEW_SCALE,
+      y: (canvasY - VIEW_OFFSET_Y) / VIEW_SCALE,
     };
   }
 
@@ -738,7 +761,7 @@ class FlyingNinjaCat {
       rotation: 0,
     };
 
-    for (let index = 0; index < 6; index += 1) {
+    for (let index = 0; index < INITIAL_BLOCK_COUNT; index += 1) {
       this.blocks.push({ type: 2, x: index * BLOCK_WIDTH });
     }
 
@@ -881,7 +904,7 @@ class FlyingNinjaCat {
     while (this.nextWay >= BLOCK_WIDTH) {
       if (this.mapQueue.length === 0) this.enqueuePattern();
       const entry = this.mapQueue.shift();
-      const x = BLOCK_WIDTH * 5 - (this.nextWay - BLOCK_WIDTH);
+      const x = WORLD_SPAWN_X - (this.nextWay - BLOCK_WIDTH);
       this.spawnBlock(entry, x);
       this.nextWay -= BLOCK_WIDTH;
     }
@@ -891,6 +914,12 @@ class FlyingNinjaCat {
   }
 
   hasGroundAt(x) {
+    return this.groundHitsPoint(x, GROUND_Y);
+  }
+
+  groundHitsPoint(x, y) {
+    if (y < GROUND_MARKER_TOP || y > GROUND_MARKER_BOTTOM) return false;
+
     return this.blocks.some(
       (block) =>
         (block.type === 2 || block.type === 4) &&
@@ -933,7 +962,10 @@ class FlyingNinjaCat {
     if (this.player.dy < 0) {
       if (this.player.status !== "shoot") this.player.status = "jump";
 
-      if (this.player.y >= GROUND_Y && this.hasGroundAt(this.player.x)) {
+      if (
+        this.player.y >= GROUND_Y &&
+        this.groundHitsPoint(this.player.x, this.player.y)
+      ) {
         this.player.y = GROUND_Y;
         this.player.dy = 0;
         this.player.rope = null;
@@ -1263,19 +1295,23 @@ class FlyingNinjaCat {
   }
 
   draw() {
-    context.clearRect(0, 0, WIDTH, HEIGHT);
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     if (this.state === "title") this.drawTitle();
     else if (this.state === "help") this.drawHelp();
     else if (this.state === "ending") this.drawEnding();
     else if (this.state === "endingTransition") {
       this.drawEnding();
       this.drawFade();
+    } else {
+      this.drawGame();
+      if (this.state === "finishing") this.drawFade();
     }
-    else this.drawGame();
   }
 
   drawTitle() {
-    context.drawImage(this.assets.title, 0, 0);
+    context.drawImage(this.assets.title, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    enterLogicalViewport();
     this.drawTitleButton("start", 360, 337, this.assets.startLabel);
     this.drawTitleButton("help", 472, 337, this.assets.helpLabel);
 
@@ -1287,6 +1323,7 @@ class FlyingNinjaCat {
     context.shadowColor = "rgba(0,0,0,.55)";
     context.shadowBlur = 2;
     context.fillText("Flash 游戏乐园", 320, 435);
+    context.restore();
     context.restore();
   }
 
@@ -1305,10 +1342,11 @@ class FlyingNinjaCat {
   }
 
   drawHelp() {
-    context.drawImage(this.assets.title, 0, 0);
+    context.drawImage(this.assets.title, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     context.fillStyle = "rgba(2, 12, 25, 0.78)";
-    context.fillRect(0, 0, WIDTH, HEIGHT);
+    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
+    enterLogicalViewport();
     context.save();
     roundedRect(context, 55, 55, 530, 380, 18);
     context.fillStyle = "rgba(5, 28, 42, 0.96)";
@@ -1358,6 +1396,7 @@ class FlyingNinjaCat {
     context.textAlign = "center";
     context.fillText("×", 560, 90);
     context.restore();
+    context.restore();
   }
 
   drawPanelButton(x, y, text, disabled) {
@@ -1373,7 +1412,8 @@ class FlyingNinjaCat {
   }
 
   drawGame() {
-    context.drawImage(this.assets.game, 0, 0);
+    context.drawImage(this.assets.game, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    enterLogicalViewport();
     context.save();
     context.globalAlpha = 0.5;
     context.drawImage(this.assets.clouds, this.cloudX || 0, CLOUD_Y);
@@ -1410,15 +1450,16 @@ class FlyingNinjaCat {
       this.drawGameOver();
     }
 
-    if (this.state === "finishing") this.drawFade();
+    context.restore();
   }
 
   drawFade() {
     if (this.fadeFrame === null) return;
     context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
     context.globalAlpha = FADE_ALPHA[clamp(this.fadeFrame, 0, FADE_ALPHA.length - 1)] / 255;
     context.fillStyle = "#000";
-    context.fillRect(0, 0, WIDTH, HEIGHT);
+    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     context.restore();
   }
 
@@ -1563,8 +1604,12 @@ class FlyingNinjaCat {
 
   drawGameOver() {
     context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
     context.fillStyle = "rgba(2, 8, 18, .12)";
-    context.fillRect(0, 0, WIDTH, HEIGHT);
+    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    context.restore();
+
+    context.save();
     // Keep the Chinese game-over title, score panel, and replay button. The
     // English title/fish artwork above it and the submit/rank buttons are not
     // part of the standalone H5 result screen.
@@ -1602,7 +1647,8 @@ class FlyingNinjaCat {
   }
 
   drawEnding() {
-    context.drawImage(this.assets.ending, 0, 0);
+    context.drawImage(this.assets.ending, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    enterLogicalViewport();
     context.save();
     context.textAlign = "center";
     context.font = 'bold 24px "PingFang SC", sans-serif';
@@ -1611,6 +1657,7 @@ class FlyingNinjaCat {
     context.lineWidth = 4;
     context.strokeText(`最终得分 ${this.score}`, 320, 404);
     context.fillText(`最终得分 ${this.score}`, 320, 404);
+    context.restore();
     context.restore();
   }
 
@@ -1651,23 +1698,23 @@ class FlyingNinjaCat {
 }
 
 function drawLoading(progress, error) {
-  const gradient = context.createLinearGradient(0, 0, 0, HEIGHT);
+  const gradient = context.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
   gradient.addColorStop(0, "#061426");
   gradient.addColorStop(1, "#0a5361");
   context.fillStyle = gradient;
-  context.fillRect(0, 0, WIDTH, HEIGHT);
+  context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
   context.textAlign = "center";
   context.fillStyle = error ? "#ff8b71" : "#f7d85b";
-  context.font = 'bold 25px "PingFang SC", sans-serif';
-  context.fillText(error ? "素材载入失败" : "飞天忍者猫", WIDTH / 2, 207);
+  context.font = 'bold 28px "PingFang SC", sans-serif';
+  context.fillText(error ? "素材载入失败" : "飞天忍者猫", CANVAS_WIDTH / 2, 233);
 
   context.fillStyle = "rgba(0,0,0,.45)";
-  roundedRect(context, 170, 231, 300, 22, 11);
+  roundedRect(context, 311, 260, 338, 25, 12);
   context.fill();
   if (!error) {
     context.fillStyle = "#47d7d1";
-    roundedRect(context, 173, 234, 294 * progress, 16, 8);
+    roundedRect(context, 314, 264, 332 * progress, 17, 8);
     context.fill();
   }
 
@@ -1675,8 +1722,8 @@ function drawLoading(progress, error) {
   context.font = '16px "PingFang SC", sans-serif';
   context.fillText(
     error ? error.message : `载入素材 ${Math.round(progress * 100)}%`,
-    WIDTH / 2,
-    280,
+    CANVAS_WIDTH / 2,
+    315,
   );
 }
 
