@@ -10,6 +10,7 @@
     "test:candy": "node --test tests/candy-match-core.test.mjs",
     "test:flypy": "node --test tests/flypy-core.test.mjs",
     "test:forest": "node --test tests/focus-forest-core.test.mjs",
+    "test:grid": "node --test tests/grid-breakpoint-core.test.mjs",
     "import:blog": "node scripts/import-blog.mjs",
     "add:post": "node scripts/add-post.mjs",
     "new": "node scripts/new-post.mjs",

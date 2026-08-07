@@ -1,0 +1,297 @@
+/* Grid Breakpoint 计算器 —— 独立壳工具，自带一套技术手册风的视觉语言。 */
+
+:root {
+  --paper: #fbfaf7;
+  --card: #ffffff;
+  --ink: #14181d;
+  --mute: #6b7280;
+  --line: #e3e0d8;
+  --accent: #2f6df6;
+  --accent-soft: #e8eefe;
+  --warn: #c8552c;
+  --radius: 14px;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #12161b;
+    --card: #1a1f26;
+    --ink: #e9eef3;
+    --mute: #96a1ae;
+    --line: #2a323c;
+    --accent: #7aa2ff;
+    --accent-soft: #1f2a44;
+    --warn: #f08a5f;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.6 system-ui, -apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1, h2 { font-size: 15px; margin: 0 0 14px; letter-spacing: .01em; }
+
+/* ---------------------------------------------------------------- 顶栏 */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(14px + env(safe-area-inset-top)) 20px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.brand { font-weight: 600; }
+.brand i {
+  font: 500 10px/1 var(--mono);
+  letter-spacing: .12em;
+  color: var(--mute);
+  margin-left: 8px;
+  font-style: normal;
+}
+
+.ghost {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: .06em;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.ghost:hover { background: var(--accent-soft); border-color: var(--accent); }
+.ghost:active { transform: translateY(1px); }
+
+.pwa-hint {
+  margin: 0;
+  padding: 0 20px;
+  font: 12px/2.4 var(--mono);
+  color: var(--accent);
+  min-height: 0;
+}
+.pwa-hint:empty { display: none; }
+
+/* ---------------------------------------------------------------- 版面 */
+
+/* 不设 max-width：预览要尽量拿到真实宽度，版面占满窗口 */
+.wrap {
+  padding: 20px 20px 40px;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  /* grid item 默认 min-width:auto 会让卡片撑到表格/代码的 min-content 宽，
+     窄屏上整页横向溢出；归零后宽内容各自在 .scroller / .code 里横滚 */
+  min-width: 0;
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.note { margin: 10px 0 0; font-size: 12px; color: var(--mute); }
+.error { margin: 12px 0 0; font-size: 13px; color: var(--warn); }
+
+/* ---------------------------------------------------------------- 输入 */
+
+.fields { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 560px) { .fields { grid-template-columns: 1fr; } }
+
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 13px; color: var(--mute); }
+.field i {
+  font: 500 10px/1 var(--mono);
+  letter-spacing: .08em;
+  font-style: normal;
+  opacity: .7;
+}
+
+input[type='number'] {
+  font: 500 18px/1 var(--mono);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 12px;
+  width: 100%;
+}
+input[type='number']:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.summary {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 4px;
+}
+.summary b { font: 600 26px/1.2 var(--mono); color: var(--accent); }
+.summary .note { margin: 0; }
+
+/* ---------------------------------------------------------------- 预览 */
+
+.stage {
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  padding: 14px;
+  overflow: hidden;
+}
+
+/* 视口宽度按 scale 缩放到面板里；transition 只动宽度，reduce 下关掉 */
+.viewport {
+  height: 96px;
+  margin: 0 auto;
+  transition: width .32s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* 列格子绝对定位：换列时只补间 width / transform / opacity，
+   不走 grid-template-columns（轨道数一变就没法补间，只会跳） */
+.cols { position: relative; height: 100%; }
+.cols > i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  transition: width .32s cubic-bezier(.4, 0, .2, 1), transform .32s cubic-bezier(.4, 0, .2, 1),
+    opacity .22s ease;
+}
+
+.slider { position: relative; margin-top: 16px; }
+.slider input { width: 100%; accent-color: var(--accent); margin: 0; }
+
+.ticks { position: relative; height: 16px; margin-top: 2px; }
+.ticks > i {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font: 500 9px/1.6 var(--mono);
+  color: var(--mute);
+  white-space: nowrap;
+  font-style: normal;
+}
+.ticks > i::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 5px;
+  margin: 0 auto 1px;
+  background: var(--line);
+}
+
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin: 12px 0 0;
+  font: 12px/1.6 var(--mono);
+  color: var(--mute);
+}
+.readout b { font: 600 18px/1.2 var(--mono); color: var(--ink); }
+.readout .dev { color: var(--warn); }
+/* 正好等于默认列宽时没什么可警示的，退回中性色 */
+.readout .dev.is-flat { color: var(--mute); }
+
+/* ---------------------------------------------------------------- 表格 */
+
+.scroller { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+
+table { border-collapse: collapse; width: 100%; min-width: 460px; }
+th, td {
+  text-align: right;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  font: 13px/1.5 var(--mono);
+  white-space: nowrap;
+}
+th {
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--mute);
+}
+th:first-child, td:first-child { text-align: left; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr.is-on td { background: var(--accent-soft); }
+tbody td:nth-child(2) { color: var(--accent); font-weight: 600; }
+tbody td:last-child { color: var(--warn); }
+
+/* ---------------------------------------------------------------- 计算过程 */
+
+.explain > summary {
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.explain > summary::-webkit-details-marker { display: none; }
+.explain > summary::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--mute);
+  border-bottom: 1.5px solid var(--mute);
+  transform: rotate(-45deg);
+  transition: transform .2s ease;
+}
+.explain[open] > summary::before { transform: rotate(45deg); }
+.explain > summary:hover::before { border-color: var(--accent); }
+
+#steps { margin-top: 4px; }
+#steps h3 {
+  margin: 22px 0 8px;
+  font: 600 11px/1 var(--mono);
+  letter-spacing: .1em;
+  color: var(--mute);
+}
+#steps h3:first-child { margin-top: 14px; }
+
+.fx {
+  margin: 0 0 4px;
+  font: 13px/1.9 var(--mono);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.fx b { color: var(--accent); }
+.fx > b:first-child {
+  display: inline-block;
+  min-width: 3.4em;
+  color: var(--ink);
+}
+.sym { font-style: italic; }
+.sym sub { font-size: .75em; font-style: normal; }
+
+.why { margin: 8px 0 0; font-size: 12px; line-height: 1.8; color: var(--mute); }
+
+.foot {
+  padding: 20px;
+  text-align: center;
+  font: 10px/1 var(--mono);
+  letter-spacing: .12em;
+  color: var(--mute);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

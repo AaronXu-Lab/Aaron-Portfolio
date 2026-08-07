@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Grid 断点计算器图标">
+  <rect width="512" height="512" rx="112" fill="#14181d"/>
+  <g fill="#fbfaf7">
+    <rect x="130" y="150" width="30" height="212" rx="8"/>
+    <rect x="172" y="150" width="30" height="212" rx="8"/>
+    <rect x="214" y="150" width="30" height="212" rx="8"/>
+  </g>
+  <g fill="#2f6df6">
+    <rect x="292" y="150" width="42" height="212" rx="10"/>
+    <rect x="346" y="150" width="42" height="212" rx="10"/>
+  </g>
+  <path d="M268 128V384" stroke="#e8663d" stroke-width="10" stroke-linecap="round" stroke-dasharray="26 26"/>
+</svg>

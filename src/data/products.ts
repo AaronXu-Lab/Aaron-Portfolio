@@ -175,6 +175,21 @@ export const tools: ToolEntry[] = [
     newTab: true,
   },
   {
+    slug: 'grid-breakpoint',
+    name: 'Grid 断点计算器',
+    en: 'GRID BREAKPOINT',
+    description:
+      '不预设 768 / 1024 / 1280，而是从 max-width、列数与间距反推断点：让 Grid 每次减少一列时，切换前后的单列宽度相对默认列宽的偏差相等。带实时预览、逐档偏差表与可复制的 CSS。纯本地计算，离线可用。',
+    icon: '/tools/grid-breakpoint/icon.svg',
+    iconAlt: 'Grid 断点计算器图标',
+    pwa: true,
+    status: 'shipped',
+    tags: ['PWA', '响应式栅格', '离线可用'],
+    date: '2026.08',
+    href: '/tools/grid-breakpoint/',
+    newTab: true,
+  },
+  {
     slug: 'travel-maps',
     name: '出发吧打工人！',
     en: 'TRAVEL MAPS',

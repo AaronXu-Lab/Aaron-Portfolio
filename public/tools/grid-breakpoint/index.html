@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Grid Breakpoint 计算器</title>
+<meta name="description" content="从 max-width、列数与间距推导响应式 breakpoint：让切换列数前后的单列宽度偏差相等。离线可用的 PWA。">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12161b" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/tools/grid-breakpoint/manifest.webmanifest">
+<link rel="icon" href="/tools/grid-breakpoint/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/tools/grid-breakpoint/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Grid 断点">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- PWA 相对独立，不做返回上级；顶栏右侧留给安装入口 -->
+<header class="bar">
+  <span class="brand">Grid 断点计算器 <i>GRID BREAKPOINT</i></span>
+  <button id="install" class="ghost" type="button" hidden>安装应用</button>
+</header>
+<p id="pwa-hint" class="pwa-hint" role="status" aria-live="polite"></p>
+
+<main class="wrap">
+
+  <section class="card" aria-labelledby="in-title">
+    <h1 id="in-title">Grid 参数</h1>
+    <div class="fields">
+      <label class="field">
+        <span>最大宽度 <i>max-width</i></span>
+        <input id="max-width" type="number" inputmode="numeric" min="1" step="1" value="1200">
+      </label>
+      <label class="field">
+        <span>列数 <i>columns</i></span>
+        <input id="columns" type="number" inputmode="numeric" min="1" max="24" step="1" value="4">
+      </label>
+      <label class="field">
+        <span>间距 <i>spacing</i></span>
+        <input id="spacing" type="number" inputmode="numeric" min="0" step="1" value="24">
+      </label>
+    </div>
+    <p id="error" class="error" role="alert" hidden></p>
+    <p class="summary">
+      默认列宽 <b id="default-width">282px</b>
+      <span class="note">= (max-width − (列数 − 1) × 间距) ÷ 列数，所有断点都以它为基准</span>
+    </p>
+  </section>
+
+  <section class="card" aria-labelledby="bp-title">
+    <h2 id="bp-title">断点</h2>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">切换</th>
+            <th scope="col">断点</th>
+            <th scope="col">切换前列宽</th>
+            <th scope="col">切换后列宽</th>
+            <th scope="col">偏差</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="note">列数越少，同一次切换造成的列宽跳变越大 —— 这是 Grid 几何关系本身决定的。</p>
+  </section>
+
+  <section class="card" aria-labelledby="pv-title">
+    <h2 id="pv-title">实时预览</h2>
+    <div class="stage" id="stage">
+      <div class="viewport" id="viewport"><div class="cols" id="cols"></div></div>
+    </div>
+    <div class="slider">
+      <input id="vw" type="range" min="240" max="1200" step="1" value="1200" aria-label="预览宽度">
+      <div class="ticks" id="ticks" aria-hidden="true"></div>
+    </div>
+    <p class="readout">
+      <b id="vw-read">1200px</b>
+      <span id="cols-read">4 列</span>
+      <span id="cw-read">282px / 列</span>
+      <span id="dev-read" class="dev is-flat">与默认列宽持平</span>
+    </p>
+  </section>
+
+  <details class="card explain">
+    <summary>计算过程</summary>
+    <div id="steps"></div>
+  </details>
+
+</main>
+
+<footer class="foot"><span>GRID BREAKPOINT · XUWEINAN.COM</span></footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

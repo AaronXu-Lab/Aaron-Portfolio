@@ -1,0 +1,20 @@
+{
+  "name": "Grid 断点计算器 · Grid Breakpoint",
+  "short_name": "Grid 断点",
+  "description": "从 max-width、列数与间距推导响应式 breakpoint，让切换列数前后的单列宽度偏差相等。纯本地计算，离线可用。",
+  "id": "/tools/grid-breakpoint/",
+  "start_url": "/tools/grid-breakpoint/?source=pwa",
+  "scope": "/tools/grid-breakpoint/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "developer"],
+  "background_color": "#fbfaf7",
+  "theme_color": "#fbfaf7",
+  "icons": [
+    { "src": "/tools/grid-breakpoint/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/tools/grid-breakpoint/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/tools/grid-breakpoint/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

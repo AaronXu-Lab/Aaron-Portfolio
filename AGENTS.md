@@ -14,6 +14,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/pages/tools/*.astro` | PWA 小工具页(`flypy` 小鹤双拼练习器;独立壳,不用 Base 布局) |
 | `public/tools/<slug>/` | 各 PWA 的 manifest / service worker / 图标(SW 作用域 = `/tools/<slug>/`) |
 | `src/lib/flypy-core.mjs` | flypy 的纯逻辑核(编码/练习单元/计时统计);被 Astro 页顶层、页内客户端 `<script>`、`tests/` 三处共用,改它要跑 `npm run test:flypy` |
+| `public/tools/grid-breakpoint/` | 独立静态壳 PWA「Grid 断点计算器」:从 max-width / 列数 / 间距按 Equal Column Deviation 反推响应式断点。`js/core.js` 是纯逻辑核(默认列宽、理想宽度、断点、偏差、`columnsAt` / `columnWidthAt`),改它要跑 `npm run test:grid`;`js/app.js` 只做读输入、写 DOM |
 | `public/tools/travel-maps/` | 独立静态壳工具「出发吧打工人」:D3 手账风等时旅行地图,支持多出发城市(`?from=`,默认上海),新标签页打开(见 [workflows/travel-maps.md](workflows/travel-maps.md)) |
 | `public/tools/focus-forest/` | 独立静态壳 PWA「专注森林」:Three.js 低多边形 3D 专注计时器。`js/core.js` 是纯逻辑核(阶段/计时/存储/分页,改它要跑 `npm run test:forest`),`js/scene.js` 只管场景与动画(植物是 progress 连续驱动的「生长脚本」,见 [workflows/focus-forest-plants.md](workflows/focus-forest-plants.md)),`vendor/` 是版本锁定的 three r185 构建产物 |
 | `public/tools/flying-ninja-cat/` | 独立静态壳小游戏「飞天忍者猫」:纯 HTML5 Canvas 重制版,运行时只加载目录内的 `game.js`、`style.css` 与 `assets/`,不依赖 SWF、Ruffle 或外部接口;最高分保存在浏览器 `localStorage`。源版本与永久回归测试位于本地 `Anti-SWF/h5/flying-ninja-cat/` |
@@ -30,6 +31,7 @@ npm run dev          # http://localhost:4321
 npm run build        # 必须零错误才算完成
 npm run test:flypy   # flypy 逻辑核测试(node:test,跑 tests/flypy-core.test.mjs);单测某条用 node --test --test-name-pattern '<名>' tests/flypy-core.test.mjs
 npm run test:forest  # 专注森林逻辑核测试(tests/focus-forest-core.test.mjs)
+npm run test:grid    # Grid 断点计算器逻辑核测试(tests/grid-breakpoint-core.test.mjs)
 npm run new          # 一键新建文章:询问文章名 → 生成空笔记;输入 .md 路径 → 导入发布
 npm run add:post -- <文章.md>   # 新增博客(见 workflows/add-post.md)
 npm run import:blog  # 全量重导 Hexo 博客(重建目录,慎用)
@@ -60,7 +62,7 @@ Cloudflare Pages 监听 `main` 分支,push 即部署。Build command `npm run bu
 3. **中文排版**:文案用全角标点(，。：；?!),写完跑 `npm run fix:punct`。中文破折号「——」(成对)允许;**孤立单个 em-dash「—」全站禁止**,区间用连字符(`2024.1 - 2025.3`)。
 4. **动效纪律**:禁止 `window.addEventListener('scroll')`(用 IntersectionObserver / CSS scroll-driven);入场动画用 `.reveal` 类(+ 可选 `--d` 延迟),交互元素需 `:hover` 与 `:active` 态;一切动效在 `prefers-reduced-motion` 下降级。
 5. **图片**:真实图未导出前用 `MediaSlot`(标注 Figma 节点号并登记进 `README.md` 的替换表);禁止 div 拼假截图、手绘装饰 SVG。
-6. **验证**:每次改动后 `npm run build` 零错误;动到 `src/lib/flypy-core.mjs` 追加跑 `npm run test:flypy`,动到 `public/tools/focus-forest/js/core.js` 追加跑 `npm run test:forest`;视觉核对可给 URL 加 `?qa`(跳过入场动画,截图稳定)。注意 `astro dev` 不会为 `public/` 里的静态壳目录返回 index.html(`/tools/travel-maps/`、`/tools/focus-forest/` 在 dev 下 404),验证这类工具要用 `npm run build && npm run preview`。
+6. **验证**:每次改动后 `npm run build` 零错误;动到 `src/lib/flypy-core.mjs` 追加跑 `npm run test:flypy`,动到 `public/tools/focus-forest/js/core.js` 追加跑 `npm run test:forest`,动到 `public/tools/grid-breakpoint/js/core.js` 追加跑 `npm run test:grid`;视觉核对可给 URL 加 `?qa`(跳过入场动画,截图稳定)。注意 `astro dev` 不会为 `public/` 里的静态壳目录返回 index.html(`/tools/travel-maps/`、`/tools/focus-forest/`、`/tools/grid-breakpoint/` 在 dev 下 404),验证这类工具要用 `npm run build && npm run preview`。
 7. **不可 silent 更改**:路由 slug、导航文案、既有内容语态。
 8. **Eyebrow 只用于区块级**:大写 mono 引导标签(`.mono-label` 及各页 kicker)只允许出现在区块级——页头 kicker、`SectionHead`/section 头部、区块内的分组标题,每个区块至多一组;卡片内部、表格表头、图注、列表项、翻页链接一律不用大写 eyebrow——这些位置的小字用 `.mono-sm`(不大写,颜色可取 `--text-mono`),表头用加粗小字。页面 scoped 的 kicker 类只管布局与颜色,字体字号字距一律组合 `.mono-label` / `.mono-sm` 原语提供,不得自行重定义。
 9. **PWA 安装入口**:PWA 工具相对独立(可能从主屏幕直接启动),**不放「返回上级」链接**,顶栏左侧那个位置留给「安装应用」按钮。必须提供可见的「安装应用」按钮;在支持 `beforeinstallprompt` 的浏览器中仅由用户点击后调用安装提示,并监听 `appinstalled` 更新状态。iOS 等不支持主动提示的环境须给出「添加到主屏幕」步骤;三星浏览器须提示其 WebAPK 可能触发 Android 安全警告并建议改用最新版 Chrome。禁止页面加载后自动弹出安装提示。
