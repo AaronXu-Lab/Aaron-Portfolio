@@ -60,6 +60,33 @@ export const skills: SkillEntry[] = [
     tags: ['UI 组件', '源码验证', 'Design to Code'],
   },
   {
+    slug: 'aw-ux-info-redundancy-audit',
+    name: 'UI/UX 重复信息审计',
+    description:
+      '把界面内容归一为事实，标出每个事实的重复出现位置，判断哪些重复真正提供任务价值，再给出保留、合并、删除、缩短、移动或拆分的最小安全改动。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-ux-info-redundancy-audit',
+    tags: ['信息架构', 'UX 审计', '信息密度'],
+  },
+  {
+    slug: 'aw-logo-finder',
+    name: '品牌 Logo 查找',
+    description:
+      '从品牌官网、Logo 资源站与三大应用商店并行搜集候选，比对真实素材、剔除比例不当与带水印的版本，确认候选和输出尺寸后导出无损 WebP。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-logo-finder',
+    tags: ['品牌资产', '图标', 'WebP'],
+  },
+  {
+    slug: 'aw-mail-read-later',
+    name: '稍后阅读推荐',
+    description:
+      '从 Outlook 的 Read Later 文件夹里，按当前情境、时间窗口和历史反馈一次只推荐一项内容，并支持阅读、总结、翻译、跳过、归档与排除。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-mail-read-later',
+    tags: ['Outlook', '阅读', '信息管理'],
+  },
+  {
     slug: 'aw-comic-dossier-packer',
     name: '漫画档案打包',
     description:
@@ -67,5 +94,14 @@ export const skills: SkillEntry[] = [
     status: 'shipped',
     href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-comic-dossier-packer',
     tags: ['内容生产', 'ImageGen', '漫画'],
+  },
+  {
+    slug: 'rewrite-like-aaron',
+    name: 'Aaron 文风改写',
+    description:
+      '把 AI 生成或表达过于通用的中文草稿改写成我当前的博客文风，保留事实、立场与结构，同时避免用口头禅、反问和中英混写做表面模仿。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/rewrite-like-aaron',
+    tags: ['写作', '反 AI 味', '博客'],
   },
 ];
