@@ -147,6 +147,21 @@ export const games: ToolEntry[] = [
 
 export const tools: ToolEntry[] = [
   {
+    slug: 'stash',
+    name: '暂存箱',
+    en: 'STASH',
+    description:
+      '一个公共暂存箱：随手放下文字或一个文件，换台设备直接取用。无需登录，每次修改后保留 7 天，支持最大 10 MB 的文件。',
+    icon: '/tools/stash/icon-192.png',
+    iconAlt: '暂存箱图标',
+    pwa: true,
+    status: 'shipped',
+    tags: ['跨设备', '临时存储', '公共箱子'],
+    date: '2026.09',
+    href: '/tools/stash/',
+    newTab: true,
+  },
+  {
     slug: 'flypy',
     name: '小鹤双拼练习器',
     en: 'FLYPY TRAINER',

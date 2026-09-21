@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "aaron-portfolio-stash",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-07",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "www.xuweinan.com/api/stash*", "zone_name": "xuweinan.com" },
+    { "pattern": "xuweinan.com/api/stash*", "zone_name": "xuweinan.com" }
+  ],
+  "r2_buckets": [{ "binding": "BOX", "bucket_name": "aaron-portfolio-stash" }],
+  "ratelimits": [{ "name": "WRITE_LIMIT", "namespace_id": "1001", "simple": { "limit": 60, "period": 60 } }],
+  "triggers": { "crons": ["*/15 * * * *"] }
+}

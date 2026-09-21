@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow"><meta name="description" content="公共暂存箱：暂存文字或一个文件，换台设备取用">
+  <title>暂存箱 · Aaron Xu</title><link rel="icon" href="./icon-32.png" type="image/png"><link rel="apple-touch-icon" href="./icon-180.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#f4f2ec"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="暂存箱"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <header class="intro"><h1>暂存箱</h1><p id="countdown" aria-hidden="true"></p></header>
+    <section id="drop" class="box" aria-label="暂存区域">
+      <div id="toolbar" class="box-actions"><span id="save-status" data-state="loading" role="status" aria-live="polite">加载中...</span><div><button id="copy" class="quiet icon-button" aria-label="复制文字" title="复制文字" disabled><img src="./copy.svg" width="20" height="20" alt=""></button><button id="upload" class="quiet icon-button" aria-label="上传文件" title="上传文件" disabled><img src="./upload-simple.svg" width="20" height="20" alt=""></button></div></div>
+      <div id="text" class="markdown-editor"></div>
+      <div id="file-content" class="file-content" hidden>
+        <button id="image-preview" class="image-preview" aria-label="放大查看图片" hidden><img id="preview-image" alt=""></button>
+        <img id="file-icon" class="file-icon" src="./file.svg" width="48" height="48" alt="">
+        <p id="file-name"></p><p id="file-detail"></p>
+        <div class="file-actions"><a id="download" href="/api/stash/file">下载文件</a><button id="remove" class="quiet">删除文件</button></div>
+      </div>
+      <input id="file" type="file" hidden>
+      <div id="upload-progress" class="upload-progress" hidden>
+        <div id="progress" class="progress-ring" role="progressbar" aria-label="文件上传进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <svg viewBox="0 0 160 160" aria-hidden="true"><circle class="ring-track" cx="80" cy="80" r="72"/><circle id="ring-fill" cx="80" cy="80" r="72" pathLength="100"/></svg>
+          <span id="progress-size"></span>
+        </div><button id="cancel-upload" class="quiet">取消上传</button>
+      </div>
+    </section>
+
+  </main>
+  <dialog id="message-dialog" aria-labelledby="message-title" aria-describedby="message-description"><h2 id="message-title">提示</h2><p id="message-description"></p><form method="dialog"><button autofocus>知道了</button></form></dialog>
+  <dialog id="lightbox" aria-label="图片预览"><button id="close-lightbox" class="quiet" aria-label="关闭图片预览" autofocus>关闭</button><img id="lightbox-image" alt=""></dialog>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
