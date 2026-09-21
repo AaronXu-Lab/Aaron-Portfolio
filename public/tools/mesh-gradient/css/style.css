@@ -1,0 +1,242 @@
+/* Mesh Gradient 图片生成器 —— 独立壳工具，自带一套编辑器风的视觉语言。 */
+
+:root {
+  --paper: #fbfaf7;
+  --card: #ffffff;
+  --ink: #14181d;
+  --mute: #6b7280;
+  --line: #e3e0d8;
+  --accent: #2f6df6;
+  --accent-soft: #e8eefe;
+  --warn: #c8552c;
+  --radius: 14px;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #12161b;
+    --card: #1a1f26;
+    --ink: #e9eef3;
+    --mute: #96a1ae;
+    --line: #2a323c;
+    --accent: #7aa2ff;
+    --accent-soft: #1f2a44;
+    --warn: #f08a5f;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.6 system-ui, -apple-system, 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+h2 { font-size: 15px; margin: 0 0 14px; }
+
+/* -------------------------------------------------------------- 标题 */
+
+/* 左边标题、右边全部动作；窄屏自然换行 */
+.top {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(24px + env(safe-area-inset-top)) 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+.title i {
+  margin-left: 10px;
+  font: 500 10px/1 var(--mono);
+  letter-spacing: .14em;
+  color: var(--mute);
+  font-style: normal;
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 640px) {
+  .actions { width: 100%; }
+  .actions .ghost, .actions .primary { flex: 1; }
+}
+
+/* ---------------------------------------------------------------- 版面 */
+
+/* 第一行预览、第二行控件；控件按空间自动分列，放不下就换行 */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 48px;
+  display: grid;
+  gap: 20px;
+}
+
+.panel {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items: start;
+}
+
+.card {
+  min-width: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ---------------------------------------------------------------- 预览 */
+
+.stage { min-width: 0; display: grid; justify-items: center; }
+
+.drop {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.drop:hover { border-color: var(--accent); }
+.drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop.has-image { border-style: solid; }
+
+/* 有图时 hover 才提示「点击更换图片」 */
+.swap-hint {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(20, 24, 29, .78);
+  color: #fff;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: .06em;
+  opacity: 0;
+  transition: opacity .15s;
+  pointer-events: none;
+}
+.drop.has-image:hover .swap-hint,
+.drop.has-image:focus-visible .swap-hint { opacity: 1; }
+.drop:not(.has-image) .swap-hint { display: none; }
+
+.empty { text-align: center; color: var(--mute); }
+.empty-title { margin: 0 0 6px; font-size: 15px; color: var(--ink); }
+.empty-sub { margin: 0; font-size: 13px; }
+
+/* display:block 会盖掉 hidden 属性，空态时留出一格空行把提示顶偏 */
+#canvas[hidden] { display: none; }
+
+#canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 62vh;
+  height: auto;
+  width: auto;
+  /* 预览不加任何自己的圆角:圆角一律由「成品图圆角」画进 canvas，所见即导出 */
+}
+
+/* ---------------------------------------------------------------- 控件 */
+
+.seg { display: flex; gap: 8px; margin-bottom: 16px; }
+
+.seg-btn {
+  flex: 1;
+  font: 500 12px/1 var(--mono);
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.seg-btn:hover { background: var(--accent-soft); }
+.seg-btn:active { transform: translateY(1px); }
+.seg-btn.is-on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+.swatches { display: grid; gap: 10px; }
+
+.swatch { display: flex; align-items: center; gap: 10px; }
+.swatch span { font: 500 11px/1 var(--mono); letter-spacing: .08em; color: var(--mute); flex: 1; }
+.swatch code { font: 11px/1 var(--mono); color: var(--mute); }
+
+input[type='color'] {
+  inline-size: 40px;
+  block-size: 28px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.fields { display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 13px; color: var(--mute); }
+.field b { font: 600 12px/1 var(--mono); color: var(--ink); }
+
+.color-field { grid-template-columns: 1fr auto; align-items: center; }
+
+input[type='range'] { width: 100%; accent-color: var(--accent); }
+
+.check { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 14px; }
+.check input { accent-color: var(--accent); }
+
+.fields.is-off { opacity: .45; pointer-events: none; }
+
+.row { display: flex; gap: 10px; }
+
+.ghost, .primary {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: .06em;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, opacity .15s;
+}
+
+.ghost {
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.ghost:hover:not(:disabled) { background: var(--accent-soft); border-color: var(--accent); }
+
+.primary {
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+}
+.primary:hover:not(:disabled) { opacity: .88; }
+
+.ghost:active:not(:disabled), .primary:active:not(:disabled) { transform: translateY(1px); }
+.ghost:disabled, .primary:disabled { opacity: .4; cursor: not-allowed; }
+
+.wide { width: 100%; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .ghost:active, .primary:active, .seg-btn:active { transform: none; }
+}

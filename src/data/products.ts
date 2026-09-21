@@ -219,4 +219,20 @@ export const tools: ToolEntry[] = [
     href: '/tools/travel-maps/',
     newTab: true,
   },
+  {
+    slug: 'mesh-gradient',
+    name: 'Mesh Gradient 图片生成器',
+    en: 'MESH GRADIENT',
+    description:
+      '把一张截图放进可控的 Mesh Gradient 背景里：切换 2 / 3 / 4 个渐变点并各自调色，设置四周留白与柔和阴影，实时预览后按真实画布尺寸导出 PNG；编辑状态可连同图片一起存成配置文件，下次上传即还原。图片只在本机处理，不上传。',
+    icon: '/tools/mesh-gradient/icon.svg',
+    iconAlt: 'Mesh Gradient 图片生成器图标',
+    pwa: false,
+    badge: 'CANVAS',
+    status: 'shipped',
+    tags: ['Mesh Gradient', '出图', '本地处理'],
+    date: '2026.09',
+    href: '/tools/mesh-gradient/',
+    newTab: true,
+  },
 ];

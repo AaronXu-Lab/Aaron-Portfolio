@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mesh Gradient 图片生成器</title>
+<meta name="description" content="把一张图片放进可控的 Mesh Gradient 背景里：调点数与配色、四周留白与柔和阴影，实时预览并按真实尺寸导出 PNG。纯本地处理，图片不上传。">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12161b" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/tools/mesh-gradient/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <h1 class="title">Mesh Gradient 图片生成器 <i>MESH GRADIENT</i></h1>
+  <div class="actions">
+    <input id="config-file" type="file" accept="application/json,.json" hidden>
+    <button type="button" id="import" class="ghost">上传配置</button>
+    <button type="button" id="export-config" class="ghost">下载配置</button>
+    <button type="button" id="reset" class="ghost">恢复默认设置</button>
+    <button type="button" id="export-png" class="primary" disabled>导出 PNG</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="stage" aria-label="实时预览">
+    <div id="drop" class="drop">
+      <div id="empty" class="empty">
+        <p class="empty-title">把图片拖进来</p>
+        <p class="empty-sub">或者点一下选择文件 · PNG / JPG / WebP</p>
+      </div>
+      <canvas id="canvas" hidden></canvas>
+      <p class="swap-hint" aria-hidden="true">点击更换图片</p>
+    </div>
+    <input id="file" type="file" accept="image/*" hidden>
+  </section>
+
+  <div class="panel">
+
+    <section class="card" aria-labelledby="t-mesh">
+      <h2 id="t-mesh">Mesh Gradient</h2>
+      <div class="seg" role="radiogroup" aria-label="渐变点数">
+        <button type="button" class="seg-btn" data-count="2" role="radio" aria-checked="false">2 点</button>
+        <button type="button" class="seg-btn" data-count="3" role="radio" aria-checked="false">3 点</button>
+        <button type="button" class="seg-btn is-on" data-count="4" role="radio" aria-checked="true">4 点</button>
+      </div>
+      <div id="swatches" class="swatches"></div>
+    </section>
+
+    <section class="card" aria-labelledby="t-nums">
+      <h2 id="t-nums">数值</h2>
+      <div class="fields">
+        <label class="field">
+          <span>四周留白 <b id="padding-val">36</b> px</span>
+          <input id="padding" type="range" min="0" max="100" step="1" value="36">
+        </label>
+        <label class="field">
+          <span>图片圆角 <b id="r-image-val">4</b> px</span>
+          <input id="r-image" type="range" min="0" max="64" step="1" value="4">
+        </label>
+        <label class="field">
+          <span>成品图圆角 <b id="r-canvas-val">0</b> px</span>
+          <input id="r-canvas" type="range" min="0" max="64" step="1" value="0">
+        </label>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="t-shadow">
+      <h2 id="t-shadow">阴影</h2>
+      <label class="check">
+        <input id="shadow-on" type="checkbox" checked>
+        <span>开启阴影</span>
+      </label>
+      <div id="shadow-fields" class="fields">
+        <label class="field">
+          <span>X 偏移 <b id="sx-val">0</b> px</span>
+          <input id="sx" type="range" min="-200" max="200" step="1" value="0">
+        </label>
+        <label class="field">
+          <span>Y 偏移 <b id="sy-val">0</b> px</span>
+          <input id="sy" type="range" min="-200" max="200" step="1" value="0">
+        </label>
+        <label class="field">
+          <span>Blur <b id="sb-val">60</b> px</span>
+          <input id="sb" type="range" min="0" max="300" step="1" value="60">
+        </label>
+        <label class="field">
+          <span>Spread <b id="sp-val">-4</b> px</span>
+          <input id="sp" type="range" min="-200" max="200" step="1" value="-4">
+        </label>
+        <label class="field color-field">
+          <span>颜色</span>
+          <input id="sc" type="color" value="#10151F">
+        </label>
+        <label class="field">
+          <span>透明度 <b id="so-val">0.12</b></span>
+          <input id="so" type="range" min="0" max="1" step="0.01" value="0.12">
+        </label>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
