@@ -55,6 +55,21 @@ function error(title = '', description = '') {
   $('message-description').textContent = description;
   if (!$('message-dialog').open) $('message-dialog').showModal();
 }
+let toastTimer;
+function toast(message) {
+  const node = $('toast');
+  node.textContent = message;
+  if (node.hidden) { node.hidden = false; reveal(node); }
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { node.hidden = true; }, 3000);
+}
+// Cmd/Ctrl+S never reaches the browser save dialog or the save pipeline; saving is automatic.
+window.addEventListener('keydown', event => {
+  if ((event.metaKey || event.ctrlKey) && !event.altKey && event.key.toLowerCase() === 's') {
+    event.preventDefault();
+    toast('内容修改后会自动保存，无需手动保存');
+  }
+}, true);
 function folderDialog() {
   $('file').value = '';
   error('无法直接上传文件夹', '请先压缩为 ZIP 文件再上传，Playground 等文件夹包也需要压缩');

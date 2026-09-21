@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { highlightMarkdown } from '../src/lib/stash/markdown.js';
+import { continueList, highlightMarkdown } from '../src/lib/stash/markdown.js';
 const roles = text => highlightMarkdown(text).map(span => ({ ...span, value: text.slice(span.from, span.to) }));
 const has = (text, role, value) => roles(text).some(s => s.role === role && s.value === value);
 test('Seal Note headings, emphasis and UTF-16 offsets', () => {
@@ -65,4 +65,32 @@ test('image preview recognizes common image extensions case-insensitively', () =
   assert.equal(imageMime('drawing.svg'), 'image/svg+xml');
   assert.equal(imageMime('photo.jpg.zip'), null);
   assert.equal(imageMime(), null);
+});
+
+// Enter behaviour mirrors Seal Note's MarkdownFormatter.continueListIfNeeded.
+const press = text => {
+  const cursor = text.indexOf('|');
+  const result = continueList(text.replace('|', ''), cursor);
+  return result && result.text.slice(0, result.cursor) + '|' + result.text.slice(result.cursor);
+};
+test('Enter continues bullet, task and ordered items', () => {
+  assert.equal(press('- 一|'), '- 一\n- |');
+  assert.equal(press('  * 一|\n下一段'), '  * 一\n  * |\n下一段');
+  assert.equal(press('- [x] 完成|'), '- [x] 完成\n- [ ] |');
+  assert.equal(press('1. 一|'), '1. 一\n2. |');
+  assert.equal(press('3) 三|'), '3) 三\n4) |');
+});
+test('Enter renumbers the ordered tail and splits items at the cursor', () => {
+  assert.equal(press('1. 一|\n2. 二\n3. 三'), '1. 一\n2. |\n3. 二\n4. 三');
+  assert.equal(press('1. 一|半\n2. 二'), '1. 一\n2. |半\n3. 二');
+});
+test('Enter on an empty item clears the marker and renumbers', () => {
+  assert.equal(press('- 一\n- |'), '- 一\n|');
+  assert.equal(press('1. 一\n2. |\n'), '1. 一\n|\n');
+  assert.equal(press('1. 一\n2. |\n3. 三'), '1. 一\n|\n2. 三');
+});
+test('Enter stays default outside lists and inside code fences', () => {
+  assert.equal(continueList('普通一行', 4), null);
+  assert.equal(continueList('```js\n- 一', 8), null);
+  assert.equal(press('```js\n- 一\n```\n- 二|'), '```js\n- 一\n```\n- 二\n- |');
 });

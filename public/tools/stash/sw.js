@@ -1,5 +1,5 @@
 // Generated with a content-derived cache version by build:stash.
-const CACHE = "stash-shell-50a554b31100";
+const CACHE = "stash-shell-d6c5d81313a5";
 const SHELL = ["/tools/stash/","/tools/stash/app.js","/tools/stash/style.css","/tools/stash/copy.svg","/tools/stash/upload-simple.svg","/tools/stash/file.svg","/tools/stash/icon-32.png","/tools/stash/icon-180.png","/tools/stash/icon-192.png","/tools/stash/icon-512.png","/tools/stash/manifest.webmanifest"];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)));

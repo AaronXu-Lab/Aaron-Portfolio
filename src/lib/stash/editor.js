@@ -1,9 +1,17 @@
 import { Annotation, Compartment, EditorState, StateField, Transaction } from '@codemirror/state';
 import { Decoration, EditorView, keymap, placeholder } from '@codemirror/view';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
-import { highlightMarkdown } from './markdown.js';
+import { continueList, highlightMarkdown } from './markdown.js';
 
 const remote = Annotation.define();
+const continueListCommand = view => {
+  const range = view.state.selection.main;
+  if (!range.empty) return false;
+  const result = continueList(view.state.doc.toString(), range.head);
+  if (!result) return false;
+  view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: result.text }, selection: { anchor: result.cursor }, scrollIntoView: true, userEvent: 'input' });
+  return true;
+};
 const highlights = text => Decoration.set(highlightMarkdown(text).map(({ from, to, role }) => Decoration.mark({ class: `md-${role}` }).range(from, to)), true);
 const highlighting = StateField.define({
   create: state => highlights(state.doc.toString()),
@@ -15,7 +23,7 @@ export function createEditor(parent, onChange, onBlur, onComposition) {
   const editable = new Compartment();
   let enabled = false;
   const extensions = [
-    highlighting, history(), keymap.of([...defaultKeymap, ...historyKeymap]),
+    highlighting, history(), keymap.of([{ key: 'Enter', run: continueListCommand }, ...defaultKeymap, ...historyKeymap]),
     EditorView.lineWrapping, placeholder('输入或粘贴 Markdown 文本'),
     editable.of([EditorState.readOnly.of(true), EditorView.editable.of(false)]),
     EditorView.contentAttributes.of(view => ({ 'aria-label': '暂存内容', 'aria-multiline': 'true', 'aria-disabled': String(view.state.readOnly), spellcheck: 'false', autocapitalize: 'off' })),

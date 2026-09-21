@@ -74,6 +74,10 @@ npx wrangler deploy --name aaron-portfolio --assets ./dist --compatibility-date 
 
 高亮规则回归测试包含在 `npm run test:stash` 中。
 
+回车续接列表同样照搬 `MarkdownFormatter.continueListIfNeeded`：无序、有序和任务列表自动补下一行标记，有序列表续接后重排后续编号，空列表项回车清除标记，围栏代码块内保持默认换行。规则在 `markdown.js` 的 `continueList` 中实现并由同一套测试覆盖。
+
+Ctrl / Command + S 在捕获阶段被拦截，既不弹浏览器保存对话框，也不进入保存链路触发「文字保存失败」，改为在页头显示 3 秒的提示条，说明内容会自动保存。
+
 ## 单区域界面
 
 页头只显示「暂存箱」，有内容时显示清空倒计时。文字与文件共用一块区域；文件状态隐藏编辑器并清除撤销历史。底部不显示提示或清空按钮，存放区域填满视口剩余高度并保留外边距；错误通过统一 dialog 按需显示。上传失败保留文字草稿。
