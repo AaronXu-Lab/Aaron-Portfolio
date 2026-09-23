@@ -1,0 +1,66 @@
+---
+import Layout from './_Layout.astro';
+---
+
+<Layout title="Contact" description="Get a quote or start a conversation with our design and production team.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Let's make something.</h1>
+      <p>Tell us about your brand and program. Our team replies within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap contact">
+      <form class="form" onsubmit="event.preventDefault()">
+        <div class="row">
+          <label>Name<input type="text" name="name" autocomplete="name" required /></label>
+          <label>Email<input type="email" name="email" autocomplete="email" required /></label>
+        </div>
+        <div class="row">
+          <label>Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+          <label>Company<input type="text" name="company" autocomplete="organization" /></label>
+        </div>
+        <label>Message<textarea name="message" rows="6" placeholder="Product type, quantity, timeline..."></textarea></label>
+        <button class="btn btn-dark" type="submit">Send Message</button>
+      </form>
+
+      <aside class="info">
+        <div><h3>Address</h3><p class="muted">[Street Address]<br />Los Angeles, CA [ZIP]</p></div>
+        <div><h3>Phone</h3><p class="muted">+1 (000) 000-0000</p></div>
+        <div><h3>Email</h3><p class="muted">hello@example.com</p></div>
+        <div><h3>Hours</h3><p class="muted">Mon - Fri, 8:00 AM - 5:00 PM PT</p></div>
+        <div><h3>Social</h3><p class="socials"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Pinterest</a></p></div>
+      </aside>
+    </div>
+    <div class="wrap"><div class="ph map" style="--ar: 21 / 8">Google Maps embed</div></div>
+  </section>
+</Layout>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(40px, 6vw, 96px); margin-bottom: 72px; }
+  .form { display: grid; gap: 20px; justify-items: start; }
+  .form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+  .form label { display: grid; gap: 8px; font-size: 0.85rem; font-weight: 500; width: 100%; }
+  .form input, .form textarea {
+    font: inherit; font-weight: 400; font-size: 1rem; color: var(--text);
+    padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff;
+    transition: border-color 0.2s;
+  }
+  .form input:hover, .form textarea:hover { border-color: var(--muted); }
+  .form input:focus, .form textarea:focus { outline: none; border-color: var(--text); }
+  .form textarea { resize: vertical; }
+  .info { display: grid; gap: 28px; align-content: start; }
+  .info h3 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+  .socials { display: flex; gap: 16px; }
+  .socials a { border-bottom: 1px solid currentColor; }
+  .socials a:hover { color: var(--accent); }
+  @media (max-width: 860px) {
+    .contact { grid-template-columns: 1fr; }
+    .map { aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 600px) {
+    .form .row { grid-template-columns: 1fr; }
+  }
+</style>

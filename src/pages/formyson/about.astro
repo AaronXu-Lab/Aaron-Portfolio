@@ -1,0 +1,118 @@
+---
+import Layout from './_Layout.astro';
+import { BASE } from './_data';
+
+const timeline = [
+  ['[Year]', 'Founded as a 10-machine cut-and-sew shop in Los Angeles.'],
+  ['[Year]', 'Opened our in-house design studio and pattern room.'],
+  ['[Year]', 'Expanded to a 40,000 sq ft production facility.'],
+  ['[Year]', 'Partnering with 100+ brands across North America.'],
+];
+const stats = [['40K', 'sq ft facility'], ['120+', 'skilled makers'], ['15K', 'units / week'], ['2%', 'AQL defect limit']];
+const values = [
+  ['Craft first', 'Every garment is checked by hand before it leaves the floor.'],
+  ['Transparent', 'Open factory visits, clear costing, shared production calendars.'],
+  ['Responsible', 'Fair wages, local jobs and lower-impact sourcing.'],
+];
+---
+
+<Layout title="About Us" description="Our story, our design team and our U.S. production facility.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">About Us</span>
+      <h1>Made by people who design and sew.</h1>
+      <p>We started with a simple idea: keep the studio next to the sewing line. It is still how we work today.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <h2>Our story</h2>
+      <ol class="timeline">
+        {timeline.map(([y, t]) => <li><span class="year">{y}</span><p>{t}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section surface">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Design Team</span>
+          <h2>The studio</h2>
+          <p class="muted">Designers, pattern makers and technical specialists who turn a mood board into a production-ready tech pack.</p>
+        </div>
+      </div>
+      <div class="grid grid-4">
+        {['Head of Design', 'Pattern Maker', 'Technical Designer', 'Sample Room Lead'].map((role, i) => (
+          <div class="card">
+            <div class="ph"><img src={`/formyson/images/${["team-design", "team-pattern", "team-technical", "team-sample"][i]}.jpg`} alt={`${role} in the studio`} loading="lazy" decoding="async" /></div>
+            <h3>[Name]</h3>
+            <p class="card-meta">{role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Production Facility</span>
+          <h2>Our factory floor</h2>
+          <p class="muted">Cutting, sewing, pressing and QC under one roof, with inline and final inspection on every run.</p>
+        </div>
+      </div>
+      <div class="factory">
+        <div class="ph big" style="--ar: auto"><img src="/formyson/images/factory.jpg" alt="Garment manufacturing floor" loading="lazy" decoding="async" /></div>
+        <div class="ph" style="--ar: 4 / 3"><img src="/formyson/images/cutting.jpg" alt="Cutting fabric in the pattern room" loading="lazy" decoding="async" /></div>
+        <div class="ph" style="--ar: 4 / 3"><img src="/formyson/images/sewing.jpg" alt="Sewing garments on the production line" loading="lazy" decoding="async" /></div>
+      </div>
+      <div class="stats">
+        {stats.map(([n, l]) => <div><strong>{n}</strong><span class="muted">{l}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">Values</span><h2>What we stand for</h2></div></div>
+      <div class="grid grid-3">
+        {values.map(([t, d]) => <div class="value"><h3>{t}</h3><p class="muted">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">Certifications</span><h2>Certified & audited</h2></div></div>
+      <div class="certs">
+        {['ISO 9001', 'WRAP', 'BSCI', 'OEKO-TEX', 'GOTS'].map((c) => <div class="ph" style="--ar: 3 / 2">{c}</div>)}
+      </div>
+      <div style="margin-top: 56px"><a class="btn btn-dark" href={`${BASE}/contact/`}>Work with us</a></div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .surface { background: var(--surface); }
+  .two-col { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
+  .timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+  .timeline li { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); }
+  .year { color: var(--accent); font-weight: 500; }
+  .factory { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: auto auto; gap: 12px; }
+  .factory .big { grid-row: span 2; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
+  .stats div { display: grid; gap: 4px; border-top: 1px solid var(--text); padding-top: 16px; }
+  .stats strong { font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: -0.03em; }
+  .value { display: grid; gap: 10px; padding-top: 20px; border-top: 1px solid var(--text); }
+  .certs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  @media (max-width: 860px) {
+    .two-col, .factory { grid-template-columns: 1fr; }
+    .factory .big { grid-row: auto; aspect-ratio: 4 / 3; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .certs { grid-template-columns: repeat(3, 1fr); }
+    .timeline li { grid-template-columns: 80px 1fr; }
+  }
+</style>

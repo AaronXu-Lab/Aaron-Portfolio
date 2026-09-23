@@ -1,0 +1,125 @@
+---
+import Layout from './_Layout.astro';
+import { BASE, products, productCategories, articles } from './_data';
+
+const strengths = [
+  ['01', 'In-house Design Team', 'Trend research, tech packs and sampling handled by our own designers.'],
+  ['02', 'Own Manufacturing Facility', 'Cutting, sewing and finishing on one floor in Los Angeles.'],
+  ['03', 'Quality Control', 'Inline and final AQL inspection on every production run.'],
+  ['04', 'Fast Turnaround', 'Samples in 2 weeks, bulk production in 4 - 6 weeks.'],
+];
+---
+
+<Layout title="U.S. Apparel Manufacturer">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Designed & Made in the U.S.A.</span>
+        <h1>From sketch to shelf, under one roof.</h1>
+        <p class="muted">We design, develop and manufacture apparel for brands, retailers and distributors, with our own studio and our own factory floor.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href={`${BASE}/products/`}>View Products</a>
+          <a class="btn btn-ghost" href={`${BASE}/contact/`}>Get a Quote</a>
+        </div>
+      </div>
+      <div class="ph hero-media" style="--ar: 4 / 5"><img src="/formyson/images/hero.jpg" alt="Designer fitting a cotton jacket in the studio" loading="lazy" decoding="async" loading="eager" fetchpriority="high"/></div>
+    </div>
+  </section>
+
+  <section class="section strengths">
+    <div class="wrap">
+      <div class="grid grid-4">
+        {strengths.map(([n, title, text]) => (
+          <div class="strength">
+            <span class="strength-num">{n}</span>
+            <h3>{title}</h3>
+            <p class="muted">{text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Product Categories</span>
+          <h2>What we make</h2>
+        </div>
+        <a class="link-arrow" href={`${BASE}/products/`}>All products →</a>
+      </div>
+      <div class="grid grid-3">
+        {productCategories.map((c) => (
+          <a class="card" href={`${BASE}/products/`}>
+            <div class="card-media"><div class="ph" style="--ar: 1 / 1"><img src={`/formyson/images/${products.find((p) => p.category === c)?.slug}.jpg`} alt={`${c} apparel`} loading="lazy" decoding="async" /></div></div>
+            <h3>{c}</h3>
+            <p class="card-meta">{products.filter((p) => p.category === c).length} styles</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-teaser">
+    <div class="wrap split">
+      <div class="ph" style="--ar: 5 / 4"><img src="/formyson/images/factory.jpg" alt="Garment makers at work on the factory floor" loading="lazy" decoding="async" /></div>
+      <div class="split-copy">
+        <span class="eyebrow">About Us</span>
+        <h2>A design studio and a factory, working side by side.</h2>
+        <p class="muted">Founded in [Year], we have grown from a small cut-and-sew shop into a full-service partner for more than [100] labels. Our designers sit steps away from the sewing line, so ideas become samples in days, not months.</p>
+        <a class="link-arrow" href={`${BASE}/about/`}>Learn more →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Journal</span>
+          <h2>Latest articles</h2>
+        </div>
+        <a class="link-arrow" href={`${BASE}/articles/`}>All articles →</a>
+      </div>
+      <div class="grid grid-3">
+        {articles.slice(0, 3).map((a) => (
+          <a class="card" href={`${BASE}/articles/${a.slug}/`}>
+            <div class="card-media"><div class="ph" style="--ar: 3 / 2"><img src={`/formyson/images/${a.slug}.jpg`} alt={a.title} loading="lazy" decoding="async" /></div></div>
+            <p class="card-meta"><span>{a.category}</span><span>{a.date}</span></p>
+            <h3>{a.title}</h3>
+            <p class="muted">{a.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap cta-inner">
+      <h2>Ready to build your next collection?</h2>
+      <p>Tell us about your program. We reply within one business day.</p>
+      <a class="btn btn-light" href={`${BASE}/contact/`}>Contact Us</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding: clamp(40px, 6vw, 80px) 0 0; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .hero-copy { display: grid; gap: 24px; }
+  .hero-copy > p { font-size: 1.15rem; max-width: 480px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .strength { display: grid; gap: 10px; align-content: start; padding-top: 20px; border-top: 1px solid var(--text); }
+  .strength-num { font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+  .about-teaser { background: var(--surface); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .split-copy { display: grid; gap: 20px; justify-items: start; }
+  .cta { background: var(--accent); color: var(--bg); padding: clamp(64px, 9vw, 112px) 0; }
+  .cta-inner { display: grid; gap: 20px; justify-items: center; text-align: center; }
+  .cta-inner p { opacity: 0.8; }
+  .cta .btn-light:hover { border-color: var(--bg); }
+  @media (max-width: 860px) {
+    .hero-grid, .split { grid-template-columns: 1fr; }
+  }
+</style>

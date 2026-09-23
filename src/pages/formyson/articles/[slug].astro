@@ -1,0 +1,66 @@
+---
+import Layout from '../_Layout.astro';
+import { BASE, articles, type Article } from '../_data';
+
+export function getStaticPaths() {
+  return articles.map((a) => ({ params: { slug: a.slug }, props: { article: a } }));
+}
+const { article } = Astro.props as { article: Article };
+const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
+---
+
+<Layout title={article.title} description={article.excerpt}>
+  <article class="section" style="padding-top: 40px">
+    <div class="wrap narrow">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href={`${BASE}/articles/`}>Articles</a><span>/</span><span>{article.category}</span>
+      </nav>
+      <h1>{article.title}</h1>
+      <p class="card-meta"><span>{article.author}</span><span>{article.date}</span></p>
+    </div>
+    <div class="wrap"><div class="ph cover" style="--ar: 21 / 9"><img src={`/formyson/images/${article.slug}.jpg`} alt={article.title} loading="eager" decoding="async" /></div></div>
+    <div class="wrap narrow">
+      <div class="prose">
+        <p><strong>{article.excerpt}</strong></p>
+        <p>For years, the default playbook for a growing label was simple: design locally, produce overseas, wait. That math is changing. Freight volatility, higher minimums and the need to react mid-season have pushed more brands to look closer to home.</p>
+        <h2>Speed is the new margin</h2>
+        <p>When your design team and the sewing line share a building, a fit comment becomes a revised sample the same week. Read more in our <a href="#">production timeline guide</a>.</p>
+        <ul>
+          <li>Sampling in 10 - 14 days</li>
+          <li>Bulk in 4 - 6 weeks</li>
+          <li>Reorders without re-quoting freight</li>
+        </ul>
+        <div class="ph" style="--ar: 16 / 9"><img src="/formyson/images/cutting.jpg" alt="Fabric being cut in the pattern room" loading="lazy" decoding="async" /></div>
+        <blockquote>"We launched two drops in the time it used to take us to approve one sample."</blockquote>
+        <h2>What to ask a domestic partner</h2>
+        <p>Ask who owns the pattern, how QC is documented, and what happens when a trim is late. The answers tell you more than a price sheet. <a href={`${BASE}/contact/`}>Talk to our team</a> about your next program.</p>
+      </div>
+      <div class="tags">
+        <span class="chip">{article.category}</span><span class="chip">Manufacturing</span><span class="chip">Made in USA</span>
+      </div>
+    </div>
+  </article>
+
+  <section class="section more">
+    <div class="wrap">
+      <div class="section-head"><div><h2>More articles</h2></div></div>
+      <div class="grid grid-3">
+        {more.map((a) => (
+          <a class="card" href={`${BASE}/articles/${a.slug}/`}>
+            <div class="card-media"><div class="ph" style="--ar: 3 / 2"><img src={`/formyson/images/${a.slug}.jpg`} alt={a.title} loading="lazy" decoding="async" /></div></div>
+            <p class="card-meta"><span>{a.category}</span><span>{a.date}</span></p>
+            <h3>{a.title}</h3>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 768px; display: grid; gap: 20px; }
+  .narrow h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); }
+  .cover { margin: 48px 0; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; }
+  .more { background: var(--surface); }
+</style>

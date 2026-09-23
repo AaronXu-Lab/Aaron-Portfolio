@@ -1,0 +1,55 @@
+---
+import Layout from '../_Layout.astro';
+import { BASE, articles, articleCategories } from '../_data';
+const [featured, ...rest] = articles;
+---
+
+<Layout title="Articles" description="Industry news, craftsmanship guides and case studies from our design and production teams.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Articles</span>
+      <h1>Journal</h1>
+      <p>Notes from the studio and the factory floor: industry news, craftsmanship and client stories.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top: 40px">
+    <div class="wrap">
+      <div class="chips" role="list">
+        <a class="chip" href="#" aria-current="true" role="listitem">All</a>
+        {articleCategories.map((c) => <a class="chip" href="#" role="listitem">{c}</a>)}
+      </div>
+      <a class="card featured" href={`${BASE}/articles/${featured.slug}/`}>
+        <div class="card-media"><div class="ph" style="--ar: 16 / 10"><img src={`/formyson/images/${featured.slug}.jpg`} alt={featured.title} loading="eager" decoding="async" /></div></div>
+        <div class="featured-copy">
+          <p class="card-meta"><span>{featured.category}</span><span>{featured.date}</span></p>
+          <h2>{featured.title}</h2>
+          <p class="muted">{featured.excerpt}</p>
+          <span class="link-arrow">Read article →</span>
+        </div>
+      </a>
+      <div class="grid grid-3">
+        {rest.map((a) => (
+          <a class="card" href={`${BASE}/articles/${a.slug}/`}>
+            <div class="card-media"><div class="ph" style="--ar: 3 / 2"><img src={`/formyson/images/${a.slug}.jpg`} alt={a.title} loading="lazy" decoding="async" /></div></div>
+            <p class="card-meta"><span>{a.category}</span><span>{a.date}</span></p>
+            <h3>{a.title}</h3>
+            <p class="muted">{a.excerpt}</p>
+          </a>
+        ))}
+      </div>
+      <nav class="pager" aria-label="Pagination">
+        <a href="#" aria-current="page">1</a><a href="#">2</a><a href="#" aria-label="Next page">→</a>
+      </nav>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .featured { grid-template-columns: 1.4fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: center; margin-bottom: 72px; }
+  .featured-copy { display: grid; gap: 16px; justify-items: start; }
+  .featured:hover h2 { color: var(--accent); }
+  .featured h2 { transition: color 0.2s; }
+  @media (max-width: 860px) {
+    .featured { grid-template-columns: 1fr; }
+  }
+</style>

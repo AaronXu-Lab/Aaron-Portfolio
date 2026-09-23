@@ -1,0 +1,217 @@
+---
+// /formyson/ 演示站独立壳:不用主站 Base 布局与 token,自带视觉语言
+import { BASE, BRAND } from './_data';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'U.S. apparel manufacturer with an in-house design team and production facility.' } = Astro.props;
+const path = Astro.url.pathname;
+const nav = [
+  ['Home', `${BASE}/`],
+  ['Products', `${BASE}/products/`],
+  ['Articles', `${BASE}/articles/`],
+  ['About Us', `${BASE}/about/`],
+  ['Contact', `${BASE}/contact/`],
+];
+const isActive = (href: string) => (href === `${BASE}/` ? path === href : path.startsWith(href));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <title>{title} | {BRAND}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href={`${BASE}/`}>{BRAND}</a>
+        <nav class="nav" aria-label="Main">
+          {nav.map(([label, href]) => <a href={href} aria-current={isActive(href) ? 'page' : undefined}>{label}</a>)}
+        </nav>
+        <a class="btn btn-dark header-cta" href={`${BASE}/contact/`}>Get a Quote</a>
+        <details class="mobile-nav">
+          <summary aria-label="Menu">Menu</summary>
+          <div class="mobile-panel">
+            {nav.map(([label, href]) => <a href={href} aria-current={isActive(href) ? 'page' : undefined}>{label}</a>)}
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main><slot /></main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="logo">{BRAND}</div>
+          <p class="muted">Design and production under one roof. Cut, sewn and finished in the U.S. for brands, retailers and distributors.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          {nav.slice(1).map(([label, href]) => <a href={href}>{label}</a>)}
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <span>[Street Address], Los Angeles, CA</span>
+          <span>+1 (000) 000-0000</span>
+          <span>hello@example.com</span>
+        </div>
+        <div>
+          <h4>Follow</h4>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Pinterest</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom muted">© 2026 {BRAND}. All rights reserved.</div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #f1eee7;
+    --ph: #e4dfd4;
+    --line: #e2ded5;
+    --text: #151515;
+    --muted: #6d6a64;
+    --accent: #8a4b2a;
+    --radius: 4px;
+    --wrap: 1240px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3, h4 { margin: 0; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4.5rem); }
+  h2 { font-size: clamp(1.8rem, 3.4vw, 2.75rem); }
+  h3 { font-size: 1.15rem; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+  .muted { color: var(--muted); }
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .section { padding: clamp(64px, 10vw, 128px) 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+  .section-head > div { display: grid; gap: 12px; max-width: 640px; }
+  .link-arrow { font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 2px; transition: color 0.2s; }
+  .link-arrow:hover { color: var(--accent); }
+
+  /* 按钮 */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 26px; border-radius: var(--radius); font-weight: 500; font-size: 0.95rem;
+    border: 1px solid var(--text); transition: background 0.2s, color 0.2s, transform 0.1s; cursor: pointer;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-dark { background: var(--text); color: var(--bg); }
+  .btn-dark:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-ghost { background: transparent; }
+  .btn-ghost:hover { background: var(--text); color: var(--bg); }
+  .btn-light { background: var(--bg); color: var(--text); border-color: var(--bg); }
+  .btn-light:hover { background: transparent; color: var(--bg); }
+
+  /* 项目摄影 */
+  .ph {
+    background: var(--ph); aspect-ratio: var(--ar, 4 / 5); border-radius: var(--radius);
+    display: grid; place-items: center; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    overflow: hidden;
+  }
+
+  .ph img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* 卡片 */
+  .grid { display: grid; gap: 40px 24px; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card { display: grid; gap: 14px; align-content: start; }
+  .card .ph { transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .card-media { overflow: hidden; border-radius: var(--radius); }
+  .card:hover .ph { transform: scale(1.03); }
+  .card-meta { font-size: 0.8rem; color: var(--muted); display: flex; gap: 10px; }
+  .card h3 { transition: color 0.2s; }
+  .card:hover h3 { color: var(--accent); }
+
+  /* 筛选 chips */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+  .chip { padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.875rem; transition: border-color 0.2s, background 0.2s; }
+  .chip:hover { border-color: var(--text); }
+  .chip[aria-current='true'] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .pager { display: flex; justify-content: center; gap: 8px; margin-top: 64px; }
+  .pager a { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); font-size: 0.9rem; }
+  .pager a:hover { border-color: var(--text); }
+  .pager a[aria-current='page'] { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  /* 页头 */
+  .page-hero { padding: clamp(56px, 8vw, 104px) 0 clamp(40px, 5vw, 64px); border-bottom: 1px solid var(--line); }
+  .page-hero .wrap { display: grid; gap: 16px; }
+  .page-hero p { max-width: 560px; color: var(--muted); font-size: 1.1rem; }
+  .crumbs { font-size: 0.85rem; color: var(--muted); display: flex; gap: 8px; }
+  .crumbs a:hover { color: var(--text); }
+
+  /* 正文富文本 */
+  .prose { max-width: 720px; display: grid; gap: 20px; font-size: 1.05rem; }
+  .prose h2 { font-size: 1.6rem; margin-top: 20px; }
+  .prose a { color: var(--accent); border-bottom: 1px solid currentColor; }
+  .prose ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+  .prose blockquote { margin: 0; padding-left: 20px; border-left: 2px solid var(--accent); font-size: 1.2rem; }
+
+  /* Header */
+  .site-header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .header-inner { display: flex; align-items: center; gap: 40px; height: 72px; }
+  .logo { font-weight: 600; letter-spacing: 0.18em; font-size: 0.95rem; }
+  .nav { display: flex; gap: 28px; margin-left: auto; font-size: 0.92rem; }
+  .nav a { color: var(--muted); transition: color 0.2s; }
+  .nav a:hover, .nav a[aria-current='page'] { color: var(--text); }
+  .header-cta { padding: 10px 18px; font-size: 0.85rem; }
+  .mobile-nav { display: none; margin-left: auto; }
+  .mobile-nav summary { list-style: none; cursor: pointer; font-size: 0.9rem; font-weight: 500; padding: 8px 0; }
+  .mobile-nav summary::-webkit-details-marker { display: none; }
+  .mobile-panel { position: absolute; left: 0; right: 0; top: 72px; background: var(--bg); border-bottom: 1px solid var(--line); display: grid; padding: 8px 24px 24px; }
+  .mobile-panel a { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 1.1rem; }
+
+  /* Footer */
+  .site-footer { background: var(--text); color: #cfcbc3; padding: 80px 0 32px; }
+  .site-footer .logo { color: var(--bg); margin-bottom: 16px; }
+  .site-footer .muted { color: #8f8b84; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.4fr 1fr; gap: 40px; }
+  .footer-grid > div { display: grid; gap: 10px; align-content: start; font-size: 0.9rem; }
+  .footer-grid h4 { color: var(--bg); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+  .footer-grid a:hover { color: var(--bg); }
+  .footer-bottom { margin-top: 64px; padding-top: 24px; border-top: 1px solid #2c2c2c; font-size: 0.8rem; }
+
+  @media (max-width: 960px) {
+    .nav, .header-cta { display: none; }
+    .mobile-nav { display: block; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 0 16px; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { gap: 32px 12px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .mobile-panel { padding: 8px 16px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
