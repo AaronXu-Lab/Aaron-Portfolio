@@ -33,6 +33,24 @@ export const skills: SkillEntry[] = [
     tags: ['DESIGN.md', '设计系统', 'Lint'],
   },
   {
+    slug: 'aw-design-system-gallery',
+    name: '设计系统 Gallery',
+    description:
+      '创建、审查和优化设计系统 Gallery 的默认示例、属性轴与状态对比；新增或修改组件时顺带维护对应 Panel、Caption 与占位内容。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-design-system-gallery',
+    tags: ['设计系统', 'Gallery', '组件'],
+  },
+  {
+    slug: 'aw-design-fake',
+    name: '原型假数据与演示',
+    description:
+      '为前端原型统一接入假数据、占位交互、源码展示和可关闭的演示状态，并维护共享的 fake bundle，不碰单元测试 mock。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-design-fake',
+    tags: ['原型', '假数据', 'Design to Code'],
+  },
+  {
     slug: 'aw-design-token-consistency-auditor',
     name: '设计 Token 一致性审计',
     description:
@@ -40,15 +58,6 @@ export const skills: SkillEntry[] = [
     status: 'shipped',
     href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-design-token-consistency-auditor',
     tags: ['Design Token', 'Figma', '审计'],
-  },
-  {
-    slug: 'aw-figma-component-governance',
-    name: 'Figma 组件治理',
-    description:
-      '治理 Figma 组件库的语义命名、Variant、Property、Slot 与排序；通过窄范围编辑、人工调整说明和结构化审计保证变更安全。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-figma-component-governance',
-    tags: ['Figma', '组件库', '治理'],
   },
   {
     slug: 'aw-find-and-port-ui-component',
@@ -60,6 +69,24 @@ export const skills: SkillEntry[] = [
     tags: ['UI 组件', '源码验证', 'Design to Code'],
   },
   {
+    slug: 'aw-canvas-design',
+    name: '组件画布设计',
+    description:
+      '用可交互的真实组件画布设计多 Modal、Sheet、Dialog 串联的业务流程，支持独立环境初始化、评论迭代与入口覆盖验收。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-canvas-design',
+    tags: ['交互设计', '画布', '业务流程'],
+  },
+  {
+    slug: 'aw-component-checker',
+    name: '组件语义检查',
+    description:
+      '审查桌面端组件的语义、组合方式与内部使用；组件变化后以编辑模式维护 Component Reference 与索引。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-component-checker',
+    tags: ['组件', '设计审查', '桌面端'],
+  },
+  {
     slug: 'aw-ux-info-redundancy-audit',
     name: 'UI/UX 重复信息审计',
     description:
@@ -69,22 +96,31 @@ export const skills: SkillEntry[] = [
     tags: ['信息架构', 'UX 审计', '信息密度'],
   },
   {
-    slug: 'aw-logo-finder',
-    name: '品牌 Logo 查找',
+    slug: 'aw-wording-reviewer',
+    name: '中文 UI 文案审查',
     description:
-      '从品牌官网、Logo 资源站与三大应用商店并行搜集候选，比对真实素材、剔除比例不当与带水印的版本，确认候选和输出尺寸后导出无损 WebP。',
+      '审查简体中文 UI 文案的排版、术语、微文案与数据展示格式，默认只给审查结论，按要求再动手修改。',
     status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-logo-finder',
-    tags: ['品牌资产', '图标', 'WebP'],
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-wording-reviewer',
+    tags: ['UX Writing', '中文排版', 'i18n'],
   },
   {
-    slug: 'aw-mail-read-later',
-    name: '稍后阅读推荐',
+    slug: 'temp-small-improves',
+    name: 'UI 细节优化',
     description:
-      '从 Outlook 的 Read Later 文件夹里，按当前情境、时间窗口和历史反馈一次只推荐一项内容，并支持阅读、总结、翻译、跳过、归档与排除。',
+      '点名调用时检查并优化一组容易遗漏的界面细节：媒体占位、文本换行、数字对齐、控件间距、工具提示与动效连续性。',
     status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-mail-read-later',
-    tags: ['Outlook', '阅读', '信息管理'],
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/temp-small-improves',
+    tags: ['UI 细节', '动效', '排版'],
+  },
+  {
+    slug: 'aw-meta-skill',
+    name: 'Skill 元工作流',
+    description:
+      '创建或更新任何 Skill 的统一入口，替代 skill-creator，同时维护版本元数据、文本工作流、SVG 流程图与双重校验。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-meta-skill',
+    tags: ['Skill 工程', '元 Skill', '校验'],
   },
   {
     slug: 'aw-comic-dossier-packer',
@@ -96,6 +132,42 @@ export const skills: SkillEntry[] = [
     tags: ['内容生产', 'ImageGen', '漫画'],
   },
   {
+    slug: 'aw-logo-finder',
+    name: '品牌 Logo 查找',
+    description:
+      '从品牌官网、Logo 资源站与三大应用商店并行搜集候选，比对真实素材、剔除比例不当与带水印的版本，确认候选和输出尺寸后导出无损 WebP。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-logo-finder',
+    tags: ['品牌资产', '图标', 'WebP'],
+  },
+  {
+    slug: 'temp-prd-verifier',
+    name: 'PRD 查证',
+    description:
+      '从项目 PRD 查证功能、对象归属、权限、状态与术语，区分明确规定、推断与未覆盖，并按需与界面或实现逐项对照。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/temp-prd-verifier',
+    tags: ['PRD', '需求', '验收'],
+  },
+  {
+    slug: 'aw-logo-asset-cook',
+    name: '图标资源生成',
+    description:
+      '从指定的 SVG 或图片生成并验证全平台图标资源；图片先评估能否矢量化，再迭代重绘对照，覆盖明暗主题与分平台用法说明。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-logo-asset-cook',
+    tags: ['品牌资产', '图标', '多平台'],
+  },
+  {
+    slug: 'aw-mail-read-later',
+    name: '稍后阅读推荐',
+    description:
+      '从 Outlook 的 Read Later 文件夹里，按当前情境、时间窗口和历史反馈一次只推荐一项内容，并支持阅读、总结、翻译、跳过、归档与排除。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-mail-read-later',
+    tags: ['Outlook', '阅读', '信息管理'],
+  },
+  {
     slug: 'rewrite-like-aaron',
     name: 'Aaron 文风改写',
     description:
@@ -103,5 +175,23 @@ export const skills: SkillEntry[] = [
     status: 'shipped',
     href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/rewrite-like-aaron',
     tags: ['写作', '反 AI 味', '博客'],
+  },
+  {
+    slug: 'temp-local-service-doctor',
+    name: '本地服务诊断',
+    description:
+      '启动项目的本地前后端及依赖，定位启动脚本失败、端口冲突、接口不可达与页面加载问题，并以调用链和目标页面验证结果。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/temp-local-service-doctor',
+    tags: ['本地开发', '排障', '工程'],
+  },
+  {
+    slug: 'aw-figma-component-governance',
+    name: 'Figma 组件治理',
+    description:
+      '治理 Figma 组件库的语义命名、Variant、Property、Slot 与排序；通过窄范围编辑、人工调整说明和结构化审计保证变更安全。',
+    status: 'shipped',
+    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-figma-component-governance',
+    tags: ['Figma', '组件库', '不再维护'],
   },
 ];
