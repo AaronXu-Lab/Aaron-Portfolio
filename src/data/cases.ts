@@ -2,8 +2,8 @@
  * 案例注册表 —— 新增案例的唯一接线点。
  *
  * 一条记录同时驱动:
- *  1. 首页「精选案例」区(kind 决定卡片形态)
- *  2. 页脚 Case Studies 栏
+ *  1. /work/ 全部案例页 + 首页「精选案例」区(featured 决定是否上首页,kind 决定卡片形态)
+ *  2. 页脚 Case Studies 栏(只列精选)
  *  3. 案例页底部「下一个案例」卡(按数组顺序自动串联,CaseLayout 消费)
  *
  * 新增案例只需:① 建 src/pages/work/<slug>.astro ② 在此按叙事顺序插入一条记录。
@@ -22,6 +22,8 @@ export interface CaseEntry {
   /** 路由:/work/<slug>/,同时是 .astro 文件名 */
   slug: string;
   kind: CaseKind;
+  /** 上首页精选区与页脚;案例页「返回」回首页,否则回 /work/ */
+  featured?: boolean;
   /** 首页卡角标,如 '01' */
   num?: string;
   /** 分类 badge 文案 */
@@ -54,6 +56,7 @@ export const cases: CaseEntry[] = [
   {
     slug: 'followup-ai',
     kind: 'featured',
+    featured: true,
     num: '01',
     category: 'AI 产品设计',
     title: 'Followup.AI',
@@ -68,6 +71,7 @@ export const cases: CaseEntry[] = [
   {
     slug: 'comic-manga',
     kind: 'featured',
+    featured: true,
     num: '02',
     category: '独立设计 & 开发产品',
     title: '漫漫书架',
@@ -103,4 +107,17 @@ export const cases: CaseEntry[] = [
     nextHint: 'Other Work',
     nextLine: '其他作品 —— Figma 插件 · 技术分享 · 动效设计',
   },
+];
+
+/** 历史作品集:每项跳转到 📝简历 Figma 文件里的对应画板(node-id 可后续细化到单项) */
+const RESUME_FIGMA_URL =
+  'https://www.figma.com/design/S01WbvJxrtsbrUqbaF7sdT/%F0%9F%93%9D-%E7%AE%80%E5%8E%86?node-id=2730-51683';
+
+const resumeNode = (id: string) => RESUME_FIGMA_URL.replace(/node-id=[\d-]+/, `node-id=${id}`);
+
+export const historical = [
+  { label: 'OPPO 车机设计洞察', figma: resumeNode('2730-51627') },
+  { label: '智能座舱度量体系', figma: resumeNode('2730-51623') },
+  { label: '腾讯公益课件 AI 配图', figma: resumeNode('2730-51631') },
+  { label: '跨屏互联创新项目', figma: resumeNode('2730-51607') },
 ];

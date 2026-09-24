@@ -12,6 +12,7 @@ const year = new Date().getFullYear();
         <div class="by">By Aaron Xu</div>
         <nav class="mini-nav" aria-label="页脚站点导航">
           <a href="/">首页</a>
+          <a href="/work/">案例</a>
           <a href="/blog/">博客</a>
           <a href="/skills/">Skill</a>
           <a href="/products/">造物</a>
@@ -22,7 +23,8 @@ const year = new Date().getFullYear();
       <nav class="links" aria-label="页脚案例与外部链接">
         <div class="col">
           <div class="mono-label">Case Studies</div>
-          {cases.map((c) => <a href={`/work/${c.slug}/`}>{c.footerLabel}</a>)}
+          {cases.filter((c) => c.featured).map((c) => <a href={`/work/${c.slug}/`}>{c.footerLabel}</a>)}
+          <a href="/work/">全部案例 →</a>
         </div>
         <div class="col">
           <div class="mono-label">Elsewhere</div>

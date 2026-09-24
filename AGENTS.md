@@ -7,7 +7,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | 路径 | 说明 |
 | --- | --- |
 | `src/styles/global.css` | **Design Token 唯一定义源**(`:root` 浅色 / `[data-theme='dark']` 深色)+ 全局原语 |
-| `src/data/cases.ts` | **案例注册表**:首页卡片、页脚链接、下一案例卡的唯一接线点 |
+| `src/data/cases.ts` | **案例注册表**:/work/ 全部案例页、首页精选(`featured`)、页脚链接、下一案例卡的唯一接线点 |
 | `src/data/skills.ts` | **Skill 注册表**:/skills/ 页的唯一接线点(自写 Agent Skill) |
 | `src/data/products.ts` | **产品注册表**:/products/ 页的唯一接线点(大产品 / 小工具 / 玩个 Go 三个 Section) |
 | `src/pages/work/*.astro` | 案例页(用 `CaseLayout` + `SectionHead` + `MediaSlot`) |

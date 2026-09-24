@@ -10,10 +10,11 @@ const { scrollspy = false } = Astro.props;
 const homeMenu = [
   { href: '/#about', id: 'about', label: '关于' },
   { href: '/#experience', id: 'experience', label: '经历' },
-  { href: '/#projects', id: 'projects', label: '案例' },
+  { href: '/#projects', id: 'projects', label: '精选案例' },
 ];
 
 const nav = [
+  { href: '/work/', id: 'work', label: '案例' },
   { href: '/blog/', id: 'blog', label: '博客' },
   { href: '/skills/', id: 'skills', label: 'Skill' },
   { href: '/products/', id: 'products', label: '造物' },
@@ -22,7 +23,9 @@ const nav = [
 
 const path = Astro.url.pathname;
 /** 独立页面的导航高亮 */
-const activeId = path.startsWith('/blog')
+const activeId = path.startsWith('/work')
+  ? 'work'
+  : path.startsWith('/blog')
   ? 'blog'
   : path.startsWith('/skills')
     ? 'skills'

@@ -26,6 +26,7 @@ const { title, description, index, category, heading, summary, meta = [], slug }
 
 const hasCustomNext = Astro.slots.has('next');
 const order = slug ? cases.findIndex((c) => c.slug === slug) : -1;
+const backHref = order >= 0 && !cases[order].featured ? '/work/' : '/#projects';
 const nextCase = !hasCustomNext && order >= 0 ? (cases[order + 1] ?? null) : null;
 ---
 
@@ -35,7 +36,7 @@ const nextCase = !hasCustomNext && order >= 0 ? (cases[order + 1] ?? null) : nul
   <article class="case">
     <header class="case-hero">
       <div class="container">
-        <a class="back mono-sm" href="/#projects"><span class="arr">←</span> 返回精选案例</a>
+        <a class="back mono-sm" href={backHref}><span class="arr">←</span> 返回</a>
         <div class="kicker reveal">
           <span class="mono-accent index">{index}</span>
           <span class="badge">{category}</span>

@@ -86,18 +86,19 @@ import MediaSlot from '../../components/MediaSlot.astro';
 
 ## 3. 注册 `site/src/data/cases.ts`
 
-在数组中**按叙事顺序**插入一条(顺序决定首页排列与"下一个案例"链)。字段:
+在数组中**按叙事顺序**插入一条(顺序决定 /work/ 与首页排列、"下一个案例"链)。字段:
 
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
-| `slug` / `kind` | ✓ | kind:`featured` 首页大卡 / `lab` 深色横幅 / `minor` 小卡 |
+| `slug` / `kind` | ✓ | kind:`featured` 大卡 / `lab` 深色横幅 / `minor` 小卡 |
+| `featured` | | `true` 才上首页精选区与页脚;案例页「返回」回首页,否则回 /work/ |
 | `title` `footerLabel` `nextHint` `nextLine` | ✓ | nextLine 是别的案例页底部指向本案例时的一行描述 |
 | `num` `category` `summary` `tags` `media` | featured 必填 | media.node 为 Figma 节点号 |
 | `subEn` `rating` | 可选 | 中文标题的英文小注 / 荣誉行 |
 | `labKicker` `labFrames` | lab 必填 | 横幅左右 mono 标 |
 | `minorLabel` `minorDesc` | minor 必填 | |
 
-注册后自动生效:首页精选区、页脚 Case Studies、前一案例的"下一个案例"卡。**无需再改 index/Footer/其他案例页。**
+注册后自动生效:/work/ 全部案例页、首页精选区与页脚(需 `featured: true`)、前一案例的"下一个案例"卡。**无需再改 index/Footer/其他案例页。**
 
 ## 4. 媒体占位登记
 
