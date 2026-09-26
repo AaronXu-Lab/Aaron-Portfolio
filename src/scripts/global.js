@@ -132,17 +132,18 @@ document.querySelectorAll('.prose img').forEach((img) => {
 
 // ---- 复制按钮(联系方式) ----
 document.querySelectorAll('[data-copy]').forEach((btn) => {
+  let resetTimer;
+  const status = btn.querySelector('.copy-status');
   btn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(btn.dataset.copy);
       btn.classList.add('copied');
-      const label = btn.querySelector('[data-copy-label]');
-      const original = label?.textContent;
-      if (label) label.textContent = '已复制';
-      setTimeout(() => {
+      if (status) status.textContent = '已复制';
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
         btn.classList.remove('copied');
-        if (label && original) label.textContent = original;
-      }, 1600);
+        if (status) status.textContent = '';
+      }, 2000);
     } catch {
       /* clipboard 不可用时静默 */
     }

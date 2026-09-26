@@ -720,3 +720,20 @@ button.chip:active,
   color: var(--shiki-dark);
   background-color: var(--shiki-dark-bg) !important;
 }
+
+/* Copy feedback shares a grid cell so both states retain the same width. */
+[data-copy] .copy-hint { display: inline-grid; place-items: center; }
+[data-copy] .copy-text,
+[data-copy] .copy-check { grid-area: 1 / 1; }
+[data-copy] .copy-check { visibility: hidden; }
+[data-copy].copied .copy-text { visibility: hidden; }
+[data-copy].copied .copy-check { visibility: visible; }
+.copy-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

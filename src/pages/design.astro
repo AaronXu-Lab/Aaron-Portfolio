@@ -419,12 +419,13 @@ const patterns = [
             <span class="mono-sm comp-cls">[data-copy]</span>
           </div>
           <div class="comp-stage">
-            <button type="button" class="sample-copy" data-copy="woshixwn@gmail.com" aria-live="polite">
+            <button type="button" class="sample-copy" data-copy="woshixwn@gmail.com" aria-label="复制 woshixwn@gmail.com">
               <span data-copy-label>woshixwn@gmail.com</span>
-              <span class="copy-hint mono-sm">复制</span>
+              <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><span class="copy-check">✓</span></span>
+              <span class="copy-status" role="status"></span>
             </button>
           </div>
-          <p class="comp-note">点击写入剪贴板，标签短暂变为「已复制」，aria-live 播报。</p>
+          <p class="comp-note">点击写入剪贴板，按钮内显示绿色勾号，2 秒后恢复；文字与按钮宽度保持不变。</p>
         </div>
 
         <div class="comp reveal" style="--d:.05s">
