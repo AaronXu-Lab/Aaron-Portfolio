@@ -489,7 +489,9 @@ button.chip:active,
 }
 
 .js .reveal.in {
-  animation: reveal-in 0.65s var(--ease-out) both;
+  opacity: 1;
+  /* backwards 而非 both:结束后不保留末帧 transform,否则会盖掉悬停/按压的位移 */
+  animation: reveal-in 0.65s var(--ease-out) backwards;
   animation-delay: var(--d, 0s);
 }
 

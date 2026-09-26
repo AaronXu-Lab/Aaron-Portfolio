@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import { libraries } from '../../data/libraries';
+
+/** 尚无真实入口的组件库:统一渲染「施工中」页,地址先占住,做好后原地替换 */
+export function getStaticPaths() {
+  return libraries.filter((l) => !l.href).map((l) => ({ params: { slug: l.slug }, props: { lib: l } }));
+}
+
+const { lib } = Astro.props;
+---
+
+<Base title={`${lib.name} - Aaron Xu`} description={`${lib.name}：施工中，稍后再来。`}>
+  <div class="wip-page container">
+    <a class="back mono-sm" href="/design/"><span class="arr">←</span> 返回</a>
+    <div class="mono-label reveal">Under Construction</div>
+    <h1 class="display reveal" style="--d:.05s">{lib.name}<span class="accent-text">施工中</span>.</h1>
+    <p class="lead reveal" style="--d:.1s">这个组件库还在整理，做好后会在这里上线。</p>
+  </div>
+</Base>
+
+<style>
+  .wip-page {
+    padding-top: clamp(112px, 15vw, 168px);
+    min-height: 60vh;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    margin-bottom: clamp(28px, 4vw, 44px);
+    transition: color 0.2s ease;
+  }
+
+  .back:hover {
+    color: var(--text);
+  }
+
+  .back .arr {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .back:hover .arr {
+      transform: translateX(-3px);
+    }
+  }
+
+  .back:active .arr {
+    transform: translateX(-5px);
+  }
+
+  .mono-label {
+    display: block;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    margin-bottom: 22px;
+  }
+
+  .lead {
+    max-width: 58ch;
+  }
+</style>

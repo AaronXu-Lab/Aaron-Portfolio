@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import MediaSlot from '../components/MediaSlot.astro';
+import { libraries } from '../data/libraries';
 
 /**
  * 活体样式指南：本站全部 Design Token 与全局组件的实渲染展示。
@@ -144,7 +145,6 @@ const radii = [
 const patterns = [
   { name: '经历时间线', where: '首页 · 经历', href: '/#experience' },
   { name: '行式文章列表', where: '博客列表 / 首页博客区', href: '/blog/' },
-  { name: '阅前须知行', where: '首页 · 实验性项目', href: '/#projects' },
   { name: 'Playbook 聊天重建', where: 'Followup.AI · 06', href: '/work/followup-ai/#playbook' },
   { name: '行为循环 Action Cycle', where: 'Followup.AI · 05', href: '/work/followup-ai/#action-cycle' },
   { name: '三层约束 · 圆点量表', where: 'AI 设计系统 · 05', href: '/work/ai-design-system/#s05' },
@@ -304,7 +304,7 @@ const patterns = [
         </ul>
         <div class="motion-demo reveal" style="--d:.08s">
           <div class="demo-stage">
-            <div class="card demo-card reveal in" id="motion-sample">
+            <div class="card card-hover demo-card reveal in" id="motion-sample">
               <span class="mono-accent">01</span>
               <div>
                 <div class="demo-title">入场 · 悬停 · 按压</div>
@@ -468,6 +468,32 @@ const patterns = [
               <a href={p.href}>
                 <span class="p-name">{p.name}</span>
                 <span class="mono-sm p-where">{p.where}</span>
+                <span class="p-arr" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- ============ 07 其他组件库 ============ -->
+    <section class="ds-section" aria-labelledby="t-libs">
+      <div class="section-head reveal">
+        <span class="num">07</span>
+        <span class="zh" id="t-libs">其他组件库</span>
+        <span class="en">More Libraries</span>
+      </div>
+      <p class="lead pattern-lead reveal">本站之外的组件库入口，可能是 Figma 文件，也可能是 HTML 预览页。</p>
+      <ul class="pattern-list">
+        {
+          libraries.map((l, i) => (
+            <li class="reveal" style={`--d:${i * 0.04}s`}>
+              <a
+                href={l.href ?? `/design/${l.slug}/`}
+                {...(l.href?.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                <span class="p-name">{l.name}</span>
+                <span class="mono-sm p-where">{l.note}</span>
                 <span class="p-arr" aria-hidden="true">→</span>
               </a>
             </li>

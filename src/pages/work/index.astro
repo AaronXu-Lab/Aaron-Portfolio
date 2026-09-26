@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseList from '../../components/CaseList.astro';
-import LivePanel from '../../components/LivePanel.astro';
 ---
 
 <Base title="案例 - Aaron Xu" description="Aaron Xu 的全部作品案例：长文案例、实验与历史作品集。">
@@ -10,11 +9,10 @@ import LivePanel from '../../components/LivePanel.astro';
       <div class="mono-label reveal">Work · All Cases</div>
       <h1 class="display reveal" style="--d:.05s">全部<span class="accent-text">案例</span>.</h1>
       <p class="lead reveal" style="--d:.1s">
-        首页只放精选，这里是全部：正在进行的实验、长文案例，以及早年的历史作品集。
+        首页只放精选，这里是全部：长文案例、实验性探索，以及早年的历史作品集。
       </p>
     </header>
 
-    <LivePanel />
     <CaseList all />
   </div>
 </Base>
