@@ -105,24 +105,6 @@ export const skills: SkillEntry[] = [
     tags: ['UX Writing', '中文排版', 'i18n'],
   },
   {
-    slug: 'temp-small-improves',
-    name: 'UI 细节优化',
-    description:
-      '点名调用时检查并优化一组容易遗漏的界面细节：媒体占位、文本换行、数字对齐、控件间距、工具提示与动效连续性。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/temp-small-improves',
-    tags: ['UI 细节', '动效', '排版'],
-  },
-  {
-    slug: 'aw-meta-skill',
-    name: 'Skill 元工作流',
-    description:
-      '创建或更新任何 Skill 的统一入口，替代 skill-creator，同时维护版本元数据、文本工作流、SVG 流程图与双重校验。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-meta-skill',
-    tags: ['Skill 工程', '元 Skill', '校验'],
-  },
-  {
     slug: 'aw-comic-dossier-packer',
     name: '漫画档案打包',
     description:
@@ -141,15 +123,6 @@ export const skills: SkillEntry[] = [
     tags: ['品牌资产', '图标', 'WebP'],
   },
   {
-    slug: 'temp-prd-verifier',
-    name: 'PRD 查证',
-    description:
-      '从项目 PRD 查证功能、对象归属、权限、状态与术语，区分明确规定、推断与未覆盖，并按需与界面或实现逐项对照。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/temp-prd-verifier',
-    tags: ['PRD', '需求', '验收'],
-  },
-  {
     slug: 'aw-logo-asset-cook',
     name: '图标资源生成',
     description:
@@ -159,15 +132,6 @@ export const skills: SkillEntry[] = [
     tags: ['品牌资产', '图标', '多平台'],
   },
   {
-    slug: 'aw-mail-read-later',
-    name: '稍后阅读推荐',
-    description:
-      '从 Outlook 的 Read Later 文件夹里，按当前情境、时间窗口和历史反馈一次只推荐一项内容，并支持阅读、总结、翻译、跳过、归档与排除。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-mail-read-later',
-    tags: ['Outlook', '阅读', '信息管理'],
-  },
-  {
     slug: 'rewrite-like-aaron',
     name: 'Aaron 文风改写',
     description:
@@ -175,23 +139,5 @@ export const skills: SkillEntry[] = [
     status: 'shipped',
     href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/rewrite-like-aaron',
     tags: ['写作', '反 AI 味', '博客'],
-  },
-  {
-    slug: 'temp-local-service-doctor',
-    name: '本地服务诊断',
-    description:
-      '启动项目的本地前后端及依赖，定位启动脚本失败、端口冲突、接口不可达与页面加载问题，并以调用链和目标页面验证结果。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/temp-local-service-doctor',
-    tags: ['本地开发', '排障', '工程'],
-  },
-  {
-    slug: 'aw-figma-component-governance',
-    name: 'Figma 组件治理',
-    description:
-      '治理 Figma 组件库的语义命名、Variant、Property、Slot 与排序；通过窄范围编辑、人工调整说明和结构化审计保证变更安全。',
-    status: 'shipped',
-    href: 'https://github.com/AaronXu-Lab/AaronSkill/tree/main/aw-figma-component-governance',
-    tags: ['Figma', '组件库', '不再维护'],
   },
 ];
