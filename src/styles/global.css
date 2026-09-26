@@ -721,11 +721,17 @@ button.chip:active,
   background-color: var(--shiki-dark-bg) !important;
 }
 
-/* Copy feedback shares a grid cell so both states retain the same width. */
-[data-copy] .copy-hint { display: inline-grid; place-items: center; }
-[data-copy] .copy-text,
-[data-copy] .copy-check { grid-area: 1 / 1; }
-[data-copy] .copy-check { visibility: hidden; }
+/* Keep the label in flow; center the Phosphor check independently of font metrics. */
+[data-copy] .copy-hint { position: relative; display: inline-grid; place-items: center; }
+[data-copy] .copy-check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
 [data-copy].copied .copy-text { visibility: hidden; }
 [data-copy].copied .copy-check { visibility: visible; }
 .copy-status {
