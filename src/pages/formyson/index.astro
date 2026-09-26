@@ -1,6 +1,6 @@
 ---
 import Layout from './_Layout.astro';
-import { BASE, products, productCategories, articles } from './_data';
+import { BASE } from './_data';
 
 const strengths = [
   ['01', 'In-house Design Team', 'Trend research, tech packs and sampling handled by our own designers.'],
@@ -22,7 +22,7 @@ const strengths = [
           <a class="btn btn-ghost" href={`${BASE}/contact/`}>Get a Quote</a>
         </div>
       </div>
-      <div class="ph hero-media" style="--ar: 4 / 5"><img src="/formyson/images/hero.jpg" alt="Designer fitting a cotton jacket in the studio" loading="lazy" decoding="async" loading="eager" fetchpriority="high"/></div>
+      <div class="ph hero-media" style="--ar: 4 / 5"><img src="/formyson/images/hero.jpg" alt="Designer fitting a cotton jacket in the studio" decoding="async" loading="eager" fetchpriority="high"/></div>
     </div>
   </section>
 
@@ -49,14 +49,8 @@ const strengths = [
         </div>
         <a class="link-arrow" href={`${BASE}/products/`}>All products →</a>
       </div>
-      <div class="grid grid-3">
-        {productCategories.map((c) => (
-          <a class="card" href={`${BASE}/products/`}>
-            <div class="card-media"><div class="ph" style="--ar: 1 / 1"><img src={`/formyson/images/${products.find((p) => p.category === c)?.slug}.jpg`} alt={`${c} apparel`} loading="lazy" decoding="async" /></div></div>
-            <h3>{c}</h3>
-            <p class="card-meta">{products.filter((p) => p.category === c).length} styles</p>
-          </a>
-        ))}
+      <div class="grid grid-3" data-cms="categories">
+        <p class="muted">Browse our latest collection.</p>
       </div>
     </div>
   </section>
@@ -82,15 +76,8 @@ const strengths = [
         </div>
         <a class="link-arrow" href={`${BASE}/articles/`}>All articles →</a>
       </div>
-      <div class="grid grid-3">
-        {articles.slice(0, 3).map((a) => (
-          <a class="card" href={`${BASE}/articles/${a.slug}/`}>
-            <div class="card-media"><div class="ph" style="--ar: 3 / 2"><img src={`/formyson/images/${a.slug}.jpg`} alt={a.title} loading="lazy" decoding="async" /></div></div>
-            <p class="card-meta"><span>{a.category}</span><span>{a.date}</span></p>
-            <h3>{a.title}</h3>
-            <p class="muted">{a.excerpt}</p>
-          </a>
-        ))}
+      <div class="grid grid-3" data-cms="articles">
+        <p class="muted">Notes from the studio and the factory floor.</p>
       </div>
     </div>
   </section>

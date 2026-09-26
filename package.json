@@ -19,7 +19,11 @@
     "dev:stash": "wrangler dev --config workers/stash/wrangler.jsonc",
     "deploy:stash": "wrangler deploy --config workers/stash/wrangler.jsonc",
     "test:stash": "node --test tests/stash.test.mjs tests/stash-markdown.test.mjs",
-    "build:stash": "node scripts/build-stash.mjs"
+    "build:stash": "node scripts/build-stash.mjs",
+    "dev:formyson": "npm run build && wrangler d1 migrations apply formyson --local && wrangler dev",
+    "test:formyson": "node --test tests/formyson.test.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "migrate:formyson": "wrangler d1 migrations apply formyson --remote"
   },
   "dependencies": {
     "@codemirror/commands": "^6.11.0",
@@ -28,6 +32,7 @@
     "@fontsource-variable/inter": "^5.2.5",
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
     "astro": "^5.12.0",
+    "markdown-it": "^15.0.2",
     "pinyin-pro": "^3.28.1"
   },
   "devDependencies": {
@@ -35,6 +40,7 @@
     "esbuild": "^0.28.2",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
-    "wrangler": "^4.129.0"
+    "wrangler": "^4.129.0",
+    "miniflare": "5.20260903.0-alpha"
   }
 }
