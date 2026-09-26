@@ -1,4 +1,4 @@
-// /formyson/ 演示站的假数据(美国成衣制造企业官网原型,只看效果不做功能)
+// /formyson/ 的品牌常量与首次迁移种子。线上产品、文章以 D1 为唯一数据源。
 export const BASE = '/formyson';
 export const BRAND = 'LOOMWORKS';
 

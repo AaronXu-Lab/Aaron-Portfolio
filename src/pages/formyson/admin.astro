@@ -1,0 +1,50 @@
+---
+import Layout from './_Layout.astro';
+---
+<Layout title="Content management" description="Manage LOOMWORKS products and articles.">
+  <link rel="stylesheet" href="/formyson/admin/style.css" />
+  <section class="section fm-admin">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">Administration</p><h1>Content management</h1></div><a class="link-arrow" href="/formyson/" target="_blank" rel="noopener">View website</a></div>
+      <p id="notice" role="status" aria-live="polite"></p>
+      <form id="login" hidden class="admin-login">
+        <h2>Sign in</h2><p class="muted">Use your administrator account.</p>
+        <label>Username<input name="username" required autocomplete="username" maxlength="100" /></label>
+        <label>Password<input name="password" type="password" required autocomplete="current-password" maxlength="256" /></label>
+        <button class="btn btn-dark" type="submit">Sign in</button>
+      </form>
+      <div id="workspace" hidden>
+        <div class="admin-toolbar"><nav aria-label="Content type"><button type="button" class="chip" data-kind="products" aria-pressed="true">Products</button><button type="button" class="chip" data-kind="articles" aria-pressed="false">Articles</button></nav><div class="admin-actions"><a class="link-arrow" href="/formyson/api/export">Export content</a><button id="logout" type="button" class="btn btn-ghost">Sign out</button></div></div>
+        <div id="list-view">
+          <div class="admin-toolbar"><form id="search-form" role="search"><label class="sr-only" for="search">Search content</label><input id="search" type="search" placeholder="Search by title or category" maxlength="200" /><button class="btn btn-ghost" type="submit">Search</button></form><button id="create" class="btn btn-dark" type="button">New product</button></div>
+          <div id="items" class="admin-items" aria-live="polite"></div>
+          <nav class="admin-pagination" aria-label="Content pages"><button id="previous" type="button" class="btn btn-ghost">Previous</button><span id="page-label"></span><button id="next" type="button" class="btn btn-ghost">Next</button></nav>
+        </div>
+        <form id="editor" hidden>
+          <div class="admin-toolbar"><h2 id="editor-heading">New product</h2><div class="admin-actions"><button id="cancel" type="button" class="btn btn-ghost">Back to list</button><button type="submit" class="btn btn-dark">Save changes</button></div></div>
+          <div class="admin-fields">
+            <label>Title<input name="title" required maxlength="200" /></label>
+            <label>Status<select name="status"><option value="draft">Draft / hidden</option><option value="published">Published / visible</option></select></label>
+          </div>
+          <fieldset><legend>Description / article body</legend><div class="admin-actions"><button id="insert-link" type="button" class="btn btn-ghost">Insert link</button><label class="upload-button">Insert image<input id="body-file" type="file" accept="image/jpeg,image/png,image/webp" /></label><button id="preview-button" type="button" class="btn btn-ghost">Preview body</button></div><label><span class="sr-only">Body</span><textarea name="body" rows="18" maxlength="60000" placeholder="Write plain text or Markdown…"></textarea></label><small>Markdown: ## Heading · **bold** · *italic* · - list · [link text](https://example.com) · ![alt text](image URL). HTML is displayed as text.</small><div id="body-preview" class="prose" hidden></div></fieldset>
+          <p data-article class="muted">Only title and body are required. Choose Published / visible and save to publish immediately. Other details are filled in automatically.</p>
+          <details id="optional-settings"><summary>Optional settings</summary><div class="fm-stack">
+            <label>URL slug<input name="slug" required maxlength="120" pattern="[a-z0-9]+(-[a-z0-9]+)*" /><small>Lowercase words separated by hyphens. Changing this breaks the previous URL.</small></label>
+            <label>Category<input name="category" maxlength="100" list="category-options" /><datalist id="category-options"></datalist></label>
+            <label>Publication date<input name="publishedAt" type="date" required /><small>Display date only. Publishing makes content visible immediately.</small></label>
+            <label data-article>Author<input name="author" maxlength="100" /></label>
+          <label>Summary<textarea name="summary" rows="3" maxlength="600"></textarea><small>Leave blank to use the beginning of the body.</small></label>
+          <fieldset><legend>Cover image</legend><div class="admin-cover"><img id="cover-preview" alt="Cover preview" hidden /><div class="fm-stack"><label>Image URL<input name="coverURL" maxlength="2000" placeholder="https://… or /formyson/media/…" /></label><label>Alt text<input name="coverAlt" maxlength="300" /><small>Describe the image. Articles use the title when left blank; products require alt text to publish.</small></label><label>Upload cover<input id="cover-file" type="file" accept="image/jpeg,image/png,image/webp" /></label></div></div></fieldset>
+          <fieldset data-product><legend>Product gallery</legend><p class="muted">Up to 20 images. Add alt text for each image; use the arrows to reorder.</p><div id="gallery"></div><div class="admin-actions"><label>Upload images<input id="gallery-files" type="file" accept="image/jpeg,image/png,image/webp" multiple /></label><button id="add-image" type="button" class="btn btn-ghost">Add image URL</button></div></fieldset>
+          <label data-product>Specifications<textarea name="specs" rows="5" placeholder="Fabric | 100% cotton&#10;Sizes | XS - 3XL"></textarea><small>One specification per line: label | value.</small></label>
+          <label data-article>Tags<input name="tags" maxlength="1600" placeholder="Manufacturing, Made in USA" /><small>Separate tags with commas.</small></label>
+          <fieldset><legend>Search engine information</legend><label>SEO title<input name="seoTitle" maxlength="200" /><small>Defaults to the content title.</small></label><label>Meta description<textarea name="seoDescription" rows="3" maxlength="400"></textarea><small>Defaults to the summary. This demo website remains excluded from search indexing.</small></label></fieldset>
+          <p class="muted">Uploaded images have public URLs, including images used in drafts. Deleting content does not delete its images.</p>
+          </div></details>
+          <div class="admin-actions"><button type="submit" class="btn btn-dark">Save changes</button><a id="view-item" class="link-arrow" target="_blank" rel="noopener" hidden>View published page</a></div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script is:inline src="/formyson/admin/app.js" type="module"></script>
+</Layout>

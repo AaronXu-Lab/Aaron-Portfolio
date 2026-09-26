@@ -1,35 +1,7 @@
 ---
+// Static layout shell. Cloudflare Worker renders published D1 content into <main>.
 import Layout from '../_Layout.astro';
-import { BASE, products, productCategories } from '../_data';
 ---
-
-<Layout title="Products" description="Browse our apparel programs: tees, hoodies, denim, outerwear, knitwear and activewear.">
-  <section class="page-hero">
-    <div class="wrap">
-      <span class="eyebrow">Products</span>
-      <h1>Our collection</h1>
-      <p>Core programs ready to customize with your fabric, fit and label. Low minimums, made in the U.S.</p>
-    </div>
-  </section>
-  <section class="section" style="padding-top: 40px">
-    <div class="wrap">
-      <div class="chips" role="list">
-        <a class="chip" href="#" aria-current="true" role="listitem">All</a>
-        {productCategories.map((c) => <a class="chip" href="#" role="listitem">{c}</a>)}
-      </div>
-      <div class="grid grid-4">
-        {products.map((p) => (
-          <a class="card" href={`${BASE}/products/${p.slug}/`}>
-            <div class="card-media"><div class="ph"><img src={`/formyson/images/${p.slug}.jpg`} alt={p.name} loading="lazy" decoding="async" /></div></div>
-            <p class="card-meta">{p.category}</p>
-            <h3>{p.name}</h3>
-            <p class="muted">{p.summary}</p>
-          </a>
-        ))}
-      </div>
-      <nav class="pager" aria-label="Pagination">
-        <a href="#" aria-current="page">1</a><a href="#">2</a><a href="#">3</a><a href="#" aria-label="Next page">→</a>
-      </nav>
-    </div>
-  </section>
+<Layout title="Products">
+  <section class="page-hero"><div class="wrap"><h1>Products</h1><p>Content is served by the website backend. For local development, use npm run dev:formyson.</p></div></section>
 </Layout>

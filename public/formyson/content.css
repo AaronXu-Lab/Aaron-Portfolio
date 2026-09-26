@@ -1,0 +1,101 @@
+.fm-list {
+  padding-top: 40px;
+}
+.fm-stack {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+.fm-detail {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  margin-top: 24px;
+  align-items: start;
+}
+.fm-detail h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+.fm-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.fm-gallery a:hover {
+  opacity: 0.8;
+}
+.fm-gallery a:active {
+  opacity: 0.6;
+}
+.fm-specs {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fm-specs th,
+.fm-specs td {
+  text-align: left;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+.fm-specs th {
+  font-weight: 500;
+  width: 40%;
+}
+.fm-specs td {
+  color: var(--muted);
+}
+.fm-wholesale {
+  background: var(--surface);
+  padding: 56px 0;
+}
+.fm-wholesale .wrap {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+.fm-narrow {
+  max-width: 768px;
+}
+.fm-narrow h1 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+}
+.fm-cover {
+  margin: 48px auto;
+}
+.fm-featured {
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  margin-bottom: 72px;
+}
+.fm-featured:hover h2 {
+  color: var(--accent);
+}
+.prose {
+  overflow-wrap: anywhere;
+}
+.prose img {
+  max-height: 900px;
+  object-fit: contain;
+}
+.prose h3 {
+  font-size: 1.3rem;
+}
+.pager {
+  align-items: center;
+}
+.card:active,
+.chip:active,
+.pager a:active {
+  opacity: 0.7;
+}
+.fm-detail > * {
+  min-width: 0;
+}
+@media (max-width: 860px) {
+  .fm-detail,
+  .fm-featured {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,6 +1,6 @@
 # Aarxon Xu 个人网站 · xuweinan.com
 
-UX Engineer 作品集 + 站内博客 + Skill / 产品集。基于 [Astro 5](https://astro.build) 静态生成，视觉语言延续手搓原型（oklch 色系 · Inter + JetBrains Mono · 编辑部风格），博客一次性导入自本地 Hexo 文件夹，部署在 Cloudflare Pages 并绑定 [xuweinan.com](https://www.xuweinan.com)。
+UX Engineer 作品集 + 站内博客 + Skill / 产品集。基于 [Astro 5](https://astro.build) 静态生成，视觉语言延续手搓原型（oklch 色系 · Inter + JetBrains Mono · 编辑部风格），博客一次性导入自本地 Hexo 文件夹，部署在 Cloudflare Workers Static Assets 并绑定 [xuweinan.com](https://www.xuweinan.com)。
 
 ## 本地运行
 
@@ -11,18 +11,20 @@ npm run build      # 产物在 dist/,纯静态
 npm run preview    # 本地预览构建产物
 ```
 
-## Cloudflare Pages 部署
+## Cloudflare Workers Static Assets 部署
 
-监听 `main` 分支，push 即自动构建部署。
+主站为 `aaron-portfolio` Worker，Workers Builds 关联 GitHub 仓库并监听 `main`。根目录 `wrangler.jsonc` 定义部署与资源绑定。
 
 | 配置 | 值 |
 | --- | --- |
-| Framework preset | Astro |
 | Build command | `npm run build` |
-| Build output directory | `dist` |
+| Deploy command | `npx wrangler deploy` |
+| Static assets | `dist/` |
 | Node.js version | `22`（见 `.node-version`） |
 
-纯静态输出，不需要 `@astrojs/cloudflare` 适配器。`public/_headers` 随构建复制到 `dist/_headers`,用于自定义响应头。
+Astro 静态生成主站，不需要 `@astrojs/cloudflare` 适配器。Formyson 子站使用 Workers + D1 + R2 提供内容后台和动态产品／文章页面；其余页面继续静态托管。静态响应头来自 `public/_headers`，动态响应头由 Worker 设置。
+
+Formyson 后台：`/formyson/admin/`。支持固定账号登录、产品和文章管理、图片上传、Markdown 正文及发布状态。开发、部署、凭据与备份说明见 [Formyson 内容管理](workflows/formyson-admin.md)。
 
 ## 站点结构
 
