@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "临时概念示意图，非真实头像或产品截图；水印由 MediaSlot 的 HTML 覆盖。",
+  "assets": [
+    {
+      "key": "portrait",
+      "prompt": "Editorial illustrated avatar for a UX engineer portfolio, portrait 4:5. Fictional adult East Asian designer in simple dark clothing, neutral friendly expression, upper body centered, warm ivory backdrop, restrained charcoal and muted orange palette, subtle paper texture, sophisticated clean illustration. Invented identity, not a real person's portrait. No text, no logos, no watermark.",
+      "source": "/Users/aaronxu/.codex/generated_images/01a0c990-f578-7a72-a2f6-7876651b9ae9/exec-3e54a41b-a9fa-4049-892d-4fc9f3ad5f1e.png"
+    },
+    {
+      "key": "automation",
+      "prompt": "High fidelity conceptual SaaS recruitment automation interface, ultra-wide 21:9. Warm gray canvas, compact left sidebar, horizontal connected white workflow cards: New candidate, Analyze resume, Match role, decision split to Schedule interview and Review queue. Subtle violet accents, fine connectors, crisp English labels, professional product UI. Workflow centered with generous margins, flat front-facing screen. No browser frame, no watermark, no temporary labels. Conceptual interface, not a real product screenshot.",
+      "source": "/Users/aaronxu/.codex/generated_images/01a0c990-f578-7a72-a2f6-7876651b9ae9/exec-27f09192-1793-49ff-ab91-f1efb751c57e.png"
+    },
+    {
+      "key": "comic-redraw",
+      "prompt": "Polished conceptual tablet comic-reader AI redraw interface, landscape 4:3. Light neutral UI, compact sidebar, large side-by-side panels: Original monochrome manga of a quiet city street with walking adult, Watercolor version of same scene. Original fictional artwork, no existing characters. Small style selector and Generate button below. Restrained warm orange accent, English labels Original, Watercolor, Redraw. Flat front-facing app screen, no device frame, no watermark, no temporary labels.",
+      "source": "/Users/aaronxu/.codex/generated_images/01a0c990-f578-7a72-a2f6-7876651b9ae9/exec-5ba789a5-bef3-46d9-b96d-33f3675433b3.png"
+    },
+    {
+      "key": "dashboard",
+      "prompt": "High fidelity conceptual analytics dashboard, portrait 4:5. Refined editorial UI, warm white background, charcoal text, muted orange accent, thin pale borders, coherent spacing and typography. Compact top navigation, heading Overview, four KPI cards with sample numbers, weekly activity line chart, project status list and small distribution chart below. Short English labels. Flat screen no device frame, no logos, no watermark, no temporary labels. Illustrative concept not a real implemented product.",
+      "source": "/Users/aaronxu/.codex/generated_images/01a0c990-f578-7a72-a2f6-7876651b9ae9/exec-c0becafb-01f0-4f30-bcce-e5f975bf7c96.png"
+    }
+  ]
+}

@@ -70,16 +70,18 @@ AI 上手必读：[AGENTS.md](AGENTS.md)（`CLAUDE.md` 指向同一文件）。
 
 已通过 Figma MCP 从 📝简历 文件(key `S01WbvJxrtsbrUqbaF7sdT`)批量导出并填充 **30 处**真实图片（存放于 `public/media/`,`MediaSlot` 组件传 `src` 即渲染真图）。旧清单指向的 `Playground` 文件(key `cpxGuEaNoMIHF4IZcmbUfx`)已失效，539 系列节点不存在。首页历史作品集 4 项的 Figma 链接也已精确到各自画板（`data-node-id` 见 `src/pages/index.astro` 的 `historical`）。
 
-### 仍待替换（6 处）
+### 仍待真实素材替换（8 张，其中 4 张已接入 AI 临时图）
 
 | 页面 | 用途 | 比例 | 说明 |
 | --- | --- | --- | --- |
-| /work/followup-ai/ | Automation 工作流视觉 | 21/9 | 简历文件中该场景（AI 归类候选人 · HR 招聘流程）无专属配图，现有素材是通用任务看板，已复用于 Foundation Builder,避免重复/误导未强行填入 |
-| /work/comic-manga/ | App 截图 · AI 重绘 | 4/3 | 简历文件中未找到该功能的 App 界面截图 |
+| /work/followup-ai/ | Automation 工作流视觉 | 21/9 | 已接入 temporary/automation.png 概念图，带 HTML 水印；仍需招聘工作流真实截图 |
+| /work/comic-manga/ | App 截图 · AI 重绘 | 4/3 | 已接入 temporary/comic-redraw.png 概念图，带 HTML 水印；仍需 App 真实截图 |
 | /work/comic-manga/ | iPad 实机视觉 | 4/3 | 未找到实机拍摄图 |
 | /work/comic-manga/ | 组件拆分视觉 | 4/3 | 未找到对应素材 |
-| /work/ai-design-system/ | 结果示例 A/B/C（3 处） | 4/5 | 需自备脱敏截图，无 Figma 节点 |
-| / | 个人头像 | 4/5 | 按要求已还原为占位，留给本人自行替换 |
+| /work/ai-design-system/ | 结果示例 A/B/C（3 处） | 4/5 | A 仪表盘已接入 temporary/dashboard.png 概念图，带 HTML 水印；B/C 仍为空占位，三张均需真实脱敏截图 |
+| / | 个人头像 | 4/5 | 已接入 temporary/portrait.png 虚构人物插画，带 HTML 水印；仍需本人照片 |
 
 > 补图方式：图片放入 `public/media/<分组>/`,给对应 `<MediaSlot … src="/media/…" />` 传 `src` 即可；`/design/` 页的 `node="000:0000"` 是样式指南演示占位，非真实待替换项。
 
+
+临时素材位于 `public/media/temporary/`，生成提示词见同目录 `generation-prompts.json`。四张图均使用 `MediaSlot temporary` 通过 HTML 覆盖「AI 临时生成 · 待替换」，图片文件本身不含水印。换成真实素材后移除 `temporary` 属性，并更新本表。

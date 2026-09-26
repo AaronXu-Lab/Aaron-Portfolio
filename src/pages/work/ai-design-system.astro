@@ -702,7 +702,7 @@ const Dots = (n: number, danger = false) =>
         {
           results.map((r, i) => (
             <div class="reveal" style={`--d:${i * 0.08}s`}>
-              <MediaSlot label="替换为脱敏截图" ratio="4 / 5" />
+              <MediaSlot label={r.idx === 'A' ? '仪表盘概念界面' : '替换为脱敏截图'} ratio="4 / 5" src={r.idx === 'A' ? '/media/temporary/dashboard.png' : undefined} temporary={r.idx === 'A'} />
               <div class="r-cap">
                 <span class="mono-accent">{r.idx}</span>
                 <span class="r-zh">{r.zh}</span>

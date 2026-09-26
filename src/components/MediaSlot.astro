@@ -11,14 +11,17 @@ interface Props {
   class?: string;
   /** 真实图片路径(public 下),提供后替换占位样式 */
   src?: string;
+  /** AI 临时示意图，水印由 HTML 覆盖，替换真实素材时移除此属性 */
+  temporary?: boolean;
 }
-const { label, node, ratio = '16 / 9', class: className, src } = Astro.props;
+const { label, node, ratio = '16 / 9', class: className, src, temporary = false } = Astro.props;
 ---
 
 {
   src ? (
     <figure class:list={['media-slot', 'media-filled', className]} style={`aspect-ratio: ${ratio};`}>
-      <img src={src} alt={label} loading="lazy" />
+      <img src={src} alt={temporary ? `${label}（AI 临时生成示意图）` : label} loading="lazy" />
+      {temporary && <figcaption class="temporary-watermark">AI 临时生成 · 待替换</figcaption>}
     </figure>
   ) : (
     <figure class:list={['media-slot', className]} style={`aspect-ratio: ${ratio};`}>
@@ -38,6 +41,21 @@ const { label, node, ratio = '16 / 9', class: className, src } = Astro.props;
 
   .media-filled {
     background: var(--surface-2);
+  }
+
+  .temporary-watermark {
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--band-bg);
+    color: var(--band-text);
+    border-block: 2px solid var(--accent);
+    font-size: clamp(14px, 2vw, 22px);
+    font-weight: 700;
+    line-height: 2.4;
+    text-align: center;
+    pointer-events: none;
   }
 
   .media-filled img {
