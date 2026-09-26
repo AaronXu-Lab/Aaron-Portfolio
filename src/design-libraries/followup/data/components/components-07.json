@@ -1,0 +1,1123 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 450,
+  "range": {
+    "start": 280,
+    "end": 320
+  },
+  "components": [
+    {
+      "id": "1374:15924",
+      "key": "3871c4dbb857cddcd728fdbb4af11a398a3e5110",
+      "name": "Type=Text, Style=Outline, Size=Small, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 280,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Active"
+      },
+      "width": 240,
+      "height": 32,
+      "absoluteX": 10958,
+      "absoluteY": 4933,
+      "isAsset": false
+    },
+    {
+      "id": "2956:11156",
+      "key": "f9dc62b416d922887b02be68d3efc40572ee8cd8",
+      "name": "Type=No Text, Style=Outline, Size=Small, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 281,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "No Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Active"
+      },
+      "width": 56,
+      "height": 32,
+      "absoluteX": 11226,
+      "absoluteY": 4933,
+      "isAsset": false
+    },
+    {
+      "id": "1374:15931",
+      "key": "f61e130d652428c6d5913287fcbee38714f288eb",
+      "name": "Type=Text, Style=Fill, Size=Normal, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 282,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Fill",
+        "Size": "Normal",
+        "State": "Active"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 10958,
+      "absoluteY": 4857,
+      "isAsset": false
+    },
+    {
+      "id": "2956:11163",
+      "key": "96449ac3045eaf0bb43994e74a99bba8db64cca1",
+      "name": "Type=No Text, Style=Fill, Size=Normal, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 283,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "No Text",
+        "Style": "Fill",
+        "Size": "Normal",
+        "State": "Active"
+      },
+      "width": 64,
+      "height": 36,
+      "absoluteX": 11218,
+      "absoluteY": 4857,
+      "isAsset": false
+    },
+    {
+      "id": "1374:15917",
+      "key": "6b0d9b25654a9af54b58dbbdd0015c205e22576d",
+      "name": "Type=Text, Style=Outline, Size=Normal, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 284,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Active"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 10958,
+      "absoluteY": 4801,
+      "isAsset": false
+    },
+    {
+      "id": "2956:11170",
+      "key": "cd9176d6d66cedd9f086dbeb30cc5b1218e5f14b",
+      "name": "Type=No Text, Style=Outline, Size=Normal, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 285,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "No Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Active"
+      },
+      "width": 64,
+      "height": 36,
+      "absoluteX": 11218,
+      "absoluteY": 4801,
+      "isAsset": false
+    },
+    {
+      "id": "798:2215",
+      "key": "a45a84ba7683675cc8c6487564b524b13a03c34a",
+      "name": "Type=Text, Style=Outline, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 286,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 240,
+      "height": 32,
+      "absoluteX": 10606,
+      "absoluteY": 4933,
+      "isAsset": false
+    },
+    {
+      "id": "2956:11177",
+      "key": "7c7a84e85d18a90fee0acfd50a0b508975821fc2",
+      "name": "Type=No Text, Style=Outline, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 287,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "No Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 56,
+      "height": 32,
+      "absoluteX": 10874,
+      "absoluteY": 4933,
+      "isAsset": false
+    },
+    {
+      "id": "569:41210",
+      "key": "16412a5a977aa3d9e816431043693deda46fd0ae",
+      "name": "Type=Text, Style=Fill, Size=Normal, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 288,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Fill",
+        "Size": "Normal",
+        "State": "Normal"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 10606,
+      "absoluteY": 4857,
+      "isAsset": false
+    },
+    {
+      "id": "2956:11184",
+      "key": "54ce6efff4811215e2c7b0c8521934d5a004a926",
+      "name": "Type=No Text, Style=Fill, Size=Normal, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 289,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "No Text",
+        "Style": "Fill",
+        "Size": "Normal",
+        "State": "Normal"
+      },
+      "width": 64,
+      "height": 36,
+      "absoluteX": 10866,
+      "absoluteY": 4857,
+      "isAsset": false
+    },
+    {
+      "id": "611:3285",
+      "key": "255435fc8e02d73f5a2be5ce9f7c7bb2cbe08dc6",
+      "name": "Type=Text, Style=Outline, Size=Normal, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 290,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Normal"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 10606,
+      "absoluteY": 4801,
+      "isAsset": false
+    },
+    {
+      "id": "2956:11191",
+      "key": "38e57645a6bddb54e5379f1c30070f8b130e964e",
+      "name": "Type=No Text, Style=Outline, Size=Normal, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 291,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "564:2688",
+        "name": "_Old/InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "No Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Normal"
+      },
+      "width": 64,
+      "height": 36,
+      "absoluteX": 10866,
+      "absoluteY": 4801,
+      "isAsset": false
+    },
+    {
+      "id": "2895:36952",
+      "key": "d3306e0de182f52be951bc4bbe0352454ec0b0cc",
+      "name": "Size=Normal, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 292,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Normal",
+        "State": "Normal"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 10606,
+      "absoluteY": 5085,
+      "isAsset": false
+    },
+    {
+      "id": "2895:36962",
+      "key": "8fbd334df9a927f05284cacc6e128d8d94835bf7",
+      "name": "Size=Normal, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 293,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Normal",
+        "State": "Active"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 10958,
+      "absoluteY": 5085,
+      "isAsset": false
+    },
+    {
+      "id": "2895:36972",
+      "key": "9ce5e11db070726f9579339a0c93766f62b867ab",
+      "name": "Size=Normal, State=Error",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 294,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Normal",
+        "State": "Error"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 11310,
+      "absoluteY": 5085,
+      "isAsset": false
+    },
+    {
+      "id": "2895:36982",
+      "key": "8616ec2191f5016758ea1f8ff08fd461db7c1677",
+      "name": "Size=Normal, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 295,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "width": 240,
+      "height": 36,
+      "absoluteX": 11662,
+      "absoluteY": 5085,
+      "isAsset": false
+    },
+    {
+      "id": "2895:36992",
+      "key": "884cb0aa9e49681febc7919e3baeb3fb5b5a5371",
+      "name": "Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 296,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 240,
+      "height": 32,
+      "absoluteX": 10606,
+      "absoluteY": 5161,
+      "isAsset": false
+    },
+    {
+      "id": "2895:37002",
+      "key": "8da10f22282d6b1803cc0dccbbaf2786b50f63ad",
+      "name": "Size=Small, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 297,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Small",
+        "State": "Active"
+      },
+      "width": 240,
+      "height": 32,
+      "absoluteX": 10958,
+      "absoluteY": 5161,
+      "isAsset": false
+    },
+    {
+      "id": "2895:37012",
+      "key": "4ddefbdd2e1c05b68950a87d71f9fe0faa2d8866",
+      "name": "Size=Small, State=Error",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 298,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Small",
+        "State": "Error"
+      },
+      "width": 240,
+      "height": 32,
+      "absoluteX": 11310,
+      "absoluteY": 5161,
+      "isAsset": false
+    },
+    {
+      "id": "2895:37022",
+      "key": "7212808858c98a65bb32ab8f6704ca5cc114ad6c",
+      "name": "Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 299,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2895:36951",
+        "name": "_Old/Multi-InputBox",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 240,
+      "height": 32,
+      "absoluteX": 11662,
+      "absoluteY": 5161,
+      "isAsset": false
+    },
+    {
+      "id": "2887:14667",
+      "key": "1bdc59b047bb3607bcefe0550c612e06bc7503c9",
+      "name": "_Options+Divider",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 300,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 85.0000991821289,
+      "height": 16,
+      "absoluteX": 11039.5,
+      "absoluteY": 5323,
+      "isAsset": false
+    },
+    {
+      "id": "1371:7044",
+      "key": "f15e31c7a8128024bfe886b93d31e05d584685ef",
+      "name": "Type=Text",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 301,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "1371:7045",
+        "name": "_Opitons",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text"
+      },
+      "width": 73,
+      "height": 16,
+      "absoluteX": 11160.5,
+      "absoluteY": 5323,
+      "isAsset": false
+    },
+    {
+      "id": "1429:22562",
+      "key": "75a104787daead597a1ffa296b13b2a2bd0569c5",
+      "name": "Type=Icon",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 302,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "1371:7045",
+        "name": "_Opitons",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon"
+      },
+      "width": 36,
+      "height": 16,
+      "absoluteX": 11253.5,
+      "absoluteY": 5323,
+      "isAsset": false
+    },
+    {
+      "id": "2199:5395",
+      "key": "4e11d67960df2f6e5742e9a1381346261ef97dae",
+      "name": "_Icon",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 303,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 16,
+      "height": 16,
+      "absoluteX": 11325.5,
+      "absoluteY": 5323,
+      "isAsset": false
+    },
+    {
+      "id": "836:22053",
+      "key": "79a5d334cfbbae82d4edd61cac4a8edbd8ca76d3",
+      "name": "_Chevron",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 304,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 16,
+      "height": 16,
+      "absoluteX": 11357.5,
+      "absoluteY": 5323,
+      "isAsset": false
+    },
+    {
+      "id": "836:22048",
+      "key": "d609b67ff6b76da74f2f8c07d76e11aac43678d4",
+      "name": "Type=Text",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 305,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "1580:9013",
+        "name": "_Inputbox Combine Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text"
+      },
+      "width": 63,
+      "height": 36,
+      "absoluteX": 11409.5,
+      "absoluteY": 5313,
+      "isAsset": false
+    },
+    {
+      "id": "836:22050",
+      "key": "0fff4c68ce73c8dc2d0f4aeab5cad70c6b4caaa4",
+      "name": "Type=Icon",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 306,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "1580:9013",
+        "name": "_Inputbox Combine Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon"
+      },
+      "width": 48,
+      "height": 36,
+      "absoluteX": 11492.5,
+      "absoluteY": 5313,
+      "isAsset": false
+    },
+    {
+      "id": "492:14469",
+      "key": "1e468ada3a92ca406cd926cb17e53ad1b165be7c",
+      "name": "Selected=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 307,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "492:14468",
+        "name": "_Tab",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Selected": "False"
+      },
+      "width": 74,
+      "height": 32,
+      "absoluteX": 9403,
+      "absoluteY": 3266,
+      "isAsset": false
+    },
+    {
+      "id": "492:14471",
+      "key": "461ebf2ce3347bfd66544b0f2cceb58901a31fc9",
+      "name": "Selected=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 308,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "492:14468",
+        "name": "_Tab",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Selected": "True"
+      },
+      "width": 74,
+      "height": 32,
+      "absoluteX": 9497,
+      "absoluteY": 3266,
+      "isAsset": false
+    },
+    {
+      "id": "4744:20570",
+      "key": "3bb90ea924652f56f337d6d67eedadca872563ee",
+      "name": "Count=2",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 309,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "4744:20590",
+        "name": "_Tabs",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Count": "2"
+      },
+      "width": 110,
+      "height": 32,
+      "absoluteX": 9432,
+      "absoluteY": 3536,
+      "isAsset": false
+    },
+    {
+      "id": "4744:20591",
+      "key": "016528cf13516f1a4804a832b9974b49c2a6b868",
+      "name": "Count=3",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 310,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "4744:20590",
+        "name": "_Tabs",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Count": "3"
+      },
+      "width": 168,
+      "height": 32,
+      "absoluteX": 9403,
+      "absoluteY": 3578,
+      "isAsset": false
+    },
+    {
+      "id": "4744:20600",
+      "key": "9fd9b96d8c08dc600c8df2a57119be2009b2fca6",
+      "name": "Count=4",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 311,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "4744:20590",
+        "name": "_Tabs",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Count": "4"
+      },
+      "width": 226,
+      "height": 32,
+      "absoluteX": 9374,
+      "absoluteY": 3620,
+      "isAsset": false
+    },
+    {
+      "id": "2058:6236",
+      "key": "b5399f6fff63b424dc59edb9d01a17fabc923452",
+      "name": "_Title/Group",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 312,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 164,
+      "height": 28,
+      "absoluteX": 11550,
+      "absoluteY": 3395,
+      "isAsset": false
+    },
+    {
+      "id": "2261:133246",
+      "key": "1dbc8f97ed7eef8a439fbe7b08b7243e6a1ad622",
+      "name": "Type=Text, Select=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 313,
+      "topLevel": {
+        "id": "2261:133117",
+        "name": "Segment",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2261:133245",
+        "name": "Segment Option",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Select": "True"
+      },
+      "width": 43,
+      "height": 28,
+      "absoluteX": -1505,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "2261:133248",
+      "key": "3fe02b94dc397adb979ec92762a7321a00aa2efb",
+      "name": "Type=Text, Select=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 314,
+      "topLevel": {
+        "id": "2261:133117",
+        "name": "Segment",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2261:133245",
+        "name": "Segment Option",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Select": "False"
+      },
+      "width": 43,
+      "height": 28,
+      "absoluteX": -1452,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "2261:133250",
+      "key": "9a7b3ec0985f94a724d6b5641c50e19968202bad",
+      "name": "Type=Icon, Select=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 315,
+      "topLevel": {
+        "id": "2261:133117",
+        "name": "Segment",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2261:133245",
+        "name": "Segment Option",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Select": "True"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -1505,
+      "absoluteY": -653,
+      "isAsset": false
+    },
+    {
+      "id": "2261:133252",
+      "key": "2b70c8fd5335a86c8fe798ffb74561da46cc7e35",
+      "name": "Type=Icon, Select=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 316,
+      "topLevel": {
+        "id": "2261:133117",
+        "name": "Segment",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2261:133245",
+        "name": "Segment Option",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Select": "False"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -1452,
+      "absoluteY": -653,
+      "isAsset": false
+    },
+    {
+      "id": "5958:17658",
+      "key": "ba3fd35c6a864fed985167a8059e14be85c6cd9e",
+      "name": "Size=Regular, Type=Expand+Text, Tail=Buttons",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 317,
+      "topLevel": {
+        "id": "5984:27994",
+        "name": "􀰱 Left Panel Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5936:28562",
+        "name": "Left Panel Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Regular",
+        "Type": "Expand+Text",
+        "Tail": "Buttons"
+      },
+      "width": 250,
+      "height": 36,
+      "absoluteX": -2635,
+      "absoluteY": -553,
+      "isAsset": false
+    },
+    {
+      "id": "6176:31629",
+      "key": "11e9e2794c034653b4209051e3725b84d4a070c0",
+      "name": "Size=Small, Type=Expand+Text, Tail=Icon",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 318,
+      "topLevel": {
+        "id": "5984:27994",
+        "name": "􀰱 Left Panel Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5936:28562",
+        "name": "Left Panel Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Small",
+        "Type": "Expand+Text",
+        "Tail": "Icon"
+      },
+      "width": 250,
+      "height": 36,
+      "absoluteX": -2635,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "5958:17665",
+      "key": "6aff03cd4579748099b023decd908991a368781e",
+      "name": "Size=Regular, Type=Expand+Text, Tail=Content",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 319,
+      "topLevel": {
+        "id": "5984:27994",
+        "name": "􀰱 Left Panel Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5936:28562",
+        "name": "Left Panel Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "Regular",
+        "Type": "Expand+Text",
+        "Tail": "Content"
+      },
+      "width": 250,
+      "height": 36,
+      "absoluteX": -2905,
+      "absoluteY": -553,
+      "isAsset": false
+    }
+  ]
+}

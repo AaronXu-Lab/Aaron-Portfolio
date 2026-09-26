@@ -1,0 +1,449 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:1343:5500",
+    "key": "e08b5515d7dc34064b8b0ac19faff281dfd4c5e8",
+    "name": "Color/Tokens",
+    "defaultModeId": "1343:0",
+    "modes": [
+      {
+        "name": "Normal",
+        "modeId": "1343:0"
+      },
+      {
+        "name": "ColorBG",
+        "modeId": "6351:6"
+      }
+    ],
+    "variableCount": 51,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 40,
+    "end": 50
+  },
+  "variables": [
+    {
+      "id": "VariableID:6473:38274",
+      "key": "2b25a2d87aec0b5b8f1dbe7412915779d20392cc",
+      "name": "Segment/Stroke/Normal",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 40,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50159"
+          },
+          "aliasTargetId": "VariableID:6290:50159",
+          "aliasTargetName": "Tertiary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6473:38275",
+      "key": "4e65d0123432696a327aa81eef113958bc89d334",
+      "name": "Segment/Fill/Normal",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 41,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6257:740"
+          },
+          "aliasTargetId": "VariableID:6257:740",
+          "aliasTargetName": "White10",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6473:38273",
+      "key": "4ca48c7ce52dffe25413c2cddfb3ceeeda70a071",
+      "name": "Segment/Stroke/Active",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 42,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50158"
+          },
+          "aliasTargetId": "VariableID:6290:50158",
+          "aliasTargetName": "Primary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6473:38277",
+      "key": "f8080d50388bb651541adc4c504f561112d20bff",
+      "name": "Segment/Content/Normal",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 43,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1346:5034"
+          },
+          "aliasTargetId": "VariableID:1346:5034",
+          "aliasTargetName": "Text/Default/Primary",
+          "aliasTargetCollectionId": "VariableCollectionId:1343:5500",
+          "aliasTargetCollectionName": "Color/Tokens"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6473:38278",
+      "key": "1ec042cbc009d0c6c50e80b35c45ee512f003597",
+      "name": "Segment/Content/Active",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 44,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50158"
+          },
+          "aliasTargetId": "VariableID:6290:50158",
+          "aliasTargetName": "Primary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6473:38276",
+      "key": "add08b155099e2c152bf6ef7b0726c6c9ca617ad",
+      "name": "Segment/Fill/Active",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 45,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50159"
+          },
+          "aliasTargetId": "VariableID:6290:50159",
+          "aliasTargetName": "Tertiary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:51163",
+      "key": "4e08045c4128fe7476b8ac1756e464437f7021fd",
+      "name": "Divider/Normal",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 46,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50160"
+          },
+          "aliasTargetId": "VariableID:6290:50160",
+          "aliasTargetName": "Quaternary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6257:740"
+          },
+          "aliasTargetId": "VariableID:6257:740",
+          "aliasTargetName": "White10",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6635:35033",
+      "key": "388c8e3c70780d285e83dd40ff0e2d8f459c2fe8",
+      "name": "Divider/Deep",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 47,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50159"
+          },
+          "aliasTargetId": "VariableID:6290:50159",
+          "aliasTargetName": "Tertiary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6351:50903"
+          },
+          "aliasTargetId": "VariableID:6351:50903",
+          "aliasTargetName": "White20",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6354:55724",
+      "key": "9a6753ad0135bf30e0aa5670e054d7a2d7ac6fd7",
+      "name": "Divider/Active",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 48,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50158"
+          },
+          "aliasTargetId": "VariableID:6290:50158",
+          "aliasTargetName": "Primary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50158"
+          },
+          "aliasTargetId": "VariableID:6290:50158",
+          "aliasTargetName": "Primary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6522:52971",
+      "key": "ab29dec681d4923265edbfa6f337acbdc8459f4a",
+      "name": "Text Selector",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 49,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6290:50158"
+          },
+          "aliasTargetId": "VariableID:6290:50158",
+          "aliasTargetName": "Primary",
+          "aliasTargetCollectionId": "VariableCollectionId:6290:31514",
+          "aliasTargetCollectionName": "Color/Theme"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6320"
+          },
+          "aliasTargetId": "VariableID:1214:6320",
+          "aliasTargetName": "White100",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    }
+  ]
+}

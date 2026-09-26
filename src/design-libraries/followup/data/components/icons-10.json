@@ -1,0 +1,1083 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 442,
+  "range": {
+    "start": 400,
+    "end": 440
+  },
+  "components": [
+    {
+      "id": "7361:131",
+      "key": "be43b851dca00d7004ab7819b468866a01041338",
+      "name": "Property 1=Schedule repeat",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 400,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2695,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:162",
+      "key": "8aca07745385227b93aedc1319e0b2a62ad7c958",
+      "name": "Property 1=icon, Property 2=Automations, Property 3=24, Property 4=icon, Property 5=Automations, Property 6=24, Property 7=data arrives",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 401,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2730,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:105",
+      "key": "57c6153f3bdffb9b13c6b63d26747a590bbe1727",
+      "name": "Property 1=icon, Property 2=Automations, Property 3=24, Property 4=icon, Property 5=Automations, Property 6=24, Property 7=icon, Property 8=Automations, Property 9=24, Property 10=Change field value",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 402,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2765,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:114",
+      "key": "2e185deb61f35f06c9f3477a8aa71f9be7e5be86",
+      "name": "Property 1=Add comment",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 403,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2800,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:129",
+      "key": "88f0c04aa5dc1569f45437225a522fd2f2f17335",
+      "name": "Property 1=move",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 404,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2835,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:189",
+      "key": "70d36b372b1a752b612f18c8ddf43c307e725582",
+      "name": "Property 1=Variant",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 405,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2870,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:154",
+      "key": "ddbab6f259b3c0e9ea89154436c40f04dcdfcd06",
+      "name": "Property 1=Trigger manually",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 406,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2905,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:98",
+      "key": "cefd43e027438f4db21a1a3230d884ed50828c9e",
+      "name": "Property 1= Google Gmail",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 407,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2940,
+      "absoluteY": -527,
+      "isAsset": false
+    },
+    {
+      "id": "7361:185",
+      "key": "3a4b377f976f28e23a6f619c29a42b5421e6a32e",
+      "name": "Property 1=icon, Property 2=Automations, Property 3=24, Property 4=Extract data",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 408,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 2975,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:158",
+      "key": "9f927696f9dbce77578d06aa74a9a9d14ae552dc",
+      "name": "Property 1=file imported",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 409,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3010,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:137",
+      "key": "a2be885a421093796ecd8932a7190efbfc33e34e",
+      "name": "Property 1=Categorize file",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 410,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3045,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:151",
+      "key": "9cb1363b4c78f01688defabbd7d4da1bf5041fcb",
+      "name": "Property 1=data extractor",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 411,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3080,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:140",
+      "key": "78259cbc71f612e12b3f8df24c707ffc0abe91d7",
+      "name": "Property 1=icon, Property 2=Automations, Property 3=24, Property 4=icon, Property 5=Automations, Property 6=24, Property 7=Extract data for best match",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 412,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3115,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:166",
+      "key": "19e70ef3ede382672cc3c66a5d7cf7d485899bec",
+      "name": "Property 1=column value changed",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 413,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3150,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:174",
+      "key": "fbefb20c2bae7ecefbf4981e078503b1b45afd58",
+      "name": "Property 1=if",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 414,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3185,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7361:179",
+      "key": "8fe098b3a6f23cfb99bd05e999f4cf1b35e7589d",
+      "name": "Property 1=icon, Property 2=Automations, Property 3=24, Property 4=if in ai",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 415,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3220,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7460:33139",
+      "key": "068d577000e30d72802d98cb3462c1f96d2acda9",
+      "name": "Property 1=Form submitted",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 416,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3255,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7467:26387",
+      "key": "2a03203639c9b54c5b1b056d47ee96b01fe0b591",
+      "name": "Property 1=categorize file",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 417,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3290,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7627:249",
+      "key": "b25580ac0931a3980e990869f741c3aba923038e",
+      "name": "Property 1=icon, Property 2=Automations, Property 3=24, Property 4=Google Calendar",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 418,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7361:71",
+        "name": "_icon/Automations/24",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {},
+      "variantReadError": true,
+      "width": 24,
+      "height": 24,
+      "absoluteX": 3325,
+      "absoluteY": -527,
+      "isAsset": true
+    },
+    {
+      "id": "7415:29506",
+      "key": "89698c1ed098ed7b0bc23639f870c7973c722ce9",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 419,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "7415:29498",
+        "name": "_icon/line.chervon.up.chervon.down",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2450.5,
+      "absoluteY": -458.5,
+      "isAsset": true
+    },
+    {
+      "id": "300:1680",
+      "key": "e40d77590eeaf93d7ea96cf2a8634daa39d3449b",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 420,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6627:43960",
+        "name": "_icon/people.plus",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2496,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "1886:2275",
+      "key": "706343f6ea5d263f98d278518fd2c88ca4e5c5c8",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 421,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6627:43960",
+        "name": "_icon/people.plus",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2494,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8427:51",
+      "key": "703f22f42dbcf9a27b97f8dec06c8b01dbcbad19",
+      "name": "_fill-send",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 422,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2530,
+      "absoluteY": -487,
+      "isAsset": true
+    },
+    {
+      "id": "943:2380",
+      "key": "c3dcf1743a0813ba92c5d1a9f3ab34225bbf23de",
+      "name": "_icon/grid.square.4",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 423,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2558,
+      "absoluteY": -487,
+      "isAsset": true
+    },
+    {
+      "id": "8586:58",
+      "key": "132f2fb10014ad3cb0721797c7a83b74a567eaa5",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 424,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:57",
+        "name": "_icon/file",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2592,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8586:60",
+      "key": "46ae8dd5b13ff62e64abae21d92bd2106e3e42a8",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 425,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:57",
+        "name": "_icon/file",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2590,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8586:63",
+      "key": "67fcf2dcb9d686508bfdb1710a10f2708714c3d8",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 426,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:62",
+        "name": "_icon/add_file",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2636,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8586:67",
+      "key": "96d6688890416a1bd07bd16ee861e8f9834b285b",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 427,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:62",
+        "name": "_icon/add_file",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2634,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8586:83",
+      "key": "021da9a661bba25d2866f0c892e57e237445ea20",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 428,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:82",
+        "name": "_icon/file.arrow.in",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2680,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8586:88",
+      "key": "ecc9b66552da8a7e8d30974487d67e865bd12a96",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 429,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:82",
+        "name": "_icon/file.arrow.in",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2678,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8586:94",
+      "key": "e466b88205c402a732be6e3f9fd9d02add91433e",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 430,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:93",
+        "name": "_icon/file.arrow.out",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2724,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8586:99",
+      "key": "c6283f2a45d9ba872edb99f7210d3edfd012e87d",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 431,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:93",
+        "name": "_icon/file.arrow.out",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2722,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8586:105",
+      "key": "4374d7ff0e4cad3fe0da8f83034a9360d704dc60",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 432,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:104",
+        "name": "_icon/sidebar.left",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2768,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8586:109",
+      "key": "23ca0e0587828b869bbce55d914f08badaffb0e5",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 433,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:104",
+        "name": "_icon/sidebar.left",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2766,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8586:114",
+      "key": "f0abe72bb8a2056becd10ee15cbf8ad2a6ab9594",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 434,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:113",
+        "name": "_icon/sidebar.right",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2812,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8586:118",
+      "key": "2ee24c7e204c23dd6ef5073e2662c3bbc6fd7b33",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 435,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8586:113",
+        "name": "_icon/sidebar.right",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2810,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8660:443",
+      "key": "6abb94ecb91c5ea4605819e1a594a4dc56348927",
+      "name": "Property 1=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 436,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8660:442",
+        "name": "_icon/Star-line",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Property 1": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2856,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8660:445",
+      "key": "a74731acbdc1d04286f7aeb2de49523c42f9d358",
+      "name": "Property 1=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 437,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8660:442",
+        "name": "_icon/Star-line",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Property 1": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2854,
+      "absoluteY": -459,
+      "isAsset": true
+    },
+    {
+      "id": "8660:448",
+      "key": "63aa71a13638d5aeaf9c1c7dae35f37ca0fbbe2b",
+      "name": "Property 1=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 438,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8660:447",
+        "name": "_icon/Star-fill",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Property 1": "16"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2900,
+      "absoluteY": -479,
+      "isAsset": true
+    },
+    {
+      "id": "8660:450",
+      "key": "24adf249ba1014ff7c34b21662f786f054ae399f",
+      "name": "Property 1=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 439,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "8660:447",
+        "name": "_icon/Star-fill",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Property 1": "20"
+      },
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2898,
+      "absoluteY": -459,
+      "isAsset": true
+    }
+  ]
+}

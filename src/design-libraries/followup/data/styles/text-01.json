@@ -1,0 +1,248 @@
+{
+  "type": "TEXT",
+  "totalCount": 17,
+  "range": {
+    "start": 10,
+    "end": 17
+  },
+  "styles": [
+    {
+      "id": "S:257a326453cd09746262211aeb251462c79b0328,",
+      "key": "257a326453cd09746262211aeb251462c79b0328",
+      "name": "_Draft/Column Header & Breadcrumb",
+      "description": "",
+      "order": 10,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Medium"
+      },
+      "fontSize": 13,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "AUTO"
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:eec57fd9cfe12aac42c1adc1c879434a6081f6ac,",
+      "key": "eec57fd9cfe12aac42c1adc1c879434a6081f6ac",
+      "name": "Body Emphasize/Multiple Line",
+      "description": "",
+      "order": 11,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Semibold"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26527"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26528"
+        }
+      }
+    },
+    {
+      "id": "S:281e65acd6ac7c2b3766d72eda3d4960f23b4f68,",
+      "key": "281e65acd6ac7c2b3766d72eda3d4960f23b4f68",
+      "name": "Page Title",
+      "description": "",
+      "order": 12,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Semibold"
+      },
+      "fontSize": 32,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 36
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:34339873884c5f051fbcbc8f8fd9deb2f5d73561,",
+      "key": "34339873884c5f051fbcbc8f8fd9deb2f5d73561",
+      "name": "Dialog Title",
+      "description": "",
+      "order": 13,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Semibold"
+      },
+      "fontSize": 20,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 24
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:25890"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:25891"
+        }
+      }
+    },
+    {
+      "id": "S:2b37df41ffaf3057982c342dfd8f4f682b011b5f,",
+      "key": "2b37df41ffaf3057982c342dfd8f4f682b011b5f",
+      "name": "Group Title",
+      "description": "",
+      "order": 14,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Semibold"
+      },
+      "fontSize": 16,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:dbc27a250eb8c5bf2ad3a3ced06ea8eb83e03f41,",
+      "key": "dbc27a250eb8c5bf2ad3a3ced06ea8eb83e03f41",
+      "name": "Description",
+      "description": "",
+      "order": 15,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Medium"
+      },
+      "fontSize": 13,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4111:124474"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4111:124475"
+        }
+      }
+    },
+    {
+      "id": "S:1d2898410e897f479d1539294d67f89e4d509c9a,",
+      "key": "1d2898410e897f479d1539294d67f89e4d509c9a",
+      "name": "Description Emphasize",
+      "description": "",
+      "order": 16,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Semibold"
+      },
+      "fontSize": 13,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4111:124474"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4111:124475"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,579 @@
+{
+  "page": {
+    "id": "1339:4484",
+    "name": "Scenary"
+  },
+  "pageCount": 18,
+  "range": {
+    "start": 0,
+    "end": 10
+  },
+  "componentSets": [
+    {
+      "id": "8622:41392",
+      "key": "6d3991815fbc080dde7c46097bb0e92afb985f4d",
+      "name": "Display Panel",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Layout": {
+          "type": "VARIANT",
+          "defaultValue": "List",
+          "variantOptions": [
+            "List",
+            "Kanban"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Layout": {
+          "values": [
+            "List",
+            "Kanban"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8622:41393",
+        "8622:41414"
+      ],
+      "variantCount": 2,
+      "width": 688,
+      "height": 410.0000915527344,
+      "absoluteX": -6913,
+      "absoluteY": -812
+    },
+    {
+      "id": "7549:42741",
+      "key": "8011193eb24251cfa77a1e5ca237a463610b8f38",
+      "name": "Day",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 1,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#64:0": {
+          "type": "TEXT",
+          "defaultValue": "1",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Passby#126:2": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Selected",
+            "Disable",
+            "Today"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Default",
+          "variantOptions": [
+            "Default",
+            "Mini"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "State": {
+          "values": [
+            "Normal",
+            "Selected",
+            "Disable",
+            "Today"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Default",
+            "Mini"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7549:42742",
+        "7549:42745",
+        "7549:42748",
+        "7549:42750",
+        "7549:42753",
+        "7549:42755",
+        "7549:42758",
+        "7549:42762"
+      ],
+      "variantCount": 8,
+      "width": 198,
+      "height": 109,
+      "absoluteX": -6897,
+      "absoluteY": 1960
+    },
+    {
+      "id": "7549:42766",
+      "key": "ee349f81c709930afe9bcfabc01510394222119e",
+      "name": "Month",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 2,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#64:9": {
+          "type": "TEXT",
+          "defaultValue": "May",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Passby#126:11": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Selected",
+            "Disable",
+            "Today"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "State": {
+          "values": [
+            "Normal",
+            "Selected",
+            "Disable",
+            "Today"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7549:42767",
+        "7549:42770",
+        "7549:42774",
+        "7549:42776"
+      ],
+      "variantCount": 4,
+      "width": 406,
+      "height": 92,
+      "absoluteX": -6679,
+      "absoluteY": 1960
+    },
+    {
+      "id": "7549:42779",
+      "key": "e156833c48e78749b2b65b5d9ce7aee9ef3d51c9",
+      "name": "Grid Picker/Days",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 3,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Line Number": {
+          "type": "VARIANT",
+          "defaultValue": "5 Lines",
+          "variantOptions": [
+            "4 Lines",
+            "5 Lines",
+            "6 Lines"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Line Number": {
+          "values": [
+            "4 Lines",
+            "5 Lines",
+            "6 Lines"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7549:42780",
+        "7549:42825",
+        "7549:42863"
+      ],
+      "variantCount": 3,
+      "width": 984,
+      "height": 280,
+      "absoluteX": -6897,
+      "absoluteY": 1660
+    },
+    {
+      "id": "7549:42915",
+      "key": "b2064fa6669d14737225b88f36fe47efada2ef96",
+      "name": "Passby",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 4,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Full",
+          "variantOptions": [
+            "Full",
+            "Start",
+            "End"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Full",
+            "Start",
+            "End"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7549:42916",
+        "7549:42918",
+        "7549:42920"
+      ],
+      "variantCount": 3,
+      "width": 200,
+      "height": 72,
+      "absoluteX": -6897,
+      "absoluteY": 2089
+    },
+    {
+      "id": "7549:45060",
+      "key": "bd5ed63c8b59627f086cac6611ed3ca488ca0c4c",
+      "name": "Calendar",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 5,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Day",
+          "variantOptions": [
+            "Day",
+            "Year&Month"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Day",
+            "Year&Month"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7549:42942",
+        "7549:42959"
+      ],
+      "variantCount": 2,
+      "width": 692,
+      "height": 428.0000915527344,
+      "absoluteX": -6913,
+      "absoluteY": 2184
+    },
+    {
+      "id": "4728:119233",
+      "key": "97e548cb9dff04ab2d677c382f720b9fe619fb52",
+      "name": "Pic",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 6,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "24",
+          "variantOptions": [
+            "24",
+            "20"
+          ],
+          "preferredValues": null
+        },
+        "PlaceHolder": {
+          "type": "VARIANT",
+          "defaultValue": "false",
+          "variantOptions": [
+            "true",
+            "false"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "24",
+            "20"
+          ]
+        },
+        "PlaceHolder": {
+          "values": [
+            "true",
+            "false"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4728:119234",
+        "5327:30447",
+        "4728:119232",
+        "5327:30446"
+      ],
+      "variantCount": 4,
+      "width": 158,
+      "height": 64,
+      "absoluteX": -6897,
+      "absoluteY": 1450
+    },
+    {
+      "id": "4745:24704",
+      "key": "35df04a43b8eeee837b84b93e9e288319b624ec8",
+      "name": "Navigation Bar/Panel",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 7,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Count#4745:0": {
+          "type": "TEXT",
+          "defaultValue": "99+",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "TItle#4745:3": {
+          "type": "TEXT",
+          "defaultValue": "Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Count#9104:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Tabs",
+          "variantOptions": [
+            "Tabs",
+            "Title"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Tabs",
+            "Title"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4744:20531",
+        "4745:24705"
+      ],
+      "variantCount": 2,
+      "width": 420,
+      "height": 154,
+      "absoluteX": -6895,
+      "absoluteY": 1176
+    },
+    {
+      "id": "9268:22821",
+      "key": "e58d5bbf673b5a7773478ffb6bd969af2821fed9",
+      "name": "Segement",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 8,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Width": {
+          "type": "VARIANT",
+          "defaultValue": "Fill",
+          "variantOptions": [
+            "Fit(72)",
+            "Fill"
+          ],
+          "preferredValues": null
+        },
+        "Count": {
+          "type": "VARIANT",
+          "defaultValue": "2",
+          "variantOptions": [
+            "3",
+            "2"
+          ],
+          "preferredValues": null
+        },
+        "Selection": {
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2",
+            "3"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Width": {
+          "values": [
+            "Fit(72)",
+            "Fill"
+          ]
+        },
+        "Count": {
+          "values": [
+            "3",
+            "2"
+          ]
+        },
+        "Selection": {
+          "values": [
+            "1",
+            "2",
+            "3"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "9268:22822",
+        "9268:23016",
+        "9268:22964",
+        "9268:23020",
+        "9268:22826",
+        "9268:23023",
+        "9268:22968",
+        "9268:23027",
+        "9268:22830",
+        "9268:23030"
+      ],
+      "variantCount": 10,
+      "width": 993,
+      "height": 300,
+      "absoluteX": -6896,
+      "absoluteY": 4037
+    },
+    {
+      "id": "6864:67663",
+      "key": "4c3939f0c8b08576594e6829df640c665dab8fb0",
+      "name": "_Uploader",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 9,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Icon+Description",
+          "variantOptions": [
+            "Icon+Description",
+            "Type2"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Icon+Description",
+            "Type2"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6864:67426",
+        "6864:67664"
+      ],
+      "variantCount": 2,
+      "width": 160,
+      "height": 216,
+      "absoluteX": 7608,
+      "absoluteY": 1578
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "type": "GRID",
+  "count": 3,
+  "styles": [
+    {
+      "id": "S:d8bb41a87f045df1aa3cf3d409e79104be4bb3b7,",
+      "key": "d8bb41a87f045df1aa3cf3d409e79104be4bb3b7",
+      "name": "Hot Area",
+      "description": "",
+      "order": 0,
+      "remote": false,
+      "layoutGrids": [
+        {
+          "pattern": "ROWS",
+          "visible": true,
+          "color": {
+            "r": 1,
+            "g": 0,
+            "b": 0,
+            "a": 0.10000000149011612
+          },
+          "gutterSize": 1,
+          "alignment": "STRETCH",
+          "count": 1,
+          "offset": 0,
+          "boundVariables": {}
+        }
+      ],
+      "boundVariables": {}
+    },
+    {
+      "id": "S:f39aa12098a58ebc346e959529cdcbb48c117b03,",
+      "key": "f39aa12098a58ebc346e959529cdcbb48c117b03",
+      "name": "Icon",
+      "description": "",
+      "order": 1,
+      "remote": false,
+      "layoutGrids": [
+        {
+          "pattern": "GRID",
+          "visible": true,
+          "color": {
+            "r": 1,
+            "g": 0,
+            "b": 0,
+            "a": 0.10000000149011612
+          },
+          "sectionSize": 2,
+          "boundVariables": {}
+        }
+      ],
+      "boundVariables": {}
+    },
+    {
+      "id": "S:7523720ffd0d003154b545f673e8a6c4143fd048,",
+      "key": "7523720ffd0d003154b545f673e8a6c4143fd048",
+      "name": "No use Component",
+      "description": "",
+      "order": 2,
+      "remote": false,
+      "layoutGrids": [
+        {
+          "pattern": "ROWS",
+          "visible": true,
+          "color": {
+            "r": 1,
+            "g": 0.8166666626930237,
+            "b": 0,
+            "a": 0.5
+          },
+          "gutterSize": 20,
+          "alignment": "STRETCH",
+          "count": 1,
+          "offset": 0,
+          "boundVariables": {}
+        }
+      ],
+      "boundVariables": {}
+    }
+  ]
+}

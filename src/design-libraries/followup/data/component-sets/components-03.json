@@ -1,0 +1,664 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 58,
+  "range": {
+    "start": 30,
+    "end": 40
+  },
+  "componentSets": [
+    {
+      "id": "1371:7045",
+      "key": "d6489b247a4481f42f7aae40d57c5445fb4f946e",
+      "name": "_Opitons",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 30,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#1382:0": {
+          "type": "TEXT",
+          "defaultValue": "Options",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#1429:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "675:2907",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1371:7044",
+        "1429:22562"
+      ],
+      "variantCount": 2,
+      "width": 169,
+      "height": 56,
+      "absoluteX": 11140.5,
+      "absoluteY": 5303
+    },
+    {
+      "id": "1580:9013",
+      "key": "181e5065eef05b494726ef18b5e1d2a0ad3f15d7",
+      "name": "_Inputbox Combine Label",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 31,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#1580:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "354:2415",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#1580:1": {
+          "type": "TEXT",
+          "defaultValue": "Dollars",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Icon",
+            "Text"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Icon",
+            "Text"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "836:22048",
+        "836:22050"
+      ],
+      "variantCount": 2,
+      "width": 171,
+      "height": 76,
+      "absoluteX": 11389.5,
+      "absoluteY": 5293
+    },
+    {
+      "id": "492:14468",
+      "key": "bc9914c254aa0754afd3954abe810cd277c8b5b2",
+      "name": "_Tab",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 32,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#119:147": {
+          "type": "TEXT",
+          "defaultValue": "Tab Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Selected": {
+          "values": [
+            "True",
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "492:14469",
+        "492:14471"
+      ],
+      "variantCount": 2,
+      "width": 208,
+      "height": 72,
+      "absoluteX": 9383,
+      "absoluteY": 3246
+    },
+    {
+      "id": "4744:20590",
+      "key": "69c01e66745b1a86d80afd838ee48e19954c0258",
+      "name": "_Tabs",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 33,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Count": {
+          "type": "VARIANT",
+          "defaultValue": "2",
+          "variantOptions": [
+            "2",
+            "3",
+            "4"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Count": {
+          "values": [
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4744:20570",
+        "4744:20591",
+        "4744:20600"
+      ],
+      "variantCount": 3,
+      "width": 330,
+      "height": 156,
+      "absoluteX": 9322,
+      "absoluteY": 3516
+    },
+    {
+      "id": "2261:133245",
+      "key": "846ca93bff6cd64ffb8ade96eff042de8b432ec5",
+      "name": "Segment Option",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 34,
+      "topLevel": {
+        "id": "2261:133117",
+        "name": "Segment",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#1035:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "943:2380",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#1668:0": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon"
+          ],
+          "preferredValues": null
+        },
+        "Select": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon"
+          ]
+        },
+        "Select": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2261:133246",
+        "2261:133248",
+        "2261:133250",
+        "2261:133252"
+      ],
+      "variantCount": 4,
+      "width": 136,
+      "height": 106,
+      "absoluteX": -1525,
+      "absoluteY": -711
+    },
+    {
+      "id": "5936:28562",
+      "key": "77a71eb42ba3362b3b300570477a6de8fbd1add8",
+      "name": "Left Panel Item",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 35,
+      "topLevel": {
+        "id": "5984:27994",
+        "name": "􀰱 Left Panel Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#4074:6": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#4153:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "6375:18134",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Content#5936:0": {
+          "type": "TEXT",
+          "defaultValue": "content",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Secondary Button#5936:7": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Tail Icon#6176:28": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "300:1596",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Regular",
+          "variantOptions": [
+            "Regular",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text",
+            "Pic+Text",
+            "Expand+Text"
+          ],
+          "preferredValues": null
+        },
+        "Tail": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Content",
+            "Buttons",
+            "Icon"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Regular",
+            "Small"
+          ]
+        },
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text",
+            "Pic+Text",
+            "Expand+Text"
+          ]
+        },
+        "Tail": {
+          "values": [
+            "Null",
+            "Content",
+            "Buttons",
+            "Icon"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5958:17658",
+        "6176:31629",
+        "5958:17665",
+        "6164:29223",
+        "5958:17670",
+        "6164:29228",
+        "5936:29984",
+        "6169:31621",
+        "6176:31650",
+        "6176:31657",
+        "5936:29894",
+        "6169:31635",
+        "6164:29239",
+        "6169:31640",
+        "5936:28591",
+        "6169:31645",
+        "6164:29244",
+        "6169:31649",
+        "5936:29993",
+        "6176:31671",
+        "5936:29904",
+        "6164:29255",
+        "5936:28619",
+        "6164:29260"
+      ],
+      "variantCount": 24,
+      "width": 830,
+      "height": 412,
+      "absoluteX": -3195,
+      "absoluteY": -711
+    },
+    {
+      "id": "5936:34298",
+      "key": "592e67707f0d12405a4f3acdd6a23a8f984c9836",
+      "name": "Left Panel Header",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 36,
+      "topLevel": {
+        "id": "5984:27994",
+        "name": "􀰱 Left Panel Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Content#4153:10": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#4153:11": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "6375:18134",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#4153:12": {
+          "type": "TEXT",
+          "defaultValue": "Header",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5936:34299",
+        "5936:34305"
+      ],
+      "variantCount": 2,
+      "width": 560,
+      "height": 76,
+      "absoluteX": -3060,
+      "absoluteY": -287
+    },
+    {
+      "id": "6216:32636",
+      "key": "f828e584b03e9861a9248bb9e2d22a86362b13ac",
+      "name": "Name Card",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 37,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Status": {
+          "type": "VARIANT",
+          "defaultValue": "Online",
+          "variantOptions": [
+            "Online",
+            "Offline",
+            "Deactive"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Status": {
+          "values": [
+            "Online",
+            "Offline",
+            "Deactive"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4747:20031",
+        "6216:32637",
+        "6216:32645"
+      ],
+      "variantCount": 3,
+      "width": 662,
+      "height": 96,
+      "absoluteX": -12092,
+      "absoluteY": 4856
+    },
+    {
+      "id": "6176:29939",
+      "key": "1b34ab27c4c0c306c85ab0a6fda9d1c0c158f556",
+      "name": "Container Selector",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 38,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Space",
+          "variantOptions": [
+            "Space",
+            "Folder or App",
+            "Board",
+            "Board+Column",
+            "Board+Item"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Space",
+            "Folder or App",
+            "Board",
+            "Board+Column",
+            "Board+Item"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4515:34170",
+        "6904:43186",
+        "6176:30027",
+        "5346:28327",
+        "4515:36339"
+      ],
+      "variantCount": 5,
+      "width": 1540,
+      "height": 1020,
+      "absoluteX": -9649,
+      "absoluteY": 4856
+    },
+    {
+      "id": "6916:36213",
+      "key": "68d9a5a1606d5e4535265556dea416b0190b5ff4",
+      "name": "Uploader/Image",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 39,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#2158:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "300:1654",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Description#2158:3": {
+          "type": "TEXT",
+          "defaultValue": "Description",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#7213:20": {
+          "type": "TEXT",
+          "defaultValue": "Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Description",
+          "variantOptions": [
+            "Description",
+            "Icon+Description",
+            "Title+Description"
+          ],
+          "preferredValues": null
+        },
+        "Show Background": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Description",
+            "Icon+Description",
+            "Title+Description"
+          ]
+        },
+        "Show Background": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6916:36214",
+        "7213:36522",
+        "6916:36219",
+        "7213:36577",
+        "7213:36549",
+        "7213:36488"
+      ],
+      "variantCount": 6,
+      "width": 520,
+      "height": 300,
+      "absoluteX": -11988,
+      "absoluteY": 6752
+    }
+  ]
+}

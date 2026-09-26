@@ -1,0 +1,333 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:1214:6297",
+    "key": "779acf352f52bad1a0a2fca8fc191f09150350fa",
+    "name": "Color/Primitives",
+    "defaultModeId": "1214:3",
+    "modes": [
+      {
+        "name": "Mode 1",
+        "modeId": "1214:3"
+      }
+    ],
+    "variableCount": 91,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 30,
+    "end": 40
+  },
+  "variables": [
+    {
+      "id": "VariableID:6298:75579",
+      "key": "4526b3ce200a17db34cb5d91c4127ccc170f6ba8",
+      "name": "White60",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 30,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0.6000000238418579
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50884",
+      "key": "fa3ea77e9ac9d55dcd2a6856b7a866ca80b3351e",
+      "name": "White50",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 31,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0.5
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50874",
+      "key": "169289aca1f431117382e8f0bf2bc533bc2bae03",
+      "name": "White40",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 32,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0.4000000059604645
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50875",
+      "key": "536deb09bf408cfb58c797414e93ea2db2bacaea",
+      "name": "White30",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 33,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0.30000001192092896
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50903",
+      "key": "f784609729624c02a99c373fda228f12d764e162",
+      "name": "White20",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 34,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0.20000000298023224
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6257:740",
+      "key": "8026b558dd243a65c2c79a1f70bd9a1db31d6c4c",
+      "name": "White10",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 35,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0.10000000149011612
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6107:522",
+      "key": "720573a424ba2d44f87639295bbbafe1d3bf2854",
+      "name": "Gray80",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 36,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.07450980693101883,
+            "g": 0.07450980693101883,
+            "b": 0.09803921729326248,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:1476:7790",
+      "key": "6cebb5e47342ed5f52f26d196d8fe809825295c1",
+      "name": "Gray70",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 37,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.14901961386203766,
+            "g": 0.14901961386203766,
+            "b": 0.14901961386203766,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:1214:6306",
+      "key": "9bef83728e2c5c71f6bf5d28b4622cdcb821c197",
+      "name": "Gray60",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 38,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.3490196168422699,
+            "g": 0.3490196168422699,
+            "b": 0.3490196168422699,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:1214:6305",
+      "key": "848e1718f453892601b89692d82d5fd6483d5a0c",
+      "name": "Gray50",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1214:6297",
+      "collectionName": "Color/Primitives",
+      "order": 39,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1214:3",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.47058823704719543,
+            "g": 0.4627451002597809,
+            "b": 0.47058823704719543,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    }
+  ]
+}

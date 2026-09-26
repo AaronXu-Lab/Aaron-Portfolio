@@ -1,0 +1,192 @@
+[
+  {
+    "id": "4963:27088",
+    "slug": "inputbox",
+    "name": "Inputbox",
+    "src": "/design-libraries/followup/reference/inputbox.png",
+    "width": 602,
+    "height": 2048,
+    "originalWidth": 872,
+    "originalHeight": 2968
+  },
+  {
+    "id": "5355:33639",
+    "slug": "dropdown",
+    "name": "Dropdown",
+    "src": "/design-libraries/followup/reference/dropdown.png",
+    "width": 639,
+    "height": 2048,
+    "originalWidth": 872,
+    "originalHeight": 2796
+  },
+  {
+    "id": "164:246",
+    "slug": "checkbox",
+    "name": "Checkbox",
+    "src": "/design-libraries/followup/reference/checkbox.png",
+    "width": 438,
+    "height": 614,
+    "originalWidth": 438,
+    "originalHeight": 614
+  },
+  {
+    "id": "2116:26127",
+    "slug": "notification",
+    "name": "Notification",
+    "src": "/design-libraries/followup/reference/notification.png",
+    "width": 640,
+    "height": 1548,
+    "originalWidth": 640,
+    "originalHeight": 1548
+  },
+  {
+    "id": "550:1789",
+    "slug": "button",
+    "name": "Button",
+    "src": "/design-libraries/followup/reference/button.png",
+    "width": 1855,
+    "height": 1771,
+    "originalWidth": 1855,
+    "originalHeight": 1771
+  },
+  {
+    "id": "205:143",
+    "slug": "radio-button",
+    "name": "Radio Button",
+    "src": "/design-libraries/followup/reference/radio-button.png",
+    "width": 438,
+    "height": 614,
+    "originalWidth": 438,
+    "originalHeight": 614
+  },
+  {
+    "id": "4183:194933",
+    "slug": "menu",
+    "name": "Menu",
+    "src": "/design-libraries/followup/reference/menu.png",
+    "width": 324,
+    "height": 2048,
+    "originalWidth": 816,
+    "originalHeight": 5160
+  },
+  {
+    "id": "5245:27631",
+    "slug": "toast",
+    "name": "Toast",
+    "src": "/design-libraries/followup/reference/toast.png",
+    "width": 438,
+    "height": 728,
+    "originalWidth": 438,
+    "originalHeight": 728
+  },
+  {
+    "id": "6450:49277",
+    "slug": "name-card",
+    "name": "Name Card",
+    "src": "/design-libraries/followup/reference/name-card.png",
+    "width": 351,
+    "height": 680,
+    "originalWidth": 351,
+    "originalHeight": 680
+  },
+  {
+    "id": "4963:40100",
+    "slug": "dialog",
+    "name": "Dialog",
+    "src": "/design-libraries/followup/reference/dialog.png",
+    "width": 499,
+    "height": 2048,
+    "originalWidth": 1228,
+    "originalHeight": 5048
+  },
+  {
+    "id": "5390:28716",
+    "slug": "list-item",
+    "name": "List Item",
+    "src": "/design-libraries/followup/reference/list-item.png",
+    "width": 693,
+    "height": 2048,
+    "originalWidth": 888,
+    "originalHeight": 2628
+  },
+  {
+    "id": "6906:47016",
+    "slug": "recycle",
+    "name": "Recycle",
+    "src": "/design-libraries/followup/reference/recycle.png",
+    "width": 816,
+    "height": 2048,
+    "originalWidth": 5326,
+    "originalHeight": 13490
+  },
+  {
+    "id": "2261:133117",
+    "slug": "segment",
+    "name": "Segment",
+    "src": "/design-libraries/followup/reference/segment.png",
+    "width": 522,
+    "height": 585,
+    "originalWidth": 522,
+    "originalHeight": 585
+  },
+  {
+    "id": "5984:27994",
+    "slug": "left-panel-item",
+    "name": "Left Panel Item",
+    "src": "/design-libraries/followup/reference/left-panel-item.png",
+    "width": 623,
+    "height": 2048,
+    "originalWidth": 1022,
+    "originalHeight": 3364
+  },
+  {
+    "id": "6906:46616",
+    "slug": "advance-component",
+    "name": "Advance Component",
+    "src": "/design-libraries/followup/reference/advance-component.png",
+    "width": 2048,
+    "height": 809,
+    "originalWidth": 8223,
+    "originalHeight": 3196
+  },
+  {
+    "id": "6856:65723",
+    "slug": "file-item",
+    "name": "File Item",
+    "src": "/design-libraries/followup/reference/file-item.png",
+    "width": 864,
+    "height": 1858,
+    "originalWidth": 864,
+    "originalHeight": 1858
+  },
+  {
+    "id": "7462:46869",
+    "slug": "batch-operator",
+    "name": "Batch Operator",
+    "src": "/design-libraries/followup/reference/batch-operator.png",
+    "width": 1364,
+    "height": 1512,
+    "originalWidth": 1364,
+    "originalHeight": 1512
+  },
+  {
+    "id": "8161:47061",
+    "slug": "group-title",
+    "name": "Group Title",
+    "src": "/design-libraries/followup/reference/group-title.png",
+    "width": 1078,
+    "height": 1556,
+    "originalWidth": 1078,
+    "originalHeight": 1556
+  },
+  {
+    "id": "7751:72024",
+    "slug": "wording",
+    "name": "Wording",
+    "src": "/design-libraries/followup/reference/wording.png",
+    "width": 2048,
+    "height": 801,
+    "originalWidth": 2488,
+    "originalHeight": 924
+  }
+]

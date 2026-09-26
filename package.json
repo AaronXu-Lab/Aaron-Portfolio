@@ -23,7 +23,8 @@
     "dev:formyson": "npm run build && wrangler d1 migrations apply formyson --local && wrangler dev",
     "test:formyson": "node --test tests/formyson.test.mjs",
     "deploy": "npm run build && wrangler deploy",
-    "migrate:formyson": "wrangler d1 migrations apply formyson --remote"
+    "migrate:formyson": "wrangler d1 migrations apply formyson --remote",
+    "check:design-libraries": "tsc -p tsconfig.design-libraries.json && node src/design-libraries/followup/audit.mjs && node scripts/audit-flomo-library.mjs"
   },
   "dependencies": {
     "@codemirror/commands": "^6.11.0",
@@ -33,14 +34,19 @@
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
     "astro": "^5.12.0",
     "markdown-it": "^15.0.2",
-    "pinyin-pro": "^3.28.1"
+    "pinyin-pro": "^3.28.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@phosphor-icons/core": "^2.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "esbuild": "^0.28.2",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
-    "wrangler": "^4.129.0",
-    "miniflare": "5.20260903.0-alpha"
+    "miniflare": "5.20260903.0-alpha",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.129.0"
   }
 }

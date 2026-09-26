@@ -1,0 +1,707 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 58,
+  "range": {
+    "start": 40,
+    "end": 50
+  },
+  "componentSets": [
+    {
+      "id": "7062:40256",
+      "key": "75a477776abcb626f4b0274b0c9c75a2d76dee76",
+      "name": "Header Bar",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 40,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Title#7062:1": {
+          "type": "TEXT",
+          "defaultValue": "Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show badge#7062:2": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tail button#7062:5": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Dropdown only",
+          "variantOptions": [
+            "Back",
+            "Dropdown only",
+            "Title+Dropdown"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Back",
+            "Dropdown only",
+            "Title+Dropdown"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5955:16727",
+        "6297:35722",
+        "8829:39540"
+      ],
+      "variantCount": 3,
+      "width": 320,
+      "height": 218,
+      "absoluteX": -10872,
+      "absoluteY": 6752
+    },
+    {
+      "id": "5761:16854",
+      "key": "97438737e6c59f4aaf2ee1dd8d8561345cfb9382",
+      "name": "Page Title",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 41,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Buttons#5460:4": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#5460:5": {
+          "type": "TEXT",
+          "defaultValue": "Page Title ",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Description#5761:0": {
+          "type": "TEXT",
+          "defaultValue": "Description",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Description#6120:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Title",
+          "variantOptions": [
+            "Title",
+            "Back+Title",
+            "Tab"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Title",
+            "Back+Title",
+            "Tab"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5761:16855",
+        "5761:16864",
+        "5926:28874"
+      ],
+      "variantCount": 3,
+      "width": 540,
+      "height": 394,
+      "absoluteX": -9862,
+      "absoluteY": 6752
+    },
+    {
+      "id": "4416:16925",
+      "key": "6199d0f29af2bda211221c640baffdc9f95073da",
+      "name": "Filter Condition/Cell",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 42,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Lhs#2500:9": {
+          "type": "TEXT",
+          "defaultValue": "Key",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Operator#2500:13": {
+          "type": "TEXT",
+          "defaultValue": "Is",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Rhs#2500:17": {
+          "type": "TEXT",
+          "defaultValue": "Value",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show More#2500:25": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Rhs#5867:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Pic+Text",
+            "Pics"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Pic+Text",
+            "Pics"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4416:16926",
+        "4416:16951",
+        "4416:16960"
+      ],
+      "variantCount": 3,
+      "width": 204,
+      "height": 148,
+      "absoluteX": -7599,
+      "absoluteY": 4856
+    },
+    {
+      "id": "8959:39335",
+      "key": "9351ab50c214356be969f7352872240feabd9755",
+      "name": "Filter Condition/List",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 43,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Lhs Icon#9121:3": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Lhs Icon#9121:7": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Lhs#9121:15": {
+          "type": "TEXT",
+          "defaultValue": "Key",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Rhs#9121:19": {
+          "type": "TEXT",
+          "defaultValue": "Value",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Operator#9121:23": {
+          "type": "TEXT",
+          "defaultValue": "Is",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Rhs#9121:27": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show More#9121:31": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Variable#9121:37": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Pic+Text",
+            "Pics"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Pic+Text",
+            "Pics"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8923:207022",
+        "8959:39402",
+        "8959:39414"
+      ],
+      "variantCount": 3,
+      "width": 360,
+      "height": 152,
+      "absoluteX": -7677,
+      "absoluteY": 5016
+    },
+    {
+      "id": "7021:67670",
+      "key": "70e9218b80659043c70296afbdc7e58a1d7037fd",
+      "name": "Filters/Cell",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 44,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Save filter#7021:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show match#7021:3": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Narrow"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Normal",
+            "Narrow"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7019:22011",
+        "7021:67242"
+      ],
+      "variantCount": 2,
+      "width": 640,
+      "height": 172,
+      "absoluteX": -7817,
+      "absoluteY": 5180
+    },
+    {
+      "id": "9121:43774",
+      "key": "c26695a612e12a7bf6c3e0dc913439bd5149b037",
+      "name": "Filters/List",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 45,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Layout": {
+          "type": "VARIANT",
+          "defaultValue": "Narrow",
+          "variantOptions": [
+            "Narrow",
+            "Wide"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Layout": {
+          "values": [
+            "Narrow",
+            "Wide"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8923:207002",
+        "8923:207014"
+      ],
+      "variantCount": 2,
+      "width": 440,
+      "height": 336,
+      "absoluteX": -7717,
+      "absoluteY": 5364
+    },
+    {
+      "id": "7809:43508",
+      "key": "e101a548051048c222ed50eafaf537aed5c646bf",
+      "name": "Data Label",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 46,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#7809:3": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#7809:6": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Active": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        },
+        "Show Icon": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Active": {
+          "values": [
+            "False",
+            "True"
+          ]
+        },
+        "Show Icon": {
+          "values": [
+            "True",
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7809:43134",
+        "7809:43504",
+        "7820:42738",
+        "7820:42734"
+      ],
+      "variantCount": 4,
+      "width": 260,
+      "height": 52,
+      "absoluteX": -8648,
+      "absoluteY": 6752
+    },
+    {
+      "id": "7809:57837",
+      "key": "832a67698ceec4f1f52157df8d409ff7181c47e0",
+      "name": "Input with label",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 47,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Value 2#7809:9": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Text#7809:12": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#7809:15": {
+          "type": "TEXT",
+          "defaultValue": "Input",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Small",
+          "variantOptions": [
+            "Regular",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "Newline": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Regular",
+            "Small"
+          ]
+        },
+        "Newline": {
+          "values": [
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7809:57831",
+        "7809:57907"
+      ],
+      "variantCount": 2,
+      "width": 462,
+      "height": 76,
+      "absoluteX": -8749,
+      "absoluteY": 6816
+    },
+    {
+      "id": "4509:28748",
+      "key": "906d5521e58c0916e52cfc94858fdc3afb10dfa7",
+      "name": "Table Cell",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 48,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#5429:0": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Checkbox": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ],
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Inputbox",
+          "variantOptions": [
+            "Inputbox",
+            "Dropdown",
+            "Timer+Text",
+            "Checkbox",
+            "Switch",
+            "Vote"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Checkbox": {
+          "values": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ]
+        },
+        "Type": {
+          "values": [
+            "Inputbox",
+            "Dropdown",
+            "Timer+Text",
+            "Checkbox",
+            "Switch",
+            "Vote"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4509:28749",
+        "5990:29512",
+        "5990:29538",
+        "4955:30478",
+        "5990:29514",
+        "5990:29540",
+        "4955:30274",
+        "8435:29401",
+        "5869:16660",
+        "6997:36500"
+      ],
+      "variantCount": 10,
+      "width": 920,
+      "height": 200,
+      "absoluteX": -6885,
+      "absoluteY": 5590
+    },
+    {
+      "id": "4509:45920",
+      "key": "358c053f063c0ee527302cae51c9b2ecee8efa15",
+      "name": "Table Main Key",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 49,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Counter#297:6": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#297:10": {
+          "type": "TEXT",
+          "defaultValue": "Main Key",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Subitem#5990:9": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Checkbox": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Checkbox": {
+          "values": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5990:40492",
+        "5990:40514",
+        "4565:42232"
+      ],
+      "variantCount": 3,
+      "width": 400,
+      "height": 200,
+      "absoluteX": -6625,
+      "absoluteY": 5802
+    }
+  ]
+}

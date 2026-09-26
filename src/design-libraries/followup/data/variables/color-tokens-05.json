@@ -1,0 +1,68 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:1343:5500",
+    "key": "e08b5515d7dc34064b8b0ac19faff281dfd4c5e8",
+    "name": "Color/Tokens",
+    "defaultModeId": "1343:0",
+    "modes": [
+      {
+        "name": "Normal",
+        "modeId": "1343:0"
+      },
+      {
+        "name": "ColorBG",
+        "modeId": "6351:6"
+      }
+    ],
+    "variableCount": 51,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 50,
+    "end": 51
+  },
+  "variables": [
+    {
+      "id": "VariableID:7490:36767",
+      "key": "c9693ac4be5d1839a8595143ef6f8058ae85ddb4",
+      "name": "Scroll Bar",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1343:5500",
+      "collectionName": "Color/Tokens",
+      "order": 50,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "1343:0",
+          "modeName": "Normal",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6305"
+          },
+          "aliasTargetId": "VariableID:1214:6305",
+          "aliasTargetName": "Gray50",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:6",
+          "modeName": "ColorBG",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:6351:50884"
+          },
+          "aliasTargetId": "VariableID:6351:50884",
+          "aliasTargetName": "White50",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    }
+  ]
+}

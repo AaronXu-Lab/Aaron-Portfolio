@@ -1,0 +1,613 @@
+{
+  "page": {
+    "id": "294:66",
+    "name": "_Drafts"
+  },
+  "pageCount": 199,
+  "range": {
+    "start": 20,
+    "end": 40
+  },
+  "components": [
+    {
+      "id": "2887:11748",
+      "key": "8d45a442105c9424fce797f9a01aae1d13ed38f7",
+      "name": "Type=Text+Options, Style=Outline, Size=Small, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 20,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text+Options",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 32,
+      "absoluteX": 15760.5,
+      "absoluteY": -4581,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11755",
+      "key": "32afa959c7191ce2287e34afc9756a79ac4b3927",
+      "name": "Type=Text, Style=Outline, Size=Small, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 21,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 32,
+      "absoluteX": 15510.5,
+      "absoluteY": -4581,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11761",
+      "key": "6bace94ad5c604d4955eec3c9b149615f1b35f42",
+      "name": "Type=Icon, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 22,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 72,
+      "height": 36,
+      "absoluteX": 17092.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11764",
+      "key": "398cdbf88ad085d7f171573f6fab99dc5f3d934b",
+      "name": "Type=Controls, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 23,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Controls",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 72,
+      "height": 36,
+      "absoluteX": 17010.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11767",
+      "key": "ed206f28e8fd21a8c82c04ebf2b9386d7ecf52df",
+      "name": "Type=Icon+Text, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 24,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16510.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11774",
+      "key": "f87f034777bf9390ab2a354cf9b6ef1a9be711bd",
+      "name": "Type=Tag+Text, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 25,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Tag+Text",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16260.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11781",
+      "key": "673338267c86e379711b869743a7201a8dcec13f",
+      "name": "Type=Avatar+Text, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 26,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Avatar+Text",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16760.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11788",
+      "key": "b3a0b8ab07cd2c60aed89c9a05335065a8090186",
+      "name": "Type=Options+Text, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 27,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Options+Text",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16010.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11796",
+      "key": "39f8807b5c1753ce7bad65bfe82bb2b84f4a0217",
+      "name": "Type=Text+Options, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 28,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text+Options",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 15760.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11803",
+      "key": "a33db643fa0fa2e2088ea3f95055a34380cb0de9",
+      "name": "Type=Text, Style=Filled, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 29,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 15510.5,
+      "absoluteY": -4657,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11809",
+      "key": "dd44622c21b09ea78b24308ae5a6a70719f0c82c",
+      "name": "Type=Icon, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 30,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 72,
+      "height": 36,
+      "absoluteX": 17092.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11812",
+      "key": "c8c0bc34a1be803a71850c371b27137caf037ade",
+      "name": "Type=Controls, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 31,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Controls",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 72,
+      "height": 36,
+      "absoluteX": 17010.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11815",
+      "key": "3f2fcc978472350da0477dccd35adf09006d090e",
+      "name": "Type=Icon+Text, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 32,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16510.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11822",
+      "key": "0ffa6c4f624a85e227ee7486795d4c6805345c15",
+      "name": "Type=Tag+Text, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 33,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Tag+Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16260.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11829",
+      "key": "f0d28944a0b3f0edf18436bbd70a04dd66a56bb5",
+      "name": "Type=Avatar+Text, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 34,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Avatar+Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16760.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11836",
+      "key": "0cf0c73d0ec18ec0215da3373329bd1fb988ae19",
+      "name": "Type=Options+Text, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 35,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Options+Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 16010.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11844",
+      "key": "bc7f865a499ee388c6d7d54283e9e08df697eed2",
+      "name": "Type=Text+Options, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 36,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text+Options",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 15760.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11851",
+      "key": "ed83cdb291f73a54db97c32751bf1de6175c1d30",
+      "name": "Type=Text, Style=Outline, Size=Normal, State=Disable",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 37,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Normal",
+        "State": "Disable"
+      },
+      "variantReadError": false,
+      "width": 240,
+      "height": 36,
+      "absoluteX": 15510.5,
+      "absoluteY": -4713,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11857",
+      "key": "203859a26f2d1a8a311ad3ae9dc0912e45d73562",
+      "name": "Type=Icon, Style=Outline, Size=Small, State=Error",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 38,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Error"
+      },
+      "variantReadError": false,
+      "width": 52,
+      "height": 32,
+      "absoluteX": 17092.5,
+      "absoluteY": -4825,
+      "isAsset": false
+    },
+    {
+      "id": "2887:11860",
+      "key": "2f7d44651b6e0367cc0fa241097cef1590ea7df6",
+      "name": "Type=Controls, Style=Outline, Size=Small, State=Error",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 39,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "2887:11712",
+        "name": "_Drafts/InputBox/2",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Controls",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Error"
+      },
+      "variantReadError": false,
+      "width": 52,
+      "height": 32,
+      "absoluteX": 17010.5,
+      "absoluteY": -4825,
+      "isAsset": false
+    }
+  ]
+}

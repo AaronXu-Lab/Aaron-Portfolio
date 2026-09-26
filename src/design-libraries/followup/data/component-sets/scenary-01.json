@@ -1,0 +1,562 @@
+{
+  "page": {
+    "id": "1339:4484",
+    "name": "Scenary"
+  },
+  "pageCount": 18,
+  "range": {
+    "start": 10,
+    "end": 18
+  },
+  "componentSets": [
+    {
+      "id": "5990:29375",
+      "key": "34b79b6811a145ef7561368b6c4ec7093cbf2606",
+      "name": "_Table Group",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 10,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Expand#5990:1": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#5990:2": {
+          "type": "TEXT",
+          "defaultValue": "Group Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Content Icon#7129:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Content Icon#7129:7": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Show Content#7200:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Content#7200:5": {
+          "type": "TEXT",
+          "defaultValue": "Content",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Buttons#7309:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Plain",
+          "variantOptions": [
+            "Plain",
+            "Picture+"
+          ],
+          "preferredValues": null
+        },
+        "Tail": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Style": {
+          "values": [
+            "Plain",
+            "Picture+"
+          ]
+        },
+        "Tail": {
+          "values": [
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7129:36223",
+        "7129:36217"
+      ],
+      "variantCount": 2,
+      "width": 1090,
+      "height": 156,
+      "absoluteX": 7608,
+      "absoluteY": 1844
+    },
+    {
+      "id": "3509:25319",
+      "key": "74381ffcad0e2bd91543e357b37e176a7427f73a",
+      "name": "_Pagination",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 11,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Ellipsis Position": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Left",
+            "Right",
+            "Both Sides"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Ellipsis Position": {
+          "values": [
+            "Null",
+            "Left",
+            "Right",
+            "Both Sides"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3509:25320",
+        "3509:25332",
+        "3509:25342",
+        "3509:25352"
+      ],
+      "variantCount": 4,
+      "width": 431,
+      "height": 208,
+      "absoluteX": 7658,
+      "absoluteY": 2190
+    },
+    {
+      "id": "5460:37833",
+      "key": "1564ddd664d68064ff17d488822d64f596ce451d",
+      "name": "_Navigation",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 12,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Tail#5460:3": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "444:512",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "f47a6a8c989c5eec57dbd026ade1ae0050a6884b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "56cff5440b72d82fc251f5aafda4b65194fbf952"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "59ebe09bc92decd00a9c3684be2e568ed612fbc4"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8692d56888e03be67ce5f9b69df825d913341c49"
+            }
+          ]
+        },
+        "Show Tail#5460:4": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#5460:5": {
+          "type": "TEXT",
+          "defaultValue": "Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text 2#5460:6": {
+          "type": "TEXT",
+          "defaultValue": "Title 2",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Title",
+          "variantOptions": [
+            "Title",
+            "Tab"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Title",
+            "Tab"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2058:6246",
+        "5460:37834"
+      ],
+      "variantCount": 2,
+      "width": 345,
+      "height": 180,
+      "absoluteX": 8248,
+      "absoluteY": 2584
+    },
+    {
+      "id": "1382:33866",
+      "key": "32161c93c1e5b733a5e04a2826f84c0cf1409051",
+      "name": "_Breadcrumb",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 13,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#1382:13": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#1382:16": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "208:225",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Show Text#3243:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Tag+Text",
+          "variantOptions": [
+            "Tag+Text",
+            "Icon+Text"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Tag+Text",
+            "Icon+Text"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1382:32696",
+        "1382:33867"
+      ],
+      "variantCount": 2,
+      "width": 172,
+      "height": 64,
+      "absoluteX": 7608,
+      "absoluteY": 3070
+    },
+    {
+      "id": "4539:33266",
+      "key": "fc07b5cc2a91f90a4770fe1708189d930b9d588f",
+      "name": "_Account",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 14,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#4552:2": {
+          "type": "TEXT",
+          "defaultValue": "Followup.ai",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "No Connect",
+          "variantOptions": [
+            "No Connect",
+            "Manually Re-Connecting"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "State": {
+          "values": [
+            "No Connect",
+            "Manually Re-Connecting"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4539:33083",
+        "4539:33138"
+      ],
+      "variantCount": 2,
+      "width": 328,
+      "height": 248,
+      "absoluteX": 7608,
+      "absoluteY": 3184
+    },
+    {
+      "id": "5955:16710",
+      "key": "17de24f6446dc750bfe2aa718063d90bbb18cf38",
+      "name": "_Header Bar/Common",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 15,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Title#5955:0": {
+          "type": "TEXT",
+          "defaultValue": "Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Tail": {
+          "type": "VARIANT",
+          "defaultValue": "Emoji",
+          "variantOptions": [
+            "Emoji"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Tail": {
+          "values": [
+            "Emoji"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5955:16711"
+      ],
+      "variantCount": 1,
+      "width": 320,
+      "height": 84,
+      "absoluteX": 7608,
+      "absoluteY": 4766
+    },
+    {
+      "id": "6148:15657",
+      "key": "ed99cba18fd44496f9784ba88af145687d4124cf",
+      "name": "_Top bar/Navigation",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 16,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Left Panel Toggle#6151:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tails#6151:3": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show CTA#6410:6": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Menu Button#6410:9": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Buttons#6410:12": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Connect Info#6410:15": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Stepper#6410:18": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Back Button#6497:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Right Panel Toggle#6497:4": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#6497:8": {
+          "type": "TEXT",
+          "defaultValue": "Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Back",
+          "variantOptions": [
+            "Back",
+            "Search"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Back",
+            "Search"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6148:15692",
+        "6180:28529"
+      ],
+      "variantCount": 2,
+      "width": 1240,
+      "height": 236,
+      "absoluteX": 7608,
+      "absoluteY": 5002
+    },
+    {
+      "id": "6410:118508",
+      "key": "fa55a192fd8463d52a51accd484d83a941b63ac8",
+      "name": "_Platte Cell",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 17,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Normal",
+            "Null"
+          ],
+          "preferredValues": null
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Normal",
+            "Null"
+          ]
+        },
+        "Selected": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6410:118509",
+        "6410:118511",
+        "6410:118513"
+      ],
+      "variantCount": 3,
+      "width": 80,
+      "height": 84,
+      "absoluteX": 7608,
+      "absoluteY": 6459
+    }
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 117,
+  "range": {
+    "start": 70,
+    "end": 80
+  },
+  "componentSets": [
+    {
+      "id": "6678:29806",
+      "key": "ab3f8c34c3738c280418148b1e8074728271de79",
+      "name": "icon/rectangle.spark",
+      "description": "extract by ai",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 70,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6678:21966",
+        "6678:29801"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1746,
+      "absoluteY": -835
+    },
+    {
+      "id": "6594:65447",
+      "key": "9e1bca893ba3532ddb9c8e51d53c59aaf19bb838",
+      "name": "icon/rhombus.fill",
+      "description": "view",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 71,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2799:12360",
+        "6594:65450"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1790,
+      "absoluteY": -835
+    },
+    {
+      "id": "7705:180",
+      "key": "7965e969649284c7fe1175840313a5c30bb2dca4",
+      "name": "icon/robot",
+      "description": "automation",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 72,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7705:181",
+        "7707:176"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1834,
+      "absoluteY": -835
+    },
+    {
+      "id": "8334:349",
+      "key": "26c058d1765348a4a74fd59b2b4b2f968d3aa395",
+      "name": "icon/search",
+      "description": "search",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 73,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8334:350",
+        "8334:354"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1878,
+      "absoluteY": -835
+    },
+    {
+      "id": "7361:612",
+      "key": "0e823becd7402ac9d95946d5298c7774640f714c",
+      "name": "icon/serial.number.line.3",
+      "description": "auto number",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 74,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7361:619",
+        "7361:613"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1922,
+      "absoluteY": -835
+    },
+    {
+      "id": "6627:43805",
+      "key": "1a971380b9c3e58b9ed2965a6a680dd60bf39290",
+      "name": "icon/shield.checkmark",
+      "description": "security, data validation",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 75,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2207:9645",
+        "6627:43811"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1966,
+      "absoluteY": -835
+    },
+    {
+      "id": "8483:24768",
+      "key": "7f2124d8365402c57e435a1a8281bb0e1d847288",
+      "name": "icon/sidebar.left",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 76,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8483:24769",
+        "8483:24773"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2010,
+      "absoluteY": -835
+    },
+    {
+      "id": "8483:24715",
+      "key": "9d3dca90ef86b34ca87e04d0c5925d65c188d69f",
+      "name": "icon/sidebar.right",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 77,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8483:24746",
+        "1246:2303"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2054,
+      "absoluteY": -835
+    },
+    {
+      "id": "6627:43942",
+      "key": "bf77f514bc138457502abc596a205dc99ae660cf",
+      "name": "icon/slider.horizontal.3",
+      "description": "preference",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 78,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1717:15064",
+        "6064:51912"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2098,
+      "absoluteY": -835
+    },
+    {
+      "id": "6595:71010",
+      "key": "1820e10a78e88f453d9af7742ca5a7b4d0428f4e",
+      "name": "icon/space",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 79,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1664:17800",
+        "1637:7175"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1042,
+      "absoluteY": -771
+    }
+  ]
+}

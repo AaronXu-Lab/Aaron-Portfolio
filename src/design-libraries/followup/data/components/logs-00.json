@@ -1,0 +1,34 @@
+{
+  "page": {
+    "id": "52:2",
+    "name": "Logs"
+  },
+  "pageCount": 1,
+  "range": {
+    "start": 0,
+    "end": 1
+  },
+  "components": [
+    {
+      "id": "107:301",
+      "key": "b42650f461f679454c9fbe6f37a56387a4a5917c",
+      "name": "Component 14",
+      "pageId": "52:2",
+      "pageName": "Logs",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "107:209",
+        "name": "Image 2",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 78,
+      "height": 28,
+      "absoluteX": -305,
+      "absoluteY": 138,
+      "isAsset": false
+    }
+  ]
+}

@@ -1,0 +1,1180 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 450,
+  "range": {
+    "start": 80,
+    "end": 120
+  },
+  "components": [
+    {
+      "id": "166:510",
+      "key": "8833f53a2628c0b70096c0fb44f2b41d22e18096",
+      "name": "Status=Checked, Disable=false",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 80,
+      "topLevel": {
+        "id": "164:246",
+        "name": "Checkbox",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "166:524",
+        "name": "Checkbox-Input",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Status": "Checked",
+        "Disable": "false"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": -10072,
+      "absoluteY": -691,
+      "isAsset": true
+    },
+    {
+      "id": "166:514",
+      "key": "136b8cafe32aaaecad04ac5f8e650e0e12974d47",
+      "name": "Status=Indeterminate, Disable=false",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 81,
+      "topLevel": {
+        "id": "164:246",
+        "name": "Checkbox",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "166:524",
+        "name": "Checkbox-Input",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Status": "Indeterminate",
+        "Disable": "false"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": -10046,
+      "absoluteY": -691,
+      "isAsset": true
+    },
+    {
+      "id": "895:2318",
+      "key": "3f1c856b4e16b914c1ab4adda52e5343b3b2bdaf",
+      "name": "Status=Unchecked, Disable=true",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 82,
+      "topLevel": {
+        "id": "164:246",
+        "name": "Checkbox",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "166:524",
+        "name": "Checkbox-Input",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Status": "Unchecked",
+        "Disable": "true"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": -10098,
+      "absoluteY": -665,
+      "isAsset": true
+    },
+    {
+      "id": "895:2320",
+      "key": "cb6df31c1c3756416a2a259994d8e1f24ed9c7a2",
+      "name": "Status=Checked, Disable=true",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 83,
+      "topLevel": {
+        "id": "164:246",
+        "name": "Checkbox",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "166:524",
+        "name": "Checkbox-Input",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Status": "Checked",
+        "Disable": "true"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": -10072,
+      "absoluteY": -665,
+      "isAsset": true
+    },
+    {
+      "id": "895:2323",
+      "key": "bc6fff86b1beac89972397f6a3563f7014fa27fd",
+      "name": "Status=Indeterminate, Disable=true",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 84,
+      "topLevel": {
+        "id": "164:246",
+        "name": "Checkbox",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "166:524",
+        "name": "Checkbox-Input",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Status": "Indeterminate",
+        "Disable": "true"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": -10046,
+      "absoluteY": -665,
+      "isAsset": true
+    },
+    {
+      "id": "2116:16999",
+      "key": "5815c84177b6460f2f8c46ba08ae64a55d7defcb",
+      "name": "Show Icon=True, Show Buttons=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 85,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2116:18508",
+        "name": "Notification",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Show Icon": "True",
+        "Show Buttons": "True"
+      },
+      "width": 345,
+      "height": 48,
+      "absoluteX": -9597.5,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "2116:18523",
+      "key": "7746daff1d9e55e1d15c32133ccb46764a08ab89",
+      "name": "Show Icon=True, Show Buttons=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 86,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2116:18508",
+        "name": "Notification",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Show Icon": "True",
+        "Show Buttons": "False"
+      },
+      "width": 269.0000915527344,
+      "height": 48,
+      "absoluteX": -9597.5,
+      "absoluteY": -623,
+      "isAsset": false
+    },
+    {
+      "id": "2116:26750",
+      "key": "2e31e1f153e7ab5a915ad1a15d0acbcdd5e59393",
+      "name": "Show Icon=False, Show Buttons=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 87,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2116:18508",
+        "name": "Notification",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Show Icon": "False",
+        "Show Buttons": "True"
+      },
+      "width": 321.0000915527344,
+      "height": 48,
+      "absoluteX": -9597.5,
+      "absoluteY": -555,
+      "isAsset": false
+    },
+    {
+      "id": "2116:26744",
+      "key": "99404b7d09fbf33be6bd9cd1a547fe37d2a3d152",
+      "name": "Show Icon=False, Show Buttons=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 88,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2116:18508",
+        "name": "Notification",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Show Icon": "False",
+        "Show Buttons": "False"
+      },
+      "width": 248.00009155273438,
+      "height": 48,
+      "absoluteX": -9597.5,
+      "absoluteY": -487,
+      "isAsset": false
+    },
+    {
+      "id": "2755:5839",
+      "key": "e3659d4925db9f42c0a385bb92cdc3664edab4cd",
+      "name": "Notification Wrapper",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 89,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 383,
+      "height": 88,
+      "absoluteX": -9616.5,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "2058:6244",
+      "key": "a9b6ceeecb5d3d8afa9c06d358b7c639a0a7b26d",
+      "name": "isActive=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 90,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2924:5730",
+        "name": "Table Cell Divider",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isActive": "False"
+      },
+      "width": 0.00009999999747378752,
+      "height": 16,
+      "absoluteX": -9430,
+      "absoluteY": -287,
+      "isAsset": true
+    },
+    {
+      "id": "2924:6890",
+      "key": "34eff600fe49c67f5bc137cca8490d9385b44aea",
+      "name": "isActive=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 91,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "2924:5730",
+        "name": "Table Cell Divider",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isActive": "True"
+      },
+      "width": 0.00009999999747378752,
+      "height": 16,
+      "absoluteX": -9420,
+      "absoluteY": -287,
+      "isAsset": true
+    },
+    {
+      "id": "656:2488",
+      "key": "82d90f19151bbe09e7b73fd8eabc828c17a5a777",
+      "name": "Type=Icon, Style=Filled, Size=Small, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 92,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Loading"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "656:2475",
+      "key": "1df83799ba26090feb3afa515107a87f434a2b5a",
+      "name": "Type=Text, Style=Filled, Size=Small, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 93,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Loading"
+      },
+      "width": 90,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "656:2472",
+      "key": "d09446db904db0ef4fee3f92c4b9844de51e5823",
+      "name": "Type=Icon+Text, Style=Filled, Size=Small, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 94,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Loading"
+      },
+      "width": 110,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2694",
+      "key": "528d1363cfb2c0d5d359cb85c2cfab035cc3b8f9",
+      "name": "Type=Text, Style=Filled, Size=Regular, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 95,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Regular",
+        "State": "Loading"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2682",
+      "key": "1dd5586347c3ae6c6d612b211afd22cb9026c1b8",
+      "name": "Type=Icon+Text, Style=Filled, Size=Regular, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 96,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Regular",
+        "State": "Loading"
+      },
+      "width": 124,
+      "height": 32,
+      "absoluteX": -11679,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "655:2406",
+      "key": "43b7a8e184f01c8bf7ee511c1900a9052b2e21be",
+      "name": "Type=Text, Style=Filled, Size=Large, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 97,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Large",
+        "State": "Loading"
+      },
+      "width": 112,
+      "height": 36,
+      "absoluteX": -11830,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "655:2350",
+      "key": "f9782bbe20b2a271ed5365abf5525c94cdd40ecc",
+      "name": "Type=Icon+Text, Style=Filled, Size=Large, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 98,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Large",
+        "State": "Loading"
+      },
+      "width": 132,
+      "height": 36,
+      "absoluteX": -11982,
+      "absoluteY": -7,
+      "isAsset": false
+    },
+    {
+      "id": "1374:18790",
+      "key": "fed72f879e63e493198668849960b78c311ac1ee",
+      "name": "Type=Icon+Text, Style=Outline, Size=Small, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 99,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Active"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -123,
+      "isAsset": false
+    },
+    {
+      "id": "1374:18779",
+      "key": "662c2778d9e7dc85e37d8a7364a229615fd9110c",
+      "name": "Type=Icon+Text, Style=Outline, Size=Regular, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 100,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Regular",
+        "State": "Active"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11678,
+      "absoluteY": -123,
+      "isAsset": false
+    },
+    {
+      "id": "1374:18787",
+      "key": "983c4cb96cf2851f74a4a077616ae9dd820bc336",
+      "name": "Type=Icon+Text, Style=Outline, Size=Large, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 101,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Large",
+        "State": "Active"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -123,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2817",
+      "key": "50897d61241c5e3677c758eec75946169f75c797",
+      "name": "Type=Icon, Style=Plain, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 102,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Plain",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2805",
+      "key": "d25a2cd86a0ddc504764cc0cc43a8e18133a43dd",
+      "name": "Type=Text, Style=Plain, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 103,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Plain",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 89,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2784",
+      "key": "052b456d222ec60a751b43acfe6d2d95ee5c2279",
+      "name": "Type=Icon+Text, Style=Plain, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 104,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Plain",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11402,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2807",
+      "key": "e122e34f7b4ff207596140122e564934d805088a",
+      "name": "Type=Text, Style=Plain, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 105,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Plain",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2787",
+      "key": "7958e7b53e7040132b8ed949b186bc84b32d52ed",
+      "name": "Type=Icon+Text, Style=Plain, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 106,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Plain",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11677,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2768",
+      "key": "b2cc1312de59898348550bc1ebe96aacfaa2804a",
+      "name": "Type=Text, Style=Plain, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 107,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Plain",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 110,
+      "height": 36,
+      "absoluteX": -11829,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2758",
+      "key": "88c9d745233dad690acb1543d9daf2470fe9c7e5",
+      "name": "Type=Icon+Text, Style=Plain, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 108,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Plain",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -239,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2819",
+      "key": "39aab9919aa81a38e8f2e3350352f1fdc1a42656",
+      "name": "Type=Icon, Style=Outline, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 109,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2809",
+      "key": "b5712fd5429ccdd7d5a5cfa6386963d946459cbc",
+      "name": "Type=Text, Style=Outline, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 110,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 89,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2790",
+      "key": "549fc146fe4b3ad40df544c04c79f397b7bf526e",
+      "name": "Type=Icon+Text, Style=Outline, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 111,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11402,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2811",
+      "key": "98a20070477a6a70cef0cc2dac8c7077dec10feb",
+      "name": "Type=Text, Style=Outline, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 112,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2793",
+      "key": "310679fa3a12583ee51e08a9b35e677112ea6877",
+      "name": "Type=Icon+Text, Style=Outline, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 113,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11677,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2770",
+      "key": "cf93a55736c635bcb818977d12d490489e62f92d",
+      "name": "Type=Text, Style=Outline, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 114,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 110,
+      "height": 36,
+      "absoluteX": -11829,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2761",
+      "key": "3c48338572617ed92eee424aeff6da231f0fa070",
+      "name": "Type=Icon+Text, Style=Outline, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 115,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -295,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2813",
+      "key": "e4d9065cc57a67dc0cbb7be79821f63405b3f882",
+      "name": "Type=Icon, Style=Light, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 116,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Light",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2801",
+      "key": "1c3c60237121f4f9b1c7904d09060d366d2c9625",
+      "name": "Type=Text, Style=Light, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 117,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Light",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 89,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2778",
+      "key": "59a2e191f002ee659fb4930cffaa57a713f3c96a",
+      "name": "Type=Icon+Text, Style=Light, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 118,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Light",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11402,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2803",
+      "key": "73dda4bdaca64cdc0128de59b6f7b41248835515",
+      "name": "Type=Text, Style=Light, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 119,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Light",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -351,
+      "isAsset": false
+    }
+  ]
+}

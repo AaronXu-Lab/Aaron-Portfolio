@@ -1,0 +1,144 @@
+{
+  "type": "EFFECT",
+  "count": 5,
+  "styles": [
+    {
+      "id": "S:b29712a45dcbe1ed9a58824eeda6f6390222b5c2,",
+      "key": "b29712a45dcbe1ed9a58824eeda6f6390222b5c2",
+      "name": "Shadow/Page",
+      "description": "",
+      "order": 0,
+      "remote": false,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 48,
+          "boundVariables": {},
+          "color": {
+            "r": 0.29019609093666077,
+            "g": 0.2666666805744171,
+            "b": 0.4745098054409027,
+            "a": 0.15000000596046448
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": false
+        }
+      ],
+      "boundVariables": {}
+    },
+    {
+      "id": "S:44726e23726b6908a79831807ad0704d60d7e20a,",
+      "key": "44726e23726b6908a79831807ad0704d60d7e20a",
+      "name": "Shadow/Modal Blue",
+      "description": "",
+      "order": 1,
+      "remote": false,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 32,
+          "boundVariables": {},
+          "color": {
+            "r": 0.29411765933036804,
+            "g": 0.40784314274787903,
+            "b": 0.9803921580314636,
+            "a": 0.07999999821186066
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": false
+        }
+      ],
+      "boundVariables": {}
+    },
+    {
+      "id": "S:c8d2043b7c878602af44a9f943ea5e5f8e2895fb,",
+      "key": "c8d2043b7c878602af44a9f943ea5e5f8e2895fb",
+      "name": "Shadow/Modal Purple",
+      "description": "",
+      "order": 2,
+      "remote": false,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 32,
+          "boundVariables": {},
+          "color": {
+            "r": 0.46666666865348816,
+            "g": 0.3764705955982208,
+            "b": 0.9215686321258545,
+            "a": 0.07999999821186066
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": false
+        }
+      ],
+      "boundVariables": {}
+    },
+    {
+      "id": "S:bb4265f866df57f952f89454670a4168e1148fd6,",
+      "key": "bb4265f866df57f952f89454670a4168e1148fd6",
+      "name": "Shadow/Popover",
+      "description": "",
+      "order": 3,
+      "remote": false,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 16,
+          "boundVariables": {},
+          "color": {
+            "r": 0.19964176416397095,
+            "g": 0.17358706891536713,
+            "b": 0.3762369751930237,
+            "a": 0.07999999821186066
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": false
+        }
+      ],
+      "boundVariables": {}
+    },
+    {
+      "id": "S:1f99ebf04d345c3aa138a34c09d9eebc329a5bb5,",
+      "key": "1f99ebf04d345c3aa138a34c09d9eebc329a5bb5",
+      "name": "Temp Blur",
+      "description": "",
+      "order": 4,
+      "remote": false,
+      "effects": [
+        {
+          "type": "BACKGROUND_BLUR",
+          "visible": true,
+          "radius": 40,
+          "boundVariables": {},
+          "blurType": "NORMAL"
+        }
+      ],
+      "boundVariables": {}
+    }
+  ]
+}

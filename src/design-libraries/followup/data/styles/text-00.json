@@ -1,0 +1,327 @@
+{
+  "type": "TEXT",
+  "totalCount": 17,
+  "range": {
+    "start": 0,
+    "end": 10
+  },
+  "styles": [
+    {
+      "id": "S:753c251e25647066cc6e5e3e6e7f1f717d02ac86,",
+      "key": "753c251e25647066cc6e5e3e6e7f1f717d02ac86",
+      "name": "Body/Single Line",
+      "description": "",
+      "order": 0,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Medium"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26529"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26530"
+        }
+      }
+    },
+    {
+      "id": "S:731b847360c3bd504bc08154280e7b3946a8966e,",
+      "key": "731b847360c3bd504bc08154280e7b3946a8966e",
+      "name": "Body/Multiple Line",
+      "description": "",
+      "order": 1,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Medium"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26527"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26530"
+        }
+      }
+    },
+    {
+      "id": "S:3848af823ae41879ae21a207327e4c227e8f37bf,",
+      "key": "3848af823ae41879ae21a207327e4c227e8f37bf",
+      "name": "Body Emphasize/Single Line",
+      "description": "",
+      "order": 2,
+      "remote": false,
+      "fontName": {
+        "family": "SF Pro",
+        "style": "Semibold"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {
+        "lineHeight": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26529"
+        },
+        "fontSize": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4110:26530"
+        }
+      }
+    },
+    {
+      "id": "S:73f8eebf8d283d7f9b23944c88e5f01c6bb4d2f5,",
+      "key": "73f8eebf8d283d7f9b23944c88e5f01c6bb4d2f5",
+      "name": "_Draft/Board Title",
+      "description": "Board Title",
+      "order": 3,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Semi Bold"
+      },
+      "fontSize": 26,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 32
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:60134b93fc7440f40d0e7902c9e44c47d2969a2d,",
+      "key": "60134b93fc7440f40d0e7902c9e44c47d2969a2d",
+      "name": "_Draft/Group",
+      "description": "",
+      "order": 4,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Semi Bold"
+      },
+      "fontSize": 16,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:02fb2265242e3b5915b2995282128f4e1fe6692b,",
+      "key": "02fb2265242e3b5915b2995282128f4e1fe6692b",
+      "name": "_Draft/Comments & Narratives",
+      "description": "",
+      "order": 5,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Medium"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 24
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:f4d60d25f3995d46e51f314bacdf17bd0a59c4d6,",
+      "key": "f4d60d25f3995d46e51f314bacdf17bd0a59c4d6",
+      "name": "_Draft/Button Text",
+      "description": "",
+      "order": 6,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Semi Bold"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:c31c941c762884f22ea61740349703fc4526d6a1,",
+      "key": "c31c941c762884f22ea61740349703fc4526d6a1",
+      "name": "_Draft/Item Field",
+      "description": "",
+      "order": 7,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Medium"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:9191221f7bcdaf3484b2eee4ffdde42a5ba6f612,",
+      "key": "9191221f7bcdaf3484b2eee4ffdde42a5ba6f612",
+      "name": "_Draft/Attribute Field",
+      "description": "",
+      "order": 8,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Regular"
+      },
+      "fontSize": 14,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    },
+    {
+      "id": "S:36b51c9462624b299b54a0ad5d58f0858da4d47d,",
+      "key": "36b51c9462624b299b54a0ad5d58f0858da4d47d",
+      "name": "_Draft/Header Text",
+      "description": "",
+      "order": 9,
+      "remote": false,
+      "fontName": {
+        "family": "Inter",
+        "style": "Medium"
+      },
+      "fontSize": 13,
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "paragraphIndent": 0,
+      "paragraphSpacing": 0,
+      "textCase": "ORIGINAL",
+      "textDecoration": "NONE",
+      "listSpacing": 0,
+      "hangingPunctuation": false,
+      "hangingList": false,
+      "boundVariables": {}
+    }
+  ]
+}

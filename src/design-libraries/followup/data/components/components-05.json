@@ -1,0 +1,1109 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 450,
+  "range": {
+    "start": 200,
+    "end": 240
+  },
+  "components": [
+    {
+      "id": "6450:30562",
+      "key": "35aae7cfa754070bea9e48e18ce6aecefc89f50d",
+      "name": "Type=Normal, Selected=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 200,
+      "topLevel": {
+        "id": "6450:49277",
+        "name": "Name Card",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6450:30561",
+        "name": "Platte Cell",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Normal",
+        "Selected": "False"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": -2023.5,
+      "absoluteY": -651,
+      "isAsset": true
+    },
+    {
+      "id": "6450:30564",
+      "key": "1641af8b9c222d9a92ce97d6b237831de3263b13",
+      "name": "Type=Null, Selected=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 201,
+      "topLevel": {
+        "id": "6450:49277",
+        "name": "Name Card",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6450:30561",
+        "name": "Platte Cell",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Null",
+        "Selected": "False"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": -2023.5,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "6450:30566",
+      "key": "37d8e01f217f0789fe0cf3dc2f0251167a65a54d",
+      "name": "Type=Normal, Selected=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 202,
+      "topLevel": {
+        "id": "6450:49277",
+        "name": "Name Card",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6450:30561",
+        "name": "Platte Cell",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Normal",
+        "Selected": "True"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": -1983.5,
+      "absoluteY": -651,
+      "isAsset": true
+    },
+    {
+      "id": "1065:4546",
+      "key": "fa3e42d846154824b981f2185e4f8af2882cc2b0",
+      "name": "Type=Description+Inputbox",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 203,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Description+Inputbox"
+      },
+      "width": 480,
+      "height": 244,
+      "absoluteX": -4975,
+      "absoluteY": -445,
+      "isAsset": false
+    },
+    {
+      "id": "5392:29463",
+      "key": "1f52c99ad89f95862eaa749cf329758a9ed80cb7",
+      "name": "Type=Description+Dropdown",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 204,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Description+Dropdown"
+      },
+      "width": 480,
+      "height": 244,
+      "absoluteX": -4976,
+      "absoluteY": -155,
+      "isAsset": false
+    },
+    {
+      "id": "1065:5611",
+      "key": "10f3192fa1d7befe35adf6ee508970dca31d6a20",
+      "name": "Type=Description",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 205,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Description"
+      },
+      "width": 480,
+      "height": 196,
+      "absoluteX": -4975,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "1065:5656",
+      "key": "afa0bdb8e200d876cb24de4cdbe48b54a6fb606c",
+      "name": "Type=Inputbox",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 206,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Inputbox"
+      },
+      "width": 480,
+      "height": 200,
+      "absoluteX": -5491,
+      "absoluteY": -445,
+      "isAsset": false
+    },
+    {
+      "id": "5392:29471",
+      "key": "05c7d75e48107c17eea9ad89d92190fbd2c00a6a",
+      "name": "Type=Dropdown",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 207,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Dropdown"
+      },
+      "width": 480,
+      "height": 200,
+      "absoluteX": -5491,
+      "absoluteY": -155,
+      "isAsset": false
+    },
+    {
+      "id": "1065:5701",
+      "key": "dd6fc7abb8077415445118caf3546aa8e10253b5",
+      "name": "Type=Title Only",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 208,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Title Only"
+      },
+      "width": 480,
+      "height": 148,
+      "absoluteX": -5491,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "1065:5777",
+      "key": "ba9367ac5ad6e4b64b27d7897542d5dfb8078ced",
+      "name": "Type=Custom Content",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 209,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:5795",
+        "name": "Dialog",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Custom Content"
+      },
+      "width": 480,
+      "height": 324,
+      "absoluteX": -5491,
+      "absoluteY": 135,
+      "isAsset": false
+    },
+    {
+      "id": "1065:4809",
+      "key": "e77cd3f2ff09af6fb4a82c311881435857a0926d",
+      "name": "Type=1",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 210,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:4991",
+        "name": "Dialog Buttons",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "1"
+      },
+      "width": 376,
+      "height": 36,
+      "absoluteX": -5181,
+      "absoluteY": 519,
+      "isAsset": false
+    },
+    {
+      "id": "1065:4875",
+      "key": "1485562a6ae33af7cb9c3346c2b60cd58c647d9d",
+      "name": "Type=2",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 211,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1065:4991",
+        "name": "Dialog Buttons",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "2"
+      },
+      "width": 376,
+      "height": 36,
+      "absoluteX": -5181,
+      "absoluteY": 575,
+      "isAsset": false
+    },
+    {
+      "id": "5390:28724",
+      "key": "d136ebc84df8dba8960dc644c3321bc371541a4e",
+      "name": "Type=Text, Fixed Width=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 212,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Fixed Width": "True"
+      },
+      "width": 320,
+      "height": 40,
+      "absoluteX": -4075,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "8290:52095",
+      "key": "abf55e7e34b214c2dab482a16e2141c911421453",
+      "name": "Type=Text, Fixed Width=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 213,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Fixed Width": "False"
+      },
+      "width": 90,
+      "height": 40,
+      "absoluteX": -3715,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "5390:28733",
+      "key": "30d3f893ea4c67f8719c39d7de53cc9e284b34d8",
+      "name": "Type=Icon+Text, Fixed Width=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 214,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Fixed Width": "True"
+      },
+      "width": 320,
+      "height": 40,
+      "absoluteX": -4075,
+      "absoluteY": -631,
+      "isAsset": false
+    },
+    {
+      "id": "8290:52106",
+      "key": "9ceeeed67a899aaa6ef945a05d56cd5c2580ef48",
+      "name": "Type=Icon+Text, Fixed Width=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 215,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Fixed Width": "False"
+      },
+      "width": 114,
+      "height": 40,
+      "absoluteX": -3715,
+      "absoluteY": -631,
+      "isAsset": false
+    },
+    {
+      "id": "5489:29205",
+      "key": "8717601b72becfabbe390c00555e6da00d1bd6d7",
+      "name": "Type=Char+Text, Fixed Width=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 216,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Char+Text",
+        "Fixed Width": "True"
+      },
+      "width": 320,
+      "height": 40,
+      "absoluteX": -4075,
+      "absoluteY": -571,
+      "isAsset": false
+    },
+    {
+      "id": "8290:52118",
+      "key": "380cf13a27828e46b420028b8bf76b78021b5464",
+      "name": "Type=Char+Text, Fixed Width=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 217,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Char+Text",
+        "Fixed Width": "False"
+      },
+      "width": 114,
+      "height": 40,
+      "absoluteX": -3715,
+      "absoluteY": -571,
+      "isAsset": false
+    },
+    {
+      "id": "5390:28743",
+      "key": "ec08edbd939c9387d1e303cd22cc68887540c4ec",
+      "name": "Type=Checkbox+Text, Fixed Width=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 218,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Checkbox+Text",
+        "Fixed Width": "True"
+      },
+      "width": 320,
+      "height": 40,
+      "absoluteX": -4075,
+      "absoluteY": -511,
+      "isAsset": false
+    },
+    {
+      "id": "8290:52130",
+      "key": "dcb260628efed712419dd269dc2caa585e0ca86d",
+      "name": "Type=Checkbox+Text, Fixed Width=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 219,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Checkbox+Text",
+        "Fixed Width": "False"
+      },
+      "width": 114,
+      "height": 40,
+      "absoluteX": -3715,
+      "absoluteY": -511,
+      "isAsset": false
+    },
+    {
+      "id": "5390:28753",
+      "key": "6cd2d96b5fc19065ad5bcf875f847f980683a70c",
+      "name": "Type=Pic+Text, Fixed Width=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 220,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Pic+Text",
+        "Fixed Width": "True"
+      },
+      "width": 320,
+      "height": 40,
+      "absoluteX": -4075,
+      "absoluteY": -451,
+      "isAsset": false
+    },
+    {
+      "id": "8290:52142",
+      "key": "a98c730d0b6eafba86a0e1628f298ce84aa48af9",
+      "name": "Type=Pic+Text, Fixed Width=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 221,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5390:28723",
+        "name": "List Item",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Pic+Text",
+        "Fixed Width": "False"
+      },
+      "width": 122,
+      "height": 40,
+      "absoluteX": -3715,
+      "absoluteY": -451,
+      "isAsset": false
+    },
+    {
+      "id": "2061:9016",
+      "key": "92e31474ffbf205967b5a702678fe2f851c40d10",
+      "name": "Char Block/20",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 222,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 20,
+      "height": 20,
+      "absoluteX": -3861,
+      "absoluteY": -311,
+      "isAsset": false
+    },
+    {
+      "id": "2061:9018",
+      "key": "11df4b44bac369f88ac75dec03f1d46cd7ee3b2a",
+      "name": "Char Block/16",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 223,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 16,
+      "height": 16,
+      "absoluteX": -3825,
+      "absoluteY": -309,
+      "isAsset": false
+    },
+    {
+      "id": "3140:24627",
+      "key": "85ac46dbe6638be565adb6be56abc5aa9fa9b5d9",
+      "name": "Cap=Square",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 224,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "3140:24624",
+        "name": "List Divider",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Cap": "Square"
+      },
+      "width": 200,
+      "height": 0.00009999999747378752,
+      "absoluteX": -3935,
+      "absoluteY": -191,
+      "isAsset": true
+    },
+    {
+      "id": "2058:6242",
+      "key": "3e4c219844e1f374336d6d1cdea55bbc66fb27ba",
+      "name": "Cap=Round",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 225,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "3140:24624",
+        "name": "List Divider",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Cap": "Round"
+      },
+      "width": 200,
+      "height": 0.00009999999747378752,
+      "absoluteX": -3935,
+      "absoluteY": -170.99990844726562,
+      "isAsset": true
+    },
+    {
+      "id": "1343:6444",
+      "key": "591f4102e19f66c5077b84d4c6dae3a06cd38a09",
+      "name": "Tail/Switch",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 226,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 40,
+      "height": 28,
+      "absoluteX": -3951,
+      "absoluteY": -70.99981689453125,
+      "isAsset": false
+    },
+    {
+      "id": "650:2278",
+      "key": "0d80a07a43b21ec6b876714238d45bc8c2b95435",
+      "name": "Tail/Dropdown",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 227,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 132,
+      "height": 28,
+      "absoluteX": -3895,
+      "absoluteY": -70.99981689453125,
+      "isAsset": false
+    },
+    {
+      "id": "7560:15781",
+      "key": "9d061ba9699afb5bc8418856c4791a47985de4dc",
+      "name": "Tail/Checkbox",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 228,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 28,
+      "height": 28,
+      "absoluteX": -3747,
+      "absoluteY": -70.99981689453125,
+      "isAsset": false
+    },
+    {
+      "id": "650:2132",
+      "key": "dd021f13b66e761f4bba9e7a49381a9592e4b625",
+      "name": "isOn=True, Enable=True, Size=Regular, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 229,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "True",
+        "Enable": "True",
+        "Size": "Regular",
+        "Show Text": "False"
+      },
+      "width": 28,
+      "height": 16,
+      "absoluteX": -3919,
+      "absoluteY": 25.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "6477:35065",
+      "key": "ececc1f0bd6886e8683ca844d3b3d1d2ddabcbd8",
+      "name": "isOn=True, Enable=True, Size=Large, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 230,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "True",
+        "Enable": "True",
+        "Size": "Large",
+        "Show Text": "False"
+      },
+      "width": 40,
+      "height": 24,
+      "absoluteX": -3839,
+      "absoluteY": 25.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "7862:77897",
+      "key": "00793b05cb0bf9f0d4c15065652391dda676a2ee",
+      "name": "isOn=True, Enable=True, Size=Large, Show Text=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 231,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "True",
+        "Enable": "True",
+        "Size": "Large",
+        "Show Text": "True"
+      },
+      "width": 61,
+      "height": 24,
+      "absoluteX": -3889,
+      "absoluteY": 97,
+      "isAsset": false
+    },
+    {
+      "id": "3958:6703",
+      "key": "95cebf9828c40226569f7fdc21439fe6d5b6b412",
+      "name": "isOn=True, Enable=False, Size=Regular, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 232,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "True",
+        "Enable": "False",
+        "Size": "Regular",
+        "Show Text": "False"
+      },
+      "width": 28,
+      "height": 16,
+      "absoluteX": -3919,
+      "absoluteY": 49.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "6477:35067",
+      "key": "84e726efad3d4ec4e5b57e188d87093d19836a86",
+      "name": "isOn=True, Enable=False, Size=Large, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 233,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "True",
+        "Enable": "False",
+        "Size": "Large",
+        "Show Text": "False"
+      },
+      "width": 40,
+      "height": 24,
+      "absoluteX": -3839,
+      "absoluteY": 57.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "7862:77899",
+      "key": "77025cf4764f5a5d83258a96d9b63319b67f9909",
+      "name": "isOn=True, Enable=False, Size=Large, Show Text=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 234,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "True",
+        "Enable": "False",
+        "Size": "Large",
+        "Show Text": "True"
+      },
+      "width": 61,
+      "height": 24,
+      "absoluteX": -3889,
+      "absoluteY": 129,
+      "isAsset": false
+    },
+    {
+      "id": "664:2758",
+      "key": "a6538105eb281321d0ad36c66d0c8997dd37a9c1",
+      "name": "isOn=False, Enable=True, Size=Regular, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 235,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "False",
+        "Enable": "True",
+        "Size": "Regular",
+        "Show Text": "False"
+      },
+      "width": 28,
+      "height": 16,
+      "absoluteX": -3883,
+      "absoluteY": 25.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "6477:35069",
+      "key": "9f8ba48326d816988db88e2999a27d1e6df761ef",
+      "name": "isOn=False, Enable=True, Size=Large, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 236,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "False",
+        "Enable": "True",
+        "Size": "Large",
+        "Show Text": "False"
+      },
+      "width": 40,
+      "height": 24,
+      "absoluteX": -3791,
+      "absoluteY": 25.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "7862:77901",
+      "key": "8033b56394623d0d753eca0e39ae37edf1cee9d1",
+      "name": "isOn=False, Enable=True, Size=Large, Show Text=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 237,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "False",
+        "Enable": "True",
+        "Size": "Large",
+        "Show Text": "True"
+      },
+      "width": 61,
+      "height": 24,
+      "absoluteX": -3816,
+      "absoluteY": 97,
+      "isAsset": false
+    },
+    {
+      "id": "3958:6706",
+      "key": "021e293581399afb96bd1e125a4234829eb10bc5",
+      "name": "isOn=False, Enable=False, Size=Regular, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 238,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "False",
+        "Enable": "False",
+        "Size": "Regular",
+        "Show Text": "False"
+      },
+      "width": 28,
+      "height": 16,
+      "absoluteX": -3883,
+      "absoluteY": 49.00018310546875,
+      "isAsset": false
+    },
+    {
+      "id": "6477:35071",
+      "key": "e0c090dff97b307cd5841b7280768c814b00ca3b",
+      "name": "isOn=False, Enable=False, Size=Large, Show Text=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 239,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "664:2759",
+        "name": "Switch",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "isOn": "False",
+        "Enable": "False",
+        "Size": "Large",
+        "Show Text": "False"
+      },
+      "width": 40,
+      "height": 24,
+      "absoluteX": -3791,
+      "absoluteY": 57.00018310546875,
+      "isAsset": false
+    }
+  ]
+}

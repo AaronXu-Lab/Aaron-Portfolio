@@ -1,0 +1,1093 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 442,
+  "range": {
+    "start": 40,
+    "end": 80
+  },
+  "components": [
+    {
+      "id": "289:34",
+      "key": "953b7b152729d6dc88a7619f50a46e0c1c5f3eb6",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 40,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6633:36792",
+        "name": "icon/checkmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1668,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6633:36795",
+      "key": "67075be928f71ed22417db3d85eeb1dc1121a798",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 41,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6633:36792",
+        "name": "icon/checkmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1666,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "5774:33752",
+      "key": "8c3e2e042516fece86ed426128b109a0e057a40c",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 42,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6678:29794",
+        "name": "icon/circle",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1712,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6678:29789",
+      "key": "cef443c960532c7e2aa1fd2f0d94673808cd573d",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 43,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6678:29794",
+        "name": "icon/circle",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1710,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "3436:6828",
+      "key": "88d347b00ada3aa91b062aee9bb7d11c650942ab",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 44,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:42110",
+        "name": "icon/circle.3",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1756,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6627:42113",
+      "key": "a36d575e11c8cb2613d08d5f7edf3df56e7a1214",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 45,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:42110",
+        "name": "icon/circle.3",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1754,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "5864:28515",
+      "key": "95f41bb095010e9caa7e95504f33608a2f8eb54a",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 46,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6678:29800",
+        "name": "icon/circle.alphabet.a",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1800,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6678:29795",
+      "key": "5654fdd099b1a9d51ef9c3ebd7697924ceec3106",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 47,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6678:29800",
+        "name": "icon/circle.alphabet.a",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1798,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "5884:1681",
+      "key": "30ca6071f08179d5cec1276cae5cbe7bf442eec9",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 48,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6594:65435",
+        "name": "icon/circle.checkmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1844,
+      "absoluteY": -955,
+      "isAsset": false
+    },
+    {
+      "id": "5936:33270",
+      "key": "93693dbbddc864a592c17d50d2ec276a3ef5bc89",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 49,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6594:65435",
+        "name": "icon/circle.checkmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1842,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "6594:65579",
+      "key": "f6ed835a99c25eb241601a9137e0f50f618f1e1d",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 50,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6594:65578",
+        "name": "icon/circle.checkmark.badge",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1888,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6594:65581",
+      "key": "1e03b93a414cf2a97e09ddbc7d0621fbf9df7281",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 51,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6594:65578",
+        "name": "icon/circle.checkmark.badge",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1886,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "4116:7592",
+      "key": "b42065ce198558844115613a39d6b235c3dcfaaa",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 52,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6594:65429",
+        "name": "icon/circle.checkmark.plus",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1932,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6594:65432",
+      "key": "0d6b391e6d639b1da6033983be1a6657f33bd116",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 53,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6594:65429",
+        "name": "icon/circle.checkmark.plus",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1930,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "7647:27476",
+      "key": "dc4e7f95e375fb7387dc66a140818f4f0ba8f590",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 54,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7647:27504",
+        "name": "icon/circle.i",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1976,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "7647:27503",
+      "key": "b8ca68b87fc49d8f781d6e711282da409216cdad",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 55,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7647:27504",
+        "name": "icon/circle.i",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1974,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "676:2938",
+      "key": "ba1f38a9236d033aa7f8ff883fd97abe7c42f511",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 56,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6678:32043",
+        "name": "icon/clock",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2020,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6678:32034",
+      "key": "7467ddb9cc99b08b3fa33df1f0e4d2cd8af041d3",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 57,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6678:32043",
+        "name": "icon/clock",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2018,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "4081:124073",
+      "key": "7a1b8232ad7a07cfadaaf43516682e272872316a",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 58,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:46190",
+        "name": "icon/clock.arrow.clockwise.dash",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2064,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "6627:46193",
+      "key": "4dc67ce066a3e7f20a18645c5b654460c2484733",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 59,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:46190",
+        "name": "icon/clock.arrow.clockwise.dash",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2062,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "4539:33143",
+      "key": "757abdc7b3b027872a981f1c90c01d7778b211de",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 60,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8888:16653",
+        "name": "icon/cloud",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2108,
+      "absoluteY": -955,
+      "isAsset": true
+    },
+    {
+      "id": "8814:44738",
+      "key": "a2f20efb30a9f44425233f661731eed7c91984a9",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 61,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8888:16653",
+        "name": "icon/cloud",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2106,
+      "absoluteY": -935,
+      "isAsset": true
+    },
+    {
+      "id": "5630:20928",
+      "key": "ee1763b6a8076e96ef43d8b931043aedffd267b0",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 62,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8888:16654",
+        "name": "icon/cloud.checkmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1052,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "8814:44737",
+      "key": "d410dbd0a5648dbbf11d16cc2e3e44d4bbe269eb",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 63,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8888:16654",
+        "name": "icon/cloud.checkmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1050,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "4539:33177",
+      "key": "ec8a5991517d403bb929724fe64c9d61e9bed458",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 64,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8888:16655",
+        "name": "icon/cloud.xmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1096,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "8814:44736",
+      "key": "b6c6bc4071b7f5d5d6ed6733acf520c524014e2b",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 65,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8888:16655",
+        "name": "icon/cloud.xmark",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1094,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "3476:11799",
+      "key": "b0e5cefd3b0bfd22f1d59c577559f8e199b2b43a",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 66,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:43931",
+        "name": "icon/contents",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1140,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "6627:43934",
+      "key": "40fed3f32073a6fbaa4096c9cdf1709105d57352",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 67,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:43931",
+        "name": "icon/contents",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1138,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "8201:57616",
+      "key": "6aa4dbb3d2b675074b1a098e6c35c8214e1245c5",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 68,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8201:57615",
+        "name": "icon/cross.open.dot",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1184,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "8201:57624",
+      "key": "a4e78093ed9b810b1fe6888787e6e538e13c17a5",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 69,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8201:57615",
+        "name": "icon/cross.open.dot",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1182,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "675:2907",
+      "key": "84315847765e8c136c2a3213d81c2258c13e3499",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 70,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:42119",
+        "name": "icon/dollar",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1228,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "6627:42122",
+      "key": "5124a50b30c6546fc4ce66fad3bb599860151b55",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 71,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:42119",
+        "name": "icon/dollar",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1226,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "7110:2533",
+      "key": "d8e476a43e3dfc83026d9595bb418a08e0401240",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 72,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7336:87",
+        "name": "icon/dot.3",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1272,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "7110:2516",
+      "key": "de095c3351e2530de6339b6abecc22b2ae460317",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 73,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7336:87",
+        "name": "icon/dot.3",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1270,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "8617:40902",
+      "key": "8f5d8887244e5c0e23a67bd4c9bb0f02d20a0c31",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 74,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8617:40901",
+        "name": "icon/dot.3.vertical",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1316,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "8617:40904",
+      "key": "4c26ab9ab36e6f85d81dd85427f79eb0c192e828",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 75,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8617:40901",
+        "name": "icon/dot.3.vertical",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1314,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "943:2395",
+      "key": "7c9ec35140d912b05ee9b345cbf0703bb0b843f4",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 76,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:44098",
+        "name": "icon/dot.6",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1360,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "2962:18266",
+      "key": "7ff551e0fe4a8d4ca1883597b48431d14ece6af3",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 77,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6627:44098",
+        "name": "icon/dot.6",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1358,
+      "absoluteY": -871,
+      "isAsset": true
+    },
+    {
+      "id": "6711:35199",
+      "key": "06e41adeca8d18f177db6b3ea56c35902c18a97b",
+      "name": "Size=16",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 78,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6711:35198",
+        "name": "icon/fan.chart",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "16"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1404,
+      "absoluteY": -891,
+      "isAsset": true
+    },
+    {
+      "id": "6711:35201",
+      "key": "06c117a4bd51124121b7b4d9e9437d6480deb8ef",
+      "name": "Size=20",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 79,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "6711:35198",
+        "name": "icon/fan.chart",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Size": "20"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": 1402,
+      "absoluteY": -871,
+      "isAsset": true
+    }
+  ]
+}

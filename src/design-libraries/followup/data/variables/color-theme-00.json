@@ -1,0 +1,425 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:6290:31514",
+    "key": "a2022b6d11791e027765728e21e5bd7390da232e",
+    "name": "Color/Theme",
+    "defaultModeId": "6290:1",
+    "modes": [
+      {
+        "name": "Default",
+        "modeId": "6290:1"
+      },
+      {
+        "name": "Blue",
+        "modeId": "6349:0"
+      },
+      {
+        "name": "Green",
+        "modeId": "6351:4"
+      },
+      {
+        "name": "Orange",
+        "modeId": "6351:5"
+      }
+    ],
+    "variableCount": 6,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 0,
+    "end": 6
+  },
+  "variables": [
+    {
+      "id": "VariableID:6403:17803",
+      "key": "4aa4a3f71e6f581281852b89f7dca6bcfce1ceef",
+      "name": "Controls/Left Sidebar",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:6290:31514",
+      "collectionName": "Color/Theme",
+      "order": 0,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6290:1",
+          "modeName": "Default",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43399"
+          },
+          "aliasTargetId": "VariableID:5976:43399",
+          "aliasTargetName": "Gray3",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6349:0",
+          "modeName": "Blue",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1471:8223"
+          },
+          "aliasTargetId": "VariableID:1471:8223",
+          "aliasTargetName": "Blue60",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:4",
+          "modeName": "Green",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6302"
+          },
+          "aliasTargetId": "VariableID:1214:6302",
+          "aliasTargetName": "Green60",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:5",
+          "modeName": "Orange",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1471:8222"
+          },
+          "aliasTargetId": "VariableID:1471:8222",
+          "aliasTargetName": "Orange60",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6290:50158",
+      "key": "f4d0d0f350c898af3a20c2eadb4ce9fd71de97ce",
+      "name": "Primary",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:6290:31514",
+      "collectionName": "Color/Theme",
+      "order": 1,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6290:1",
+          "modeName": "Default",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6299"
+          },
+          "aliasTargetId": "VariableID:1214:6299",
+          "aliasTargetName": "Purple50",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6349:0",
+          "modeName": "Blue",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6298"
+          },
+          "aliasTargetId": "VariableID:1214:6298",
+          "aliasTargetName": "Blue50",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:4",
+          "modeName": "Green",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43407"
+          },
+          "aliasTargetId": "VariableID:5976:43407",
+          "aliasTargetName": "Green50",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:5",
+          "modeName": "Orange",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43403"
+          },
+          "aliasTargetId": "VariableID:5976:43403",
+          "aliasTargetName": "Orange50",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50838",
+      "key": "e2751c8d1e1e9b33f82175b742ba80391fc2952f",
+      "name": "Secondary",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:6290:31514",
+      "collectionName": "Color/Theme",
+      "order": 2,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6290:1",
+          "modeName": "Default",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43397"
+          },
+          "aliasTargetId": "VariableID:5976:43397",
+          "aliasTargetName": "Gray20",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6349:0",
+          "modeName": "Blue",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6309"
+          },
+          "aliasTargetId": "VariableID:1214:6309",
+          "aliasTargetName": "Blue20",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:4",
+          "modeName": "Green",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5697:1203"
+          },
+          "aliasTargetId": "VariableID:5697:1203",
+          "aliasTargetName": "Green20",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:5",
+          "modeName": "Orange",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43404"
+          },
+          "aliasTargetId": "VariableID:5976:43404",
+          "aliasTargetName": "Orange20",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6290:50159",
+      "key": "3a251c1f6a3000bb692bd99611413d5a3a4f308c",
+      "name": "Tertiary",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:6290:31514",
+      "collectionName": "Color/Theme",
+      "order": 3,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6290:1",
+          "modeName": "Default",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:42703"
+          },
+          "aliasTargetId": "VariableID:5976:42703",
+          "aliasTargetName": "Gray10",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6349:0",
+          "modeName": "Blue",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6308"
+          },
+          "aliasTargetId": "VariableID:1214:6308",
+          "aliasTargetName": "Blue10",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:4",
+          "modeName": "Green",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6312"
+          },
+          "aliasTargetId": "VariableID:1214:6312",
+          "aliasTargetName": "Green10",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:5",
+          "modeName": "Orange",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6311"
+          },
+          "aliasTargetId": "VariableID:1214:6311",
+          "aliasTargetName": "Orange10",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6290:50160",
+      "key": "67eb44e3a927ea286a3fd1d952f080419c58d986",
+      "name": "Quaternary",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:6290:31514",
+      "collectionName": "Color/Theme",
+      "order": 4,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6290:1",
+          "modeName": "Default",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43398"
+          },
+          "aliasTargetId": "VariableID:5976:43398",
+          "aliasTargetName": "Gray5",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6349:0",
+          "modeName": "Blue",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:2441:2191"
+          },
+          "aliasTargetId": "VariableID:2441:2191",
+          "aliasTargetName": "Blue5",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:4",
+          "modeName": "Green",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5697:13530"
+          },
+          "aliasTargetId": "VariableID:5697:13530",
+          "aliasTargetName": "Green5",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:5",
+          "modeName": "Orange",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43405"
+          },
+          "aliasTargetId": "VariableID:5976:43405",
+          "aliasTargetName": "Orange5",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6290:50161",
+      "key": "74f8508da4952a477cdf99975e86afc801f1204b",
+      "name": "Quinary",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:6290:31514",
+      "collectionName": "Color/Theme",
+      "order": 5,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6290:1",
+          "modeName": "Default",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43399"
+          },
+          "aliasTargetId": "VariableID:5976:43399",
+          "aliasTargetName": "Gray3",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6349:0",
+          "modeName": "Blue",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:4228:12758"
+          },
+          "aliasTargetId": "VariableID:4228:12758",
+          "aliasTargetName": "Blue3",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:4",
+          "modeName": "Green",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5697:13531"
+          },
+          "aliasTargetId": "VariableID:5697:13531",
+          "aliasTargetName": "Green3",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        },
+        {
+          "modeId": "6351:5",
+          "modeName": "Orange",
+          "value": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43406"
+          },
+          "aliasTargetId": "VariableID:5976:43406",
+          "aliasTargetName": "Orange3",
+          "aliasTargetCollectionId": "VariableCollectionId:1214:6297",
+          "aliasTargetCollectionName": "Color/Primitives"
+        }
+      ]
+    }
+  ]
+}

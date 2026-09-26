@@ -1,0 +1,462 @@
+{
+  "type": "PAINT",
+  "count": 7,
+  "styles": [
+    {
+      "id": "S:a258aef89830c6d7963feecd0ed09991c5add35d,",
+      "key": "a258aef89830c6d7963feecd0ed09991c5add35d",
+      "name": "B->P",
+      "description": "",
+      "order": 0,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.3294117748737335,
+                "g": 0.4313725531101227,
+                "b": 0.8705882430076599,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6298"
+                }
+              }
+            },
+            {
+              "color": {
+                "r": 0.46666666865348816,
+                "g": 0.3764705955982208,
+                "b": 0.9215686321258545,
+                "a": 1
+              },
+              "position": 1,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6299"
+                }
+              }
+            }
+          ],
+          "gradientTransform": [
+            [
+              0.9999983906745911,
+              -8.231493779931043e-7,
+              4.1157468899655214e-7
+            ],
+            [
+              1.785451253510928e-8,
+              0.0011816387996077538,
+              0.49940916895866394
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {
+        "paints": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6298"
+          },
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6299"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S:4beb1bcf7d0605821607d3a7904a8cf5b945a178,",
+      "key": "4beb1bcf7d0605821607d3a7904a8cf5b945a178",
+      "name": "B->P L",
+      "description": "",
+      "order": 1,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.7882353067398071,
+                "g": 0.8196078538894653,
+                "b": 0.9607843160629272,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6309"
+                }
+              }
+            },
+            {
+              "color": {
+                "r": 0.9215686321258545,
+                "g": 0.9098039269447327,
+                "b": 0.9803921580314636,
+                "a": 1
+              },
+              "position": 1,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6316"
+                }
+              }
+            }
+          ],
+          "gradientTransform": [
+            [
+              1,
+              -0.000007767639544908889,
+              0.000003883819772454444
+            ],
+            [
+              9.17827236435187e-9,
+              0.001181640662252903,
+              0.49940916895866394
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {
+        "paints": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6309"
+          },
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6316"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S:cd38b848c695dc88b00d851c9fdaced60720d08c,",
+      "key": "cd38b848c695dc88b00d851c9fdaced60720d08c",
+      "name": "1->0",
+      "description": "",
+      "order": 2,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.3294117748737335,
+                "g": 0.4313725531101227,
+                "b": 0.8705882430076599,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6298"
+                }
+              }
+            },
+            {
+              "color": {
+                "r": 0.9215686321258545,
+                "g": 0.9098039269447327,
+                "b": 0.9803921580314636,
+                "a": 0
+              },
+              "position": 1,
+              "boundVariables": {}
+            }
+          ],
+          "gradientTransform": [
+            [
+              1,
+              8.326672684688674e-15,
+              -4.218847493575595e-15
+            ],
+            [
+              -3.1234509336591776e-16,
+              0.4040403962135315,
+              0.29797980189323425
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {
+        "paints": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6298"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S:356c5eafefcb583a9aa972e1b7321fac14b3d90c,",
+      "key": "356c5eafefcb583a9aa972e1b7321fac14b3d90c",
+      "name": "1->0 L",
+      "description": "",
+      "order": 3,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.8901960849761963,
+                "g": 0.9137254953384399,
+                "b": 1,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6308"
+                }
+              }
+            },
+            {
+              "color": {
+                "r": 0.8901960849761963,
+                "g": 0.9137254953384399,
+                "b": 1,
+                "a": 0
+              },
+              "position": 1,
+              "boundVariables": {}
+            }
+          ],
+          "gradientTransform": [
+            [
+              1,
+              8.326672684688674e-15,
+              -4.218847493575595e-15
+            ],
+            [
+              -3.1234509336591776e-16,
+              0.4040403962135315,
+              0.29797980189323425
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {
+        "paints": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6308"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S:95803a7d5e8446c6cd2a8852623a0e887ea5b4a1,",
+      "key": "95803a7d5e8446c6cd2a8852623a0e887ea5b4a1",
+      "name": "1->0 tab",
+      "description": "",
+      "order": 4,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.7882353067398071,
+                "g": 0.8196078538894653,
+                "b": 0.9607843160629272,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6309"
+                }
+              }
+            },
+            {
+              "color": {
+                "r": 0.9215686321258545,
+                "g": 0.9098039269447327,
+                "b": 0.9803921580314636,
+                "a": 0
+              },
+              "position": 1,
+              "boundVariables": {}
+            }
+          ],
+          "gradientTransform": [
+            [
+              1,
+              8.326672684688674e-15,
+              -4.218847493575595e-15
+            ],
+            [
+              -3.1234509336591776e-16,
+              0.4040403962135315,
+              0.29797980189323425
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {
+        "paints": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6309"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S:b83f7915269011be82542d777af028888c0f2194,",
+      "key": "b83f7915269011be82542d777af028888c0f2194",
+      "name": "Destructive Gradient",
+      "description": "",
+      "order": 5,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.7843137383460999,
+                "g": 0.30588236451148987,
+                "b": 0.30980393290519714,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:5976:43409"
+                }
+              }
+            },
+            {
+              "color": {
+                "r": 0.9215686321258545,
+                "g": 0.4313725531101227,
+                "b": 0.4313725531101227,
+                "a": 1
+              },
+              "position": 1,
+              "boundVariables": {
+                "color": {
+                  "type": "VARIABLE_ALIAS",
+                  "id": "VariableID:1214:6313"
+                }
+              }
+            }
+          ],
+          "gradientTransform": [
+            [
+              -0.8338218927383423,
+              0.16617928445339203,
+              0.8338212966918945
+            ],
+            [
+              -0.06337931752204895,
+              -0.06337930262088776,
+              0.5633792877197266
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {
+        "paints": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:1214:6313"
+          },
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:5976:43409"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S:9806512663147a26e0865f4cd3c41c5496a51721,",
+      "key": "9806512663147a26e0865f4cd3c41c5496a51721",
+      "name": "Linear",
+      "description": "",
+      "order": 6,
+      "remote": false,
+      "paints": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.4770424962043762,
+                "g": 0.5681149959564209,
+                "b": 0.9724771976470947,
+                "a": 1
+              },
+              "position": 0,
+              "boundVariables": {}
+            },
+            {
+              "color": {
+                "r": 0.30846768617630005,
+                "g": 0.42072534561157227,
+                "b": 0.904296875,
+                "a": 1
+              },
+              "position": 1,
+              "boundVariables": {}
+            }
+          ],
+          "gradientTransform": [
+            [
+              0.5301774740219116,
+              0.6816568374633789,
+              -0.04970414936542511
+            ],
+            [
+              -0.6816568374633789,
+              0.5301774740219116,
+              0.5639053583145142
+            ]
+          ]
+        }
+      ],
+      "boundVariables": {}
+    }
+  ]
+}

@@ -1,0 +1,783 @@
+{
+  "page": {
+    "id": "294:66",
+    "name": "_Drafts"
+  },
+  "pageCount": 6,
+  "range": {
+    "start": 0,
+    "end": 6
+  },
+  "componentSets": [
+    {
+      "id": "298:85",
+      "key": "57172098b1319a2bff506eaa11bae86ef5644af8",
+      "name": "Menu/Item",
+      "description": "",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "298:85",
+        "name": "Menu/Item",
+        "type": "COMPONENT_SET"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#59:2": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "92:26",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#59:3": {
+          "type": "TEXT",
+          "defaultValue": "Item One",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Next#67:15": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Icon+Text",
+            "Contronl+Text",
+            "Text"
+          ],
+          "preferredValues": null
+        },
+        "Status": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Disable",
+            "Hover",
+            "Highlight"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Icon+Text",
+            "Contronl+Text",
+            "Text"
+          ]
+        },
+        "Status": {
+          "values": [
+            "Normal",
+            "Disable",
+            "Hover",
+            "Highlight"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "298:86",
+        "354:2440",
+        "300:927",
+        "300:983",
+        "300:1018",
+        "300:1035",
+        "298:90",
+        "354:2444",
+        "298:94",
+        "354:2448",
+        "298:100",
+        "354:2454"
+      ],
+      "variantCount": 12,
+      "width": 680,
+      "height": 214,
+      "absoluteX": -7054.5,
+      "absoluteY": -14309
+    },
+    {
+      "id": "2887:11712",
+      "key": "588b1106314f2567486733c1ab4b46506d326366",
+      "name": "_Drafts/InputBox/2",
+      "description": "",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 1,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#567:20": {
+          "type": "TEXT",
+          "defaultValue": "Inputs",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "PlaceHolder#567:26": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tail#567:34": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Prefix Icon#567:36": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "1253:7048",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Tail#1371:58": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "836:22053",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "6df6a84237b8292a94ddf0f1c960585f7fceeb5e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "018dd005e47f3f6ae3b163961914983f3fd472dd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "62291b22002f8f700434dc3003ab38a14caef130"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "51483e598ad7c47187e044f0ddef49b0acffe352"
+            }
+          ]
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Text+Options",
+            "Options+Text",
+            "Tag+Text",
+            "Icon+Text",
+            "Avatar+Text",
+            "Controls",
+            "Icon"
+          ],
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Outline",
+          "variantOptions": [
+            "Outline",
+            "Filled"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Text+Options",
+            "Options+Text",
+            "Tag+Text",
+            "Icon+Text",
+            "Avatar+Text",
+            "Controls",
+            "Icon"
+          ]
+        },
+        "Style": {
+          "values": [
+            "Outline",
+            "Filled"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Normal",
+            "Small"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2887:11713",
+        "2887:11716",
+        "2887:11719",
+        "2887:11726",
+        "2887:11733",
+        "2887:11740",
+        "2887:11748",
+        "2887:11755",
+        "2887:11761",
+        "2887:11764",
+        "2887:11767",
+        "2887:11774",
+        "2887:11781",
+        "2887:11788",
+        "2887:11796",
+        "2887:11803",
+        "2887:11809",
+        "2887:11812",
+        "2887:11815",
+        "2887:11822",
+        "2887:11829",
+        "2887:11836",
+        "2887:11844",
+        "2887:11851",
+        "2887:11857",
+        "2887:11860",
+        "2887:11863",
+        "2887:11870",
+        "2887:11877",
+        "2887:11884",
+        "2887:11892",
+        "2887:11899",
+        "2887:11905",
+        "2887:11908",
+        "2887:11911",
+        "2887:11918",
+        "2887:11925",
+        "2887:11932",
+        "2887:11940",
+        "2887:11947",
+        "2887:11953",
+        "2887:11956",
+        "2887:11959",
+        "2887:11966",
+        "2887:11973",
+        "2887:11980",
+        "2887:11988",
+        "2887:11995",
+        "2887:12001",
+        "2887:12004",
+        "2887:12007",
+        "2887:12014",
+        "2887:12021",
+        "2887:12028",
+        "2887:12036",
+        "2887:12043",
+        "2887:12049",
+        "2887:12052",
+        "2887:12055",
+        "2887:12062",
+        "2887:12069",
+        "2887:12076",
+        "2887:12084",
+        "2887:12091",
+        "2887:12097",
+        "2887:12100",
+        "2887:12103",
+        "2887:12110",
+        "2887:12117",
+        "2887:12124",
+        "2887:12132",
+        "2887:12139",
+        "2887:12145",
+        "2887:12148",
+        "2887:12151",
+        "2887:12158",
+        "2887:12165",
+        "2887:12172",
+        "2887:12180",
+        "2887:12187",
+        "2887:12193",
+        "2887:12196",
+        "2887:12199",
+        "2887:12206",
+        "2887:12213",
+        "2887:12220",
+        "2887:12228",
+        "2887:12235",
+        "2887:12241",
+        "2887:12244",
+        "2887:12247",
+        "2887:12254",
+        "2887:12261",
+        "2887:12268",
+        "2887:12276",
+        "2887:12283"
+      ],
+      "variantCount": 96,
+      "width": 1694,
+      "height": 1040,
+      "absoluteX": 15490.5,
+      "absoluteY": -5569
+    },
+    {
+      "id": "2887:13091",
+      "key": "6d4536ef18569e8efe98fd9e94ade4071f90093d",
+      "name": "_Drafts/InputBox Beta",
+      "description": "",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 2,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Tail#2887:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "836:22053",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "6df6a84237b8292a94ddf0f1c960585f7fceeb5e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "018dd005e47f3f6ae3b163961914983f3fd472dd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "62291b22002f8f700434dc3003ab38a14caef130"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "51483e598ad7c47187e044f0ddef49b0acffe352"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "616c55217b37d016f4fdffd73ca3ad94cfef7dca"
+            }
+          ]
+        },
+        "Show Tail#2887:1": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "PlaceHolder#2887:2": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#2887:3": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Prefix#2887:4": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "2064:15940",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "4ff38487a72b39970c9dee6e846247c197b2ffa8"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "dbe437b390e0065e4736f9fdbca9415da491165b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "51483e598ad7c47187e044f0ddef49b0acffe352"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "30893cb0b33579b77196d802ad0e562be714e22b"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "da074d018d252e94bc297505ef2d419c1324d004"
+            }
+          ]
+        },
+        "Show Prefix#2887:7": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "No Text"
+          ],
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Outline",
+          "variantOptions": [
+            "Outline",
+            "Filled"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "No Text"
+          ]
+        },
+        "Style": {
+          "values": [
+            "Outline",
+            "Filled"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Normal",
+            "Small"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2887:12903",
+        "2890:26106",
+        "2890:29469",
+        "2890:29640",
+        "2887:24482",
+        "2890:26113",
+        "2890:29476",
+        "2890:29647",
+        "2887:16196",
+        "2890:26120",
+        "2890:29483",
+        "2890:29654",
+        "2887:13092",
+        "2890:26127",
+        "2890:29490",
+        "2890:29661",
+        "2887:24489",
+        "2890:26131",
+        "2890:29494",
+        "2890:29665",
+        "2887:16203",
+        "2890:26135",
+        "2890:29498",
+        "2890:29669"
+      ],
+      "variantCount": 24,
+      "width": 1568,
+      "height": 204,
+      "absoluteX": 15490.5,
+      "absoluteY": -4464
+    },
+    {
+      "id": "2895:34084",
+      "key": "5bd2e128de19d3345dd166ebf147478530045175",
+      "name": "_Drafts/Multi-InputBox",
+      "description": "",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 3,
+      "topLevel": {
+        "id": "2895:60668",
+        "name": "Section 4",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Tail#2887:1": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "More#2895:19": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 1#2895:28": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 2#2895:37": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 3#2895:46": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 4#2895:55": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 5#2895:64": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Normal",
+            "Small"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2895:34085",
+        "2895:34092",
+        "2895:34099",
+        "2895:34106",
+        "2895:34113",
+        "2895:34120",
+        "2895:34127",
+        "2895:34134"
+      ],
+      "variantCount": 8,
+      "width": 1568,
+      "height": 148,
+      "absoluteX": 15490.5,
+      "absoluteY": -4208
+    },
+    {
+      "id": "4074:23260",
+      "key": "5686d1fef0c0dd84998e70e8641c798f81ba467d",
+      "name": "_Unpublish/Variable Label",
+      "description": "",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 4,
+      "topLevel": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentPropertyDefinitions": {
+        "Value#4074:0": {
+          "type": "TEXT",
+          "defaultValue": "Value",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Name#4074:1": {
+          "type": "TEXT",
+          "defaultValue": "Name",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Color",
+          "variantOptions": [
+            "Number",
+            "Color",
+            "Text",
+            "Boolean"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Number",
+            "Color",
+            "Text",
+            "Boolean"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2486:23470",
+        "4074:13465",
+        "4074:23304",
+        "4074:23318"
+      ],
+      "variantCount": 4,
+      "width": 200,
+      "height": 250,
+      "absoluteX": -6056,
+      "absoluteY": 11733
+    },
+    {
+      "id": "4134:17714",
+      "key": "0e16a80d0efe29ae376bbf9e37da541c87580516",
+      "name": "Anatomy Label",
+      "description": "",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 5,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentPropertyDefinitions": {
+        "Text#4134:0": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Line Position": {
+          "type": "VARIANT",
+          "defaultValue": "Above",
+          "variantOptions": [
+            "Above",
+            "Bottom",
+            "Side"
+          ],
+          "preferredValues": null
+        },
+        "Text Position": {
+          "type": "VARIANT",
+          "defaultValue": "Left",
+          "variantOptions": [
+            "Left",
+            "Right"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Line Position": {
+          "values": [
+            "Above",
+            "Bottom",
+            "Side"
+          ]
+        },
+        "Text Position": {
+          "values": [
+            "Left",
+            "Right"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4134:17688",
+        "4134:17813",
+        "4134:17798",
+        "4134:17819",
+        "4134:17807",
+        "4134:17693"
+      ],
+      "variantCount": 6,
+      "width": 200,
+      "height": 128,
+      "absoluteX": -5823,
+      "absoluteY": 11733
+    }
+  ]
+}

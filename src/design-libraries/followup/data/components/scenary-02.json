@@ -1,0 +1,787 @@
+{
+  "page": {
+    "id": "1339:4484",
+    "name": "Scenary"
+  },
+  "pageCount": 113,
+  "range": {
+    "start": 80,
+    "end": 113
+  },
+  "components": [
+    {
+      "id": "3509:25352",
+      "key": "24204c5520e19901ad360c05774d65147c24252c",
+      "name": "Ellipsis Position=Both Sides",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 80,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "3509:25319",
+        "name": "_Pagination",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Ellipsis Position": "Both Sides"
+      },
+      "width": 388,
+      "height": 28,
+      "absoluteX": 7678,
+      "absoluteY": 2350,
+      "isAsset": false
+    },
+    {
+      "id": "1347:5821",
+      "key": "2e156476a180eb71f60dd4b1c3516f20dea2fac2",
+      "name": "_Tab/Active/True",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 81,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 90,
+      "height": 32,
+      "absoluteX": 7658,
+      "absoluteY": 2449,
+      "isAsset": false
+    },
+    {
+      "id": "1347:5818",
+      "key": "3cf5e912283883a0d33d1426df197c48c97497b8",
+      "name": "_Tab/Active/False",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 82,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 90,
+      "height": 32,
+      "absoluteX": 7756,
+      "absoluteY": 2449,
+      "isAsset": false
+    },
+    {
+      "id": "2058:6246",
+      "key": "fd3b3ebbcd2c0a030a4c30d04baa7f2c2051d933",
+      "name": "Type=Title",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 83,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5460:37833",
+        "name": "_Navigation",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Title"
+      },
+      "width": 174,
+      "height": 60,
+      "absoluteX": 8268,
+      "absoluteY": 2604,
+      "isAsset": false
+    },
+    {
+      "id": "5460:37834",
+      "key": "f329124e456780d60d322faa545abf7f3932f72b",
+      "name": "Type=Tab",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 84,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5460:37833",
+        "name": "_Navigation",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Tab"
+      },
+      "width": 305,
+      "height": 60,
+      "absoluteX": 8268,
+      "absoluteY": 2684,
+      "isAsset": false
+    },
+    {
+      "id": "5430:29518",
+      "key": "9fc1ae477fe40aec754f91cd226454ef8a4fd436",
+      "name": "_Table Cell/Null/Multiple People",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 85,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 160,
+      "height": 40,
+      "absoluteX": 7676,
+      "absoluteY": 2732,
+      "isAsset": false
+    },
+    {
+      "id": "4539:32969",
+      "key": "58d85900f81db44acb6f3a04f02e779bf9ebfba7",
+      "name": "_Counter Button",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 86,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 42,
+      "height": 28,
+      "absoluteX": 7608,
+      "absoluteY": 2992,
+      "isAsset": false
+    },
+    {
+      "id": "1382:32696",
+      "key": "e70255278b4aed7568a73a0e0712565b4b14fd46",
+      "name": "Type=Tag+Text",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 87,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1382:33866",
+        "name": "_Breadcrumb",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Tag+Text"
+      },
+      "width": 57,
+      "height": 24,
+      "absoluteX": 7628,
+      "absoluteY": 3090,
+      "isAsset": false
+    },
+    {
+      "id": "1382:33867",
+      "key": "c12ebdcbe4004c41425bba0efc50f0084bf9c3bc",
+      "name": "Type=Icon+Text",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 88,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "1382:33866",
+        "name": "_Breadcrumb",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text"
+      },
+      "width": 55,
+      "height": 24,
+      "absoluteX": 7705,
+      "absoluteY": 3090,
+      "isAsset": false
+    },
+    {
+      "id": "4539:33083",
+      "key": "9ee3fba78440fb18d27d98a010784d2915c4dc23",
+      "name": "State=No Connect",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 89,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "4539:33266",
+        "name": "_Account",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "No Connect"
+      },
+      "width": 288,
+      "height": 52,
+      "absoluteX": 7628,
+      "absoluteY": 3282,
+      "isAsset": false
+    },
+    {
+      "id": "4539:33138",
+      "key": "cf00bb534cf1a7711218e76b56d5b23abcf235b3",
+      "name": "State=Manually Re-Connecting",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 90,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "4539:33266",
+        "name": "_Account",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Manually Re-Connecting"
+      },
+      "width": 288,
+      "height": 52,
+      "absoluteX": 7628,
+      "absoluteY": 3360,
+      "isAsset": false
+    },
+    {
+      "id": "1344:8896",
+      "key": "72d00fee8c54e3ad635396fc2e9e0b847d395960",
+      "name": "_Tail/Avatar",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 91,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 28,
+      "height": 28,
+      "absoluteX": 7608,
+      "absoluteY": 3482,
+      "isAsset": false
+    },
+    {
+      "id": "2064:17191",
+      "key": "068160dfc8603d263cd01dfead3fefcfd28fe151",
+      "name": "_Tail/Char Block",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 92,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 28,
+      "height": 28,
+      "absoluteX": 7608,
+      "absoluteY": 3560,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41424",
+      "key": "9aa4f92903b559d4135e1656e5817f0816287c3d",
+      "name": "_File Item/Normal/Loading/Long",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 93,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 300,
+      "height": 48,
+      "absoluteX": 7608,
+      "absoluteY": 3638,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41442",
+      "key": "72dcec8bf1260ac8dc09776ad344cbbc697a0b90",
+      "name": "_File Item/Normal/Loading/Long",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 94,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 300,
+      "height": 48,
+      "absoluteX": 7608,
+      "absoluteY": 3736,
+      "isAsset": false
+    },
+    {
+      "id": "3313:16112",
+      "key": "b4b1ce67ddfcf3d92fc1bd7f240ce04a2f42d73d",
+      "name": "_File Item/Simple/Uploading",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 95,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 200,
+      "height": 32,
+      "absoluteX": 7608,
+      "absoluteY": 3834,
+      "isAsset": false
+    },
+    {
+      "id": "6661:43847",
+      "key": "c001d22597f2e30f5b55d12b3e9e34fffaec44c1",
+      "name": "_Special Divider for Shawn -48",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 96,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 200,
+      "height": 0.00009999999747378752,
+      "absoluteX": 7608,
+      "absoluteY": 4666,
+      "isAsset": true
+    },
+    {
+      "id": "6661:45199",
+      "key": "dbc92cc630ad583872dbc15ea9bac7910b1cd471",
+      "name": "_Special Divider for Shawn -72",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 97,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 200,
+      "height": 0.00009999999747378752,
+      "absoluteX": 7608,
+      "absoluteY": 4716,
+      "isAsset": true
+    },
+    {
+      "id": "5955:16711",
+      "key": "93db55e7184c8eff8594c81091350923040546cf",
+      "name": "Tail = Emoji",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 98,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "5955:16710",
+        "name": "_Header Bar/Common",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Tail": "Emoji"
+      },
+      "width": 288,
+      "height": 52,
+      "absoluteX": 7624,
+      "absoluteY": 4782,
+      "isAsset": false
+    },
+    {
+      "id": "1652:15026",
+      "key": "62bdf1aac0e69b82274ebb67639b609def3988f2",
+      "name": "_Header Bar/Leading/Workspaces",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 99,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 288,
+      "height": 52,
+      "absoluteX": 7608,
+      "absoluteY": 4900,
+      "isAsset": false
+    },
+    {
+      "id": "6148:15692",
+      "key": "7290168125cdb2739457e00f05e360bd28c7810c",
+      "name": "Type=Back",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 100,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6148:15657",
+        "name": "_Top bar/Navigation",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Back"
+      },
+      "width": 1000,
+      "height": 52,
+      "absoluteX": 7628,
+      "absoluteY": 5094,
+      "isAsset": false
+    },
+    {
+      "id": "6180:28529",
+      "key": "1e7a99991e85a6ffab1ac6bf0012b345938e6611",
+      "name": "Type=Search",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 101,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6148:15657",
+        "name": "_Top bar/Navigation",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Search"
+      },
+      "width": 1000,
+      "height": 52,
+      "absoluteX": 7628,
+      "absoluteY": 5166,
+      "isAsset": false
+    },
+    {
+      "id": "6410:113658",
+      "key": "750c97f801288149fa073e6327992cfb8b0ce291",
+      "name": "_Forms",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 102,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 992,
+      "height": 1047,
+      "absoluteX": 7608,
+      "absoluteY": 5288,
+      "isAsset": false
+    },
+    {
+      "id": "6410:118498",
+      "key": "03b295ca27c6740a7645bcedd23e32bb65279adb",
+      "name": "_Color Palette",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 103,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 200,
+      "height": 24,
+      "absoluteX": 7608,
+      "absoluteY": 6385,
+      "isAsset": false
+    },
+    {
+      "id": "6410:118509",
+      "key": "e9aee5d92256be5cf574b7af9f217ad36b734b49",
+      "name": "Type=Normal, Selected=False",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 104,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6410:118508",
+        "name": "_Platte Cell",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Normal",
+        "Selected": "False"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 7628,
+      "absoluteY": 6507,
+      "isAsset": true
+    },
+    {
+      "id": "6410:118511",
+      "key": "59ab9a313bc9576c4effc898d458c39c1aad274b",
+      "name": "Type=Null, Selected=False",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 105,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6410:118508",
+        "name": "_Platte Cell",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Null",
+        "Selected": "False"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 7628,
+      "absoluteY": 6479,
+      "isAsset": false
+    },
+    {
+      "id": "6410:118513",
+      "key": "f1d8acff6f3e3f985918b686861ef1701f232e2b",
+      "name": "Type=Normal, Selected=True",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 106,
+      "topLevel": {
+        "id": "8351:54402",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6410:118508",
+        "name": "_Platte Cell",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Normal",
+        "Selected": "True"
+      },
+      "width": 16,
+      "height": 16,
+      "absoluteX": 7652,
+      "absoluteY": 6507,
+      "isAsset": true
+    },
+    {
+      "id": "6297:34595",
+      "key": "30814aeb5bdde6c044bb6226ff5659cdd9bd3742",
+      "name": "Workspaces",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 107,
+      "topLevel": {
+        "id": "6410:57613",
+        "name": "Example Page",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1513,
+      "height": 982,
+      "absoluteX": -12251,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "6298:65951",
+      "key": "36ad1ca0dae1d8de986710d7f7ea65f654e4c2d3",
+      "name": "App-Board",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 108,
+      "topLevel": {
+        "id": "6410:57613",
+        "name": "Example Page",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982.0001220703125,
+      "absoluteX": -12251,
+      "absoluteY": -775,
+      "isAsset": false
+    },
+    {
+      "id": "6298:79587",
+      "key": "fcd0bea8f4c166551d2448cc6c3d06121cabf1d0",
+      "name": "Notifications",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 109,
+      "topLevel": {
+        "id": "6410:57613",
+        "name": "Example Page",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982.0001220703125,
+      "absoluteX": -12251,
+      "absoluteY": 292,
+      "isAsset": false
+    },
+    {
+      "id": "6410:76409",
+      "key": "5b84209cc4619aa120ca30ee3908865facbc1e21",
+      "name": "App/Integrations",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 110,
+      "topLevel": {
+        "id": "6410:57613",
+        "name": "Example Page",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982.0001220703125,
+      "absoluteX": -10638,
+      "absoluteY": 292,
+      "isAsset": false
+    },
+    {
+      "id": "6298:117507",
+      "key": "521fff24af51958b98732a2d91629691a0a28cec",
+      "name": "Item Detail",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 111,
+      "topLevel": {
+        "id": "6410:57613",
+        "name": "Example Page",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982.0001220703125,
+      "absoluteX": -12251,
+      "absoluteY": 1359,
+      "isAsset": false
+    },
+    {
+      "id": "6410:109672",
+      "key": "cc442a33fc9719476ed7e8cda5f5d598d06a712c",
+      "name": "App/Profile",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 112,
+      "topLevel": {
+        "id": "6410:57613",
+        "name": "Example Page",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982.0001220703125,
+      "absoluteX": -9025,
+      "absoluteY": 293,
+      "isAsset": false
+    }
+  ]
+}

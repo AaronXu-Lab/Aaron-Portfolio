@@ -1,0 +1,604 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 58,
+  "range": {
+    "start": 50,
+    "end": 58
+  },
+  "componentSets": [
+    {
+      "id": "5347:17640",
+      "key": "0d5055227b0c9c48cdf60f093e4d5ca4e43d6f38",
+      "name": "Table Header",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 50,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#5347:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "911:3827",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Show Icon#5347:1": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#5347:3": {
+          "type": "TEXT",
+          "defaultValue": "Header",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Follower#5593:2": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Checkbox": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ],
+          "preferredValues": null
+        },
+        "Show Menu": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Checkbox": {
+          "values": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ]
+        },
+        "Show Menu": {
+          "values": [
+            "True",
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4509:28792",
+        "5347:17641",
+        "5742:32396",
+        "5990:34802",
+        "5742:32402",
+        "5990:34808"
+      ],
+      "variantCount": 6,
+      "width": 460,
+      "height": 224,
+      "absoluteX": -6655,
+      "absoluteY": 6014
+    },
+    {
+      "id": "4955:30299",
+      "key": "01cbf7e421b58e63e23a657fa40b4817004f4a21",
+      "name": "Timer",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 51,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Start",
+          "variantOptions": [
+            "Start",
+            "Stop"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Start",
+            "Stop"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4955:30300",
+        "4955:30303"
+      ],
+      "variantCount": 2,
+      "width": 88,
+      "height": 52,
+      "absoluteX": -6469,
+      "absoluteY": 6250
+    },
+    {
+      "id": "3520:7094",
+      "key": "56dc56576d59036b62aa803f46d996d1a53bfed9",
+      "name": "Tool Tips",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 52,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#619:0": {
+          "type": "TEXT",
+          "defaultValue": "Tooltips Text.Tooltips Text.Tooltips Text.",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Position": {
+          "type": "VARIANT",
+          "defaultValue": "Above",
+          "variantOptions": [
+            "Above",
+            "Bottom",
+            "Left",
+            "Right"
+          ],
+          "preferredValues": null
+        },
+        "Arrow Align": {
+          "type": "VARIANT",
+          "defaultValue": "Leading",
+          "variantOptions": [
+            "Leading",
+            "Center",
+            "Tail"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Position": {
+          "values": [
+            "Above",
+            "Bottom",
+            "Left",
+            "Right"
+          ]
+        },
+        "Arrow Align": {
+          "values": [
+            "Leading",
+            "Center",
+            "Tail"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3520:7095",
+        "3520:7102",
+        "3520:7109",
+        "3520:7116",
+        "3520:7123",
+        "3520:7130",
+        "3520:7137",
+        "3520:7144",
+        "3520:7151",
+        "3520:7158",
+        "3520:7165",
+        "3520:7172"
+      ],
+      "variantCount": 12,
+      "width": 830,
+      "height": 344,
+      "absoluteX": -6885,
+      "absoluteY": 6752
+    },
+    {
+      "id": "7664:51585",
+      "key": "c63d88579373f8e01bfc01ca3ec9d8dfc02f6726",
+      "name": "Panel",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 53,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Assist Button#7664:1": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Content Area#7664:2": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Ttitle#7664:6": {
+          "type": "TEXT",
+          "defaultValue": "Panel Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Title#9198:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Buttons": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Show Buttons": {
+          "values": [
+            "True",
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7567:42093",
+        "7664:51581"
+      ],
+      "variantCount": 2,
+      "width": 784,
+      "height": 240,
+      "absoluteX": -6185,
+      "absoluteY": 4856
+    },
+    {
+      "id": "3313:16102",
+      "key": "d0800edd5ef84fe1c91e2b2c24f783d7b124255d",
+      "name": "File Item/Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 54,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#526:2": {
+          "type": "TEXT",
+          "defaultValue": "file.extension",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Size#6825:19": {
+          "type": "TEXT",
+          "defaultValue": "Size",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Precentage#6825:23": {
+          "type": "TEXT",
+          "defaultValue": "Precent%",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Details#6825:27": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Uploading",
+            "Error"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "State": {
+          "values": [
+            "Normal",
+            "Uploading",
+            "Error"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6825:41475",
+        "6825:41538",
+        "6825:41566"
+      ],
+      "variantCount": 3,
+      "width": 400,
+      "height": 192,
+      "absoluteX": -864,
+      "absoluteY": -711
+    },
+    {
+      "id": "6825:40884",
+      "key": "93df0fbb95caa1580db74f33d06002ee29d2fac1",
+      "name": "File Item/Simple",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 55,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#526:2": {
+          "type": "TEXT",
+          "defaultValue": "file.extension",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#526:8": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "211:289",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT_SET",
+              "key": "57fcacb5aa050e754b2b7fcf6ad257af8d6b5e92"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "4f947aab500e0493c541c937b272fef2d5aeb233"
+            }
+          ]
+        },
+        "Precentage#6825:1": {
+          "type": "TEXT",
+          "defaultValue": "Percent%",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Size#6825:10": {
+          "type": "TEXT",
+          "defaultValue": "Size",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Uploading",
+            "Error"
+          ],
+          "preferredValues": null
+        },
+        "Tail": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Button",
+            "Content"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "State": {
+          "values": [
+            "Normal",
+            "Uploading",
+            "Error"
+          ]
+        },
+        "Tail": {
+          "values": [
+            "Null",
+            "Button",
+            "Content"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3313:16128",
+        "6825:41217",
+        "6825:41252",
+        "6825:41170",
+        "6825:41071",
+        "6825:41175",
+        "6825:41049",
+        "6825:41179"
+      ],
+      "variantCount": 8,
+      "width": 672,
+      "height": 160,
+      "absoluteX": -1000,
+      "absoluteY": -507
+    },
+    {
+      "id": "6034:32784",
+      "key": "208b229fca38fec0c0e6a54ab13a8e31f26f4c12",
+      "name": "Group Title",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 56,
+      "topLevel": {
+        "id": "8161:47061",
+        "name": "Group Title",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Tail#5990:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#5990:2": {
+          "type": "TEXT",
+          "defaultValue": "Group Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Expand Icon#8180:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "1409:5529",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT_SET",
+              "key": "03c5b4ea002a6935b97b3fb0519cd4292e474a4b"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "09f8cd472a97c687388b8416012b91a42043d85e"
+            }
+          ]
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Plain",
+          "variantOptions": [
+            "Plain",
+            "Wrapped",
+            "+Pic"
+          ],
+          "preferredValues": null
+        },
+        "Expand": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Plain",
+            "Wrapped",
+            "+Pic"
+          ]
+        },
+        "Expand": {
+          "values": [
+            "Null",
+            "Inline",
+            "Out bound"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6034:32785",
+        "6439:30107",
+        "8040:72887",
+        "5816:28723",
+        "8040:74150",
+        "8040:74218",
+        "5990:29406",
+        "8040:74158",
+        "8040:74226"
+      ],
+      "variantCount": 9,
+      "width": 886,
+      "height": 224,
+      "absoluteX": 1428,
+      "absoluteY": -711
+    },
+    {
+      "id": "8176:24270",
+      "key": "62ec2f23855a1b5dcba17778175d1c69d30c6e87",
+      "name": "Group Title Tails",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 57,
+      "topLevel": {
+        "id": "8161:47061",
+        "name": "Group Title",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Buttons+Content",
+          "variantOptions": [
+            "Buttons+Content",
+            "Buttons",
+            "Content"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Buttons+Content",
+            "Buttons",
+            "Content"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8176:16114",
+        "8176:24271",
+        "8176:24280"
+      ],
+      "variantCount": 3,
+      "width": 238,
+      "height": 60,
+      "absoluteX": 1752,
+      "absoluteY": -407
+    }
+  ]
+}

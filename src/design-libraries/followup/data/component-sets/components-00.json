@@ -1,0 +1,977 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 58,
+  "range": {
+    "start": 0,
+    "end": 10
+  },
+  "componentSets": [
+    {
+      "id": "4728:13398",
+      "key": "b82f4e5005fdb6cb595d74d6dfd64a4a1163facf",
+      "name": "Inputbox",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "4963:27088",
+        "name": "Inputbox",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#567:20": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#567:36": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Tail#4963:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "550:2287",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "018dd005e47f3f6ae3b163961914983f3fd472dd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "62291b22002f8f700434dc3003ab38a14caef130"
+            }
+          ]
+        },
+        "Show Tail#4963:25": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Line": {
+          "type": "VARIANT",
+          "defaultValue": "Single",
+          "variantOptions": [
+            "Single",
+            "Multiple"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Regular",
+          "variantOptions": [
+            "Regular",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text",
+            "Option+Text",
+            "Text+Option"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Line": {
+          "values": [
+            "Single",
+            "Multiple"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Regular",
+            "Small"
+          ]
+        },
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text",
+            "Option+Text",
+            "Text+Option"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4728:13408",
+        "4963:33071",
+        "4963:33113",
+        "7554:42755",
+        "4728:118530",
+        "4728:13418",
+        "4963:32965",
+        "4963:32991",
+        "7554:42760",
+        "4728:118534",
+        "4728:13423",
+        "4963:33076",
+        "4963:33118",
+        "7554:42765",
+        "4728:118538",
+        "4728:13433",
+        "4963:32970",
+        "4963:32996",
+        "7554:42771",
+        "4728:118542",
+        "4728:13453",
+        "4963:33081",
+        "4963:33123",
+        "7554:42777",
+        "4728:118546",
+        "4728:13463",
+        "4963:32975",
+        "4963:32986",
+        "7554:42783",
+        "4728:118550"
+      ],
+      "variantCount": 30,
+      "width": 680,
+      "height": 684,
+      "absoluteX": -6483,
+      "absoluteY": -711
+    },
+    {
+      "id": "4963:30417",
+      "key": "78d22b7924fe4c40100b6f15c5695412e7bf7322",
+      "name": "Dropdown mini",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 1,
+      "topLevel": {
+        "id": "4963:27088",
+        "name": "Inputbox",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#1382:0": {
+          "type": "TEXT",
+          "defaultValue": "Dropdown Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#1429:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Show Chevron#7554:0": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon",
+            "Icon+Text",
+            "Pic+Text"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon",
+            "Icon+Text",
+            "Pic+Text"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4963:30418",
+        "4963:30421",
+        "7554:41658",
+        "9533:29275"
+      ],
+      "variantCount": 4,
+      "width": 546,
+      "height": 56,
+      "absoluteX": -6416,
+      "absoluteY": -15
+    },
+    {
+      "id": "5355:34616",
+      "key": "019d5bcc4076569617d4835ad9c0a0738de5e3fc",
+      "name": "Dropdown",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 2,
+      "topLevel": {
+        "id": "5355:33639",
+        "name": "Dropdown",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#567:20": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Chevron#567:34": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#5346:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "300:1640",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Single",
+          "variantOptions": [
+            "Single",
+            "Multiple"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Regular",
+          "variantOptions": [
+            "Regular",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text",
+            "Emoji+Text",
+            "Pic+Text",
+            "Pics"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Style": {
+          "values": [
+            "Single",
+            "Multiple"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Regular",
+            "Small"
+          ]
+        },
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text",
+            "Emoji+Text",
+            "Pic+Text",
+            "Pics"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5355:34617",
+        "5355:34621",
+        "5355:34626",
+        "5355:34631",
+        "5355:34636",
+        "5864:28778",
+        "5355:34642",
+        "5355:34646",
+        "5355:34651",
+        "5355:34656",
+        "5355:34661",
+        "5864:28604",
+        "5355:34667",
+        "5355:34671",
+        "5355:34676",
+        "5355:34681",
+        "5355:34686",
+        "5864:28784",
+        "5355:34692",
+        "5355:34696",
+        "5355:34701",
+        "5355:34706",
+        "5355:34711",
+        "5864:28610",
+        "5355:34717",
+        "5355:34721",
+        "5355:34726",
+        "5355:34731",
+        "5355:34736",
+        "5864:28790",
+        "5355:34742",
+        "5355:34746",
+        "5355:34751",
+        "5355:34756",
+        "5355:34761",
+        "5864:28616"
+      ],
+      "variantCount": 36,
+      "width": 680,
+      "height": 824,
+      "absoluteX": -7455,
+      "absoluteY": -711
+    },
+    {
+      "id": "7623:15957",
+      "key": "b6de05da1eb02298d8ff809bb747c176cdddc68b",
+      "name": "Tip Label",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 3,
+      "topLevel": {
+        "id": "5355:33639",
+        "name": "Dropdown",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#7623:0": {
+          "type": "TEXT",
+          "defaultValue": "Tip Label",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Icon#7766:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#7766:3": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Position": {
+          "type": "VARIANT",
+          "defaultValue": "Above",
+          "variantOptions": [
+            "Above",
+            "Below"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Position": {
+          "values": [
+            "Above",
+            "Below"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5449:35589",
+        "5449:35588"
+      ],
+      "variantCount": 2,
+      "width": 232,
+      "height": 96,
+      "absoluteX": -7231,
+      "absoluteY": 125
+    },
+    {
+      "id": "7538:42055",
+      "key": "c55f07289085c4cc1268599625cd02502d476f32",
+      "name": "Multiply Label",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 4,
+      "topLevel": {
+        "id": "5355:33639",
+        "name": "Dropdown",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "icon#7538:2": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "300:1640",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#7538:3": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Icon#7538:4": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Outline",
+          "variantOptions": [
+            "Outline",
+            "Light"
+          ],
+          "preferredValues": null
+        },
+        "Cancelable": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Style": {
+          "values": [
+            "Outline",
+            "Light"
+          ]
+        },
+        "Cancelable": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2895:34376",
+        "9256:28460",
+        "7538:43009",
+        "9256:28464"
+      ],
+      "variantCount": 4,
+      "width": 170,
+      "height": 104,
+      "absoluteX": -7200,
+      "absoluteY": 273
+    },
+    {
+      "id": "166:524",
+      "key": "7c4e686eb06e9e6a4533f9c574331f8f01bbc018",
+      "name": "Checkbox-Input",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 5,
+      "topLevel": {
+        "id": "164:246",
+        "name": "Checkbox",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Status": {
+          "type": "VARIANT",
+          "defaultValue": "Unchecked",
+          "variantOptions": [
+            "Checked",
+            "Indeterminate",
+            "Unchecked"
+          ],
+          "preferredValues": null
+        },
+        "Disable": {
+          "type": "VARIANT",
+          "defaultValue": "false",
+          "variantOptions": [
+            "false",
+            "true"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Status": {
+          "values": [
+            "Checked",
+            "Indeterminate",
+            "Unchecked"
+          ]
+        },
+        "Disable": {
+          "values": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "166:498",
+        "166:510",
+        "166:514",
+        "895:2318",
+        "895:2320",
+        "895:2323"
+      ],
+      "variantCount": 6,
+      "width": 108,
+      "height": 82,
+      "absoluteX": -10118,
+      "absoluteY": -711
+    },
+    {
+      "id": "2116:18508",
+      "key": "2ac58bd07366c33ca9c1f4b82495683287c786b3",
+      "name": "Notification",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 6,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Buttons#2116:39": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "444:510",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "f47a6a8c989c5eec57dbd026ade1ae0050a6884b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "56cff5440b72d82fc251f5aafda4b65194fbf952"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "59ebe09bc92decd00a9c3684be2e568ed612fbc4"
+            }
+          ]
+        },
+        "Icon#2116:40": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "911:3827",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#2116:42": {
+          "type": "TEXT",
+          "defaultValue": "Notification Information",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Icon": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        },
+        "Show Buttons": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Show Icon": {
+          "values": [
+            "True",
+            "False"
+          ]
+        },
+        "Show Buttons": {
+          "values": [
+            "True",
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2116:16999",
+        "2116:18523",
+        "2116:26750",
+        "2116:26744"
+      ],
+      "variantCount": 4,
+      "width": 385,
+      "height": 292,
+      "absoluteX": -9617.5,
+      "absoluteY": -711
+    },
+    {
+      "id": "2924:5730",
+      "key": "7e11f048c8d2319138df4d748f7bdbad691b6df4",
+      "name": "Table Cell Divider",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 7,
+      "topLevel": {
+        "id": "2116:26127",
+        "name": "Notification",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "isActive": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "isActive": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2058:6244",
+        "2924:6890"
+      ],
+      "variantCount": 2,
+      "width": 50.00019836425781,
+      "height": 56,
+      "absoluteX": -9450,
+      "absoluteY": -307
+    },
+    {
+      "id": "550:2246",
+      "key": "6ef82b287c59182dfea5aba64ddcaa572ff51a23",
+      "name": "Button",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 8,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#32:7": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#32:11": {
+          "type": "TEXT",
+          "defaultValue": "Button Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Icon+Text",
+          "variantOptions": [
+            "Icon+Text",
+            "Text",
+            "Icon"
+          ],
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Filled",
+          "variantOptions": [
+            "Filled",
+            "Light",
+            "Outline",
+            "Plain"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Large",
+          "variantOptions": [
+            "Small",
+            "Regular",
+            "Large"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Disable",
+            "Active",
+            "Loading"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Icon+Text",
+            "Text",
+            "Icon"
+          ]
+        },
+        "Style": {
+          "values": [
+            "Filled",
+            "Light",
+            "Outline",
+            "Plain"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Small",
+            "Regular",
+            "Large"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Disable",
+            "Active",
+            "Loading"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "656:2488",
+        "656:2475",
+        "656:2472",
+        "1343:2694",
+        "1343:2682",
+        "655:2406",
+        "655:2350",
+        "1374:18790",
+        "1374:18779",
+        "1374:18787",
+        "1346:2817",
+        "1346:2805",
+        "1346:2784",
+        "1346:2807",
+        "1346:2787",
+        "1346:2768",
+        "1346:2758",
+        "1346:2819",
+        "1346:2809",
+        "1346:2790",
+        "1346:2811",
+        "1346:2793",
+        "1346:2770",
+        "1346:2761",
+        "1346:2813",
+        "1346:2801",
+        "1346:2778",
+        "1346:2803",
+        "1346:2781",
+        "1346:2766",
+        "1346:2755",
+        "1346:2815",
+        "1346:2797",
+        "1346:2772",
+        "1346:2799",
+        "1346:2775",
+        "1346:2764",
+        "1346:2752",
+        "550:2287",
+        "1431:22955",
+        "550:2281",
+        "550:2273",
+        "1343:2429",
+        "1343:2417",
+        "550:2263",
+        "550:2255",
+        "1279:3770",
+        "1279:3602",
+        "1279:3594",
+        "1343:2431",
+        "1343:2421",
+        "1279:3586",
+        "1279:3578",
+        "550:2283",
+        "550:2279",
+        "550:2269",
+        "1343:2427",
+        "1343:2413",
+        "550:2261",
+        "550:2251",
+        "550:2285",
+        "550:2277",
+        "550:2265",
+        "1343:2425",
+        "1343:2409",
+        "550:2259",
+        "550:2247"
+      ],
+      "variantCount": 67,
+      "width": 865,
+      "height": 760,
+      "absoluteX": -12001,
+      "absoluteY": -711
+    },
+    {
+      "id": "6631:49370",
+      "key": "22d5db90f4e9d13b2e86213892ebfccf53a936b2",
+      "name": "Button/20 size icon",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 9,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#32:7": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "6375:18134",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Filled",
+          "variantOptions": [
+            "Filled",
+            "Light",
+            "Outline",
+            "Plain"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Disable",
+            "Active",
+            "Loading"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Style": {
+          "values": [
+            "Filled",
+            "Light",
+            "Outline",
+            "Plain"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Disable",
+            "Active",
+            "Loading"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6631:49371",
+        "6631:49400",
+        "6631:49417",
+        "6631:49434",
+        "6631:49451",
+        "6631:49468",
+        "6631:49470",
+        "6631:49488",
+        "6631:49505",
+        "6631:49522"
+      ],
+      "variantCount": 10,
+      "width": 68,
+      "height": 752,
+      "absoluteX": -11124,
+      "absoluteY": -711
+    }
+  ]
+}

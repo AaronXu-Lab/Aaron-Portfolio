@@ -1,0 +1,34 @@
+{
+  "page": {
+    "id": "3384:3881",
+    "name": "Icons_drafts"
+  },
+  "pageCount": 1,
+  "range": {
+    "start": 0,
+    "end": 1
+  },
+  "components": [
+    {
+      "id": "3341:15165",
+      "key": "16edbc952c288488d1562dbe25bf6aea15ddd119",
+      "name": "icon/shinning star",
+      "pageId": "3384:3881",
+      "pageName": "Icons_drafts",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "3434:5728",
+        "name": "Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 1119,
+      "absoluteY": -122,
+      "isAsset": true
+    }
+  ]
+}

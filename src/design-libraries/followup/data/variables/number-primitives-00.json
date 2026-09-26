@@ -1,0 +1,283 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:6351:50493",
+    "key": "754ea960963374170b34dc441bde119da195fcc6",
+    "name": "Number/Primitives",
+    "defaultModeId": "6351:3",
+    "modes": [
+      {
+        "name": "Mode",
+        "modeId": "6351:3"
+      }
+    ],
+    "variableCount": 20,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 0,
+    "end": 10
+  },
+  "variables": [
+    {
+      "id": "VariableID:6351:50494",
+      "key": "a3d90dd90edab90b09d78425e6793fb6b8b1c422",
+      "name": "Radius/Normal",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 0,
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 3,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50495",
+      "key": "1b8195435bc0186e73f4406755e60a6728abf178",
+      "name": "Radius/Popover",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 1,
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 6,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50496",
+      "key": "32b939b0db9504c9bb1d02ad0bb20b66b9607e7f",
+      "name": "Stroke/Regular",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 2,
+      "scopes": [
+        "STROKE_FLOAT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 1.5,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:8391:19091",
+      "key": "697a8df27e95d8861cc07a43a503e9697c71655d",
+      "name": "Stroke/Thin",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 3,
+      "scopes": [
+        "STROKE_FLOAT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 1,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:7171:36274",
+      "key": "5fc71ea151c97b886d1f4c6915b2dd2db9f74072",
+      "name": "Stroke/Ultra Thin",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 4,
+      "scopes": [
+        "STROKE_FLOAT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 0.5,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50586",
+      "key": "a76d7b5fdfc06c13914c64e169dabf5e78760b10",
+      "name": "Gap/Menu",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 5,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 2,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50587",
+      "key": "0cfdf0764c3c566581397164cd729396a344a4db",
+      "name": "Gap/Colorful Menu",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 6,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 4,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50588",
+      "key": "c4f73a7918074fe3909c2f267810c3ec6d31c532",
+      "name": "Padding/Menu",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 7,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 4,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50497",
+      "key": "d660673ec1accffe4db566eefd3524dfeec0f4c9",
+      "name": "_trash/Font/Weight/Normal",
+      "description": "Use 450 in Develop",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 8,
+      "scopes": [
+        "FONT_WEIGHT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 500,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6351:50498",
+      "key": "3ae4e3fcb815392d2acbdfd61761b9bcb0238beb",
+      "name": "_trash/Font/Weight/Emphasize",
+      "description": "Use 550 in Develop",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6351:50493",
+      "collectionName": "Number/Primitives",
+      "order": 9,
+      "scopes": [
+        "FONT_WEIGHT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6351:3",
+          "modeName": "Mode",
+          "value": 600,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:6449:30100",
+    "key": "ab8edb61025cc7245d35f95fc776edcb8af59ab1",
+    "name": "Number/Tokens",
+    "defaultModeId": "6449:0",
+    "modes": [
+      {
+        "name": "Mode 1",
+        "modeId": "6449:0"
+      }
+    ],
+    "variableCount": 9,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 0,
+    "end": 9
+  },
+  "variables": [
+    {
+      "id": "VariableID:6449:30101",
+      "key": "e33f5fdee345c450adce5d7281db2b3cd56b3261",
+      "name": "Input width in Setting",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 0,
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 480,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6449:30122",
+      "key": "1c18e52ec5b56991cb39de3483f45c0521b517ed",
+      "name": "Inputs/Gap",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 1,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 32,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6453:107304",
+      "key": "3f380932b1503389fb301b8c2040013c3ebae74a",
+      "name": "Left Panel/Gap/Regular/Main item",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 2,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 8,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6453:107305",
+      "key": "6218478cccd127ba3529fc3300f688a7e685442b",
+      "name": "Left Panel/Gap/Regular/Sub item",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 3,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 4,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6904:41985",
+      "key": "7c16e5c65050b74d5f3cedd9f01b283a50b0d460",
+      "name": "Left Panel/Gap/In Panel/Main item",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 4,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 4,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6904:41986",
+      "key": "fa35d0546be3177b79f5c21ddb01d6dace4a5c0b",
+      "name": "Left Panel/Gap/In Panel/Sub item",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 5,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 2,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6554:43505",
+      "key": "2829b97fb4fb60f3d62a78453ba2664763d76d1d",
+      "name": "Left Panel/Indent",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 6,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 24,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:6460:131209",
+      "key": "ae2b58183bcadbf8d3bcf1f8f4432c58f8734e0e",
+      "name": "Setting/Max Width",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 7,
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 800,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:7019:65509",
+      "key": "645a8006554b951abd264de70f36923b552611fd",
+      "name": "Filters/Gap",
+      "description": "",
+      "resolvedType": "FLOAT",
+      "collectionId": "VariableCollectionId:6449:30100",
+      "collectionName": "Number/Tokens",
+      "order": 8,
+      "scopes": [
+        "GAP"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": false,
+      "values": [
+        {
+          "modeId": "6449:0",
+          "modeName": "Mode 1",
+          "value": 8,
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    }
+  ]
+}

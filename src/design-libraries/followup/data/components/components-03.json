@@ -1,0 +1,1211 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 450,
+  "range": {
+    "start": 120,
+    "end": 160
+  },
+  "components": [
+    {
+      "id": "1346:2781",
+      "key": "1d42dc51d10fdd2cc5c7fee754342489cbb22393",
+      "name": "Type=Icon+Text, Style=Light, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 120,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Light",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11677,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2766",
+      "key": "23b2053b81898f954aedc41ed42311d1dbdf71e1",
+      "name": "Type=Text, Style=Light, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 121,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Light",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 110,
+      "height": 36,
+      "absoluteX": -11829,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2755",
+      "key": "c0fcb9662abc6c3fbcec88b4efb64f67e7ea335d",
+      "name": "Type=Icon+Text, Style=Light, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 122,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Light",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -351,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2815",
+      "key": "7c4f407c5d886261ae4a466f5681b4b6c49396b9",
+      "name": "Type=Icon, Style=Filled, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 123,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2797",
+      "key": "7c45cb416b47ad5aefceefdf81488f29b33057b1",
+      "name": "Type=Text, Style=Filled, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 124,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 90,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2772",
+      "key": "69abd3a28f83438dbd3711889e42ee1f44b22e41",
+      "name": "Type=Icon+Text, Style=Filled, Size=Small, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 125,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Disable"
+      },
+      "width": 110,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2799",
+      "key": "a38f41cd790afed7be7ccfdd000ccbc4980a9302",
+      "name": "Type=Text, Style=Filled, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 126,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 104,
+      "height": 32,
+      "absoluteX": -11546,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2775",
+      "key": "1ff89a1e456d55674df3636dc76cae38d5b1657b",
+      "name": "Type=Icon+Text, Style=Filled, Size=Regular, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 127,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Regular",
+        "State": "Disable"
+      },
+      "width": 124,
+      "height": 32,
+      "absoluteX": -11679,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2764",
+      "key": "5c98b59e89c42450b3023aaceb3cf29cb97aed0f",
+      "name": "Type=Text, Style=Filled, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 128,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 112,
+      "height": 36,
+      "absoluteX": -11830,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "1346:2752",
+      "key": "6c4b5b764727ba7809680b311f6e04fea7cdfc3a",
+      "name": "Type=Icon+Text, Style=Filled, Size=Large, State=Disable",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 129,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Large",
+        "State": "Disable"
+      },
+      "width": 132,
+      "height": 36,
+      "absoluteX": -11982,
+      "absoluteY": -407,
+      "isAsset": false
+    },
+    {
+      "id": "550:2287",
+      "key": "a765708fc3331a11db5366643821beeb69359382",
+      "name": "Type=Icon, Style=Plain, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 130,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Plain",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "1431:22955",
+      "key": "49f5d967b5bfe89b982e1737b6cb732ab75aebaf",
+      "name": "Type=Icon, Style=Outline, Size=Small, State=Active",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 131,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Active"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -121,
+      "isAsset": false
+    },
+    {
+      "id": "550:2281",
+      "key": "dd9c956bdf9e74ca15c84c372eee5f79d605e3b1",
+      "name": "Type=Text, Style=Plain, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 132,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Plain",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 89,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "550:2273",
+      "key": "d0af878048d6f7a3b395c73cd9a6e4fe9e462e75",
+      "name": "Type=Icon+Text, Style=Plain, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 133,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Plain",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2429",
+      "key": "44bcda77c4592d9faa2705ff3ef3bbf687be408b",
+      "name": "Type=Text, Style=Plain, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 134,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Plain",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2417",
+      "key": "8404bef5b78c2c24f0ed6dd0d13a5108f1d50ae8",
+      "name": "Type=Icon+Text, Style=Plain, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 135,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Plain",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11678,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "550:2263",
+      "key": "c7df239b31b5dfa33df4a2e9974392fdf294519b",
+      "name": "Type=Text, Style=Plain, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 136,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Plain",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 110,
+      "height": 36,
+      "absoluteX": -11829,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "550:2255",
+      "key": "053cc0a1b0dac7c649240eaf63378eb7b4c07786",
+      "name": "Type=Icon+Text, Style=Plain, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 137,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Plain",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -523,
+      "isAsset": false
+    },
+    {
+      "id": "1279:3770",
+      "key": "9d0e37b72d29f7b2b4884aee4c83263a01ce760b",
+      "name": "Type=Icon, Style=Outline, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 138,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "1279:3602",
+      "key": "1b1f4acccf84bf8b1467da2186e1c892f2f39bef",
+      "name": "Type=Text, Style=Outline, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 139,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 89,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "1279:3594",
+      "key": "a621a11a4910ec0418a47549d887154be6f5b9a6",
+      "name": "Type=Icon+Text, Style=Outline, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 140,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2431",
+      "key": "ba78a0146dfcd79e3f3c4fbd8fcaacc3a9f4d715",
+      "name": "Type=Text, Style=Outline, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 141,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2421",
+      "key": "a8488c29e054230fa37000ac0eaaeaebd16ded2b",
+      "name": "Type=Icon+Text, Style=Outline, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 142,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11678,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "1279:3586",
+      "key": "323112e18afaf9b6825ea3f3a77cd5742ba35e7e",
+      "name": "Type=Text, Style=Outline, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 143,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Outline",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 110,
+      "height": 36,
+      "absoluteX": -11829,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "1279:3578",
+      "key": "f5d5766f5f586e3971dcab3a49dc99ada9fbd30a",
+      "name": "Type=Icon+Text, Style=Outline, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 144,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Outline",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "550:2283",
+      "key": "9027f0671a2050ff5b51c36b0444f049c74e8efa",
+      "name": "Type=Icon, Style=Light, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 145,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Light",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "550:2279",
+      "key": "1dc1d124c0ab135272580e6c588c17e6781bdb2c",
+      "name": "Type=Text, Style=Light, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 146,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Light",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 89,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "550:2269",
+      "key": "36b09daafd3ce42d6e6ab1460577847ff9a6f900",
+      "name": "Type=Icon+Text, Style=Light, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 147,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Light",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 109,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2427",
+      "key": "af02a6ab36a9b54e9bf4d63f0fd865231cc8517c",
+      "name": "Type=Text, Style=Light, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 148,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Light",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 102,
+      "height": 32,
+      "absoluteX": -11545,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2413",
+      "key": "55751f1d84fea4f8e60883e2eb043d09a41c1fee",
+      "name": "Type=Icon+Text, Style=Light, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 149,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Light",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 122,
+      "height": 32,
+      "absoluteX": -11678,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "550:2261",
+      "key": "748cca8ed5cfa64f88c11f968d6f98ac9ca9ff72",
+      "name": "Type=Text, Style=Light, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 150,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Light",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 110,
+      "height": 36,
+      "absoluteX": -11829,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "550:2251",
+      "key": "b8ce4af8592aca468c3a4c6d771296c10dccff53",
+      "name": "Type=Icon+Text, Style=Light, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 151,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Light",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 130,
+      "height": 36,
+      "absoluteX": -11981,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "550:2285",
+      "key": "950600452a90bb721190b34ad18cc608540377f0",
+      "name": "Type=Icon, Style=Filled, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 152,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11184,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "550:2277",
+      "key": "35f9d5ddb7383f990c992c245eef53bf64e18377",
+      "name": "Type=Text, Style=Filled, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 153,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 90,
+      "height": 28,
+      "absoluteX": -11284,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "550:2265",
+      "key": "ec38d05ed746c8ab2c7973b493a7f6f3c1982b8a",
+      "name": "Type=Icon+Text, Style=Filled, Size=Small, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 154,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Small",
+        "State": "Normal"
+      },
+      "width": 110,
+      "height": 28,
+      "absoluteX": -11403,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2425",
+      "key": "61b4fc9144784e7a6b5c6f4f662180cc9accb804",
+      "name": "Type=Text, Style=Filled, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 155,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 104,
+      "height": 32,
+      "absoluteX": -11546,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "1343:2409",
+      "key": "d46f4ba21c98fe9f39f0c8be31a2c0f16aae485e",
+      "name": "Type=Icon+Text, Style=Filled, Size=Regular, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 156,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Regular",
+        "State": "Normal"
+      },
+      "width": 124,
+      "height": 32,
+      "absoluteX": -11679,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "550:2259",
+      "key": "e29b5f3ce254dc681477fcc08bc4646c35293e45",
+      "name": "Type=Text, Style=Filled, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 157,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text",
+        "Style": "Filled",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 112,
+      "height": 36,
+      "absoluteX": -11830,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "550:2247",
+      "key": "8053320edc97cff2238af4978fb21a68e47fc776",
+      "name": "Type=Icon+Text, Style=Filled, Size=Large, State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 158,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "550:2246",
+        "name": "Button",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Icon+Text",
+        "Style": "Filled",
+        "Size": "Large",
+        "State": "Normal"
+      },
+      "width": 132,
+      "height": 36,
+      "absoluteX": -11982,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "6631:49371",
+      "key": "ec318150febc622a5ace80acadf7e5894ad0f494",
+      "name": "Style=Filled, State=Loading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 159,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6631:49370",
+        "name": "Button/20 size icon",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Style": "Filled",
+        "State": "Loading"
+      },
+      "width": 28,
+      "height": 28,
+      "absoluteX": -11104,
+      "absoluteY": -7,
+      "isAsset": false
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "collection": {
+    "id": "VariableCollectionId:1347:5633",
+    "key": "e1be550aec2c249f2d2ee384e5135b65d52dbe2f",
+    "name": "Document",
+    "defaultModeId": "1347:0",
+    "modes": [
+      {
+        "name": "Mode 1",
+        "modeId": "1347:0"
+      }
+    ],
+    "variableCount": 3,
+    "hiddenFromPublishing": false,
+    "isExtension": false
+  },
+  "range": {
+    "start": 0,
+    "end": 3
+  },
+  "variables": [
+    {
+      "id": "VariableID:1347:5634",
+      "key": "ea86974e718f47c6ed1f95b9031a999d2ed3d5c7",
+      "name": "Light BG",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1347:5633",
+      "collectionName": "Document",
+      "order": 0,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": true,
+      "values": [
+        {
+          "modeId": "1347:0",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.9803921580314636,
+            "g": 0.9803921580314636,
+            "b": 0.9803921580314636,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:1347:5635",
+      "key": "4775e096cdf0b676eb79ef5a1179b72e3117cb1a",
+      "name": "Deep BG",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1347:5633",
+      "collectionName": "Document",
+      "order": 1,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": true,
+      "values": [
+        {
+          "modeId": "1347:0",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.9607843160629272,
+            "g": 0.9607843160629272,
+            "b": 0.9607843160629272,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    },
+    {
+      "id": "VariableID:1347:5636",
+      "key": "4f6bbb9f056ddd0d1ee743f90fa8015b7071a53e",
+      "name": "Group Title",
+      "description": "",
+      "resolvedType": "COLOR",
+      "collectionId": "VariableCollectionId:1347:5633",
+      "collectionName": "Document",
+      "order": 2,
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "codeSyntax": {},
+      "hiddenFromPublishing": true,
+      "values": [
+        {
+          "modeId": "1347:0",
+          "modeName": "Mode 1",
+          "value": {
+            "r": 0.4000000059604645,
+            "g": 0.4000000059604645,
+            "b": 0.4000000059604645,
+            "a": 1
+          },
+          "aliasTargetId": null,
+          "aliasTargetName": null,
+          "aliasTargetCollectionId": null,
+          "aliasTargetCollectionName": null
+        }
+      ]
+    }
+  ]
+}

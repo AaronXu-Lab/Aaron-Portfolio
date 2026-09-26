@@ -1,0 +1,443 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 117,
+  "range": {
+    "start": 60,
+    "end": 70
+  },
+  "componentSets": [
+    {
+      "id": "7929:16464",
+      "key": "cef71f95e2fd72c013393fd70e4930c2f37309d7",
+      "name": "icon/people.plus",
+      "description": "add, share",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 60,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7929:16465",
+        "7929:16470"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1306,
+      "absoluteY": -835
+    },
+    {
+      "id": "7361:592",
+      "key": "ce4c0f3f668d1c0bd4f035b6d683b616ffc8ef47",
+      "name": "icon/percentage",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 61,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7361:598",
+        "7361:593"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1350,
+      "absoluteY": -835
+    },
+    {
+      "id": "7361:660",
+      "key": "90c57ff1caa5a1b5d16870008b018b96455bb896",
+      "name": "icon/pin",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 62,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7361:661",
+        "7361:668"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1394,
+      "absoluteY": -835
+    },
+    {
+      "id": "7361:675",
+      "key": "642305e1a5a1a0b9497216840e8988fc96a769ff",
+      "name": "icon/pin.slash",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 63,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7361:676",
+        "7361:684"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1438,
+      "absoluteY": -835
+    },
+    {
+      "id": "6594:65465",
+      "key": "901d750c11cbe5abfe157eaf0883021e2ab13b09",
+      "name": "icon/plug",
+      "description": "integration",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 64,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3536:25515",
+        "6594:65468"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1482,
+      "absoluteY": -835
+    },
+    {
+      "id": "6641:41280",
+      "key": "1930c5861d5d14bb64601a44d9ec755c1ac7531e",
+      "name": "icon/plus",
+      "description": "new, add",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 65,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1317:3444",
+        "413:662"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1526,
+      "absoluteY": -835
+    },
+    {
+      "id": "7907:46184",
+      "key": "6d5591d1bf6c6952821548fcf512ad15e551337d",
+      "name": "icon/puzzle",
+      "description": "integration",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 66,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7914:14803",
+        "7914:14806"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1570,
+      "absoluteY": -835
+    },
+    {
+      "id": "6594:65409",
+      "key": "22ae53e38a35a6f54fec06b6216f0e10cccbce3b",
+      "name": "icon/rectangle.2.vertical",
+      "description": "form",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 67,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3084:19662",
+        "6594:65412"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1614,
+      "absoluteY": -835
+    },
+    {
+      "id": "9203:22147",
+      "key": "f154442d09bf35f106bb75d0dac5c90490ff6e1c",
+      "name": "icon/rectangle.arrow.in",
+      "description": "sign in extract",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 68,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "9203:22148",
+        "9203:22150"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1658,
+      "absoluteY": -835
+    },
+    {
+      "id": "9203:22141",
+      "key": "499138748d06588e4cda421e0cedca0c05b0ebf4",
+      "name": "icon/rectangle.arrow.out",
+      "description": "sign out, extract",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 69,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "9203:22142",
+        "9203:22144"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1702,
+      "absoluteY": -835
+    }
+  ]
+}

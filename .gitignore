@@ -5,3 +5,7 @@ dist/
 
 .wrangler/
 .dev.vars*
+
+# Local browser verification artifacts
+.playwright-cli/
+output/playwright/

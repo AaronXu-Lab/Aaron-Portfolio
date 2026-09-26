@@ -1,0 +1,741 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 58,
+  "range": {
+    "start": 10,
+    "end": 20
+  },
+  "componentSets": [
+    {
+      "id": "6631:43777",
+      "key": "b428fe911e4723a8be462ee34d1dede42a21f3b1",
+      "name": "Button/Huge",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 10,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#32:11": {
+          "type": "TEXT",
+          "defaultValue": "Button Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Filled",
+          "variantOptions": [
+            "Filled",
+            "Outline"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Style": {
+          "values": [
+            "Filled",
+            "Outline"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3263:11397",
+        "3263:11399",
+        "3263:11401",
+        "3263:11403"
+      ],
+      "variantCount": 4,
+      "width": 280,
+      "height": 292,
+      "absoluteX": -11044,
+      "absoluteY": -711
+    },
+    {
+      "id": "4745:20020",
+      "key": "355236c98964e2e91ea59e967415cdee98bc2d2a",
+      "name": "Buttons",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 11,
+      "topLevel": {
+        "id": "550:1789",
+        "name": "Button",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Count": {
+          "type": "VARIANT",
+          "defaultValue": "3",
+          "variantOptions": [
+            "1",
+            "2",
+            "3"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Count": {
+          "values": [
+            "1",
+            "2",
+            "3"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "444:515",
+        "444:512",
+        "444:510"
+      ],
+      "variantCount": 3,
+      "width": 132,
+      "height": 164,
+      "absoluteX": -10752,
+      "absoluteY": -711
+    },
+    {
+      "id": "205:150",
+      "key": "beb0369b6d1c1113e215912fa8fb6a9aacbcd029",
+      "name": "Radio Button-Input",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 12,
+      "topLevel": {
+        "id": "205:143",
+        "name": "Radio Button",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Status": {
+          "type": "VARIANT",
+          "defaultValue": "Unchecked",
+          "variantOptions": [
+            "Unchecked",
+            "Checked"
+          ],
+          "preferredValues": null
+        },
+        "Disable": {
+          "type": "VARIANT",
+          "defaultValue": "false",
+          "variantOptions": [
+            "false",
+            "true"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Status": {
+          "values": [
+            "Unchecked",
+            "Checked"
+          ]
+        },
+        "Disable": {
+          "values": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "205:276",
+        "205:264",
+        "896:2508",
+        "896:2510"
+      ],
+      "variantCount": 4,
+      "width": 82,
+      "height": 82,
+      "absoluteX": -10105,
+      "absoluteY": -47
+    },
+    {
+      "id": "4134:24614",
+      "key": "e7c82fed79839e4bd6bd0d835bf2b3cedb30932d",
+      "name": "Menu Item",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 13,
+      "topLevel": {
+        "id": "4183:194933",
+        "name": "Menu",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Checkbox#4074:4": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Text#4074:6": {
+          "type": "TEXT",
+          "defaultValue": "Item’s text generally uses the action name",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Description#4074:14": {
+          "type": "TEXT",
+          "defaultValue": "Description is for user to better understand Item’s behavior.",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Content#4074:22": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tail#4074:30": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Tail#4074:38": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "4377:15885",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "d9eede046620ddeebfd94e17b13a4617bd6755a6"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "34354dd7d780a1ed0a7d5feec795f325640071db"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b0871fd423f156fc839e0fa32e3963d2dfa3232e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "11aaa274a24c0a205d5579339c401a923ff24635"
+            }
+          ]
+        },
+        "Show Description#4134:6": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#4153:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "5279:11533",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text",
+            "Char Block+Text",
+            "Pic+Text"
+          ],
+          "preferredValues": null
+        },
+        "Text Line": {
+          "type": "VARIANT",
+          "defaultValue": "Single",
+          "variantOptions": [
+            "Single",
+            "Multiple"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text",
+            "Char Block+Text",
+            "Pic+Text"
+          ]
+        },
+        "Text Line": {
+          "values": [
+            "Single",
+            "Multiple"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4298:26114",
+        "4298:26100",
+        "4134:24677",
+        "4134:24663",
+        "4134:24651",
+        "4134:24638",
+        "4134:24627",
+        "4134:24615"
+      ],
+      "variantCount": 8,
+      "width": 460,
+      "height": 308,
+      "absoluteX": -8827,
+      "absoluteY": -711
+    },
+    {
+      "id": "4153:27294",
+      "key": "511a2642689b1c67ce7e85f373d7020d8515be9e",
+      "name": "Menu Header",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 14,
+      "topLevel": {
+        "id": "4183:194933",
+        "name": "Menu",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Content#4153:10": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#4153:11": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "911:3827",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#4153:12": {
+          "type": "TEXT",
+          "defaultValue": "Header",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "4153:18238",
+        "4153:27295"
+      ],
+      "variantCount": 2,
+      "width": 460,
+      "height": 72,
+      "absoluteX": -8827,
+      "absoluteY": -391
+    },
+    {
+      "id": "514:1684",
+      "key": "9b6fa46992335c28985b1231c1e10a1efdc6c172",
+      "name": "Scroll Bar",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 15,
+      "topLevel": {
+        "id": "4183:194933",
+        "name": "Menu",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Active"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "State": {
+          "values": [
+            "Normal",
+            "Active"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "444:853",
+        "516:1762"
+      ],
+      "variantCount": 2,
+      "width": 74,
+      "height": 104,
+      "absoluteX": -8677,
+      "absoluteY": -103
+    },
+    {
+      "id": "6450:30561",
+      "key": "025e3957b91d4f8ce9f7e76b6144d8d782eed722",
+      "name": "Platte Cell",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 16,
+      "topLevel": {
+        "id": "6450:49277",
+        "name": "Name Card",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Null",
+          "variantOptions": [
+            "Normal",
+            "Null"
+          ],
+          "preferredValues": null
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Normal",
+            "Null"
+          ]
+        },
+        "Selected": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "6450:30562",
+        "6450:30564",
+        "6450:30566"
+      ],
+      "variantCount": 3,
+      "width": 100,
+      "height": 100,
+      "absoluteX": -2043.5,
+      "absoluteY": -711
+    },
+    {
+      "id": "1065:5795",
+      "key": "d10dece994a402a479b3856e7b064851c728547b",
+      "name": "Dialog",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 17,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Title#1065:0": {
+          "type": "TEXT",
+          "defaultValue": "Dialog Title",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Description#1100:0": {
+          "type": "TEXT",
+          "defaultValue": "It is recommended to use less than 3 lines of text to further elaborate on the content of the alert.",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Area Hint#1382:7": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Title Only",
+          "variantOptions": [
+            "Title Only",
+            "Description",
+            "Inputbox",
+            "Description+Inputbox",
+            "Dropdown",
+            "Description+Dropdown",
+            "Custom Content"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Title Only",
+            "Description",
+            "Inputbox",
+            "Description+Inputbox",
+            "Dropdown",
+            "Description+Dropdown",
+            "Custom Content"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1065:4546",
+        "5392:29463",
+        "1065:5611",
+        "1065:5656",
+        "5392:29471",
+        "1065:5701",
+        "1065:5777"
+      ],
+      "variantCount": 7,
+      "width": 1036,
+      "height": 1190,
+      "absoluteX": -5511,
+      "absoluteY": -711
+    },
+    {
+      "id": "1065:4991",
+      "key": "274eb0bedcb98a6dee062259c4068ca0e3fd2283",
+      "name": "Dialog Buttons",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 18,
+      "topLevel": {
+        "id": "4963:40100",
+        "name": "Dialog",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Show Assist Button#5139:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "1",
+          "variantOptions": [
+            "1",
+            "2"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "1",
+            "2"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1065:4809",
+        "1065:4875"
+      ],
+      "variantCount": 2,
+      "width": 416,
+      "height": 132,
+      "absoluteX": -5201,
+      "absoluteY": 499
+    },
+    {
+      "id": "5390:28723",
+      "key": "fb13d09b3924cb71e52604743370b1d646e014bd",
+      "name": "List Item",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 19,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#76:6": {
+          "type": "TEXT",
+          "defaultValue": "Item’s Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tail#114:95": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Tail#650:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "650:2278",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT_SET",
+              "key": "fccfc111b0f38e2219b2c2785ec342e6adc21c41"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "70207a7c082a4ddfb0000430a21486bae7f3cbde"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "34354dd7d780a1ed0a7d5feec795f325640071db"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8692d56888e03be67ce5f9b69df825d913341c49"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "ddeb25774f05394db2f6721afc09f569b9b019e9"
+            }
+          ]
+        },
+        "Show Description#1060:14": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Description#1060:21": {
+          "type": "TEXT",
+          "defaultValue": "Description",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#3513:1": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "1317:3444",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Show Content#6132:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Icon+Text",
+            "Char+Text",
+            "Checkbox+Text",
+            "Pic+Text"
+          ],
+          "preferredValues": null
+        },
+        "Fixed Width": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "True",
+            "False"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "Icon+Text",
+            "Char+Text",
+            "Checkbox+Text",
+            "Pic+Text"
+          ]
+        },
+        "Fixed Width": {
+          "values": [
+            "True",
+            "False"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "5390:28724",
+        "8290:52095",
+        "5390:28733",
+        "8290:52106",
+        "5489:29205",
+        "8290:52118",
+        "5390:28743",
+        "8290:52130",
+        "5390:28753",
+        "8290:52142"
+      ],
+      "variantCount": 10,
+      "width": 520,
+      "height": 320,
+      "absoluteX": -4095,
+      "absoluteY": -711
+    }
+  ]
+}

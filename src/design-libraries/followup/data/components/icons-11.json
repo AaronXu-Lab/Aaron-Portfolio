@@ -1,0 +1,57 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 442,
+  "range": {
+    "start": 440,
+    "end": 442
+  },
+  "components": [
+    {
+      "id": "4217:12387",
+      "key": "6dccd4774514222cb7885bcf807399e33dfe3bd9",
+      "name": " rhombus.fill with stick",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 440,
+      "topLevel": {
+        "id": "8351:60258",
+        "name": "Sp-icons",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 20,
+      "height": 20,
+      "absoluteX": 2274,
+      "absoluteY": -971,
+      "isAsset": false
+    },
+    {
+      "id": "8107:18224",
+      "key": "fe9cfda926282485b7d7418245ffd053083b70f3",
+      "name": "icon/ai.symbol",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 441,
+      "topLevel": {
+        "id": "8351:60258",
+        "name": "Sp-icons",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": 2276,
+      "absoluteY": -935,
+      "isAsset": true
+    }
+  ]
+}

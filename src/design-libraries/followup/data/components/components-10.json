@@ -1,0 +1,1091 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 450,
+  "range": {
+    "start": 400,
+    "end": 440
+  },
+  "components": [
+    {
+      "id": "4509:28792",
+      "key": "bee8043baec442b043840c19e1aa01406c552b66",
+      "name": "Checkbox=Null, Show Menu=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 400,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "5347:17640",
+        "name": "Table Header",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Checkbox": "Null",
+        "Show Menu": "False"
+      },
+      "width": 200,
+      "height": 48,
+      "absoluteX": -6635,
+      "absoluteY": 6034,
+      "isAsset": false
+    },
+    {
+      "id": "5347:17641",
+      "key": "d46ac1f16561bd1d7edf54ac509929d5e98f74a9",
+      "name": "Checkbox=Null, Show Menu=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 401,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "5347:17640",
+        "name": "Table Header",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Checkbox": "Null",
+        "Show Menu": "True"
+      },
+      "width": 200,
+      "height": 48,
+      "absoluteX": -6415,
+      "absoluteY": 6034,
+      "isAsset": false
+    },
+    {
+      "id": "5742:32396",
+      "key": "2a033ece5709dd485d5b2ec79c5e8f687997ea41",
+      "name": "Checkbox=Inline, Show Menu=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 402,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "5347:17640",
+        "name": "Table Header",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Checkbox": "Inline",
+        "Show Menu": "False"
+      },
+      "width": 200,
+      "height": 48,
+      "absoluteX": -6635,
+      "absoluteY": 6102,
+      "isAsset": false
+    },
+    {
+      "id": "5990:34802",
+      "key": "2f947162a37b06c866f1b4d6436bb54075a9935b",
+      "name": "Checkbox=Out bound, Show Menu=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 403,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "5347:17640",
+        "name": "Table Header",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Checkbox": "Out bound",
+        "Show Menu": "False"
+      },
+      "width": 200,
+      "height": 48,
+      "absoluteX": -6635,
+      "absoluteY": 6170,
+      "isAsset": false
+    },
+    {
+      "id": "5742:32402",
+      "key": "ab888f01c656a56d2418b0d6dfc2ad13c120664a",
+      "name": "Checkbox=Inline, Show Menu=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 404,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "5347:17640",
+        "name": "Table Header",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Checkbox": "Inline",
+        "Show Menu": "True"
+      },
+      "width": 200,
+      "height": 48,
+      "absoluteX": -6415,
+      "absoluteY": 6102,
+      "isAsset": false
+    },
+    {
+      "id": "5990:34808",
+      "key": "396da6a8fcced38f3871b994fec61ae71950511a",
+      "name": "Checkbox=Out bound, Show Menu=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 405,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "5347:17640",
+        "name": "Table Header",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Checkbox": "Out bound",
+        "Show Menu": "True"
+      },
+      "width": 200,
+      "height": 48,
+      "absoluteX": -6415,
+      "absoluteY": 6170,
+      "isAsset": false
+    },
+    {
+      "id": "4955:30300",
+      "key": "2ad84e98fc9be190ef4375a1afb6fa81354dfb7d",
+      "name": "Type=Start",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 406,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "4955:30299",
+        "name": "Timer",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Start"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": -6453,
+      "absoluteY": 6266,
+      "isAsset": false
+    },
+    {
+      "id": "4955:30303",
+      "key": "e50b1d7d3ea60020b4e563d09ae133a056b837db",
+      "name": "Type=Stop",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 407,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "4955:30299",
+        "name": "Timer",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Stop"
+      },
+      "width": 20,
+      "height": 20,
+      "absoluteX": -6417,
+      "absoluteY": 6266,
+      "isAsset": false
+    },
+    {
+      "id": "6464:132463",
+      "key": "51d4834cc7c4c4b5032e736ef401971452ce37fe",
+      "name": "Text Selector",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 408,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 16,
+      "height": 16,
+      "absoluteX": -4925,
+      "absoluteY": 5590,
+      "isAsset": false
+    },
+    {
+      "id": "6457:130885",
+      "key": "1db82a53e15d505f1b554d004ad7d20f2e3b2701",
+      "name": "Mask",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 409,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982,
+      "absoluteX": -5673,
+      "absoluteY": 5618,
+      "isAsset": false
+    },
+    {
+      "id": "6494:44146",
+      "key": "2caba768ee0e562575b49a972a5ce6e910d76fd7",
+      "name": "+ Background",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 410,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 982,
+      "absoluteX": -5673,
+      "absoluteY": 6612,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7095",
+      "key": "7329886f0bbbdff49dbdabee377ecf54532627b0",
+      "name": "Position=Right, Arrow Align=Center",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 411,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Right",
+        "Arrow Align": "Center"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6595,
+      "absoluteY": 7015,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7102",
+      "key": "80f93042a39bf33554edd0e60ed7b3b3cf163629",
+      "name": "Position=Right, Arrow Align=Leading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 412,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Right",
+        "Arrow Align": "Leading"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6865,
+      "absoluteY": 7015,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7109",
+      "key": "840cac6344c6cd5a28d72adf82deb09e6db526c3",
+      "name": "Position=Right, Arrow Align=Tail",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 413,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Right",
+        "Arrow Align": "Tail"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6325,
+      "absoluteY": 7015,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7116",
+      "key": "3eedf0d7c9f0afa0856eecc109dc4fc910b5c855",
+      "name": "Position=Above, Arrow Align=Center",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 414,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Above",
+        "Arrow Align": "Center"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6595,
+      "absoluteY": 6772,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7123",
+      "key": "ba16abac38b3cca5704d98752a39cfa0034ba5f8",
+      "name": "Position=Above, Arrow Align=Leading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 415,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Above",
+        "Arrow Align": "Leading"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6865,
+      "absoluteY": 6772,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7130",
+      "key": "85550cc0f76190b0a9e3a85ea01617924a41ca25",
+      "name": "Position=Above, Arrow Align=Tail",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 416,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Above",
+        "Arrow Align": "Tail"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6325,
+      "absoluteY": 6772,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7137",
+      "key": "2f0595026f2e9516b2cb3e7f420839d0f0974ec8",
+      "name": "Position=Bottom, Arrow Align=Center",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 417,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Bottom",
+        "Arrow Align": "Center"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6595,
+      "absoluteY": 6853,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7144",
+      "key": "35d8764eae071257966ad67e3aa079dc7f235125",
+      "name": "Position=Bottom, Arrow Align=Leading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 418,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Bottom",
+        "Arrow Align": "Leading"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6865,
+      "absoluteY": 6853,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7151",
+      "key": "a1ed6d3585bed3647085cc2e1ab67ef5eaeb1a7a",
+      "name": "Position=Bottom, Arrow Align=Tail",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 419,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Bottom",
+        "Arrow Align": "Tail"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6325,
+      "absoluteY": 6853,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7158",
+      "key": "e8dd35a55c3d57bbfb96ea10636c762b767a1dd5",
+      "name": "Position=Left, Arrow Align=Center",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 420,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Left",
+        "Arrow Align": "Center"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6595,
+      "absoluteY": 6934,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7165",
+      "key": "ca012553e40735f6b52e333469d1d05176cbd0a7",
+      "name": "Position=Left, Arrow Align=Leading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 421,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Left",
+        "Arrow Align": "Leading"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6865,
+      "absoluteY": 6934,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7172",
+      "key": "2075a4d95531136220fa1d2e650794a6cc2312fd",
+      "name": "Position=Left, Arrow Align=Tail",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 422,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "3520:7094",
+        "name": "Tool Tips",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Position": "Left",
+        "Arrow Align": "Tail"
+      },
+      "width": 250,
+      "height": 61,
+      "absoluteX": -6325,
+      "absoluteY": 6934,
+      "isAsset": false
+    },
+    {
+      "id": "3520:7179",
+      "key": "baf172fdd020f4ba8d48d4bf11b4ed8429b12771",
+      "name": "_Tool Tip Arrow",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 423,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 8,
+      "height": 12,
+      "absoluteX": -6474,
+      "absoluteY": 7108,
+      "isAsset": true
+    },
+    {
+      "id": "7567:42093",
+      "key": "63d1543206f6d5c3badb79b21095f380bd937dd2",
+      "name": "Show Buttons=True",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 424,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7664:51585",
+        "name": "Panel",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Show Buttons": "True"
+      },
+      "width": 360,
+      "height": 200,
+      "absoluteX": -6165,
+      "absoluteY": 4876,
+      "isAsset": false
+    },
+    {
+      "id": "7664:51581",
+      "key": "693ea6c496d6603b16fec4b315952588881d7e32",
+      "name": "Show Buttons=False",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 425,
+      "topLevel": {
+        "id": "6906:46616",
+        "name": "Advance Component",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7664:51585",
+        "name": "Panel",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Show Buttons": "False"
+      },
+      "width": 360,
+      "height": 200,
+      "absoluteX": -5781,
+      "absoluteY": 4876,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41475",
+      "key": "bcccc3dbd7a4da1033fbc253e9390d9af48ceff3",
+      "name": "State=Normal",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 426,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "3313:16102",
+        "name": "File Item/Normal",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal"
+      },
+      "width": 360,
+      "height": 40,
+      "absoluteX": -844,
+      "absoluteY": -691,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41538",
+      "key": "421eedfd051dc41ee54d19bb9ec49b1c2943392f",
+      "name": "State=Uploading",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 427,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "3313:16102",
+        "name": "File Item/Normal",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Uploading"
+      },
+      "width": 360,
+      "height": 40,
+      "absoluteX": -844,
+      "absoluteY": -635,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41566",
+      "key": "9812957a2b52dd4503dc949c3cfa41002b402503",
+      "name": "State=Error",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 428,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "3313:16102",
+        "name": "File Item/Normal",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Error"
+      },
+      "width": 360,
+      "height": 40,
+      "absoluteX": -844,
+      "absoluteY": -579,
+      "isAsset": false
+    },
+    {
+      "id": "3313:16128",
+      "key": "a46a1e34aa4c6df083edfde24f447a139fddb5f7",
+      "name": "State=Normal, Tail=Button",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 429,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal",
+        "Tail": "Button"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -764,
+      "absoluteY": -487,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41217",
+      "key": "4e8237823c047e2a7320361972fac05d19a28475",
+      "name": "State=Error, Tail=Button",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 430,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Error",
+        "Tail": "Button"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -764,
+      "absoluteY": -399,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41252",
+      "key": "226074087502502e36f5ee8ce10ceaee6daf8fbc",
+      "name": "State=Error, Tail=Null",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 431,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Error",
+        "Tail": "Null"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -980,
+      "absoluteY": -399,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41170",
+      "key": "e068a03ef36c98397bc837c246914565880f0fb2",
+      "name": "State=Uploading, Tail=Button",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 432,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Uploading",
+        "Tail": "Button"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -764,
+      "absoluteY": -443,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41071",
+      "key": "ffeb6391113132da8199781a324307959adbc7cf",
+      "name": "State=Normal, Tail=Null",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 433,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal",
+        "Tail": "Null"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -980,
+      "absoluteY": -487,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41175",
+      "key": "35fafa1dd2371ff5e3b47def30852e4f7772bdec",
+      "name": "State=Uploading, Tail=Null",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 434,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Uploading",
+        "Tail": "Null"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -980,
+      "absoluteY": -443,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41049",
+      "key": "e5e20d2bbe1db0849fd986240a20bea365708c9d",
+      "name": "State=Normal, Tail=Content",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 435,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal",
+        "Tail": "Content"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -548,
+      "absoluteY": -487,
+      "isAsset": false
+    },
+    {
+      "id": "6825:41179",
+      "key": "8c75bd6e74a328312d2f64cbc102a9a6c09df8d9",
+      "name": "State=Uploading, Tail=Content",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 436,
+      "topLevel": {
+        "id": "6856:65723",
+        "name": "File Item",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6825:40884",
+        "name": "File Item/Simple",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Uploading",
+        "Tail": "Content"
+      },
+      "width": 200,
+      "height": 32,
+      "absoluteX": -548,
+      "absoluteY": -443,
+      "isAsset": false
+    },
+    {
+      "id": "5761:16846",
+      "key": "25ca12ec3616aef5aa791aa6f407c835403249e5",
+      "name": "Bulk Editing",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 437,
+      "topLevel": {
+        "id": "7462:46869",
+        "name": "Batch Operator",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 567,
+      "height": 32,
+      "absoluteX": 266.5,
+      "absoluteY": -711,
+      "isAsset": false
+    },
+    {
+      "id": "6034:32785",
+      "key": "b1f7aa4fb1cdbcce665e0e84d62edc2ac96564b9",
+      "name": "Type=Plain, Expand=Null",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 438,
+      "topLevel": {
+        "id": "8161:47061",
+        "name": "Group Title",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6034:32784",
+        "name": "Group Title",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Plain",
+        "Expand": "Null"
+      },
+      "width": 195,
+      "height": 28,
+      "absoluteX": 1472,
+      "absoluteY": -681,
+      "isAsset": false
+    },
+    {
+      "id": "6439:30107",
+      "key": "d5e408499b95e063a2f04332adf9184148dc7bab",
+      "name": "Type=Plain, Expand=Inline",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 439,
+      "topLevel": {
+        "id": "8161:47061",
+        "name": "Group Title",
+        "type": "FRAME"
+      },
+      "componentSet": {
+        "id": "6034:32784",
+        "name": "Group Title",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Plain",
+        "Expand": "Inline"
+      },
+      "width": 218,
+      "height": 28,
+      "absoluteX": 1448,
+      "absoluteY": -613,
+      "isAsset": false
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 117,
+  "range": {
+    "start": 0,
+    "end": 10
+  },
+  "componentSets": [
+    {
+      "id": "6522:41726",
+      "key": "56f92f7819f697be88d3172375c48362bbcc59a1",
+      "name": "icon/chevron/down",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "medium",
+          "variantOptions": [
+            "large",
+            "medium",
+            "small"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "large",
+            "medium",
+            "small"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1409:5529",
+        "1234:2594",
+        "214:315"
+      ],
+      "variantCount": 3,
+      "width": 52,
+      "height": 52,
+      "absoluteX": 1042,
+      "absoluteY": -547
+    },
+    {
+      "id": "6522:44139",
+      "key": "ae2abc68dd406a2b05a81a6139a229ba30cf0d78",
+      "name": "icon/chevron/left",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 1,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "medium",
+          "variantOptions": [
+            "large",
+            "medium",
+            "small"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "large",
+            "medium",
+            "small"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1409:5527",
+        "1371:6527",
+        "1371:6544"
+      ],
+      "variantCount": 3,
+      "width": 52,
+      "height": 52,
+      "absoluteX": 1102,
+      "absoluteY": -547
+    },
+    {
+      "id": "6522:43742",
+      "key": "fc8e203c3829cc99b966d1eb61cb2d8295f1e6f4",
+      "name": "icon/chevron/right",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 2,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "medium",
+          "variantOptions": [
+            "large",
+            "medium",
+            "small"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "large",
+            "medium",
+            "small"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1409:5528",
+        "212:293",
+        "1371:6537"
+      ],
+      "variantCount": 3,
+      "width": 52,
+      "height": 52,
+      "absoluteX": 1162,
+      "absoluteY": -547
+    },
+    {
+      "id": "6522:42021",
+      "key": "e160f919fb42e254e8462dbf1f521a902c7b2b46",
+      "name": "icon/chevron/up",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 3,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "medium",
+          "variantOptions": [
+            "large",
+            "medium",
+            "small"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "large",
+            "medium",
+            "small"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1409:5526",
+        "1371:6522",
+        "214:316"
+      ],
+      "variantCount": 3,
+      "width": 52,
+      "height": 52,
+      "absoluteX": 1222,
+      "absoluteY": -547
+    },
+    {
+      "id": "6627:43819",
+      "key": "7689f064e17c96ebb62822d79a2b44a17fe3a276",
+      "name": "icon/archive",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 4,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1111:3854",
+        "6627:43822"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1042,
+      "absoluteY": -963
+    },
+    {
+      "id": "7851:76248",
+      "key": "d405ee32ea02760bfa34711925eb90d02329d69a",
+      "name": "icon/arrow.down.line",
+      "description": "download",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 5,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1458:16",
+        "362:50"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1086,
+      "absoluteY": -963
+    },
+    {
+      "id": "6678:29782",
+      "key": "c242097d6d483f9226028ffdfe3a2c064f3abb6f",
+      "name": "icon/arrow.triangle.2.circlepath",
+      "description": "refresh, change, convert",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 6,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3154:27659",
+        "6678:29777"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1130,
+      "absoluteY": -963
+    },
+    {
+      "id": "6594:65393",
+      "key": "1f82734b6b42a4d2c7889db3aafcc86c95bbaf46",
+      "name": "icon/arrow.trianglehead.2.clockwise",
+      "description": "automation",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 7,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "398:1095",
+        "6594:65395"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1174,
+      "absoluteY": -963
+    },
+    {
+      "id": "6594:65423",
+      "key": "05328c01a27025ef3897e8b4ea160e879c27b5e0",
+      "name": "icon/bell",
+      "description": "notification",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 8,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1717:15278",
+        "6594:65426"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1218,
+      "absoluteY": -963
+    },
+    {
+      "id": "6535:65406",
+      "key": "7caa07402340aa56d144b75d0be83cfebc41fd18",
+      "name": "icon/board",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 9,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "208:259",
+        "1880:5320"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1262,
+      "absoluteY": -963
+    }
+  ]
+}

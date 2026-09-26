@@ -1,0 +1,139 @@
+{
+  "page": {
+    "id": "7417:462",
+    "name": "Skeleton"
+  },
+  "pageCount": 6,
+  "range": {
+    "start": 0,
+    "end": 6
+  },
+  "components": [
+    {
+      "id": "7417:5082",
+      "key": "f4fe1c0f4bfb282b0b790a420f6c66635fad44e5",
+      "name": "Frame 3918",
+      "description": "",
+      "pageId": "7417:462",
+      "pageName": "Skeleton",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "7417:1108",
+        "name": "board-1920",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1632,
+      "height": 248,
+      "absoluteX": 126,
+      "absoluteY": -372,
+      "isAsset": false
+    },
+    {
+      "id": "7417:1144",
+      "key": "7da2833e0170acc18e12a95b94d8236120c4a5bd",
+      "name": "Skeleton",
+      "description": "",
+      "pageId": "7417:462",
+      "pageName": "Skeleton",
+      "pageOrder": 1,
+      "topLevel": {
+        "id": "7417:1144",
+        "name": "Skeleton",
+        "type": "COMPONENT"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1632,
+      "height": 40,
+      "absoluteX": -1724,
+      "absoluteY": -754,
+      "isAsset": false
+    },
+    {
+      "id": "7417:10128",
+      "key": "5cb7d190598ab3bf0bb404d57bc054340221a9a1",
+      "name": "Skeleton",
+      "description": "",
+      "pageId": "7417:462",
+      "pageName": "Skeleton",
+      "pageOrder": 2,
+      "topLevel": {
+        "id": "7417:4530",
+        "name": "action items-1920",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1632,
+      "height": 64,
+      "absoluteX": 126,
+      "absoluteY": 646,
+      "isAsset": false
+    },
+    {
+      "id": "7421:2527",
+      "key": "1c7f8dbf77ec699cdb7f3b101a0a38657cd8c88e",
+      "name": "Frame 4053",
+      "description": "",
+      "pageId": "7417:462",
+      "pageName": "Skeleton",
+      "pageOrder": 3,
+      "topLevel": {
+        "id": "7420:2699",
+        "name": "Notifications-1920",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1632,
+      "height": 160,
+      "absoluteX": 126,
+      "absoluteY": 1760,
+      "isAsset": false
+    },
+    {
+      "id": "7757:9041",
+      "key": "5c104f455519fea6c1a61a66b5a8fa6ed62adbbf",
+      "name": "Title",
+      "description": "",
+      "pageId": "7417:462",
+      "pageName": "Skeleton",
+      "pageOrder": 4,
+      "topLevel": {
+        "id": "7420:2699",
+        "name": "Notifications-1920",
+        "type": "FRAME"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1632,
+      "height": 52,
+      "absoluteX": 126,
+      "absoluteY": 1641,
+      "isAsset": false
+    },
+    {
+      "id": "7420:2632",
+      "key": "6d047dbdbd2c8eb194e275864558299791c27a93",
+      "name": "Skeleton",
+      "description": "",
+      "pageId": "7417:462",
+      "pageName": "Skeleton",
+      "pageOrder": 5,
+      "topLevel": {
+        "id": "7420:2632",
+        "name": "Skeleton",
+        "type": "COMPONENT"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1512,
+      "height": 980,
+      "absoluteX": -1724,
+      "absoluteY": -489,
+      "isAsset": false
+    }
+  ]
+}

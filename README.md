@@ -87,3 +87,9 @@ AI 上手必读：[AGENTS.md](AGENTS.md)（`CLAUDE.md` 指向同一文件）。
 
 
 临时素材位于 `public/media/temporary/`，生成提示词见同目录 `generation-prompts.json`。四张图均使用 `MediaSlot temporary` 通过 HTML 覆盖「AI 临时生成 · 待替换」，图片文件本身不含水印。换成真实素材后移除 `temporary` 属性，并更新本表。
+
+## 更多设计组件库
+
+`/design/more/` 展示 Followup 与 flomo 两套独立组件库。Followup 保留提供的 Web 展厅；flomo 将 SwiftUI 组件迁移成可交互的 Web 示例，并保留完整变量、样式和源节点目录。
+
+维护与导入说明见 [workflows/design-libraries.md](workflows/design-libraries.md)。修改后运行 `npm run check:design-libraries` 与 `npm run build`。

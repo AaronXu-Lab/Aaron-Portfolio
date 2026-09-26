@@ -1,0 +1,447 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 117,
+  "range": {
+    "start": 100,
+    "end": 110
+  },
+  "componentSets": [
+    {
+      "id": "6631:49902",
+      "key": "0a12fa463d78b66a24625aac086eef7a428be161",
+      "name": "icon/xmark",
+      "description": "cancel, close",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 100,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1318:3479",
+        "6631:49911"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 1966,
+      "absoluteY": -771
+    },
+    {
+      "id": "7361:626",
+      "key": "f3788d3864f282cc6ca6032bbb188d5a55103779",
+      "name": "icon/zero.one",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 101,
+      "topLevel": {
+        "id": "2930:20722",
+        "name": "Icon Total",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7361:630",
+        "7361:627"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2010,
+      "absoluteY": -771
+    },
+    {
+      "id": "7747:239",
+      "key": "268741faf710f76337a3507665c2ee847ab8ff5b",
+      "name": "_icon/share",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 102,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Property 1": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Property 1": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7747:240",
+        "7747:245"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2698,
+      "absoluteY": -971
+    },
+    {
+      "id": "7705:152",
+      "key": "437b11e962087d32a3e417f04393bbb13183b2ce",
+      "name": "_icon/audit log",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 103,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Property 1": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Property 1": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7705:153",
+        "7705:160"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2742,
+      "absoluteY": -971
+    },
+    {
+      "id": "7379:60664",
+      "key": "f489eef3526f6144dee88452fc455689c3ab835b",
+      "name": "_icon/lock2",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 104,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7379:60578",
+        "7379:60579"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 3122,
+      "absoluteY": -971
+    },
+    {
+      "id": "7918:14812",
+      "key": "2ea2ba98ee16bcda294b553477c43a7b1b91ce73",
+      "name": "_icon/table",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 105,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "尺寸": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "尺寸": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7918:14813",
+        "7918:14818"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 3166,
+      "absoluteY": -971
+    },
+    {
+      "id": "7361:71",
+      "key": "7fb17a842eda5e8d072a71a9bd1775dd1da1118b",
+      "name": "_icon/Automations/24",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 106,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {},
+      "variantGroupProperties": {},
+      "propertyReadError": true,
+      "componentIds": [
+        "7361:72",
+        "7361:78",
+        "7361:82",
+        "7361:121",
+        "7361:144",
+        "7361:88",
+        "7361:101",
+        "7361:131",
+        "7361:162",
+        "7361:105",
+        "7361:114",
+        "7361:129",
+        "7361:189",
+        "7361:154",
+        "7361:98",
+        "7361:185",
+        "7361:158",
+        "7361:137",
+        "7361:151",
+        "7361:140",
+        "7361:166",
+        "7361:174",
+        "7361:179",
+        "7460:33139",
+        "7467:26387",
+        "7627:249"
+      ],
+      "variantCount": 26,
+      "width": 915,
+      "height": 40,
+      "absoluteX": 2442,
+      "absoluteY": -535
+    },
+    {
+      "id": "7415:29498",
+      "key": "6a480226025f3e0f900024ff53acf265d5f1bc62",
+      "name": "_icon/line.chervon.up.chervon.down",
+      "description": "reorder, anchor",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 107,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "20",
+          "variantOptions": [
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "7415:29506"
+      ],
+      "variantCount": 1,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2442,
+      "absoluteY": -487
+    },
+    {
+      "id": "6627:43960",
+      "key": "18a5aba47459862ccdf4807852c94a2f94c6029c",
+      "name": "_icon/people.plus",
+      "description": "share",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 108,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "300:1680",
+        "1886:2275"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2486,
+      "absoluteY": -487
+    },
+    {
+      "id": "8586:57",
+      "key": "0538db5bfe5eb3622c3058d4d593d702579000f5",
+      "name": "_icon/file",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 109,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8586:58",
+        "8586:60"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2582,
+      "absoluteY": -487
+    }
+  ]
+}

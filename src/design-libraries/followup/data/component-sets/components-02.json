@@ -1,0 +1,958 @@
+{
+  "page": {
+    "id": "34:1767",
+    "name": "Components"
+  },
+  "pageCount": 58,
+  "range": {
+    "start": 20,
+    "end": 30
+  },
+  "componentSets": [
+    {
+      "id": "3140:24624",
+      "key": "84d27a1c9dc89fe1ccf1b913c0eff511893a51da",
+      "name": "List Divider",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 20,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Cap": {
+          "type": "VARIANT",
+          "defaultValue": "Square",
+          "variantOptions": [
+            "Round",
+            "Square"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Cap": {
+          "values": [
+            "Round",
+            "Square"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "3140:24627",
+        "2058:6242"
+      ],
+      "variantCount": 2,
+      "width": 240,
+      "height": 60.00019836425781,
+      "absoluteX": -3955,
+      "absoluteY": -211
+    },
+    {
+      "id": "664:2759",
+      "key": "8418c6e5e6553feeeb42df511dda9b379bbe9739",
+      "name": "Switch",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 21,
+      "topLevel": {
+        "id": "5390:28716",
+        "name": "List Item",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Text#7862:0": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "isOn": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        },
+        "Enable": {
+          "type": "VARIANT",
+          "defaultValue": "True",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Regular",
+          "variantOptions": [
+            "Regular",
+            "Large"
+          ],
+          "preferredValues": null
+        },
+        "Show Text": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "variantOptions": [
+            "False",
+            "True"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "isOn": {
+          "values": [
+            "False",
+            "True"
+          ]
+        },
+        "Enable": {
+          "values": [
+            "False",
+            "True"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Regular",
+            "Large"
+          ]
+        },
+        "Show Text": {
+          "values": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "650:2132",
+        "6477:35065",
+        "7862:77897",
+        "3958:6703",
+        "6477:35067",
+        "7862:77899",
+        "664:2758",
+        "6477:35069",
+        "7862:77901",
+        "3958:6706",
+        "6477:35071",
+        "7862:77903"
+      ],
+      "variantCount": 12,
+      "width": 208,
+      "height": 176,
+      "absoluteX": -3939,
+      "absoluteY": 5.00018310546875
+    },
+    {
+      "id": "438:703",
+      "key": "e7865414bf665f6a60565e1dbfa224dac672905d",
+      "name": "_List",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 22,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#76:6": {
+          "type": "TEXT",
+          "defaultValue": "List Item’s Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Content#114:76": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tail#114:95": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Tail Control#650:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "444:510",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "f47a6a8c989c5eec57dbd026ade1ae0050a6884b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "56cff5440b72d82fc251f5aafda4b65194fbf952"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "59ebe09bc92decd00a9c3684be2e568ed612fbc4"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b0871fd423f156fc839e0fa32e3963d2dfa3232e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "34354dd7d780a1ed0a7d5feec795f325640071db"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "8692d56888e03be67ce5f9b69df825d913341c49"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "e3a98ea538c2ce91c0f5be9e2cb679ff2170b1be"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "95aeb131d973243cb301b0be0ee7abb5a62429bf"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "9e6f97b25f91897358391ef87a02ed1305f3c222"
+            }
+          ]
+        },
+        "Show Description#1060:14": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Description#1060:21": {
+          "type": "TEXT",
+          "defaultValue": "Description",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Char 24#2113:16": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "2061:8968",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT_SET",
+              "key": "da074d018d252e94bc297505ef2d419c1324d004"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "fd9092b08c9fc60cb0f4b0162af123ebc65fd6ad"
+            }
+          ]
+        },
+        "Char 20#2113:25": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "2061:8970",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT_SET",
+              "key": "30893cb0b33579b77196d802ad0e562be714e22b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "660efad37f9abae7a6e4fc14b3dfb0a85e383172"
+            }
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Large",
+          "variantOptions": [
+            "Large",
+            "Normal"
+          ],
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "Prefix +",
+            "Char 20 +",
+            "Char 24 +"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Large",
+            "Normal"
+          ]
+        },
+        "Type": {
+          "values": [
+            "Text",
+            "Prefix +",
+            "Char 20 +",
+            "Char 24 +"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "438:732",
+        "438:738",
+        "438:720",
+        "438:726",
+        "1243:14172",
+        "1243:14162",
+        "1243:13887",
+        "1243:13897"
+      ],
+      "variantCount": 8,
+      "width": 856,
+      "height": 248,
+      "absoluteX": 8518,
+      "absoluteY": 4781
+    },
+    {
+      "id": "1344:9880",
+      "key": "277a52cd49b818c2ead868cac9a33a0f9c3706cb",
+      "name": "_List/Header|Footer",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 23,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Large",
+            "Normal"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Large",
+            "Normal"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1344:9881",
+        "1279:3776"
+      ],
+      "variantCount": 2,
+      "width": 856,
+      "height": 101,
+      "absoluteX": 8518,
+      "absoluteY": 5049
+    },
+    {
+      "id": "2064:10288",
+      "key": "6487e5e65d43307ffadff70c4b919a12c3c561b6",
+      "name": "_Prefix",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 24,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Expand#2064:158": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Icon#2066:0": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "234:254",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Expand#2066:5": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "1409:5529",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "07231f99f4ec97a0dfcc2b3cac840f44cd813d84"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "f14d323da5ae20aa60eb5bd8e54a27fee38cfaad"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "b5c7e574cbb565b7bce45b0105381428ed18eca3"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "2e5542fefa300e08b4398d822d0f9adccc458965"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "6505839e159b9bf38e8e2df907acdba5abb82bf4"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "0a119b93bf78cb2c8931ef8543948510f03fd4eb"
+            }
+          ]
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Checkbox",
+          "variantOptions": [
+            "Icon",
+            "Checkbox",
+            "Radio Button",
+            "Tag",
+            "Expand Only"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Icon",
+            "Checkbox",
+            "Radio Button",
+            "Tag",
+            "Expand Only"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2061:10188",
+        "2113:15439",
+        "2061:10199",
+        "2064:15944",
+        "2064:16781"
+      ],
+      "variantCount": 5,
+      "width": 200,
+      "height": 56,
+      "absoluteX": 8634,
+      "absoluteY": 5230
+    },
+    {
+      "id": "2064:15934",
+      "key": "13f206698f21ef5d2506855bdc1bcb3348f00060",
+      "name": "_Tag",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 25,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Emoji#754:1": {
+          "type": "TEXT",
+          "defaultValue": "🇺🇸",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "😀 Emoji",
+          "variantOptions": [
+            "◉ Priority",
+            "😀 Emoji",
+            "💳 VISA",
+            "🚩 Priority"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "◉ Priority",
+            "😀 Emoji",
+            "💳 VISA",
+            "🚩 Priority"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2064:15940",
+        "2064:15935",
+        "2064:15938",
+        "2064:15942"
+      ],
+      "variantCount": 4,
+      "width": 164,
+      "height": 56,
+      "absoluteX": 8850,
+      "absoluteY": 5230
+    },
+    {
+      "id": "2064:16212",
+      "key": "cf31d42a5a33345563aa624ed4cf472723037918",
+      "name": "_Avatar/24",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 26,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#2064:152": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "403:31",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#2064:153": {
+          "type": "TEXT",
+          "defaultValue": "O",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Dot#2064:154": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Auto",
+          "variantOptions": [
+            "Auto",
+            "Pic",
+            "Empty"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Auto",
+            "Pic",
+            "Empty"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2061:8968",
+        "4768:26177",
+        "2061:8972"
+      ],
+      "variantCount": 3,
+      "width": 112,
+      "height": 44,
+      "absoluteX": 9030,
+      "absoluteY": 5236
+    },
+    {
+      "id": "2064:16258",
+      "key": "99e51b392ebbc83266202dd99a02b7ec517f6288",
+      "name": "_Avatar/20",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 27,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Icon#2064:155": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "403:31",
+          "variantOptions": null,
+          "preferredValues": []
+        },
+        "Text#2064:156": {
+          "type": "TEXT",
+          "defaultValue": "O",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Dot#2064:157": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Auto",
+          "variantOptions": [
+            "Auto",
+            "Pic",
+            "Empty"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Auto",
+            "Pic",
+            "Empty"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2061:8970",
+        "4768:22349",
+        "2061:8974"
+      ],
+      "variantCount": 3,
+      "width": 100,
+      "height": 40,
+      "absoluteX": 9158,
+      "absoluteY": 5238
+    },
+    {
+      "id": "564:2688",
+      "key": "6a5f2304837f373cc4a01247729954c80ef7dc53",
+      "name": "_Old/InputBox",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 28,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Text#567:20": {
+          "type": "TEXT",
+          "defaultValue": "Text",
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Placeholder#567:26": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Show Tail#567:34": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Prefix#567:36": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "2064:15940",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "4ff38487a72b39970c9dee6e846247c197b2ffa8"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "dbe437b390e0065e4736f9fdbca9415da491165b"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "51483e598ad7c47187e044f0ddef49b0acffe352"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "30893cb0b33579b77196d802ad0e562be714e22b"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "da074d018d252e94bc297505ef2d419c1324d004"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "def137d35050f613242a59e0c2a1c5cef67628ae"
+            }
+          ]
+        },
+        "Tail#1371:58": {
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "836:22053",
+          "variantOptions": null,
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "6df6a84237b8292a94ddf0f1c960585f7fceeb5e"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "018dd005e47f3f6ae3b163961914983f3fd472dd"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "62291b22002f8f700434dc3003ab38a14caef130"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "51483e598ad7c47187e044f0ddef49b0acffe352"
+            },
+            {
+              "type": "COMPONENT_SET",
+              "key": "c86fd3d960f9348e8ba8774e974b89b24ba58fff"
+            }
+          ]
+        },
+        "Show Prefix#2895:73": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "Text",
+          "variantOptions": [
+            "Text",
+            "No Text"
+          ],
+          "preferredValues": null
+        },
+        "Style": {
+          "type": "VARIANT",
+          "defaultValue": "Outline",
+          "variantOptions": [
+            "Outline",
+            "Fill"
+          ],
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Type": {
+          "values": [
+            "Text",
+            "No Text"
+          ]
+        },
+        "Style": {
+          "values": [
+            "Outline",
+            "Fill"
+          ]
+        },
+        "Size": {
+          "values": [
+            "Normal",
+            "Small"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "1374:16985",
+        "2956:11114",
+        "1374:16992",
+        "2956:11121",
+        "1374:16978",
+        "2956:11128",
+        "1374:16478",
+        "2956:11135",
+        "1374:16485",
+        "2956:11142",
+        "1374:16471",
+        "2956:11149",
+        "1374:15924",
+        "2956:11156",
+        "1374:15931",
+        "2956:11163",
+        "1374:15917",
+        "2956:11170",
+        "798:2215",
+        "2956:11177",
+        "569:41210",
+        "2956:11184",
+        "611:3285",
+        "2956:11191"
+      ],
+      "variantCount": 24,
+      "width": 1428,
+      "height": 204,
+      "absoluteX": 10586,
+      "absoluteY": 4781
+    },
+    {
+      "id": "2895:36951",
+      "key": "a41a5c81d73d8c4bfd318a43cd337be35101c124",
+      "name": "_Old/Multi-InputBox",
+      "description": "",
+      "pageId": "34:1767",
+      "pageName": "Components",
+      "pageOrder": 29,
+      "topLevel": {
+        "id": "6906:47016",
+        "name": "Recycle",
+        "type": "SECTION"
+      },
+      "componentPropertyDefinitions": {
+        "Show Tail#2887:1": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "More#2895:19": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 1#2895:28": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 2#2895:37": {
+          "type": "BOOLEAN",
+          "defaultValue": true,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 3#2895:46": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 4#2895:55": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Value 5#2895:64": {
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "variantOptions": null,
+          "preferredValues": null
+        },
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Small"
+          ],
+          "preferredValues": null
+        },
+        "State": {
+          "type": "VARIANT",
+          "defaultValue": "Normal",
+          "variantOptions": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "Normal",
+            "Small"
+          ]
+        },
+        "State": {
+          "values": [
+            "Normal",
+            "Active",
+            "Error",
+            "Disable"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "2895:36952",
+        "2895:36962",
+        "2895:36972",
+        "2895:36982",
+        "2895:36992",
+        "2895:37002",
+        "2895:37012",
+        "2895:37022"
+      ],
+      "variantCount": 8,
+      "width": 1428,
+      "height": 148,
+      "absoluteX": 10586,
+      "absoluteY": 5065
+    }
+  ]
+}

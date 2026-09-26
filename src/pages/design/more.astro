@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import { showcaseLibraries } from '../../data/libraries';
+---
+<Base title="更多组件库 - Aaron Xu" description="Followup 与 flomo 的设计组件库，包含设计变量、样式、组件目录与可交互 Web 示例。">
+  <div class="library-index container">
+    <header class="library-index-head">
+      <a class="library-index-back mono-sm" href="/design/">← 返回设计系统</a>
+      <div class="mono-label reveal">Design Libraries</div>
+      <h1 class="display reveal">更多<span class="accent-text">组件库</span>.</h1>
+      <p class="lead reveal">两套产品设计语言，从基础样式到可交互组件。<br/>打开一个组件库，看看它如何工作。</p>
+    </header>
+    <div class="library-index-list">
+      {showcaseLibraries.map((library, index) => <a class="library-entry reveal" href={library.href}>
+        <div class="library-entry-number mono-sm">0{index + 1}</div>
+        <div class="library-entry-copy"><span class="mono-sm">{library.platform}</span><h2>{library.name}</h2><p>{library.description}</p><div class="library-entry-meta mono-sm">{library.note}</div></div>
+        <div class="library-entry-end"><span class="library-entry-arrow" aria-hidden="true">↗</span><span class="mono-sm">打开组件库</span></div>
+      </a>)}
+    </div>
+    <p class="library-index-foot mono-sm">在浏览器中体验，也可以从展厅跳转到对应的 Figma 源节点。</p>
+  </div>
+</Base>
+<style>
+.library-index { padding-top: var(--library-page-top); padding-bottom: var(--library-space-64); }
+.library-index-head { margin-bottom: var(--library-space-64); }
+.library-index-back { display: inline-block; color: var(--text-3); margin-bottom: var(--library-space-40); }
+.library-index-back:hover { color: var(--text); }
+.library-index-back:active { opacity: .7; }
+.library-index-head .mono-label { margin-bottom: var(--library-space-20); }
+.library-index-head h1 { margin-bottom: var(--library-space-24); }
+.library-index-list { border-top: 1px solid var(--border-strong); }
+.library-entry { display: grid; grid-template-columns: var(--library-space-64) 1fr auto; align-items: start; gap: var(--library-space-24); padding: var(--library-space-40) 0; border-bottom: 1px solid var(--border-strong); transition: border-color .2s; }
+.library-entry-number { color: var(--text-3); padding-top: var(--library-space-8); }
+.library-entry-copy > .mono-sm { color: var(--text-3); }
+.library-entry-copy h2 { font-size: clamp(28px,4vw,40px); line-height: 1.2; letter-spacing: -.03em; margin: var(--library-space-12) 0 var(--library-space-16); }
+.library-entry-copy p { color: var(--text-2); font-size: 15px; max-width: 58ch; margin: 0; }
+.library-entry-meta { margin-top: var(--library-space-24); color: var(--text-mono); }
+.library-entry-end { display: flex; flex-direction: column; align-items: flex-end; gap: var(--library-space-24); color: var(--text-3); padding-top: var(--library-space-8); }
+.library-entry-arrow { font-size: 32px; line-height: 1; transition: transform .2s var(--ease-out),color .2s; }
+.library-entry:hover { border-bottom-color: var(--accent); }
+.library-entry:hover h2,.library-entry:hover .library-entry-arrow { color: var(--accent); }
+.library-entry:hover .library-entry-arrow { transform: translate(3px,-3px); }
+.library-entry:active .library-entry-arrow { transform: translate(5px,-5px); }
+.library-index-foot { margin-top: var(--library-space-32); color: var(--text-3); }
+@media(max-width:640px) { .library-entry { grid-template-columns: 1fr auto; gap: var(--library-space-16); } .library-entry-number { display: none; } .library-entry-end .mono-sm { display: none; } .library-entry-copy p { font-size:14px; } .library-entry-meta { font-size:10px; } }
+@media(prefers-reduced-motion:reduce) { .library-entry,.library-entry-arrow { transition:none; } .library-entry:hover .library-entry-arrow,.library-entry:active .library-entry-arrow { transform:none; } }
+</style>

@@ -1,0 +1,993 @@
+{
+  "page": {
+    "id": "1339:4484",
+    "name": "Scenary"
+  },
+  "pageCount": 113,
+  "range": {
+    "start": 0,
+    "end": 40
+  },
+  "components": [
+    {
+      "id": "1803:2235",
+      "key": "5173c79d3e8ca83d0c7b88d1eb65deb43200de08",
+      "name": "Design Document Cover",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 0,
+      "topLevel": {
+        "id": "1803:2235",
+        "name": "Design Document Cover",
+        "type": "COMPONENT"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1280,
+      "height": 832,
+      "absoluteX": -2373,
+      "absoluteY": -1892,
+      "isAsset": false
+    },
+    {
+      "id": "3016:4310",
+      "key": "5eba838129869724365d93f848022caa21c14e33",
+      "name": "Main Table",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 1,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1224,
+      "height": 930,
+      "absoluteX": -5917,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "1339:8192",
+      "key": "3bab961766c1ba29c53f8f486c87cebaefb71825",
+      "name": "Sidebar/App",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 2,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 288,
+      "height": 930,
+      "absoluteX": -6305,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "6293:19923",
+      "key": "82919a42d1aa27d088d84261ca9691b76dabb032",
+      "name": "Sidebar/Workspace",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 3,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 288,
+      "height": 930,
+      "absoluteX": -6609,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "6595:71562",
+      "key": "e809a4e8dbef1c5ec8d0d07cd6d7e393279fd8ac",
+      "name": "Sidebar/Setting",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 4,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 288,
+      "height": 930,
+      "absoluteX": -6913,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "3577:27273",
+      "key": "ec36aa1e7698c0390809d23e1bccf93c8ee98d77",
+      "name": "Invite Panel/Normal",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 5,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 400,
+      "height": 960,
+      "absoluteX": -4223,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "3577:27315",
+      "key": "a38036f82150d02d52acb181fc96464f8112c8d2",
+      "name": "Invite Panel/View",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 6,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 400,
+      "height": 960,
+      "absoluteX": -3773,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "7832:27765",
+      "key": "c244b69c63eadf9c14453e7ebebbf38203a05b3f",
+      "name": "Values Panel",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 7,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 320,
+      "height": 996,
+      "absoluteX": -4593,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "1604:13278",
+      "key": "0e50e3a3a71278d0cce56c91a47583e492cf8c89",
+      "name": "_Permission Settings",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 8,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 400,
+      "height": 416,
+      "absoluteX": -3323,
+      "absoluteY": -1842,
+      "isAsset": false
+    },
+    {
+      "id": "6298:100441",
+      "key": "1e1970c888ee91d744abae15b58d2785769c8204",
+      "name": "Table/Notifications",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 9,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 1000,
+      "height": 608.0015258789062,
+      "absoluteX": -5805,
+      "absoluteY": -812,
+      "isAsset": false
+    },
+    {
+      "id": "4509:44224",
+      "key": "2d014bab8833e22617bccd29ed0cea09f6afa60a",
+      "name": "Item Detail",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 10,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 903.9998779296875,
+      "height": 930,
+      "absoluteX": -5757,
+      "absoluteY": -103.99853515625,
+      "isAsset": false
+    },
+    {
+      "id": "8622:41393",
+      "key": "cf27e8e021044980efe2726653ed40d03cefcd04",
+      "name": "Layout=List",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 11,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8622:41392",
+        "name": "Display Panel",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Layout": "List"
+      },
+      "width": 320,
+      "height": 378.0000915527344,
+      "absoluteX": -6897,
+      "absoluteY": -796,
+      "isAsset": false
+    },
+    {
+      "id": "8622:41414",
+      "key": "2aba561ed489033b15ff8af6c84a36c8ddab96fd",
+      "name": "Layout=Kanban",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 12,
+      "topLevel": {
+        "id": "4509:46082",
+        "name": "Fragment",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "8622:41392",
+        "name": "Display Panel",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Layout": "Kanban"
+      },
+      "width": 320,
+      "height": 378.0000915527344,
+      "absoluteX": -6561,
+      "absoluteY": -796,
+      "isAsset": false
+    },
+    {
+      "id": "5988:15803",
+      "key": "5372680c7624e64c9ec71cb024822affad9adb5a",
+      "name": "Text Button",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 13,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 131,
+      "height": 16,
+      "absoluteX": -6895,
+      "absoluteY": 1590,
+      "isAsset": false
+    },
+    {
+      "id": "5593:17076",
+      "key": "3e26b1648c6d387dcd5bdc951b002acab613f622",
+      "name": "Follower Button",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 14,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 33,
+      "height": 24,
+      "absoluteX": -6895,
+      "absoluteY": 1621,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42728",
+      "key": "72fabed9258035ec7399593efcbb94de06446a4a",
+      "name": "Grid Picker/Months",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 15,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 280,
+      "height": 240,
+      "absoluteX": -6253,
+      "absoluteY": 1960,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42742",
+      "key": "64ca21688994d53309419ddc220a92102d545aee",
+      "name": "State=Normal, Size=Default",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 16,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal",
+        "Size": "Default"
+      },
+      "width": 32,
+      "height": 32,
+      "absoluteX": -6877,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42745",
+      "key": "e05d1b6ad983498c614369c850272dedbec652e8",
+      "name": "State=Normal, Size=Mini",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 17,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal",
+        "Size": "Mini"
+      },
+      "width": 32,
+      "height": 27,
+      "absoluteX": -6877,
+      "absoluteY": 2022,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42748",
+      "key": "9a163fa54e3a578174c84730e7c0a0bb117316f0",
+      "name": "State=Disable, Size=Default",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 18,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Disable",
+        "Size": "Default"
+      },
+      "width": 32,
+      "height": 32,
+      "absoluteX": -6793,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42750",
+      "key": "9f778376f395d35d4fbdafaf22246bc51ddf39c7",
+      "name": "State=Today, Size=Default",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 19,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Today",
+        "Size": "Default"
+      },
+      "width": 32,
+      "height": 32,
+      "absoluteX": -6751,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42753",
+      "key": "4b9bd0c3ae4198c3f22c18eef7dfa51f50622912",
+      "name": "State=Disable, Size=Mini",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 20,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Disable",
+        "Size": "Mini"
+      },
+      "width": 32,
+      "height": 27,
+      "absoluteX": -6793,
+      "absoluteY": 2022,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42755",
+      "key": "c53c1973b87c3c00ceb1e6d5727b080ccd17003a",
+      "name": "State=Today, Size=Mini",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 21,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Today",
+        "Size": "Mini"
+      },
+      "width": 32,
+      "height": 27,
+      "absoluteX": -6751,
+      "absoluteY": 2022,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42758",
+      "key": "8adfd6a4aa36cdf7222d586c598dab92deb4afbd",
+      "name": "State=Selected, Size=Default",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 22,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Selected",
+        "Size": "Default"
+      },
+      "width": 32,
+      "height": 32,
+      "absoluteX": -6835,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42762",
+      "key": "1ab7e91289bcd64426248db8c48714822a3487af",
+      "name": "State=Selected, Size=Mini",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 23,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42741",
+        "name": "Day",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Selected",
+        "Size": "Mini"
+      },
+      "width": 32,
+      "height": 27,
+      "absoluteX": -6835,
+      "absoluteY": 2022,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42767",
+      "key": "1706224f053f68249851ef9a9cfea7c30a150e03",
+      "name": "State=Normal",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 24,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42766",
+        "name": "Month",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Normal"
+      },
+      "width": 84,
+      "height": 52,
+      "absoluteX": -6659,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42770",
+      "key": "431c9a3be9aa278be3e0095b006ae1067b83ff83",
+      "name": "State=Selected",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 25,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42766",
+        "name": "Month",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Selected"
+      },
+      "width": 84,
+      "height": 52,
+      "absoluteX": -6565,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42774",
+      "key": "27750c9c7c04a7398f885d561be10c16c70fe335",
+      "name": "State=Disable",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 26,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42766",
+        "name": "Month",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Disable"
+      },
+      "width": 84,
+      "height": 52,
+      "absoluteX": -6471,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42776",
+      "key": "132c6ee6e235987906f3e14a4471a6a8c554249f",
+      "name": "State=Today",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 27,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42766",
+        "name": "Month",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "State": "Today"
+      },
+      "width": 84,
+      "height": 52,
+      "absoluteX": -6377,
+      "absoluteY": 1980,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42780",
+      "key": "7cb291c38c18c23c1246b77627e09152b365c3f4",
+      "name": "Line Number=5 Lines",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 28,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42779",
+        "name": "Grid Picker/Days",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Number": "5 Lines"
+      },
+      "width": 280,
+      "height": 240,
+      "absoluteX": -6877,
+      "absoluteY": 1680,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42825",
+      "key": "6c3b219c176b45d9c9b70a671f85e33c5025c1c8",
+      "name": "Line Number=4 Lines",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 29,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42779",
+        "name": "Grid Picker/Days",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Number": "4 Lines"
+      },
+      "width": 280,
+      "height": 240,
+      "absoluteX": -6521,
+      "absoluteY": 1680,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42863",
+      "key": "3f4f056e847c7b1c11db4dac4c7812b485032405",
+      "name": "Line Number=6 Lines",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 30,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42779",
+        "name": "Grid Picker/Days",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Number": "6 Lines"
+      },
+      "width": 280,
+      "height": 240,
+      "absoluteX": -6213,
+      "absoluteY": 1680,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42916",
+      "key": "519f0abf9307041e68707b17bb6b958701f4dfea",
+      "name": "Type=Full",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 31,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42915",
+        "name": "Passby",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Full"
+      },
+      "width": 40,
+      "height": 32,
+      "absoluteX": -6877,
+      "absoluteY": 2109,
+      "isAsset": true
+    },
+    {
+      "id": "7549:42918",
+      "key": "e58024adcf4dd8b1d1043e2775729d3a5dca3e27",
+      "name": "Type=Start",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 32,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42915",
+        "name": "Passby",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Start"
+      },
+      "width": 40,
+      "height": 32,
+      "absoluteX": -6817,
+      "absoluteY": 2109,
+      "isAsset": true
+    },
+    {
+      "id": "7549:42920",
+      "key": "a3c6d81e068973ab8e6d4c1b292b7007c3ac9fe1",
+      "name": "Type=End",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 33,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:42915",
+        "name": "Passby",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "End"
+      },
+      "width": 40,
+      "height": 32,
+      "absoluteX": -6757,
+      "absoluteY": 2109,
+      "isAsset": true
+    },
+    {
+      "id": "7549:42922",
+      "key": "dc6a7c25fd64bf4c9fb859d8b1dad9ad3943d62c",
+      "name": "Date Range Picker Activite",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 34,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 320,
+      "height": 444.00018310546875,
+      "absoluteX": -6557,
+      "absoluteY": 2626,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42924",
+      "key": "1b1e5e9e755f3c34828e67842d2ef00d520dcd34",
+      "name": "Date Range Picker/2",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 35,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 320,
+      "height": 444.00018310546875,
+      "absoluteX": -6897,
+      "absoluteY": 2626,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42953",
+      "key": "fb8369c321cea387a95c26af72daecd370758171",
+      "name": "Calendar/Not Today",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 36,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 320,
+      "height": 396.0000915527344,
+      "absoluteX": -6217,
+      "absoluteY": 2626,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42955",
+      "key": "92d4a67676ebad244d9de5097f821b3562670300",
+      "name": "Calendar/Hint",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 37,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "width": 320,
+      "height": 396.0000915527344,
+      "absoluteX": -6217,
+      "absoluteY": 2200,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42942",
+      "key": "d39fae7f44308726c89bde9c02296a1691240d4e",
+      "name": "Type=Day",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 38,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:45060",
+        "name": "Calendar",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Day"
+      },
+      "width": 320,
+      "height": 396.0000915527344,
+      "absoluteX": -6897,
+      "absoluteY": 2200,
+      "isAsset": false
+    },
+    {
+      "id": "7549:42959",
+      "key": "453c2a2e5e5c0fabb6fe5189922dcb487c9bcf56",
+      "name": "Type=Year&Month",
+      "description": "",
+      "pageId": "1339:4484",
+      "pageName": "Scenary",
+      "pageOrder": 39,
+      "topLevel": {
+        "id": "5744:33897",
+        "name": "Almost there",
+        "type": "SECTION"
+      },
+      "componentSet": {
+        "id": "7549:45060",
+        "name": "Calendar",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Year&Month"
+      },
+      "width": 320,
+      "height": 396.0000915527344,
+      "absoluteX": -6557,
+      "absoluteY": 2200,
+      "isAsset": false
+    }
+  ]
+}

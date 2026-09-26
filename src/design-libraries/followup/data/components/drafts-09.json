@@ -1,0 +1,478 @@
+{
+  "page": {
+    "id": "294:66",
+    "name": "_Drafts"
+  },
+  "pageCount": 199,
+  "range": {
+    "start": 180,
+    "end": 199
+  },
+  "components": [
+    {
+      "id": "312:638",
+      "key": "858484a2f84e29aa982f2e2a25f01c91ab6b4203",
+      "name": "_menu_m",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 180,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -20009.5,
+      "absoluteY": -441,
+      "isAsset": true
+    },
+    {
+      "id": "789:897",
+      "key": "6737030bfd352e212b2a2b05b70b0859ecde2849",
+      "name": "_filter",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 181,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -20035.5,
+      "absoluteY": -441,
+      "isAsset": false
+    },
+    {
+      "id": "2597:1952",
+      "key": "8b8f9a46a49bd51e3557f2e6b7a19c81c4271bcb",
+      "name": "_icon/help",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 182,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -19983.5,
+      "absoluteY": -441,
+      "isAsset": true
+    },
+    {
+      "id": "420:759",
+      "key": "43af07917097384c12b1da923d06f5c52232af9e",
+      "name": "_close_l",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 183,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -20061.5,
+      "absoluteY": -441,
+      "isAsset": true
+    },
+    {
+      "id": "1894:2378",
+      "key": "37be76483f49b668709bc2cdb64307eb0c31f1c4",
+      "name": "_no_value",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 184,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -20087.5,
+      "absoluteY": -409,
+      "isAsset": true
+    },
+    {
+      "id": "1898:2410",
+      "key": "ddbb86620f180948c1ce655efe64ab76231204dc",
+      "name": "_no_value_dd",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 185,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -20055.5,
+      "absoluteY": -409,
+      "isAsset": true
+    },
+    {
+      "id": "1130:3253",
+      "key": "97dace17439d9d7408318ab29e894dc174ba2b8b",
+      "name": "_icon/view",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 186,
+      "topLevel": {
+        "id": "2930:18008",
+        "name": "_Abandon Icon",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 16,
+      "height": 16,
+      "absoluteX": -19957.5,
+      "absoluteY": -441,
+      "isAsset": true
+    },
+    {
+      "id": "2486:23470",
+      "key": "b60fad9bdf3201e949fb5e34031c33a565324098",
+      "name": "Type=Color",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 187,
+      "topLevel": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Color"
+      },
+      "variantReadError": false,
+      "width": 160,
+      "height": 48,
+      "absoluteX": -6036,
+      "absoluteY": 11753,
+      "isAsset": false
+    },
+    {
+      "id": "4074:13465",
+      "key": "d3636608e6684c2fe589f373103342d742f13086",
+      "name": "Type=Number",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 188,
+      "topLevel": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Number"
+      },
+      "variantReadError": false,
+      "width": 151,
+      "height": 44,
+      "absoluteX": -6036,
+      "absoluteY": 11811,
+      "isAsset": false
+    },
+    {
+      "id": "4074:23304",
+      "key": "b66c96d8a0ad7ed3d5cc36da0841411c5254d534",
+      "name": "Type=Text",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 189,
+      "topLevel": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Text"
+      },
+      "variantReadError": false,
+      "width": 151,
+      "height": 44,
+      "absoluteX": -6036,
+      "absoluteY": 11865,
+      "isAsset": false
+    },
+    {
+      "id": "4074:23318",
+      "key": "9dfa23dc8e2f0dc5f721a00a9334ea3ad95d4046",
+      "name": "Type=Boolean",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 190,
+      "topLevel": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4074:23260",
+        "name": "_Unpublish/Variable Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Type": "Boolean"
+      },
+      "variantReadError": false,
+      "width": 144,
+      "height": 44,
+      "absoluteX": -6036,
+      "absoluteY": 11919,
+      "isAsset": false
+    },
+    {
+      "id": "4134:26269",
+      "key": "d4e897857817f681b9009b6d0b899719de3a6f8d",
+      "name": "Properties",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 191,
+      "topLevel": {
+        "id": "4134:26269",
+        "name": "Properties",
+        "type": "COMPONENT"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 200,
+      "height": 116,
+      "absoluteX": -5590,
+      "absoluteY": 11733,
+      "isAsset": false
+    },
+    {
+      "id": "4134:17688",
+      "key": "099b92b191a6a48b6f237c05075a400da11e7225",
+      "name": "Line Position=Above, Text Position=Right",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 192,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Position": "Above",
+        "Text Position": "Right"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 32,
+      "absoluteX": -5719,
+      "absoluteY": 11753,
+      "isAsset": false
+    },
+    {
+      "id": "4134:17813",
+      "key": "40850e081671b2ea3c8ef0ed89a006da7dd3e549",
+      "name": "Line Position=Above, Text Position=Left",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 193,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Position": "Above",
+        "Text Position": "Left"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 32,
+      "absoluteX": -5743,
+      "absoluteY": 11753,
+      "isAsset": false
+    },
+    {
+      "id": "4134:17798",
+      "key": "b5bc65d579ce02791bc5322ce6ee920debadc250",
+      "name": "Line Position=Bottom, Text Position=Right",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 194,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Position": "Bottom",
+        "Text Position": "Right"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 32,
+      "absoluteX": -5719,
+      "absoluteY": 11809,
+      "isAsset": false
+    },
+    {
+      "id": "4134:17819",
+      "key": "095ca94fc3c27e4f254e77ead4521e248bf6af1c",
+      "name": "Line Position=Bottom, Text Position=Left",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 195,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Position": "Bottom",
+        "Text Position": "Left"
+      },
+      "variantReadError": false,
+      "width": 16,
+      "height": 32,
+      "absoluteX": -5743,
+      "absoluteY": 11809,
+      "isAsset": false
+    },
+    {
+      "id": "4134:17807",
+      "key": "97651ef98f0b0216677adaf8c11d074c8c6086ee",
+      "name": "Line Position=Side, Text Position=Right",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 196,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Position": "Side",
+        "Text Position": "Right"
+      },
+      "variantReadError": false,
+      "width": 32,
+      "height": 16,
+      "absoluteX": -5699,
+      "absoluteY": 11789,
+      "isAsset": false
+    },
+    {
+      "id": "4134:17693",
+      "key": "24fcf67239ba3b8ec5488f12d479145b411cab88",
+      "name": "Line Position=Side, Text Position=Left",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 197,
+      "topLevel": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "componentSet": {
+        "id": "4134:17714",
+        "name": "Anatomy Label",
+        "type": "COMPONENT_SET"
+      },
+      "variantProperties": {
+        "Line Position": "Side",
+        "Text Position": "Left"
+      },
+      "variantReadError": false,
+      "width": 32,
+      "height": 16,
+      "absoluteX": -5779,
+      "absoluteY": 11789,
+      "isAsset": false
+    },
+    {
+      "id": "6902:34847",
+      "key": "b9157d6ccbe26316d20858516f186da4429f2fd6",
+      "name": "_List 1",
+      "pageId": "294:66",
+      "pageName": "_Drafts",
+      "pageOrder": 198,
+      "topLevel": {
+        "id": "8996:48423",
+        "name": "Update selection location panel",
+        "type": "SECTION"
+      },
+      "componentSet": null,
+      "variantProperties": {},
+      "variantReadError": false,
+      "width": 312,
+      "height": 299.9999084472656,
+      "absoluteX": 600,
+      "absoluteY": -7054,
+      "isAsset": false
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "page": {
+    "id": "34:1780",
+    "name": "Icons"
+  },
+  "pageCount": 117,
+  "range": {
+    "start": 110,
+    "end": 117
+  },
+  "componentSets": [
+    {
+      "id": "8586:62",
+      "key": "8f12ebfd478f616ed6a01896b03a54376a59ed44",
+      "name": "_icon/add_file",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 110,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8586:63",
+        "8586:67"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2626,
+      "absoluteY": -487
+    },
+    {
+      "id": "8586:82",
+      "key": "ab610898d403f4b5e95ac3bb5232258b4a13f84a",
+      "name": "_icon/file.arrow.in",
+      "description": "import, import file",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 111,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8586:83",
+        "8586:88"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2670,
+      "absoluteY": -487
+    },
+    {
+      "id": "8586:93",
+      "key": "f6fb9699e0a7a1a5e7dfe7f3e1ce4ffcc8644f27",
+      "name": "_icon/file.arrow.out",
+      "description": "export, export file",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 112,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "20",
+            "16"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "20",
+            "16"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8586:94",
+        "8586:99"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2714,
+      "absoluteY": -487
+    },
+    {
+      "id": "8586:104",
+      "key": "f0b3d17e9f3247d4c258f2d32414f1609d9bf181",
+      "name": "_icon/sidebar.left",
+      "description": "move",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 113,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8586:105",
+        "8586:109"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2758,
+      "absoluteY": -487
+    },
+    {
+      "id": "8586:113",
+      "key": "e4d87fa9384869fdbc681bfb1c6d70ced36abe3c",
+      "name": "_icon/sidebar.right",
+      "description": "move",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 114,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Size": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Size": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8586:114",
+        "8586:118"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2802,
+      "absoluteY": -487
+    },
+    {
+      "id": "8660:442",
+      "key": "fd6054d873a548ffeaa7b79f5ca786d3662bd8cd",
+      "name": "_icon/Star-line",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 115,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Property 1": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Property 1": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8660:443",
+        "8660:445"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2846,
+      "absoluteY": -487
+    },
+    {
+      "id": "8660:447",
+      "key": "aafa88ddf80cf8d16e1e436ce1c9f59674d8e7d7",
+      "name": "_icon/Star-fill",
+      "description": "",
+      "pageId": "34:1780",
+      "pageName": "Icons",
+      "pageOrder": 116,
+      "topLevel": {
+        "id": "7932:15880",
+        "name": "♻️ Recycle",
+        "type": "FRAME"
+      },
+      "componentPropertyDefinitions": {
+        "Property 1": {
+          "type": "VARIANT",
+          "defaultValue": "16",
+          "variantOptions": [
+            "16",
+            "20"
+          ],
+          "preferredValues": null
+        }
+      },
+      "variantGroupProperties": {
+        "Property 1": {
+          "values": [
+            "16",
+            "20"
+          ]
+        }
+      },
+      "propertyReadError": false,
+      "componentIds": [
+        "8660:448",
+        "8660:450"
+      ],
+      "variantCount": 2,
+      "width": 36,
+      "height": 56,
+      "absoluteX": 2890,
+      "absoluteY": -487
+    }
+  ]
+}
