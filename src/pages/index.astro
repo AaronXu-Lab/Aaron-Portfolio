@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import MediaSlot from '../components/MediaSlot.astro';
 import CaseList from '../components/CaseList.astro';
-import LivePanel from '../components/LivePanel.astro';
 import { formatDate } from '../utils';
 
 const posts = (await getCollection('blog'))
@@ -201,7 +200,6 @@ const capabilities = [
         <span class="zh">精选案例</span>
         <span class="en">Featured Projects</span>
       </div>
-      <LivePanel />
 
       <p class="lead projects-intro reveal">
         🧐 接下来，我将要讲述我近年来 <strong>2 个</strong>能定义我职业维度的核心项目。

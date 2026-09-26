@@ -21,7 +21,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `public/tools/flying-ninja-cat/` | 独立静态壳小游戏「飞天忍者猫」:纯 HTML5 Canvas 重制版,运行时只加载目录内的 `game.js`、`style.css` 与 `assets/`,不依赖 SWF、Ruffle 或外部接口;最高分保存在浏览器 `localStorage`。源版本与永久回归测试位于本地 `Anti-SWF/h5/flying-ninja-cat/` |
 | `src/content/blog/` | 博客文章(脚本生成,**勿手改**) |
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
-| `src/pages/design.astro` | `/design/` 活体样式指南:全部 token 与组件的实渲染 |
+| `src/pages/design.astro` | `/design/` 活体样式指南:全部 token 与组件的实渲染;底部「其他组件库」读 `src/data/libraries.ts`,无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
 | `scripts/` | 新建/导入/标点脚本 |
 | `workflows/` | 沉淀工作流:新增案例(AI 剧本)、新增博客(脚本) |
 
