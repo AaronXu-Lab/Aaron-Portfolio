@@ -1,0 +1,7 @@
+.fu-icon {
+  display: inline-block;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--fu-icon) center / contain no-repeat;
+  mask: var(--fu-icon) center / contain no-repeat;
+}

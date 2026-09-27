@@ -1305,3 +1305,73 @@ html[data-library="flomo"] {
   --fm-small-shadow: 0 1px 4px #00000014;
   --fm-shadow: 0 0 20px #00000014;
 }
+
+/* flomo Figma "Numbers" and "Platform" collections (platform follows data-flomo-platform). */
+html[data-library="flomo"] {
+  --fm-n-line-width: 0.5px;
+  --fm-n-memo-content-space: 12px;
+  --fm-n-list-space-regular: 10px;
+  --fm-n-corner-radius-large: 12px;
+  --fm-n-corner-radius-medium: 6px;
+  --fm-n-corner-radius-small: 3px;
+  --fm-n-padding-medium: 16px;
+  --fm-n-padding-wide: 24px;
+  --fm-n-padding-narrow: 12px;
+  --fm-n-paragraph-spacing: 4px;
+  --fm-n-menu-space: 2px;
+  --fm-n-menu-padding-medium: 4px;
+  --fm-n-disable-opacity: 0.4;
+  --fm-n-menu-padding-large: 8px;
+  --fm-n-list-space-wide: 20px;
+  --fm-n-list-bottom-padding: 24px;
+  --fm-n-mask-blur: 32px;
+  --fm-n-corner-radius-huge: 24px;
+}
+html[data-library="flomo"][data-flomo-platform="iOS"] {
+  --fm-p-font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --fm-p-editor-button-corner: 100px;
+  --fm-p-bottom-padding: 20px;
+  --fm-p-font-weight-regular: 400;
+  --fm-p-font-weight-emphasize: 600;
+  --fm-p-mask-platform: #00000099;
+  --fm-p-navi-height-in-sheet: 52px;
+  --fm-p-sheet-max-width: 580px;
+  --fm-p-sheet-max-height: 640px;
+  --fm-p-navi-offset-vertical: 4px;
+  --fm-p-navi-offset-horizontal: 6px;
+  --fm-p-menu-vpadding: 12px;
+  --fm-p-font-body-size: 15px;
+  --fm-p-navi-offset-modal-increment: 6px;
+}
+html[data-library="flomo"][data-flomo-platform="Android"] {
+  --fm-p-font-family: "flomoFont-V3", Roboto, "Noto Sans SC", "PingFang SC", sans-serif;
+  --fm-p-editor-button-corner: 100px;
+  --fm-p-bottom-padding: 20px;
+  --fm-p-font-weight-regular: 400;
+  --fm-p-font-weight-emphasize: 600;
+  --fm-p-mask-platform: #00000099;
+  --fm-p-navi-height-in-sheet: 60px;
+  --fm-p-sheet-max-width: 580px;
+  --fm-p-sheet-max-height: 640px;
+  --fm-p-navi-offset-vertical: 6px;
+  --fm-p-navi-offset-horizontal: 6px;
+  --fm-p-menu-vpadding: 12px;
+  --fm-p-font-body-size: 15px;
+  --fm-p-navi-offset-modal-increment: 4px;
+}
+html[data-library="flomo"][data-flomo-platform="Web"] {
+  --fm-p-font-family: "flomoFont-V3", -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", sans-serif;
+  --fm-p-editor-button-corner: 6px;
+  --fm-p-bottom-padding: 40px;
+  --fm-p-font-weight-regular: 400;
+  --fm-p-font-weight-emphasize: 600;
+  --fm-p-mask-platform: #00000099;
+  --fm-p-navi-height-in-sheet: 60px;
+  --fm-p-sheet-max-width: 580px;
+  --fm-p-sheet-max-height: 780px;
+  --fm-p-navi-offset-vertical: 12px;
+  --fm-p-navi-offset-horizontal: 12px;
+  --fm-p-menu-vpadding: 10px;
+  --fm-p-font-body-size: 14px;
+  --fm-p-navi-offset-modal-increment: 0px;
+}

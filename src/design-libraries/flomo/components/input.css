@@ -1,0 +1,162 @@
+/* Figma InputText 107:12764 */
+.fm-input {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 240px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-fills-tertiary);
+  cursor: text;
+  --fm-input-pad-y: 6px;
+  padding: var(--fm-input-pad-y) 6px var(--fm-input-pad-y) 10px;
+}
+/* Padding / gap per Size × Trailing (Button+Text starts with an icon button, so left = vertical padding). */
+.fm-input[data-size="Default"][data-trailing="None"] {
+  --fm-input-pad-y: 10px;
+  padding-right: 10px;
+}
+.fm-input[data-size="Default"][data-trailing="Icon Buttons"] {
+  gap: 2px;
+}
+.fm-input[data-size="Default"][data-trailing="Text Button"] {
+  gap: 6px;
+}
+.fm-input[data-size="Large"] {
+  --fm-input-pad-y: 8px;
+  padding-left: 12px;
+}
+.fm-input[data-size="Large"][data-trailing="None"] {
+  --fm-input-pad-y: 12px;
+  padding-right: 10px;
+}
+.fm-input[data-size="Large"][data-trailing="Icon Buttons"] {
+  gap: 4px;
+  padding-right: 12px;
+}
+.fm-input[data-size="Large"][data-trailing="Text Button"] {
+  gap: 8px;
+  padding-right: 8px;
+}
+.fm-input[data-type="Button+Text"] {
+  padding-left: 6px;
+}
+.fm-input[data-size="Large"][data-type="Button+Text"] {
+  padding-left: 8px;
+}
+.fm-input[data-size="Default"][data-type="Button+Text"][data-trailing="None"] {
+  --fm-input-pad-y: 6px;
+}
+.fm-input[data-size="Large"][data-type="Button+Text"][data-trailing="None"] {
+  --fm-input-pad-y: 8px;
+}
+.fm-input-main {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 1px;
+  align-items: center;
+  gap: 8px;
+}
+.fm-input-content {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 1px;
+  align-items: center;
+  color: var(--fm-text-subtle);
+}
+.fm-input[data-size="Default"][data-type="Icon+Text"] .fm-input-content {
+  gap: 6px;
+}
+.fm-input[data-size="Default"][data-type="Button+Text"] .fm-input-content {
+  gap: 2px;
+}
+.fm-input[data-size="Large"][data-type="Icon+Text"] .fm-input-content {
+  gap: 8px;
+}
+.fm-input[data-size="Large"][data-type="Button+Text"] .fm-input-content {
+  gap: 4px;
+}
+.fm-input .fm-input-field {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--fm-text-regular);
+  caret-color: var(--fm-general-theme-primary);
+  font-family: var(--fm-p-font-family);
+  font-weight: var(--fm-p-font-weight-regular);
+  font-size: var(--fm-p-font-body-size);
+  line-height: 16px;
+  text-overflow: ellipsis;
+}
+.fm-input[data-size="Large"] .fm-input-field {
+  font-size: 16px;
+}
+.fm-input .fm-input-field::placeholder {
+  color: var(--fm-text-subtle);
+  opacity: 1;
+}
+/* The Figma focus look is the theme-coloured cursor; keep the shell ring off the bare text line. */
+.fm-input .fm-input-field:focus-visible {
+  outline: none;
+}
+.fm-input .fm-input-icon-button,
+.fm-input .fm-input-clear,
+.fm-input .fm-input-text-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fm-text-subtle);
+}
+.fm-input .fm-input-icon-button {
+  padding: 4px;
+  border-radius: var(--fm-n-corner-radius-small);
+}
+.fm-input .fm-input-clear {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-radius: 8px;
+}
+.fm-input .fm-input-separator {
+  position: relative;
+  flex: none;
+  width: 0;
+  height: 12px;
+}
+.fm-input .fm-input-separator::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.5px;
+  width: 1px;
+  border-radius: 0.5px;
+  background: var(--fm-line-light);
+}
+.fm-input .fm-input-text-button {
+  height: 24px;
+  padding: 4px;
+  border-radius: var(--fm-n-corner-radius-small);
+  color: var(--fm-general-theme-primary);
+  font-family: var(--fm-p-font-family);
+  font-weight: var(--fm-p-font-weight-regular);
+  font-size: var(--fm-p-font-body-size);
+  line-height: 16px;
+  white-space: nowrap;
+}
+.fm-input[data-size="Large"] .fm-input-text-button {
+  height: 32px;
+  font-size: 16px;
+}
+[data-flomo-platform="Web"] .fm-input .fm-input-icon-button:hover,
+[data-flomo-platform="Web"] .fm-input .fm-input-text-button:hover {
+  background: var(--fm-hover);
+}

@@ -1,0 +1,623 @@
+/* Scenary specimens (Figma page "Scenary"). Namespace: fu-scen-… */
+
+/* ---------- Type ---------- */
+
+.fu-scen-day,
+.fu-scen-month,
+.fu-scen-cal-title-text {
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+.fu-scen-dp,
+.fu-scen-cal,
+.fu-scen-nav,
+.fu-scen-seg,
+.fu-scen-menu {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+/* Shared control reset */
+.fu-scen-day,
+.fu-scen-month,
+.fu-scen-btn,
+.fu-scen-cal-title,
+.fu-scen-nav-tab,
+.fu-scen-seg-opt,
+.fu-scen-dp-seg-opt,
+.fu-scen-dp-tail,
+.fu-scen-menu-item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: inherit;
+}
+
+:is(.fu-scen-day, .fu-scen-month, .fu-scen-btn, .fu-scen-cal-title, .fu-scen-nav-tab, .fu-scen-seg-opt,
+  .fu-scen-dp-seg-opt, .fu-scen-dp-tail, .fu-scen-menu-item):is(button):not(:disabled) {
+  cursor: pointer;
+}
+
+:is(.fu-scen-day, .fu-scen-month, .fu-scen-btn, .fu-scen-cal-title, .fu-scen-nav-tab, .fu-scen-seg-opt,
+  .fu-scen-dp-seg-opt, .fu-scen-dp-tail, .fu-scen-menu-item):focus-visible {
+  outline: 2px solid var(--followup-primary);
+  outline-offset: 1px;
+}
+
+.fu-icon.is-secondary {
+  color: var(--followup-text-default-secondary);
+}
+
+/* 1px list divider drawn centered on a 0-height line, as in Figma. */
+.fu-scen-divider {
+  position: relative;
+  display: block;
+  flex: none;
+  align-self: stretch;
+  height: 0;
+}
+
+.fu-scen-divider::after {
+  position: absolute;
+  top: -0.5px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--followup-divider-normal);
+  content: "";
+}
+
+/* ---------- Passby ---------- */
+
+.fu-scen-passby {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 32px;
+}
+
+.fu-scen-passby-bar {
+  position: absolute;
+  inset: 0 -4px;
+  background: var(--followup-tertiary);
+}
+
+.fu-scen-passby-bar[data-type="Start"] { left: 20px; }
+.fu-scen-passby-bar[data-type="End"] { right: 20px; }
+
+/* ---------- Day ---------- */
+
+.fu-scen-day {
+  position: relative;
+  display: grid;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: var(--followup-radius-normal);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-scen-day[data-mini] { height: 27px; }
+.fu-scen-day.is-header { font-weight: 600; }
+.fu-scen-day[data-state="Today"] { color: var(--followup-primary); }
+.fu-scen-day[data-state="Disable"] { color: var(--followup-text-disable-light); }
+.fu-scen-day[data-state="Selected"] { color: var(--followup-white100); }
+
+.fu-scen-day-text {
+  position: relative;
+  z-index: 2;
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
+.fu-scen-day::before {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  content: "";
+  translate: -50% -50%;
+}
+
+.fu-scen-day[data-mini]::before {
+  width: 27px;
+  height: 27px;
+}
+
+.fu-scen-day[data-state="Selected"]::before { background: var(--followup-primary); }
+button.fu-scen-day:is([data-state="Normal"], [data-state="Today"]):hover::before {
+  background: var(--followup-general-hover-normal);
+}
+
+.fu-scen-day-passby {
+  position: absolute;
+  z-index: 0;
+  inset: 0 -4px;
+  background: var(--followup-tertiary);
+}
+
+/* ---------- Month ---------- */
+
+.fu-scen-month {
+  position: relative;
+  display: grid;
+  flex: none;
+  width: 84px;
+  height: 52px;
+  padding-left: 1px;
+  place-items: center;
+  border-radius: var(--followup-radius-normal);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-scen-month[data-state="Today"] { color: var(--followup-primary); }
+.fu-scen-month[data-state="Disable"] { color: var(--followup-text-disable-light); }
+
+.fu-scen-month-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 16px;
+  white-space: nowrap;
+}
+
+.fu-scen-month[data-state="Selected"] .fu-scen-month-text {
+  background: var(--followup-primary);
+  color: var(--followup-white100);
+}
+
+button.fu-scen-month:is([data-state="Normal"], [data-state="Today"]):hover .fu-scen-month-text {
+  background: var(--followup-general-hover-normal);
+}
+
+.fu-scen-month-passby {
+  position: absolute;
+  top: 10px;
+  right: -4px;
+  left: -4px;
+  height: 32px;
+  background: var(--followup-tertiary);
+}
+
+/* ---------- Grid pickers ---------- */
+
+.fu-scen-grid {
+  display: flex;
+  width: 280px;
+  height: 240px;
+  flex: none;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px;
+  padding: 4px;
+}
+
+.fu-scen-grid-head {
+  display: flex;
+  gap: 8px;
+}
+
+.fu-scen-grid-days {
+  display: flex;
+  width: 272px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px;
+}
+
+.fu-scen-grid-days[data-mini] { row-gap: 6px; }
+
+.fu-scen-months {
+  display: flex;
+  width: 280px;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 8px 10px;
+  padding: 4px;
+}
+
+/* ---------- Buttons (plain / light) ---------- */
+
+.fu-scen-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: var(--followup-radius-normal);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-scen-btn.is-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.fu-scen-btn.is-text {
+  min-width: 64px;
+  padding: 6px 8px;
+  color: var(--followup-text-emphasize-primary);
+  font-size: 13px;
+  font-weight: 510;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-scen-btn.is-text.has-icon { min-width: 0; }
+.fu-scen-btn.is-text.has-icon .fu-icon { color: var(--followup-text-default-primary); }
+.fu-scen-btn.is-secondary { color: var(--followup-text-emphasize-secondary); }
+
+.fu-scen-btn.is-light {
+  min-width: 72px;
+  background: var(--followup-button-light);
+}
+
+.fu-scen-btn:not(.is-light):hover,
+.fu-scen-nav-tab:hover,
+.fu-scen-dp-tail:is(button):hover,
+.fu-scen-menu-item:hover,
+.fu-scen-cal-title:hover .fu-scen-cal-title-content {
+  background: var(--followup-general-hover-normal);
+}
+
+/* ---------- Calendar ---------- */
+
+.fu-scen-cal {
+  display: flex;
+  width: 320px;
+  flex: none;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--followup-white100);
+  box-shadow: 0 0 32px rgb(75 104 250 / 0.08);
+}
+
+.fu-scen-cal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 20px 12px;
+}
+
+.fu-scen-cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.fu-scen-cal-title {
+  display: flex;
+  width: 120px;
+  height: 40px;
+  padding: 4px 4px 4px 0;
+}
+
+.fu-scen-cal-title-content {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  align-items: center;
+  padding: 0 16px 0 8px;
+  border-radius: var(--followup-radius-normal);
+}
+
+.fu-scen-cal-title-text {
+  display: block;
+  overflow: hidden;
+  color: var(--followup-text-emphasize-primary);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-scen-cal-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fu-scen-cal-foot {
+  position: relative;
+  display: flex;
+  height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px 8px;
+}
+
+.fu-scen-cal-foot::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: #e6eafa;
+  content: "";
+}
+
+/* ---------- Pic ---------- */
+
+.fu-scen-pic {
+  display: flex;
+  flex: none;
+  align-items: center;
+  border-radius: var(--followup-radius-normal);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-scen-pic[data-placeholder] {
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.fu-scen-pic-img {
+  display: block;
+  width: 24px;
+  max-width: none;
+  height: 24px;
+  border-radius: var(--followup-radius-normal);
+  object-fit: cover;
+}
+
+.fu-scen-pic[data-size="20"] .fu-scen-pic-img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- Navigation Bar/Panel ---------- */
+
+.fu-scen-nav {
+  position: relative;
+  display: flex;
+  width: 380px;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px 8px 16px;
+}
+
+.fu-scen-nav::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.5px;
+  left: 0;
+  height: 1px;
+  background: var(--followup-divider-normal);
+  content: "";
+}
+
+.fu-scen-nav-tabs {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  gap: 4px;
+}
+
+.fu-scen-nav-tab,
+.fu-scen-nav-title {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  color: var(--followup-text-emphasize-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-scen-nav-tab {
+  height: 32px;
+  padding: 0 8px;
+}
+
+.fu-scen-nav-tab[aria-selected="false"] { color: var(--followup-text-emphasize-secondary); }
+
+.fu-scen-nav-title {
+  gap: 4px;
+  padding: 8px;
+}
+
+.fu-scen-nav-count {
+  color: var(--followup-text-default-secondary);
+  font-size: 13px;
+}
+
+.fu-scen-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- Segement ---------- */
+
+.fu-scen-seg {
+  display: flex;
+  flex: none;
+  align-items: center;
+  border-radius: 3px;
+  background: var(--followup-button-disable);
+}
+
+.fu-scen-seg[data-fill] { width: 240px; }
+
+.fu-scen-seg-opt {
+  display: flex;
+  min-width: 72px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: var(--followup-radius-normal);
+  color: var(--followup-text-default-primary);
+  font-size: 14px;
+  font-weight: 510;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-scen-seg[data-fill] .fu-scen-seg-opt { flex: 1 0 0; }
+/* As drawn: the first option reads darker while another option is selected. */
+.fu-scen-seg-opt:first-child[aria-pressed="false"] { color: var(--followup-text-emphasize-primary); }
+
+.fu-scen-seg-opt[aria-pressed="true"] {
+  background: var(--followup-white100);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-button-outline);
+}
+
+/* ---------- Display Panel ---------- */
+
+.fu-scen-dp {
+  display: flex;
+  width: 320px;
+  flex: none;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px;
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-white100);
+  box-shadow: 0 0 16px rgb(51 44 96 / 0.08);
+}
+
+.fu-scen-dp-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.fu-scen-dp-title {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  margin-bottom: 8px;
+  color: var(--followup-text-emphasize-primary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.fu-scen-dp-layout { padding: 8px 0; }
+
+.fu-scen-dp-seg {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-gray5);
+}
+
+.fu-scen-dp-seg-opt {
+  display: flex;
+  height: 60px;
+  min-width: 0;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  color: var(--followup-text-default-primary);
+  font-size: 13px;
+  font-weight: 510;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-scen-dp-seg-opt[aria-pressed="true"] { background: var(--followup-white100); }
+
+.fu-scen-dp-row {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 4px 12px 0;
+}
+
+.fu-scen-dp-label {
+  flex: 1 0 0;
+  min-width: 0;
+  padding-right: 12px;
+  color: var(--followup-text-default-primary);
+  font-size: 14px;
+  font-weight: 510;
+  line-height: 16px;
+}
+
+.fu-scen-dp-tail {
+  display: flex;
+  height: 28px;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px 6px 6px;
+  border-radius: 3px;
+  color: var(--followup-text-default-primary);
+}
+
+.fu-scen-dp-value {
+  color: var(--followup-text-default-secondary);
+  font-size: 14px;
+  font-weight: 510;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+/* ---------- Menu (library Menu: Shadow/Popover, Padding/Menu, Space/Menu) ---------- */
+
+.fu-scen-menu {
+  position: fixed;
+  min-width: 160px;
+  inset: auto;
+  margin: 0;
+  padding: var(--followup-padding-menu);
+  overflow: visible;
+  border: 0;
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-white100);
+  box-shadow: 0 0 16px rgb(51 44 96 / 0.08);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-scen-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--followup-gap-menu);
+}
+
+.fu-scen-menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px 8px 8px;
+  border-radius: var(--followup-radius-normal);
+  font-size: 14px;
+  font-weight: 510;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-scen-menu-text {
+  flex: 1 0 0;
+  padding-right: 12px;
+}
+
+.fu-scen-menu-item > .fu-icon:last-child:not(:first-child) { margin-right: 4px; }

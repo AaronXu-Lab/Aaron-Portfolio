@@ -1,0 +1,240 @@
+/* NavigationBar 24:9641 · NavigationBar-Buttons 24:9445 · Breadcrumb 304:65246 */
+.fm-navigation {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+  padding: var(--fm-p-navi-offset-vertical) var(--fm-p-navi-offset-horizontal);
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+}
+.fm-navigation[data-layout="left"][data-trailing="search"] {
+  padding: 12px;
+  overflow: hidden;
+}
+/* Figma draws the Text+Description variants at 40% opacity. */
+.fm-navigation[data-type="Text+Description"] {
+  opacity: 0.4;
+}
+.fm-navigation .fm-navigation-leading {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+/* Shared plain-button reset (beats the shell's `button` rule). */
+.fm-navigation .fm-navigation-icon-btn,
+.fm-navigation .fm-navigation-title,
+.fm-navigation-buttons .fm-navigation-text-btn,
+.fm-navigation-breadcrumb .fm-navigation-home,
+.fm-navigation-breadcrumb .fm-navigation-level,
+.fm-navigation-breadcrumb .fm-navigation-expand,
+.fm-navigation-search .fm-navigation-filter {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--fm-p-font-family);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.fm-navigation .fm-navigation-icon-btn,
+.fm-navigation-breadcrumb .fm-navigation-home {
+  padding: 10px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  color: var(--fm-text-subtle);
+}
+.fm-navigation-breadcrumb .fm-navigation-home {
+  color: var(--fm-text-regular);
+}
+.fm-navigation .fm-navigation-chevron {
+  color: var(--fm-text-subtle);
+}
+.fm-navigation-breadcrumb .fm-navigation-chevron {
+  color: var(--fm-text-subtle);
+}
+.fm-navigation .fm-navigation-logo {
+  color: var(--fm-logo-text);
+}
+
+/* Title Part */
+.fm-navigation .fm-navigation-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  transform: translate(-50%, -50%);
+}
+.fm-navigation .fm-navigation-title {
+  color: var(--fm-text-emphasize);
+  font-size: 16px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 16px;
+}
+.fm-navigation .fm-navigation-title[data-layout="center"][data-type="Logo"] {
+  gap: 4px;
+  padding: 6px 6px 6px 10px;
+  border-radius: var(--fm-n-corner-radius-small);
+}
+.fm-navigation .fm-navigation-title[data-layout="center"][data-type="Text"] {
+  padding: 6px;
+  border-radius: var(--fm-n-corner-radius-small);
+}
+.fm-navigation .fm-navigation-title[data-layout="center"][data-type="Text"] .fm-navigation-title-text {
+  padding: 4px;
+}
+.fm-navigation .fm-navigation-expand-icon {
+  display: flex;
+  padding: 4px;
+  border-radius: var(--fm-n-corner-radius-small);
+}
+.fm-navigation .fm-navigation-title[data-layout="left"] {
+  height: 36px;
+  gap: 8px;
+  padding: 0 10px 0 4px;
+  border-radius: var(--fm-n-corner-radius-medium);
+}
+.fm-navigation .fm-navigation-title[data-type="Text+Description"] {
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-small);
+  white-space: nowrap;
+}
+.fm-navigation .fm-navigation-title[data-type="Text+Description"] .fm-navigation-title-text {
+  font-size: var(--fm-p-font-body-size);
+}
+.fm-navigation .fm-navigation-description {
+  color: var(--fm-text-subtle);
+  font-size: 12px;
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 12px;
+}
+
+/* NavigationBar-Buttons */
+.fm-navigation-buttons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+}
+.fm-navigation-buttons .fm-navigation-text-btn {
+  padding: 10px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  color: var(--fm-text-subtle);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+}
+
+/* Breadcrumb */
+.fm-navigation-breadcrumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+.fm-navigation-breadcrumb .fm-navigation-separator {
+  color: var(--fm-line-regular);
+}
+.fm-navigation-breadcrumb .fm-navigation-level,
+.fm-navigation-breadcrumb .fm-navigation-expand {
+  color: var(--fm-text-emphasize);
+  font-family: "flomoFont-V3", var(--fm-p-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+}
+.fm-navigation-breadcrumb .fm-navigation-level {
+  padding: 10px;
+  border-radius: var(--fm-n-corner-radius-small);
+}
+.fm-navigation-breadcrumb .fm-navigation-expand {
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: var(--fm-n-corner-radius-medium);
+}
+
+/* Trailing search (InputText) */
+.fm-navigation .fm-navigation-trailing-search {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 52px;
+  padding-left: 16px;
+}
+.fm-navigation-search {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  max-width: 280px;
+  padding: 6px 6px 6px 10px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-fills-tertiary);
+}
+.fm-navigation-search:focus-within {
+  outline: 2px solid var(--fm-general-theme-primary);
+  outline-offset: 2px;
+}
+.fm-navigation-search .fm-navigation-search-content {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 6px;
+  min-width: 1px;
+  color: var(--fm-text-subtle);
+  cursor: text;
+}
+.fm-navigation-search .fm-navigation-search-input {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: var(--fm-text-regular);
+  caret-color: var(--fm-general-theme-primary);
+  font-family: var(--fm-p-font-family);
+  font-size: 15px;
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+  appearance: none;
+}
+.fm-navigation-search .fm-navigation-search-input::-webkit-search-cancel-button {
+  appearance: none;
+}
+/* The field draws the focus ring (focus-within), not the bare input. */
+.fm-navigation-search .fm-navigation-search-input:focus-visible {
+  outline: none;
+}
+.fm-navigation-search .fm-navigation-search-input::placeholder {
+  color: var(--fm-text-subtle);
+  opacity: 1;
+}
+.fm-navigation-search .fm-navigation-filter {
+  padding: 4px;
+  border-radius: var(--fm-n-corner-radius-small);
+  color: var(--fm-text-subtle);
+}
+
+/* Web hover: Plain buttons gain the Hover fill ("Hover 效果（仅 Web 和客户端）"). */
+[data-flomo-platform="Web"] .fm-navigation .fm-navigation-icon-btn:hover,
+[data-flomo-platform="Web"] .fm-navigation button.fm-navigation-title:hover,
+[data-flomo-platform="Web"] .fm-navigation-buttons .fm-navigation-text-btn:hover,
+[data-flomo-platform="Web"] .fm-navigation-breadcrumb .fm-navigation-home:hover,
+[data-flomo-platform="Web"] .fm-navigation-breadcrumb .fm-navigation-level:hover,
+[data-flomo-platform="Web"] .fm-navigation-breadcrumb .fm-navigation-expand:hover,
+[data-flomo-platform="Web"] .fm-navigation-search .fm-navigation-filter:hover {
+  background: var(--fm-hover);
+}

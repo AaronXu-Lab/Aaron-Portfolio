@@ -1,0 +1,23 @@
+/* Figma Label 65:7750 */
+.fm-label[type] {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-medium);
+  overflow: hidden;
+  color: var(--fm-text-regular);
+  background: var(--fm-fills-tertiary);
+  font-family: var(--fm-p-font-family);
+  font-weight: var(--fm-p-font-weight-regular);
+  font-size: var(--fm-p-font-body-size);
+  line-height: 16px;
+  white-space: nowrap;
+}
+/* Same Web/client hover treatment as Button: Hover colour over the fill. */
+[data-flomo-platform="Web"] .fm-label[type]:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}

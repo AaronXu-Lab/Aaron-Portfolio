@@ -1,0 +1,7 @@
+.fm-icon {
+  display: inline-block;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--fm-icon) center / contain no-repeat;
+  mask: var(--fm-icon) center / contain no-repeat;
+}

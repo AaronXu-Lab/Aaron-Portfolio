@@ -1,0 +1,46 @@
+/* Figma Checkbox 126:8510: the source SVGs tinted by the bound colour variables. */
+.fm-checkbox[data-status] {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+/* 44px-ish hit area around the 16px glyph without changing its geometry. */
+.fm-checkbox[data-status]::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+}
+/* White100 check / bar showing through the cut-out of the filled glyph. */
+.fm-checkbox[data-status]::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--fm-white);
+}
+.fm-checkbox[data-status="Unchecked"]::before {
+  content: none;
+}
+.fm-checkbox .fm-checkbox-mark {
+  position: absolute;
+  inset: 0;
+  background: var(--fm-general-theme-primary);
+  -webkit-mask: url("/design-libraries/flomo/icons/checkbox-checked.svg") center / contain no-repeat;
+  mask: url("/design-libraries/flomo/icons/checkbox-checked.svg") center / contain no-repeat;
+}
+.fm-checkbox[data-status="Indeterminate"] .fm-checkbox-mark {
+  -webkit-mask-image: url("/design-libraries/flomo/icons/checkbox-indeterminate.svg");
+  mask-image: url("/design-libraries/flomo/icons/checkbox-indeterminate.svg");
+}
+.fm-checkbox[data-status="Unchecked"] .fm-checkbox-mark {
+  background: var(--fm-fills-primary);
+  -webkit-mask-image: url("/design-libraries/flomo/icons/checkbox-unchecked.svg");
+  mask-image: url("/design-libraries/flomo/icons/checkbox-unchecked.svg");
+}

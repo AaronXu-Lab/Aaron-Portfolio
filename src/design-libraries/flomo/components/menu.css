@@ -1,0 +1,254 @@
+/* flomo Menu family (Figma section 279:21954). */
+
+/* Prefixed so it beats the shell's `button { font: inherit }` on items rendered as buttons. */
+[data-library="flomo"] :is(.fm-menu-item, .fm-menu-topaction, .fm-menu) {
+  font-family: var(--fm-p-font-family);
+  font-weight: var(--fm-p-font-weight-regular);
+  font-size: var(--fm-p-font-body-size);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Menu Item 279:22101 */
+[data-library="flomo"] .fm-menu-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 200px;
+  margin: 0;
+  padding: var(--fm-p-menu-vpadding) var(--fm-n-padding-narrow);
+  overflow: hidden;
+  border-radius: 3px;
+  color: var(--fm-text-regular);
+  line-height: 16px;
+  text-align: left;
+}
+.fm-menu-group > .fm-menu-item {
+  width: 100%;
+}
+.fm-menu-content {
+  display: flex;
+  flex: 1 0 0;
+  gap: 12px;
+  align-items: center;
+  min-width: 1px;
+}
+.fm-menu-lead {
+  width: 16px;
+  height: 16px;
+}
+.fm-menu-emoji {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  line-height: 16px;
+  text-align: center;
+}
+.fm-menu-texts {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 1px;
+}
+.fm-menu-text {
+  display: -webkit-box;
+  margin: -4px 0;
+  overflow: hidden;
+  line-height: 24px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Figma "Size": main text at most two lines */
+}
+.fm-menu-desc {
+  color: var(--fm-text-subtle);
+  font-size: 12px;
+  line-height: 12px;
+}
+.fm-menu-item[data-tone="destructive"] {
+  color: var(--fm-destructive);
+}
+.fm-menu-item[data-checked="true"] .fm-menu-trail {
+  color: var(--fm-general-theme-primary);
+}
+.fm-menu-trail {
+  width: 16px;
+  height: 16px;
+}
+.fm-menu-detail {
+  flex: none;
+  color: var(--fm-text-subtle);
+  white-space: nowrap;
+}
+.fm-menu-badge {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  min-width: 16px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: var(--fm-general-red-primary);
+  color: #fff;
+  font-size: 12px;
+  line-height: 12px;
+  white-space: nowrap;
+}
+.fm-menu-switch {
+  flex: none;
+  width: 40px;
+  margin: -4px 0;
+}
+
+/* Hover&Press (Figma Status example): Web hover, every platform while pressed, keyboard focus. */
+.fm-menu-item:not(div):active,
+.fm-menu-item:focus-visible,
+.fm-menu-topaction:not(span):active,
+.fm-menu-topaction:focus-visible,
+[data-flomo-platform="Web"] .fm-menu-item:not(div):hover,
+[data-flomo-platform="Web"] .fm-menu-topaction:not(span):hover {
+  background: var(--fm-hover);
+}
+.fm-menu-item[data-tone="destructive"]:not(div):active,
+.fm-menu-item[data-tone="destructive"]:focus-visible,
+[data-flomo-platform="Web"] .fm-menu-item[data-tone="destructive"]:not(div):hover {
+  background: var(--fm-general-red-secondary);
+}
+.fm-menu-item:focus-visible,
+.fm-menu-topaction:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Menu-Divider 279:22854: a 1px Line/Light rule centred in 4px. */
+.fm-menu-divider {
+  flex: none;
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(var(--fm-line-light), var(--fm-line-light)) 0 1.5px / 100% 1px no-repeat;
+}
+.fm-menu > .fm-menu-divider {
+  width: 100%;
+}
+
+/* Menu - Top Action 6896:20921 */
+[data-library="flomo"] .fm-menu-topaction {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  min-width: 64px;
+  padding: var(--fm-p-menu-vpadding) 4px;
+  border-radius: var(--fm-n-corner-radius-small);
+  color: var(--fm-text-regular);
+}
+[data-library="flomo"] .fm-menu-topaction[data-type="Icon"] {
+  height: 44px;
+  padding: 0;
+  overflow: hidden;
+}
+.fm-menu-topaction-text {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Menu surface (Figma examples 803:47707 / 803:48225). */
+.fm-menu {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-popover-background);
+  box-shadow: 0 0 20px #00000014;
+  text-align: left;
+}
+.fm-menu-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fm-n-menu-space);
+  padding: var(--fm-n-menu-padding-medium);
+}
+.fm-menu-toprow {
+  flex-direction: row;
+}
+[data-library="flomo"] .fm-menu-toprow > .fm-menu-topaction {
+  flex: 1 0 0;
+  width: auto;
+}
+.fm-menu-footnote {
+  padding: var(--fm-p-menu-vpadding) var(--fm-n-padding-narrow);
+  color: var(--fm-text-subtle);
+  font-size: 12px;
+  line-height: 20px;
+}
+.fm-menu-footnote > span {
+  display: block;
+  margin: -4px 0;
+}
+
+/* Live demo: popover under the trigger. Figma "Animation": opacity 0→100%, scale 80%→100%, 200 ms, ease-in in / ease-out out. */
+.fm-menu-demo {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+}
+[data-library="flomo"] .fm-menu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-general-gray-secondary);
+  color: var(--fm-text-regular);
+}
+[data-flomo-platform="Web"] .fm-menu-trigger:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+.fm-menu-popover {
+  position: absolute;
+  z-index: 20;
+  top: 44px;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.8);
+  transform-origin: top left;
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out,
+    visibility 0s linear 200ms;
+}
+.fm-menu-popover[data-open="true"] {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms ease-in,
+    transform 200ms ease-in,
+    visibility 0s;
+}
+[data-flomo-platform="iOS"] .fm-menu-popover[data-open="true"] {
+  transition:
+    opacity 200ms ease-in,
+    transform 320ms cubic-bezier(0.2, 0.9, 0.3, 1.15),
+    visibility 0s;
+}
+[data-flomo-platform="Android"] .fm-menu-popover[data-open="true"] {
+  transition:
+    opacity 200ms cubic-bezier(0.2, 0, 0, 1),
+    transform 200ms cubic-bezier(0.2, 0, 0, 1),
+    visibility 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fm-menu-popover,
+  .fm-menu-popover[data-open="true"],
+  [data-flomo-platform] .fm-menu-popover[data-open="true"] {
+    transform: none;
+    transition: visibility 0s;
+  }
+}

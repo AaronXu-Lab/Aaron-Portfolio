@@ -1,0 +1,163 @@
+/* flomo Snackbar family (Figma section 106:12108). */
+
+[data-library="flomo"] :is(.fm-snackbar, .fm-snackbar-demo) {
+  font-family: var(--fm-p-font-family);
+  font-weight: var(--fm-p-font-weight-regular);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Snackbar 106:11315 */
+.fm-snackbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: min(360px, 100%);
+  padding: 8px 8px 8px 16px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-snackbar-fills);
+  color: var(--fm-snackbar-text);
+  font-size: var(--fm-p-font-body-size);
+  text-align: left;
+}
+.fm-snackbar[data-type="Text Only"] {
+  padding-right: 16px;
+}
+.fm-snackbar-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  margin: 6px 0;
+  overflow: hidden;
+  line-height: 24px;
+  text-overflow: ellipsis;
+}
+.fm-snackbar-buttons {
+  display: flex;
+  flex: none;
+  gap: 4px;
+  align-items: center;
+}
+[data-library="flomo"] .fm-snackbar-action {
+  padding: 10px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-medium);
+  color: var(--fm-general-theme-primary);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 16px;
+  white-space: nowrap;
+}
+[data-library="flomo"] .fm-snackbar-close {
+  display: flex;
+  padding: 10px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-medium);
+  color: var(--fm-snackbar-text);
+}
+/* Web hover: a 10% wash of the snackbar's own text colour (Hover token is invisible on the dark fill). */
+[data-flomo-platform="Web"] button:is(.fm-snackbar-action, .fm-snackbar-close):hover {
+  background: color-mix(in srgb, var(--fm-snackbar-text) 10%, transparent);
+}
+button:is(.fm-snackbar-action, .fm-snackbar-close):focus-visible {
+  outline-offset: -2px;
+}
+
+/* Live demo: a screen-shaped stage; Snackbar Wrapper 106:11434 = Padding/Narrow sides + 20px above the bottom padding. */
+.fm-snackbar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+.fm-snackbar-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--fm-text-subtle);
+  font-size: 12px;
+}
+.fm-snackbar-controls select {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--fm-line-light);
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-backgrounds-grouped-secondary);
+  color: var(--fm-text-regular);
+  font-size: 14px;
+}
+[data-library="flomo"] .fm-snackbar-trigger {
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-general-theme-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+}
+[data-flomo-platform="Web"] .fm-snackbar-trigger:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+.fm-snackbar-screen {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border: 1px solid var(--fm-line-light);
+  border-radius: var(--fm-n-corner-radius-large);
+  background: var(--fm-backgrounds-grouped-primary);
+}
+.fm-snackbar-layer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  justify-items: center;
+  padding: var(--fm-n-padding-narrow) var(--fm-n-padding-narrow) calc(20px + var(--fm-p-bottom-padding));
+  pointer-events: none;
+}
+.fm-snackbar-slot {
+  grid-area: 1 / 1;
+  width: 100%;
+  max-width: 480px;
+  pointer-events: auto;
+  /* Figma: appear = Ease In, translate + opacity. */
+  animation: fm-snackbar-in 200ms ease-in both;
+}
+.fm-snackbar-slot > .fm-snackbar {
+  width: 100%;
+}
+[data-flomo-platform="iOS"] .fm-snackbar-slot {
+  animation: fm-snackbar-in 450ms cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+[data-flomo-platform="Android"] .fm-snackbar-slot {
+  animation: fm-snackbar-in 250ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+/* Figma: disappear = Ease Out, opacity only. */
+.fm-snackbar-slot[data-leaving="true"],
+[data-flomo-platform] .fm-snackbar-slot[data-leaving="true"] {
+  animation: fm-snackbar-out 200ms ease-out forwards;
+  pointer-events: none;
+}
+@keyframes fm-snackbar-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes fm-snackbar-out {
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fm-snackbar-slot,
+  [data-flomo-platform] .fm-snackbar-slot {
+    animation: none;
+  }
+  .fm-snackbar-slot[data-leaving="true"],
+  [data-flomo-platform] .fm-snackbar-slot[data-leaving="true"] {
+    animation: none;
+    opacity: 0;
+  }
+}

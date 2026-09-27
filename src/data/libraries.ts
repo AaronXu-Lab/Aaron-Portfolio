@@ -23,13 +23,13 @@ export const showcaseLibraries = [
   {
     slug: 'followup', name: 'Followup', href: '/design/followup/',
     platform: 'Web · Product design system',
-    description: '面向工作协作的设计语言。浏览语义化 Token、多主题配色、组件变体与原始设计参照。',
-    note: '180 个变量 · 32 个样式 · 1,237 条组件定义',
+    description: '面向工作协作的设计语言。浏览语义化 Token、多主题配色，以及按 Figma 逐变体实现的组件与图标。',
+    note: '180 个变量 · 74 个组件 · 180 个图标',
   },
   {
     slug: 'flomo', name: 'flomo', href: '/design/flomo/',
-    platform: 'iOS → Web · Component library',
-    description: '轻巧、克制的记录体验。将 SwiftUI 组件转为可交互的 Web 实现，保留源库的配色、尺寸与内容结构。',
-    note: '667 个变量 · 39 个样式 · 23 个组件分组',
+    platform: 'iOS · Android · Web · Component library',
+    description: '轻巧、克制的记录体验。按 Figma 源设计实现可交互的 Web 组件，可切换 iOS、Android 与 Web 的交互手感。',
+    note: '667 个变量 · 39 个样式 · 22 个组件分组',
   },
 ];

@@ -1,0 +1,61 @@
+/* Figma Empty Page 4880:114052 */
+.fm-empty-page-b {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 500px;
+  padding: var(--fm-n-padding-narrow);
+  border-radius: var(--fm-n-corner-radius-large);
+}
+.fm-empty-page-b-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+.fm-empty-page-b-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: var(--fm-text-regular);
+  font-size: 48px;
+  line-height: 1;
+  text-align: center;
+}
+.fm-empty-page-b-texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.fm-empty-page-b .fm-empty-page-b-title {
+  width: 100%;
+  margin: 0;
+  color: var(--fm-text-emphasize);
+  font-family: var(--fm-p-font-family);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 24px;
+  text-align: center;
+}
+/* Text Wrapper has -4px vertical padding in Figma: the 24px lines overhang by 4px. */
+.fm-empty-page-b .fm-empty-page-b-text {
+  width: 100%;
+  margin: -4px 0;
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+  font-weight: var(--fm-p-font-weight-regular);
+  font-size: var(--fm-p-font-body-size);
+  line-height: 24px;
+  text-align: center;
+}
+.fm-empty-page-b .fm-empty-page-b-action[data-size] {
+  color: var(--fm-general-blue-primary);
+}

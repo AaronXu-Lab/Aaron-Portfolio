@@ -1,0 +1,208 @@
+/* Figma Float Button 451:44250: 52px, Popover(FB) shadow. */
+.fm-float-button[data-shape] {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin: 0;
+  padding: 12px;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-large);
+  color: var(--fm-white);
+  background-color: var(--fm-general-theme-primary);
+  box-shadow: 0 0 10px #00000026;
+}
+.fm-float-button[data-shape="Circle"] {
+  border-radius: 100px;
+}
+.fm-float-button[data-priority="Secondary"] {
+  color: var(--fm-text-subtle);
+  background-color: var(--fm-backgrounds-primary);
+}
+[data-flomo-platform="Web"] .fm-float-button[data-shape]:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+
+/* Figma Float Window 879:50159: docked tab (Normal) or detached circle (Dragging), Popover shadow. */
+.fm-float-button-window[data-state] {
+  display: inline-flex;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fm-general-theme-primary);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.fm-float-button-window[data-state="Dragging"][data-side="Right"] {
+  padding-right: 8px;
+}
+.fm-float-button-window[data-state="Dragging"][data-side="Left"] {
+  padding-left: 8px;
+}
+.fm-float-button-window .fm-float-button-window-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 24px;
+  background: var(--fm-popover-background);
+  box-shadow: 0 0 20px #00000014;
+}
+/* Figma inside stroke: 0.5px Line/Light, open on the docked edge (inset shadows keep the hairline;
+   Chrome widens sub-pixel borders to 1px). */
+.fm-float-button-window .fm-float-button-window-body::after {
+  --fm-w: var(--fm-n-line-width);
+  --fm-c: var(--fm-line-light);
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--fm-w) var(--fm-c);
+  pointer-events: none;
+}
+.fm-float-button-window[data-state="Normal"][data-side="Right"] .fm-float-button-window-body {
+  padding: 12px 6px 12px 12px;
+  border-radius: var(--fm-n-corner-radius-large) 0 0 var(--fm-n-corner-radius-large);
+}
+.fm-float-button-window[data-state="Normal"][data-side="Right"] .fm-float-button-window-body::after {
+  box-shadow:
+    inset var(--fm-w) 0 0 0 var(--fm-c),
+    inset 0 var(--fm-w) 0 0 var(--fm-c),
+    inset 0 calc(0px - var(--fm-w)) 0 0 var(--fm-c);
+}
+.fm-float-button-window[data-state="Normal"][data-side="Left"] .fm-float-button-window-body {
+  padding: 12px 12px 12px 6px;
+  border-radius: 0 var(--fm-n-corner-radius-large) var(--fm-n-corner-radius-large) 0;
+}
+.fm-float-button-window[data-state="Normal"][data-side="Left"] .fm-float-button-window-body::after {
+  box-shadow:
+    inset calc(0px - var(--fm-w)) 0 0 0 var(--fm-c),
+    inset 0 var(--fm-w) 0 0 var(--fm-c),
+    inset 0 calc(0px - var(--fm-w)) 0 0 var(--fm-c);
+}
+[data-flomo-platform="Web"] .fm-float-button-window:hover .fm-float-button-window-body {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+
+/* Playground screen: the window docks to its edges and snaps back after a drag. */
+.fm-float-button-screen {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-large);
+  background: var(--fm-backgrounds-grouped-primary);
+  box-shadow: inset 0 0 0 var(--fm-n-line-width) var(--fm-line-light);
+}
+.fm-float-button-screen .fm-float-button-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+[data-flomo-platform="iOS"] .fm-float-button-screen .fm-float-button-window {
+  transition: transform 500ms cubic-bezier(0.2, 0.9, 0.3, 1.15);
+}
+.fm-float-button-screen .fm-float-button-window[data-live] {
+  cursor: grabbing;
+  transition: none;
+}
+/* Figma draws the Dragging state at full opacity: no iOS press dimming while it is being dragged. */
+[data-flomo-platform] .fm-float-button-screen .fm-float-button-window[data-live] .fm-float-button-window-body {
+  opacity: 1;
+}
+
+/* Figma Float Capsule 4194:78372: Shadow layer (Blue glow at 20%) under the Fill layer. */
+.fm-float-button-capsule[type] {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 16px 8px 8px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--fm-text-emphasize);
+}
+.fm-float-button-capsule::before,
+.fm-float-button-capsule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 20px;
+  background: var(--fm-popover-background);
+}
+.fm-float-button-capsule::before {
+  opacity: 0.2;
+  box-shadow: 0 0 10px 0 var(--fm-general-blue-primary);
+  transition: opacity 160ms ease-out, box-shadow 160ms ease-out;
+}
+/* Figma State: hover deepens the shadow (Web/desktop pointer only); pressing lays 90% opacity on top. */
+[data-flomo-platform="Web"] .fm-float-button-capsule:hover::before {
+  opacity: 0.4;
+  box-shadow: 0 0 20px 0 var(--fm-general-blue-primary);
+}
+.fm-float-button-capsule:active {
+  opacity: 0.9;
+}
+.fm-float-button-capsule .fm-float-button-capsule-text {
+  font-family: "PingFang SC", var(--fm-p-font-family);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Figma AI Symbol 6444:34296: ring + dot; Color = Theme→Blue gradient with a 10% blurred halo. */
+.fm-float-button-ai {
+  --fm-ai-a: var(--fm-general-theme-primary);
+  --fm-ai-b: var(--fm-general-blue-primary);
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: var(--fm-ai-size);
+  height: var(--fm-ai-size);
+}
+/* Float Capsule: "Symbol 部分固定使用 Light 颜色". */
+.fm-float-button-ai[data-fixed-light] {
+  --fm-ai-a: #30cf79;
+  --fm-ai-b: #6890f8;
+}
+.fm-float-button-ai::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, var(--fm-ai-a), var(--fm-ai-b));
+  -webkit-mask: url("/design-libraries/flomo/icons/ai-symbol.svg") center / contain no-repeat;
+  mask: url("/design-libraries/flomo/icons/ai-symbol.svg") center / contain no-repeat;
+}
+.fm-float-button-ai[data-style="Color"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(to left, var(--fm-ai-a), var(--fm-ai-b));
+  opacity: 0.1;
+  filter: blur(calc(var(--fm-ai-size) / 6));
+}
+.fm-float-button-ai[data-style="Tint"]::after {
+  background: var(--fm-text-regular);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fm-float-button-screen .fm-float-button-window,
+  [data-flomo-platform="iOS"] .fm-float-button-screen .fm-float-button-window,
+  .fm-float-button-capsule::before {
+    transition: none;
+  }
+}

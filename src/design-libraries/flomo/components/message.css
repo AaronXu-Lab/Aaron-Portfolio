@@ -1,0 +1,135 @@
+/* flomo Message family (Figma section 107:44676). */
+
+[data-library="flomo"] :is(.fm-message, .fm-message-focus, .fm-message-restore) {
+  font-family: var(--fm-p-font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Message 65:19287 */
+.fm-message {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  padding: 16px;
+  border-radius: var(--fm-n-corner-radius-large);
+  --fm-message-tint: var(--fm-general-blue-primary);
+  background: var(--fm-backgrounds-grouped-secondary);
+  color: var(--fm-message-tint);
+}
+.fm-message[data-type="Alert"] {
+  --fm-message-tint: var(--fm-general-red-primary);
+  background: var(--fm-general-red-secondary);
+}
+.fm-message[data-type="Fixed Tip"] {
+  --fm-message-tint: var(--fm-text-subtle);
+  background: var(--fm-fills-quaternary);
+}
+.fm-message[data-badge="true"] {
+  padding-left: 36px;
+}
+.fm-message[data-cancelable="true"] {
+  gap: 8px;
+  padding-block: 6px;
+  padding-right: 6px;
+  overflow: hidden;
+}
+.fm-message-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  margin: -4px 0;
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 24px;
+}
+.fm-message-badge {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+[data-library="flomo"] .fm-message-close {
+  display: flex;
+  flex: none;
+  padding: 10px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-medium);
+  color: inherit;
+}
+
+/* Message-Focus 2304:77465 */
+.fm-message-focus {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 200px;
+  padding: var(--fm-n-padding-medium) 6px var(--fm-n-padding-medium) var(--fm-n-padding-medium);
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--fm-general-theme-primary);
+  color: #fff;
+}
+.fm-message-focus[data-type="Single Line"] {
+  padding: 8px 6px 8px 16px;
+}
+.fm-message-focus-left {
+  display: flex;
+  flex: 1 0 0;
+  gap: 12px;
+  align-items: center;
+  min-width: 1px;
+}
+.fm-message-focus-emoji {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  font-size: 18.75px;
+  line-height: 20px;
+  text-align: center;
+}
+.fm-message-focus-texts {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 1px;
+}
+.fm-message-focus-title {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fm-message-focus-desc,
+.fm-message-focus-single {
+  margin: -4px 0;
+  font-size: var(--fm-p-font-body-size);
+  line-height: 24px;
+}
+.fm-message-focus-single {
+  flex: 1 0 0;
+  min-width: 1px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+}
+
+/* Web hover (Figma Button "Hover" overlay). */
+[data-flomo-platform="Web"] button.fm-message-close:hover {
+  background: var(--fm-hover);
+}
+.fm-message-close:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Playground affordance after dismissing. */
+[data-library="flomo"] .fm-message-restore {
+  padding: 6px 10px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  color: var(--fm-text-link);
+  font-size: 14px;
+  line-height: 20px;
+}
+[data-library="flomo"] .fm-message-restore:hover {
+  background: var(--fm-hover);
+}

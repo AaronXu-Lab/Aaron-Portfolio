@@ -1,0 +1,428 @@
+/* Dialog 527:207225 · Dialog/Buttons 527:205854 */
+.fm-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--fm-backgrounds-primary);
+  box-shadow: 0 0 20px #00000014; /* effect style "Popover" */
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+  text-align: left;
+}
+.fm-dialog[data-platform="android"] {
+  width: 388px;
+  min-width: 320px;
+  max-width: 460px;
+  gap: 24px;
+  padding: 24px 20px 20px;
+  border-radius: 24px;
+}
+.fm-dialog[data-platform="web"] {
+  width: 400px;
+  gap: 20px;
+  padding: 20px;
+  border-radius: var(--fm-n-corner-radius-large);
+}
+.fm-dialog[data-platform="android"][data-type="custom"] {
+  height: 268px;
+}
+.fm-dialog[data-platform="web"][data-type="custom"] {
+  height: 236px;
+}
+.fm-dialog .fm-dialog-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 20px;
+}
+.fm-dialog[data-platform="web"] .fm-dialog-body {
+  gap: 16px;
+}
+.fm-dialog[data-type="custom"] .fm-dialog-body {
+  flex: 1 0 0;
+  min-height: 1px;
+}
+.fm-dialog .fm-dialog-title {
+  color: var(--fm-text-emphasize);
+  font-family: "flomoFont-V3", var(--fm-p-font-family);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.fm-dialog[data-platform="android"] .fm-dialog-title {
+  width: 100%;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+}
+.fm-dialog[data-platform="web"] .fm-dialog-title {
+  font-size: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.fm-dialog .fm-dialog-desc {
+  width: 100%;
+  margin: -4px 0;
+  color: var(--fm-text-regular);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 24px;
+  text-wrap: wrap;
+}
+.fm-dialog[data-platform="android"] .fm-dialog-desc {
+  text-align: center;
+}
+.fm-dialog .fm-dialog-content {
+  display: flex;
+  flex: 1 0 0;
+  min-height: 1px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 0;
+  /* Figma dash [3, 3] (a CSS dashed border draws 3/2). */
+  background:
+    repeating-linear-gradient(90deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) top / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) bottom / 100% 1px no-repeat,
+    repeating-linear-gradient(180deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) left 0 top 1px / 1px calc(100% - 2px) no-repeat,
+    repeating-linear-gradient(180deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) right 0 top 1px / 1px calc(100% - 2px) no-repeat;
+  color: var(--fm-text-regular);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 24px;
+}
+
+/* InputText slot */
+.fm-dialog-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 10px 12px 12px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-fills-tertiary);
+  cursor: text;
+}
+.fm-dialog[data-platform="web"] .fm-dialog-field {
+  padding: 10px;
+}
+.fm-dialog-field:focus-within {
+  outline: 2px solid var(--fm-general-theme-primary);
+  outline-offset: 2px;
+}
+.fm-dialog-field .fm-dialog-input {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: var(--fm-text-regular);
+  caret-color: var(--fm-general-theme-primary);
+  font-family: var(--fm-p-font-family);
+  font-size: 16px;
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+}
+.fm-dialog[data-platform="web"] .fm-dialog-field .fm-dialog-input {
+  font-size: 15px;
+}
+/* The field draws the focus ring (focus-within), not the bare input. */
+.fm-dialog-field .fm-dialog-input:focus-visible {
+  outline: none;
+}
+.fm-dialog-field .fm-dialog-input::placeholder {
+  color: var(--fm-text-subtle);
+  opacity: 1;
+}
+
+/* Dialog/Buttons */
+.fm-dialog-buttons-frame {
+  width: 400px;
+}
+.fm-dialog-buttons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: var(--fm-p-font-family);
+}
+.fm-dialog-buttons[data-platform="android"] {
+  gap: 16px;
+}
+.fm-dialog-buttons[data-platform="android"][data-count="3"] {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.fm-dialog-buttons[data-platform="web"] {
+  justify-content: space-between;
+}
+.fm-dialog-buttons .fm-dialog-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1px;
+  margin: 0;
+  border: 0;
+  background-color: var(--fm-fills-primary);
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+  text-align: center;
+}
+.fm-dialog-buttons .fm-dialog-btn[data-kind="primary"] {
+  background-color: var(--fm-general-theme-primary);
+  color: #ffffff; /* White100 */
+}
+.fm-dialog-buttons .fm-dialog-btn[data-kind="danger"] {
+  background-color: var(--fm-general-red-primary);
+  color: #ffffff;
+}
+.fm-dialog-buttons[data-platform="android"] .fm-dialog-btn {
+  flex: 1 0 0;
+  padding: 16px;
+  border-radius: var(--fm-n-corner-radius-large);
+  font-size: 16px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 16px;
+}
+.fm-dialog-buttons .fm-dialog-btn-label {
+  min-width: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fm-dialog-buttons[data-platform="android"] .fm-dialog-btn-label {
+  flex: 1 0 0;
+}
+.fm-dialog-buttons[data-platform="web"] .fm-dialog-btn {
+  flex: none;
+  padding: 10px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+}
+.fm-dialog-buttons .fm-dialog-button-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+/* Count=1 draws Button 1 filling a fixed 68px "Buttons" frame. */
+.fm-dialog-buttons[data-platform="web"][data-count="1"] .fm-dialog-button-group {
+  width: 68px;
+}
+.fm-dialog-buttons[data-platform="web"][data-count="1"] .fm-dialog-btn {
+  flex: 1 0 0;
+}
+.fm-dialog-buttons[data-platform="web"] .fm-dialog-btn-label {
+  flex: none;
+  overflow: visible;
+}
+.fm-dialog-buttons .fm-dialog-assist-slot {
+  display: flex;
+  margin-left: -4px; /* "位置偏移 -4 保证和内容区域对齐" */
+}
+.fm-dialog-buttons .fm-dialog-assist {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  margin: 0;
+  padding: 4px;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-small);
+  background: transparent;
+  color: var(--fm-general-theme-primary);
+  font-family: var(--fm-p-font-family);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+/* Close (Web&Desktop); extra attribute outranks the Android `.fm-press { position: relative }`. */
+.fm-dialog[data-platform] .fm-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: transparent;
+  color: var(--fm-text-subtle);
+}
+
+/* Web hover ("Hover 效果（仅 Web 和客户端）"): a Hover-token layer over the fill. Assist Button has none. */
+[data-flomo-platform="Web"] .fm-dialog-buttons .fm-dialog-btn:hover,
+[data-flomo-platform="Web"] .fm-dialog .fm-dialog-close:hover,
+[data-flomo-platform="Web"] .fm-dialog-ios .fm-dialog-ios-action:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+
+/* iOS system alert (demo only; Figma draws no iOS dialog, layout from the SwiftUI showcase) */
+.fm-dialog-ios {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(300px, calc(100vw - 32px));
+  padding: 20px;
+  border-radius: var(--fm-n-corner-radius-large);
+  background: var(--fm-backgrounds-primary);
+  box-shadow: 0 0 20px #00000014;
+  font-family: var(--fm-p-font-family);
+  text-align: center;
+}
+.fm-dialog-ios .fm-dialog-ios-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fm-dialog-ios .fm-dialog-ios-title {
+  color: var(--fm-text-emphasize);
+  font-size: 16px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 22px;
+}
+.fm-dialog-ios .fm-dialog-ios-message {
+  color: var(--fm-text-regular);
+  font-size: 15px;
+  line-height: 24px;
+  text-wrap: wrap;
+}
+.fm-dialog-ios .fm-dialog-ios-field {
+  margin-top: 4px;
+  padding: 10px;
+}
+.fm-dialog-ios .fm-dialog-ios-field .fm-dialog-input {
+  font-size: 15px;
+}
+.fm-dialog-ios .fm-dialog-ios-actions {
+  display: flex;
+  height: 44px;
+  margin: 0 -20px -20px;
+  border-top: var(--fm-n-line-width) solid var(--fm-line-regular);
+}
+.fm-dialog-ios .fm-dialog-ios-action {
+  flex: 1 0 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+  font-size: 15px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+}
+.fm-dialog-ios .fm-dialog-ios-action + .fm-dialog-ios-action {
+  border-left: var(--fm-n-line-width) solid var(--fm-line-regular);
+}
+.fm-dialog-ios .fm-dialog-ios-action[data-kind="primary"] {
+  color: var(--fm-general-theme-primary);
+}
+.fm-dialog-ios .fm-dialog-ios-action[data-kind="danger"] {
+  color: var(--fm-general-red-primary);
+}
+.fm-dialog-ios .fm-dialog-ios-action:first-child {
+  border-bottom-left-radius: var(--fm-n-corner-radius-large);
+}
+.fm-dialog-ios .fm-dialog-ios-action:last-child {
+  border-bottom-right-radius: var(--fm-n-corner-radius-large);
+}
+
+/* Live demo: native modal <dialog> */
+.fm-dialog-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+.fm-dialog-demo-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--fm-secondary);
+  font-size: 12px;
+}
+.fm-dialog-demo .fm-dialog-demo-select select {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--fm-line);
+  border-radius: 6px;
+  background: var(--fm-surface);
+  color: var(--fm-text);
+  font-size: 13px;
+}
+.fm-dialog-demo .fm-dialog-demo-trigger {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-general-theme-primary);
+  color: #ffffff;
+  font-family: var(--fm-p-font-family);
+  font-size: var(--fm-p-font-body-size);
+}
+[data-flomo-platform="Web"] .fm-dialog-demo .fm-dialog-demo-trigger:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+.fm-dialog-demo .fm-dialog-demo-note {
+  margin-top: 12px;
+  color: var(--fm-muted);
+  font-size: 12px;
+}
+.fm-dialog-modal {
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+.fm-dialog-modal::backdrop {
+  background: #00000099; /* Black60, the Dialog Wrapper mask */
+}
+.fm-dialog-modal .fm-dialog[data-platform="android"] {
+  width: min(460px, max(320px, calc(100vw - 40px)));
+}
+.fm-dialog-modal .fm-dialog[data-platform="web"] {
+  width: min(400px, calc(100vw - 32px));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fm-dialog-modal[open] > * {
+    animation: fm-dialog-in 240ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-flomo-platform="iOS"] .fm-dialog-modal[open] > * {
+    animation: fm-dialog-in-ios 420ms cubic-bezier(0.2, 0.9, 0.3, 1.15);
+  }
+  .fm-dialog-modal[open]::backdrop {
+    animation: fm-dialog-fade 200ms ease-out;
+  }
+}
+@keyframes fm-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes fm-dialog-in-ios {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+@keyframes fm-dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fm-dialog-modal[open] > *,
+  .fm-dialog-modal[open]::backdrop {
+    animation: none;
+  }
+}

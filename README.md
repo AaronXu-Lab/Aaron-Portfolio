@@ -90,6 +90,6 @@ AI 上手必读：[AGENTS.md](AGENTS.md)（`CLAUDE.md` 指向同一文件）。
 
 ## 更多设计组件库
 
-`/design/more/` 展示 Followup 与 flomo 两套独立组件库。Followup 保留提供的 Web 展厅；flomo 将 SwiftUI 组件迁移成可交互的 Web 示例，并保留完整变量、样式和源节点目录。
+`/design/more/` 展示 Followup 与 flomo 两套独立组件库。两库都以 Figma 源节点为标准，逐变体实现可交互的 Web 组件：Followup 为 Web 产品组件与图标，flomo 可切换 iOS、Android 与 Web 的交互手感。完整变量、样式和源节点目录保留在数据中。
 
 维护与导入说明见 [workflows/design-libraries.md](workflows/design-libraries.md)。修改后运行 `npm run check:design-libraries` 与 `npm run build`。

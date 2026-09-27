@@ -1,0 +1,115 @@
+/* AudioBox 92:11670 */
+.fm-audio {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-fills-quaternary);
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+}
+.fm-audio[data-size="small"] {
+  width: 96px;
+}
+.fm-audio .fm-audio-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px;
+}
+.fm-audio[data-size="small"] .fm-audio-controls {
+  justify-content: center;
+}
+.fm-audio .fm-audio-play-time {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  width: 161.5px;
+}
+.fm-audio[data-size="small"] .fm-audio-play-time {
+  flex: 1 0 0;
+  width: auto;
+  min-width: 1px;
+}
+.fm-audio .fm-audio-play {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-small);
+  background: transparent;
+  color: var(--fm-text-regular);
+}
+.fm-audio .fm-audio-time {
+  color: var(--fm-text-subtle);
+  font-family: "Barlow", var(--fm-p-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+.fm-audio .fm-audio-btn {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 24px;
+  margin: 0;
+  padding: 4px;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-small);
+  background: transparent;
+  color: var(--fm-text-subtle);
+  font-family: var(--fm-p-font-family);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+  white-space: nowrap;
+}
+.fm-audio .fm-audio-btn[data-kind="link"] {
+  color: var(--fm-general-blue-primary);
+}
+.fm-audio .fm-audio-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.fm-audio .fm-audio-content {
+  padding: 8px 16px 16px;
+}
+.fm-audio .fm-audio-transcript {
+  margin: -4px 0;
+  color: var(--fm-text-regular);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 24px;
+  text-wrap: wrap;
+}
+.fm-audio .fm-audio-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 12px;
+}
+.fm-audio .fm-audio-bottom-buttons {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 12px;
+  min-width: 1px;
+}
+[data-flomo-platform="Web"] .fm-audio .fm-audio-btn:hover,
+[data-flomo-platform="Web"] .fm-audio .fm-audio-play:hover {
+  background: var(--fm-hover);
+}

@@ -1,0 +1,701 @@
+/* Inputbox, Dropdown, Checkbox, Radio Button, Segment — Figma file oEYHBrbLVcmWpgKAQ7KXcl.
+   Figma strokes sit inside the frame without affecting layout, so borders are inset box-shadows. */
+
+.fu-form-input,
+.fu-form-dd,
+.fu-form-mini,
+.fu-form-menu,
+.fu-form-tip,
+.fu-form-label,
+.fu-form-mlabel {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 510;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+/* ---------- Inputbox (4728:13398) ---------- */
+
+.fu-form-input {
+  --fu-form-fg: var(--followup-input-text-normal);
+  --fu-form-sub: var(--followup-text-default-secondary);
+  --fu-form-stroke: var(--followup-input-stroke-normal);
+  --fu-form-divider: var(--followup-divider-normal);
+  --fu-form-tail: var(--followup-text-emphasize-primary);
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 200px;
+  height: 36px;
+  padding: 0 8px 0 12px;
+  border-radius: 3px;
+  background: var(--followup-input-fill-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--fu-form-stroke);
+  color: var(--fu-form-fg);
+  transition: box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.fu-form-input[data-size="Small"] {
+  height: 32px;
+  padding: 0 4px 0 8px;
+}
+
+.fu-form-input[data-size="Small"][data-type="Text+Option"] {
+  padding: 0 8px;
+}
+
+.fu-form-input[data-line="Multiple"] {
+  height: auto;
+  align-items: flex-start;
+  padding: 8px 12px;
+}
+
+.fu-form-input[data-line="Multiple"][data-size="Small"] {
+  padding: 6px 8px;
+}
+
+.fu-form-input[data-state="Error"] {
+  --fu-form-fg: var(--followup-general-error-primary);
+  --fu-form-sub: var(--followup-general-error-primary);
+  --fu-form-stroke: var(--followup-general-error-primary);
+  --fu-form-divider: var(--followup-general-error-tertiary);
+  --fu-form-tail: var(--followup-general-error-primary);
+}
+
+.fu-form-input[data-state="Disable"] {
+  --fu-form-fg: var(--followup-text-disable);
+  --fu-form-sub: var(--followup-text-disable);
+  background: var(--followup-input-fill-disable);
+  box-shadow: none;
+}
+
+/* Active look: Input/Stroke/Active + Input/Text/Active while typing. */
+.fu-form-input[data-state="Normal"]:has(.fu-form-field:focus, .fu-form-area:focus) {
+  --fu-form-fg: var(--followup-input-text-active);
+  --fu-form-stroke: var(--followup-input-stroke-active);
+}
+
+.fu-form-content {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fu-form-input[data-type="Text+Option"] .fu-form-content {
+  gap: 4px;
+}
+
+.fu-form-group {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.fu-form-texttail {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  min-width: 0;
+}
+
+.fu-form-wrap {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  padding-right: 4px;
+}
+
+.fu-form-field,
+.fu-form-area {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  opacity: 1;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.fu-form-field {
+  width: 100%;
+  height: 16px;
+  text-overflow: ellipsis;
+}
+
+.fu-form-area {
+  min-height: 40px;
+  max-height: 120px;
+  line-height: 20px;
+  resize: none;
+  field-sizing: content;
+}
+
+.fu-form-field::placeholder,
+.fu-form-area::placeholder {
+  color: var(--followup-input-text-placeholder);
+  -webkit-text-fill-color: var(--followup-input-text-placeholder);
+  opacity: 1;
+}
+
+.fu-form-field[readonly],
+.fu-form-area[readonly],
+.fu-form-field:disabled,
+.fu-form-area:disabled {
+  cursor: default;
+}
+
+/* Table Cell Divider: 0-wide slot, 2px rounded bar centred on it. */
+.fu-form-divider {
+  position: relative;
+  flex: none;
+  width: 0;
+  height: 16px;
+}
+
+.fu-form-divider::before {
+  position: absolute;
+  inset: 0 -1px;
+  border-radius: 1px;
+  background: var(--fu-form-divider);
+  content: "";
+}
+
+.fu-form-tail {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--fu-form-tail);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fu-form-tail:hover {
+  background: var(--followup-general-hover-normal);
+}
+
+/* ---------- Dropdown mini (4963:30417) ---------- */
+
+.fu-form-mini {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--fu-form-sub, var(--followup-text-default-secondary));
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.fu-form-mini:disabled {
+  cursor: default;
+}
+
+.fu-form-mini-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fu-form-pic {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALdSURBVHgB7Zo9b9NQFIbfGAanU8KWTE3GMpGwJRJUTrekv6CCLBUjE8ijR0ssWdmapr8ApVMTIUTaCXejY/CUdAsTNlBR7jExWKFp7vVXbKmP5Hza0vvee87x8bUzmKNpWs7+Zr9EBk/Z101csy1JZGCyVxO/0NXf6Af/fmaoqrrJ/ngPJEz0ckxI2NZ13fxj4LX6BekR72LKG/Kje+ortc3moY30kbv6efVdYlPxHGklgydS4pJVBKZdQvpi34tjINWk3sB9kZ1L5RIaOw0Ui0XIsoywGY/HMD4ZODfOuY/hNqA0FEd8lJTLZWfLP8hjeDLkOoYrhKrVauTivTQaDccID1wzUHlc+fvZtm0MTgawLRthImdlZ5Dc0FR2FIzfjlcex2XAOxok/nR0iqhotprOe7FQ5NpfuApZloWo8M4qzQgPQlXoJgqFAnL5HC6nl5jNZoibQAa8lYnE97o9TKdTxInvE5mbdC75fB7N3SbixreBrJz9/7dsFnHj2wCFDJ05vYw+jhA3gXKgd9iDoijOyJMZkRYgLAIZoLJ33D/GOglcRnmgJnDr4ZaTN5Zt4Wx0FlrJjdQAtQVUmaiX8lKv1zEYDLgbttuIzACV1b1ne07rfRPUsFHu9N/1EYRIDJBoEk8mbqNWq6FUKuHo8Mh3SIV+RVapVrD/Yn+leBcyK7L/IqHOgN+LHhJPJi4+X0CUUAwsS1YRyEStXoMogQ2sStaoCWSAN1mjxLcBStbWbiuS1QkRfBmIY4WCF2EDJHydIbMI13mAViJckiSe4DIwmUwQN4vXGsvgMhBG0yUKLTHywGWARiNOE8PBkPviiDuJqf2lhotW6XiX/USgPKNQpYHiDR9CqAoZhuFsSeLuBse6IQMm0ospzW/hp5MMGbjGB6SVDLqS/EPupHIWmGZd1w8kraN9ZV+2U2WCtJJmzJ9WcVFVtc1Cih49SO7jNizk5Q25o2ls4Bm/AQoq5MANAoQ6AAAAAElFTkSuQmCC")
+    center / cover;
+}
+
+/* ---------- Inputbox Tail/Stepper (836:22055) ---------- */
+
+.fu-form-stepper {
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+.fu-form-step {
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--followup-input-text-active);
+  cursor: pointer;
+}
+
+.fu-form-step[data-dir="up"] {
+  top: 0;
+}
+
+.fu-form-step[data-dir="down"] {
+  top: 12px;
+}
+
+/* Icons centred 6px above / below the middle of the 24px tail. */
+.fu-form-step .fu-icon {
+  position: absolute;
+  top: -2px;
+  left: 4px;
+}
+
+/* ---------- Dropdown (5355:34616) ---------- */
+
+.fu-form-dd {
+  --fu-form-fg: var(--followup-input-text-normal);
+  --fu-form-stroke: var(--followup-input-stroke-normal);
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  width: 200px;
+  height: 36px;
+  margin: 0;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--followup-input-fill-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--fu-form-stroke);
+  color: var(--fu-form-fg);
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.fu-form-dd[data-size="Small"] {
+  height: 32px;
+  padding: 0 8px;
+}
+
+.fu-form-dd[data-type="Text"][data-style="Multiple"] {
+  padding: 0 12px 0 8px;
+}
+
+.fu-form-dd[data-type="Text"][data-style="Multiple"][data-size="Small"],
+.fu-form-dd[data-type="Pics"][data-size="Small"][data-state="Error"] {
+  padding: 0 8px 0 4px;
+}
+
+.fu-form-dd[data-state="Error"] {
+  --fu-form-fg: var(--followup-general-error-primary);
+  --fu-form-stroke: var(--followup-general-error-primary);
+}
+
+.fu-form-dd[data-state="Disable"] {
+  --fu-form-fg: var(--followup-text-disable);
+  background: var(--followup-input-fill-disable);
+  box-shadow: none;
+  cursor: default;
+}
+
+.fu-form-dd[data-state="Normal"][aria-expanded="true"] {
+  --fu-form-stroke: var(--followup-input-stroke-active);
+}
+
+.fu-form-dd-content {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fu-form-dd[data-style="Multiple"] .fu-form-dd-content {
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.fu-form-dd[data-type="Pics"] .fu-form-dd-content {
+  height: 20px;
+}
+
+.fu-form-dd-text {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-form-dd[data-state="Disable"][data-type="Pic+Text"] .fu-form-pic {
+  opacity: 0.6;
+}
+
+.fu-form-emoji {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-start;
+  width: 16px;
+  height: 16px;
+  font: 700 16px/normal "Inter Variable", Inter, sans-serif;
+}
+
+/* Value chips inside Style=Multiple (Multiply Label instances). */
+.fu-form-label {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--followup-white100);
+  box-shadow: inset 0 0 0 var(--followup-stroke-thin) var(--followup-input-multiply-label-primary);
+  color: var(--followup-input-text-normal);
+  white-space: nowrap;
+}
+
+.fu-form-label[data-pics] {
+  height: 20px;
+}
+
+.fu-form-label[data-state="Error"] {
+  background: var(--followup-general-error-tertiary);
+  box-shadow: none;
+}
+
+.fu-form-label[data-state="Disable"] {
+  background: var(--followup-input-multiply-label-secondary);
+  box-shadow: none;
+  color: var(--followup-text-disable);
+}
+
+/* ---------- Menu popover (Menu frame 4183:194981) ---------- */
+
+.fu-form-dd,
+.fu-form-mini {
+  anchor-name: var(--fu-form-anchor);
+}
+
+.fu-form-menu {
+  box-sizing: border-box;
+  position: fixed;
+  inset: auto;
+  min-width: 160px;
+  min-width: max(160px, anchor-size(width));
+  margin: 4px 0 0;
+  padding: var(--followup-padding-menu);
+  border: 0;
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-white100);
+  box-shadow: 0 0 16px rgb(51 44 96 / 0.08);
+  color: var(--followup-text-default-primary);
+  position-anchor: var(--fu-form-anchor);
+  top: anchor(bottom);
+  left: anchor(left);
+  position-try-fallbacks: flip-block;
+}
+
+.fu-form-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--followup-gap-menu);
+  max-height: 220px;
+  overflow: auto;
+  border-radius: 3px;
+}
+
+.fu-form-menu-item {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  margin: 0;
+  padding: 8px 4px 8px 8px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fu-form-menu-item:hover,
+.fu-form-menu-item:focus-visible {
+  outline: 0;
+  background: var(--followup-general-hover-normal);
+}
+
+.fu-form-menu-text {
+  flex: 1 0 0;
+  min-width: 0;
+  padding-right: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Menu Item Pic+Text stays 32px tall: the 20px pic eats into the vertical padding. */
+.fu-form-menu-item .fu-form-pic {
+  margin: -2px 0;
+}
+
+/* Menu check tail: 16px checkmark inside a 4px-padded slot. */
+.fu-form-menu-check {
+  margin-right: 4px;
+}
+
+/* ---------- Tip Label (7623:15957) / Description Label (6433:23544) ---------- */
+
+.fu-form-tip {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: 4px;
+  width: 200px;
+  padding-bottom: 12px;
+  color: var(--followup-text-default-primary);
+  line-height: 20px;
+}
+
+.fu-form-tip-text {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: -2px 0;
+}
+
+.fu-form-tip[data-position="Below"] {
+  padding: 8px 0 0;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.fu-form-tip[data-position="Below"] .fu-form-tip-text {
+  margin: 0;
+}
+
+.fu-form-desc {
+  box-sizing: border-box;
+  flex: none;
+  width: 200px;
+  padding-bottom: 16px;
+  color: var(--followup-text-default-secondary);
+  font: 500 14px/16px "Inter Variable", Inter, sans-serif;
+}
+
+.fu-form-desc > span {
+  display: block;
+  margin: -2px 0;
+}
+
+/* ---------- Multiply Label (7538:42055) ---------- */
+
+.fu-form-mlabel {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--followup-white100);
+  box-shadow: inset 0 0 0 var(--followup-stroke-thin) var(--followup-input-multiply-label-primary);
+  color: var(--followup-input-text-normal);
+  white-space: nowrap;
+}
+
+.fu-form-mlabel[data-style="Light"] {
+  background: var(--followup-dropdown-red);
+  box-shadow: none;
+}
+
+.fu-form-mlabel-value {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.fu-form-mlabel-x {
+  display: flex;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Checkbox-Input (166:524) / Radio Button-Input (205:150) ---------- */
+
+.fu-form-check,
+.fu-form-radio {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-gray30);
+  cursor: pointer;
+}
+
+.fu-form-radio {
+  border-radius: 50%;
+}
+
+.fu-form-check:disabled,
+.fu-form-radio:disabled {
+  background: var(--followup-selector-disable);
+  box-shadow: none;
+  cursor: default;
+}
+
+.fu-form-check:not([aria-checked="false"]),
+.fu-form-radio[aria-checked="true"] {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Checked / indeterminate fill: Figma's 4.8px smooth-corner square. */
+.fu-form-check:not([aria-checked="false"])::before {
+  position: absolute;
+  inset: 0;
+  background: var(--followup-selector-tint);
+  clip-path: path("M0 11.2C0 12.8802 0 13.7202 0.32698 14.362C0.614601 14.9265 1.07354 15.3854 1.63803 15.673C2.27976 16 3.11984 16 4.8 16H11.2C12.8802 16 13.7202 16 14.362 15.673C14.9265 15.3854 15.3854 14.9265 15.673 14.362C16 13.7202 16 12.8802 16 11.2V4.8C16 3.11984 16 2.27976 15.673 1.63803C15.3854 1.07354 14.9265 0.614601 14.362 0.32698C13.7202 0 12.8802 0 11.2 0H4.8C3.11984 0 2.27976 0 1.63803 0.32698C1.07354 0.614601 0.614601 1.07354 0.32698 1.63803C0 2.27976 0 3.11984 0 4.8V11.2Z");
+  content: "";
+}
+
+.fu-form-check:disabled::before {
+  background: var(--followup-selector-disable);
+}
+
+.fu-form-check[aria-checked="true"]::after {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  clip-path: path("M6.535 11.6369C6.33292 11.6368 6.13711 11.5667 5.98083 11.4386L3.3675 9.29776C3.01016 8.98733 2.96447 8.44901 3.26439 8.0828C3.5643 7.71659 4.10106 7.65528 4.47583 7.94443L6.5 9.60109L11.3333 5.22859C11.5526 4.96789 11.9032 4.85813 12.232 4.94728C12.5608 5.03644 12.8079 5.3083 12.8654 5.64406C12.9229 5.97982 12.7804 6.31844 12.5 6.51193L7.13 11.4036C6.96882 11.5546 6.75588 11.6381 6.535 11.6369Z");
+  content: "";
+}
+
+/* Clipped rather than positioned: Chrome pixel-snaps a 3.5px offset box. */
+.fu-form-check[aria-checked="mixed"]::after {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  clip-path: inset(6.8px 3.5px round 1.2px);
+  content: "";
+}
+
+.fu-form-radio[aria-checked="true"] {
+  background: var(--followup-selector-tint);
+}
+
+.fu-form-radio[aria-checked="true"]:disabled {
+  background: var(--followup-selector-disable);
+}
+
+.fu-form-radio[aria-checked="true"]::after {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #fff;
+  content: "";
+}
+
+/* ---------- Segment Option (2261:133245) ---------- */
+
+.fu-form-seg {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--followup-segment-fill-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-segment-stroke-normal);
+  color: var(--followup-segment-content-normal);
+  font: 500 13px/16px "Inter Variable", Inter, sans-serif;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.fu-form-seg[aria-pressed="true"] {
+  background: var(--followup-segment-fill-active);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-segment-stroke-active);
+  color: var(--followup-segment-stroke-active);
+}
+
+.fu-form-seg[data-type="Icon"] {
+  width: 28px;
+  padding: 0;
+}
+
+.fu-form-seg-icon {
+  color: var(--followup-segment-content-normal);
+}
+
+/* ---------- Focus and motion ---------- */
+
+.fu-form-mini:focus-visible,
+.fu-form-dd:focus-visible,
+.fu-form-tail:focus-visible,
+.fu-form-step:focus-visible,
+.fu-form-mlabel-x:focus-visible,
+.fu-form-check:focus-visible,
+.fu-form-radio:focus-visible,
+.fu-form-seg:focus-visible {
+  outline: 2px solid var(--followup-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fu-form-input,
+  .fu-form-tail,
+  .fu-form-dd,
+  .fu-form-seg {
+    transition: none;
+  }
+}

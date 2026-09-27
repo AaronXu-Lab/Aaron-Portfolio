@@ -1,0 +1,954 @@
+/* Button, Menu, Dialog, Notification, Toast, Batch Operator: Figma-sized specimens. */
+
+.fu-actions-btn,
+.fu-actions-huge,
+.fu-actions-iconbtn,
+.fu-actions-plain,
+.fu-actions-mi,
+.fu-actions-mh,
+.fu-actions-search,
+.fu-actions-dialog,
+.fu-actions-noti,
+.fu-actions-toast,
+.fu-actions-bulk,
+.fu-actions-input {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 510;
+  letter-spacing: 0;
+  /* Calibration knobs: installed SF Pro Text sets 13/14px text ~1% narrower than
+     Figma's SF Pro; this tracking brings auto-width boxes back to Figma's sizes. */
+  --fu-actions-track-14: 0.04px;
+  --fu-actions-track-13: 0.09px;
+}
+
+/* Strokes are drawn inside, as Figma does, so they never change the frame size. */
+.fu-actions-btn,
+.fu-actions-huge,
+.fu-actions-iconbtn,
+.fu-actions-plain,
+.fu-actions-mi {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--followup-radius-normal);
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+:is(.fu-actions-btn, .fu-actions-huge, .fu-actions-iconbtn, .fu-actions-plain, .fu-actions-mi, .fu-actions-dd-trigger):focus-visible {
+  outline: 2px solid var(--followup-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- Button ---------- */
+
+.fu-actions-btn {
+  gap: 4px;
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 16px;
+}
+
+.fu-actions-btn--small {
+  padding: 6px 8px;
+  font-size: 13px;
+  letter-spacing: var(--fu-actions-track-13);
+}
+
+.fu-actions-btn--regular {
+  padding: 8px 12px;
+}
+
+.fu-actions-btn--large {
+  padding: 10px 16px;
+}
+
+.fu-actions-btn--text.fu-actions-btn--small { min-width: 64px; }
+.fu-actions-btn--text.fu-actions-btn--regular { min-width: 72px; }
+.fu-actions-btn--text.fu-actions-btn--large { min-width: 80px; }
+
+.fu-actions-btn--icon {
+  padding: 6px;
+}
+
+.fu-actions-btn--icon20 {
+  padding: 4px;
+}
+
+.fu-actions-btn--filled {
+  background: var(--followup-button-filled);
+  color: var(--followup-white100);
+  font-weight: 600;
+}
+
+.fu-actions-btn--light {
+  background: var(--followup-button-light);
+  color: var(--followup-text-emphasize-primary);
+}
+
+.fu-actions-btn--outline {
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-button-outline);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-actions-btn--plain {
+  color: var(--followup-text-emphasize-primary);
+}
+
+.fu-actions-btn.is-disable {
+  background: var(--followup-button-disable);
+  box-shadow: none;
+  color: var(--followup-text-disable);
+  cursor: not-allowed;
+}
+
+.fu-actions-btn--plain.is-disable {
+  background: transparent;
+}
+
+.fu-actions-btn--plain.fu-actions-btn--text.is-disable,
+.fu-actions-btn--icon.is-disable {
+  color: var(--followup-text-disable-light);
+}
+
+.fu-actions-btn.is-active {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-primary);
+  color: var(--followup-primary);
+  font-weight: 510;
+}
+
+.fu-actions-btn--icon.is-active {
+  background: var(--followup-primary);
+  box-shadow: none;
+  color: var(--followup-white100);
+}
+
+.fu-actions-btn.is-loading {
+  background: var(--followup-secondary);
+  box-shadow: none;
+  color: var(--followup-white100);
+  cursor: progress;
+}
+
+/* Figma: Regular text-only loading keeps the (hidden) label at Medium weight. */
+.fu-actions-btn--regular.fu-actions-btn--text.is-loading {
+  font-weight: 510;
+}
+
+.fu-actions-btn--text.is-loading .fu-actions-btn-text {
+  opacity: 0;
+}
+
+.fu-actions-btn-loader {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+}
+
+.fu-actions-btn--small .fu-actions-btn-loader {
+  top: 6px;
+  left: calc(50% - 1px);
+}
+
+.fu-actions-btn--regular .fu-actions-btn-loader {
+  top: 50%;
+  left: calc(50% - 1px);
+  transform: translate(-50%, -50%);
+}
+
+.fu-actions-btn-text {
+  flex: none;
+}
+
+/* Hover looks: Figma Button page, "Normal - Hover" and "Active - Hover". */
+.fu-actions-btn.is-live.is-normal.fu-actions-btn--filled:hover {
+  background: var(--followup-primary);
+}
+
+.fu-actions-btn.is-live.is-normal.fu-actions-btn--light:hover {
+  background: var(--followup-general-hover-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-secondary);
+}
+
+.fu-actions-btn.is-live.is-normal:is(.fu-actions-btn--outline, .fu-actions-btn--plain):hover {
+  background: var(--followup-general-hover-normal);
+  box-shadow: none;
+}
+
+.fu-actions-btn.is-live.is-active:hover {
+  background: var(--followup-primary);
+  color: var(--followup-white100);
+}
+
+.fu-actions-spin {
+  animation: fu-actions-spin 0.9s linear infinite;
+}
+
+@keyframes fu-actions-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ---------- Button/Huge ---------- */
+
+.fu-actions-huge {
+  width: 240px;
+  height: 48px;
+  padding: 0 16px;
+  color: var(--followup-text-default-primary);
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-button-outline);
+}
+
+.fu-actions-huge > span {
+  min-width: 56px;
+  text-align: center;
+}
+
+.fu-actions-huge--filled {
+  /* Figma fills this button with a fixed image gradient, not a theme variable. */
+  background: linear-gradient(90deg, #4a66f9, #7760eb);
+  box-shadow: none;
+  color: var(--followup-white100);
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.fu-actions-huge.is-disable {
+  background: var(--followup-button-disable);
+  box-shadow: none;
+  color: var(--followup-text-disable);
+  cursor: not-allowed;
+}
+
+.fu-actions-huge--filled.is-live:not(.is-disable):hover {
+  background: var(--followup-primary);
+}
+
+.fu-actions-huge--outline.is-live:not(.is-disable):hover {
+  background: var(--followup-general-hover-normal);
+  box-shadow: none;
+}
+
+/* ---------- Icon button rows ---------- */
+
+.fu-actions-iconrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.fu-actions-iconbtn {
+  padding: 6px;
+  color: var(--followup-text-default-primary);
+}
+
+.fu-actions-iconrow.is-compact .fu-actions-iconbtn {
+  padding: 4px;
+}
+
+:is(.fu-actions-iconbtn, .fu-actions-plain).is-live:hover {
+  background: var(--followup-general-hover-normal);
+}
+
+/* ---------- Menu Item ---------- */
+
+.fu-actions-mi {
+  width: 200px;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 4px 8px 8px;
+  color: var(--followup-text-default-primary);
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 16px;
+  text-align: left;
+  white-space: normal;
+}
+
+.fu-actions-mi.is-pic {
+  padding-block: 6px;
+}
+
+.fu-actions-mi.is-live:hover {
+  background: var(--followup-general-hover-normal);
+}
+
+.fu-actions-mi-prefix {
+  display: flex;
+  flex: none;
+  padding: 2px 0;
+}
+
+.fu-actions-check {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--followup-radius-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-gray30);
+}
+
+.fu-actions-check.is-checked {
+  box-shadow: none;
+}
+
+.fu-actions-check .fu-icon {
+  position: absolute;
+  inset: 0;
+}
+
+.fu-actions-check-box {
+  color: var(--followup-selector-tint);
+}
+
+.fu-actions-check-mark {
+  color: var(--followup-white100);
+}
+
+.fu-actions-charblock {
+  display: flex;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--followup-radius-normal);
+  background: var(--followup-red40);
+  color: var(--followup-white100);
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.fu-actions-charblock > span {
+  text-box: trim-both cap alphabetic;
+}
+
+.fu-actions-pic {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--followup-radius-normal);
+  object-fit: cover;
+}
+
+.fu-actions-mi-main {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.fu-actions-mi-row {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+}
+
+.fu-actions-mi-text {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: center;
+  padding-right: 12px;
+}
+
+.fu-actions-mi-text > span {
+  flex: 1 1 0;
+  min-width: 0;
+  /* Calibration: Chrome keeps a trailing space and needs the whole ellipsis inside
+     the box, Figma does not; these offsets reproduce Figma's cut points. */
+  margin-right: -0.5px;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-actions-mi.is-text .fu-actions-mi-text > span {
+  margin-right: -1px;
+}
+
+.fu-actions-mi.is-pic .fu-actions-mi-text > span {
+  margin-right: -2px;
+}
+
+.fu-actions-mi.is-pic:not(.is-multiple) .fu-actions-mi-text {
+  padding-block: 2px;
+}
+
+.fu-actions-mi.is-multiple .fu-actions-mi-text > span {
+  overflow: visible;
+  line-height: 20px;
+  white-space: normal;
+}
+
+/* Figma pulls 20px multi-line text in by 2px on each side (negative padding). */
+.fu-actions-mi.is-multiple:not(.is-pic) .fu-actions-mi-text > span {
+  margin-block: -2px;
+}
+
+.fu-actions-mi-content,
+.fu-actions-mi-tail {
+  display: flex;
+  flex: none;
+  height: 16px;
+  align-items: center;
+}
+
+.fu-actions-mi.is-pic :is(.fu-actions-mi-content, .fu-actions-mi-tail) {
+  height: 20px;
+}
+
+.fu-actions-mi-content {
+  padding: 0 4px 0 8px;
+  color: var(--followup-text-default-secondary);
+  white-space: nowrap;
+}
+
+.fu-actions-mi.is-icon-multiple .fu-actions-mi-content {
+  padding-left: 0;
+}
+
+.fu-actions-mi-tail {
+  justify-content: center;
+}
+
+.fu-actions-mi-tail > span {
+  display: flex;
+  padding: 4px;
+  border-radius: var(--followup-radius-normal);
+}
+
+.fu-actions-mi-desc {
+  width: 100%;
+  padding-right: 12px;
+  color: var(--followup-text-default-secondary);
+  font-size: 13px;
+  letter-spacing: var(--fu-actions-track-13);
+  line-height: 16px;
+}
+
+/* ---------- Menu Header ---------- */
+
+.fu-actions-mh {
+  display: flex;
+  width: 200px;
+  height: 32px;
+  flex: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8px 2px 8px 8px;
+  overflow: hidden;
+  border-radius: var(--followup-radius-normal);
+  color: var(--followup-text-default-secondary);
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 16px;
+}
+
+.fu-actions-mh.has-icon {
+  gap: 8px;
+}
+
+.fu-actions-mh-main {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.fu-actions-mh-text {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  padding-right: 14px;
+}
+
+.fu-actions-mh-text > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-actions-mh-content {
+  flex: none;
+  padding-right: 6px;
+  color: var(--followup-text-disable-light);
+  white-space: nowrap;
+}
+
+/* ---------- Scroll Bar ---------- */
+
+.fu-actions-sb {
+  display: flex;
+  width: 10px;
+  height: 64px;
+  flex: none;
+  padding: 8px 2px;
+}
+
+.fu-actions-sb > span {
+  width: 6px;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--followup-scroll-bar);
+  transition: width 120ms ease, border-radius 120ms ease;
+}
+
+.fu-actions-sb.is-active,
+.fu-actions-sb.is-live:hover {
+  width: 14px;
+  border-radius: 0 12px 12px 0;
+}
+
+.fu-actions-sb.is-active > span,
+.fu-actions-sb.is-live:hover > span {
+  width: 10px;
+  border-radius: 5px;
+}
+
+/* ---------- Search box, divider ---------- */
+
+.fu-actions-search {
+  display: flex;
+  width: 200px;
+  height: 40px;
+  flex: none;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: var(--followup-radius-normal);
+}
+
+.fu-actions-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--followup-input-text-normal);
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 16px;
+  text-overflow: ellipsis;
+}
+
+.fu-actions-search input::placeholder {
+  color: var(--followup-input-text-placeholder);
+  opacity: 1;
+}
+
+.fu-actions-divider {
+  display: flex;
+  width: 200px;
+  height: 4px;
+  flex: none;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.fu-actions-divider > span {
+  width: 100%;
+  height: 1px;
+  border-radius: 1px;
+  background: var(--followup-divider-normal);
+}
+
+/* ---------- Dialog ---------- */
+
+.fu-actions-dialog {
+  display: flex;
+  width: 480px;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 28px;
+  padding: 28px 32px 32px;
+  overflow: hidden;
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-general-popover-bg);
+  box-shadow: 0 0 16px rgba(51, 44, 96, 0.08);
+  color: var(--followup-text-default-primary);
+}
+
+/* Let the live dropdown menu escape the dialog's clip. */
+.fu-actions-dialog:has(.fu-actions-menu) {
+  overflow: visible;
+}
+
+.fu-actions-dialog.is-custom {
+  height: 324px;
+  max-height: 720px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.fu-actions-dialog-head {
+  display: flex;
+  width: 100%;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.fu-actions-dialog.is-loose .fu-actions-dialog-head {
+  gap: 16px;
+}
+
+.fu-actions-dialog.is-custom .fu-actions-dialog-head {
+  flex: 1 1 0;
+  min-height: 0;
+  align-items: flex-start;
+}
+
+.fu-actions-dialog-title {
+  width: 100%;
+  margin: 0;
+  color: var(--followup-text-emphasize-primary);
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.fu-actions-dialog-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fu-actions-dialog-desc {
+  display: flex;
+  width: 100%;
+}
+
+.fu-actions-dialog-desc > span {
+  margin-block: -2px;
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 20px;
+}
+
+.fu-actions-dialog-area {
+  position: relative;
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  border: 1px dashed var(--followup-divider-normal);
+}
+
+.fu-actions-dialog-area > span {
+  position: absolute;
+  top: calc(50% - 7px);
+  left: calc(50% - 45px);
+  color: var(--followup-divider-normal);
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+.fu-actions-dialog-action {
+  display: flex;
+  width: 100%;
+  height: 36px;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.fu-actions-input {
+  display: flex;
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  padding: 0 8px 0 12px;
+  border: 0;
+  border-radius: var(--followup-radius-normal);
+  outline: 0;
+  background: var(--followup-input-fill-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-input-stroke-normal);
+  color: var(--followup-input-text-normal);
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 16px;
+  transition: box-shadow 120ms ease;
+}
+
+.fu-actions-input:focus,
+.fu-actions-dd-trigger.is-open {
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-input-stroke-active);
+}
+
+.fu-actions-dd {
+  position: relative;
+  width: 100%;
+}
+
+.fu-actions-dd-trigger {
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.fu-actions-dd-trigger > span:first-child {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-actions-dd-trigger .fu-icon {
+  color: var(--followup-text-default-primary);
+}
+
+.fu-actions-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 4px);
+  left: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--followup-gap-menu);
+  padding: var(--followup-padding-menu);
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-general-popover-bg);
+  box-shadow: 0 0 16px rgba(51, 44, 96, 0.08);
+}
+
+/* ---------- Dialog Buttons ---------- */
+
+.fu-actions-dbtns {
+  position: relative;
+  display: flex;
+  width: 376px;
+  height: 36px;
+  flex: none;
+}
+
+.fu-actions-dbtns-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* ---------- Table Cell Divider ---------- */
+
+.fu-actions-tcd {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 16px;
+  flex: none;
+}
+
+.fu-actions-tcd::before {
+  position: absolute;
+  inset: 0 -1px;
+  border-radius: 1px;
+  background: var(--followup-divider-normal);
+  content: "";
+}
+
+.fu-actions-tcd.is-active::before {
+  background: var(--followup-divider-active);
+}
+
+/* ---------- Plain action buttons (Notification, Bulk Editing) ---------- */
+
+.fu-actions-plain {
+  gap: 4px;
+  padding: 6px;
+  color: var(--followup-text-emphasize-secondary);
+  font-size: 13px;
+  letter-spacing: var(--fu-actions-track-13);
+  line-height: 16px;
+}
+
+.fu-actions-plain.has-text {
+  padding: 6px 8px;
+}
+
+/* ---------- Notification ---------- */
+
+.fu-actions-noti {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 6px;
+  background: var(--followup-notification-fill);
+  box-shadow:
+    inset 0 0 0 1.5px var(--followup-notification-stroke),
+    0 0 16px rgba(51, 44, 96, 0.08);
+  color: var(--followup-text-emphasize-primary);
+}
+
+.fu-actions-noti.is-bare {
+  min-width: 160px;
+}
+
+.fu-actions-noti-info {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  padding: 12px;
+  overflow: hidden;
+  border-radius: var(--followup-radius-normal);
+}
+
+.fu-actions-noti-info.has-icon {
+  gap: 8px;
+}
+
+.fu-actions-noti-text {
+  display: flex;
+  flex: none;
+}
+
+.fu-actions-noti-text > span {
+  margin-block: -2px;
+  overflow: hidden;
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-actions-noti-text > .is-ib { min-width: 64px; max-width: 352px; }
+.fu-actions-noti-text > .is-in { min-width: 140px; max-width: 428px; }
+.fu-actions-noti-text > .is-nb { min-width: 88px; max-width: 376px; }
+.fu-actions-noti-text > .is-nn { min-width: 164px; max-width: 452px; }
+
+.fu-actions-noti-buttons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Toast ---------- */
+
+.fu-actions-toast {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  overflow: hidden;
+  border-radius: var(--followup-radius-normal);
+  background: var(--followup-gray80);
+  color: var(--followup-white100);
+}
+
+.fu-actions-toast-text {
+  display: flex;
+}
+
+.fu-actions-toast-text > span {
+  margin-block: -2px;
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+/* ---------- Bulk Editing ---------- */
+
+.fu-actions-bulk {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  padding: 2px;
+  overflow: hidden;
+  border-radius: var(--followup-radius-normal);
+  background: var(--followup-primary);
+  box-shadow: 0 0 16px rgba(51, 44, 96, 0.08);
+  color: var(--followup-white100);
+}
+
+.fu-actions-bulk .fu-actions-plain {
+  color: var(--followup-white100);
+}
+
+/* Figma resolves hover on colour backgrounds to White10 (ColorBG mode). */
+.fu-actions-bulk .fu-actions-plain.is-live:hover {
+  background: var(--followup-white10);
+}
+
+.fu-actions-bulk-count {
+  color: var(--followup-white80);
+  font-size: 14px;
+  letter-spacing: var(--fu-actions-track-14);
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-actions-bulk-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fu-actions-btn,
+  .fu-actions-huge,
+  .fu-actions-iconbtn,
+  .fu-actions-plain,
+  .fu-actions-mi,
+  .fu-actions-input,
+  .fu-actions-sb > span {
+    transition: none;
+  }
+
+  .fu-actions-spin {
+    animation: none;
+  }
+}

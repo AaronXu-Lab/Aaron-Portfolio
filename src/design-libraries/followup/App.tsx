@@ -1,18 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  componentSets,
   cssVariableName,
   resolveVariableValue,
   valueToCss,
   variables,
 } from "./data/catalog";
-import { AuditPage } from "./pages/AuditPage";
+import { icons, sections, showcaseStats } from "./data/showcase";
 import { ComponentsPage } from "./pages/ComponentsPage";
+import { IconsPage } from "./pages/IconsPage";
 import { OverviewPage } from "./pages/OverviewPage";
 import { StylesPage } from "./pages/StylesPage";
 import { TokensPage } from "./pages/TokensPage";
 
-type PageName = "overview" | "tokens" | "styles" | "components" | "audit";
+type PageName = "overview" | "tokens" | "styles" | "components" | "icons";
 
 const pages: Record<
   PageName,
@@ -21,32 +21,39 @@ const pages: Record<
   overview: { label: "Overview", eyebrow: "LIBRARY HOME", glyph: "⌂" },
   tokens: { label: "Design Tokens", eyebrow: "VARIABLES", glyph: "◉" },
   styles: { label: "Styles", eyebrow: "PUBLISHED STYLES", glyph: "Aa" },
-  components: { label: "Components", eyebrow: "LOCAL COMPONENTS", glyph: "◇" },
-  audit: { label: "Source Audit", eyebrow: "MIGRATION STATUS", glyph: "✓" },
+  components: { label: "Components", eyebrow: "COMPONENTS", glyph: "◇" },
+  icons: { label: "Icons", eyebrow: "ICONS", glyph: "✦" },
 };
 
 const themeModes = ["Default", "Blue", "Green", "Orange"];
 
-function pageFromHash(): PageName {
-  const hash = window.location.hash.replace(/^#\/?/, "") as PageName;
-  return hash in pages ? hash : "overview";
+type Route = { page: PageName; slug?: string; item?: string };
+
+function routeFromHash(): Route {
+  const [page, slug, item] = window.location.hash.replace(/^#\/?/, "").split("/");
+  return page in pages ? { page: page as PageName, slug, item } : { page: "overview" };
 }
 
 export default function App() {
-  const [page, setPage] = useState<PageName>(pageFromHash);
+  const [route, setRoute] = useState<Route>(routeFromHash);
+  const page = route.page;
   const [themeMode, setThemeMode] = useState("Default");
   const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
-    const handleHashChange = () => setPage(pageFromHash());
+    const handleHashChange = () => setRoute(routeFromHash());
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
   useEffect(() => {
     const root = document.documentElement;
+    for (const variable of variables.filter((item) => item.resolvedType === "FLOAT")) {
+      const value = resolveVariableValue(variable, variable.values[0]?.modeName, themeMode);
+      if (typeof value === "number") root.style.setProperty(cssVariableName(variable.name), `${value}px`);
+    }
     for (const variable of variables.filter(
       (item) => item.resolvedType === "COLOR",
     )) {
@@ -84,25 +91,29 @@ export default function App() {
         type: "Token",
         title: item.name,
         detail: item.collectionName,
-        page: "tokens" as PageName,
+        page: "tokens",
       }));
-    const componentResults = componentSets
-      .filter((item) => item.name.toLocaleLowerCase().includes(query))
+    const componentResults = sections
+      .flatMap((section) => section.items.map((item) => ({ section, item })))
+      .filter(({ item }) => item.name.toLocaleLowerCase().includes(query))
       .slice(0, 5)
-      .map((item) => ({
+      .map(({ section, item }) => ({
         id: item.id,
-        type: "Component Set",
+        type: "Component",
         title: item.name,
-        detail: `${item.variantCount} variants · ${item.pageName}`,
-        page: "components" as PageName,
+        detail: `${section.name} · ${item.variants.length} variant${item.variants.length === 1 ? "" : "s"}`,
+        page: `components/${section.slug}/${item.slug}`,
       }));
-    return [...tokenResults, ...componentResults].slice(0, 8);
+    const iconResults = [...new Set(icons.map((icon) => icon.name))]
+      .filter((name) => name.toLocaleLowerCase().includes(query))
+      .slice(0, 3)
+      .map((name) => ({ id: `icon-${name}`, type: "Icon", title: name, detail: "Icons", page: "icons" }));
+    return [...componentResults, ...tokenResults, ...iconResults].slice(0, 8);
   }, [search]);
 
   function navigate(target: string) {
-    const next = target as PageName;
-    window.location.hash = `#/${next}`;
-    setPage(next);
+    window.location.hash = `#/${target}`;
+    setRoute(routeFromHash());
     setMobileNavigationOpen(false);
     setSearchOpen(false);
     setSearch("");
@@ -133,31 +144,38 @@ export default function App() {
         <a className="library-back" href="/design/more/">← 更多组件库</a>
         <nav className="primary-navigation" aria-label="Primary navigation">
           <span className="navigation-label">LIBRARY</span>
-          {(Object.entries(pages) as Array<[PageName, (typeof pages)[PageName]]>)
-            .slice(0, 4)
-            .map(([key, item]) => (
-              <button
-                aria-current={page === key ? "page" : undefined}
-                className={page === key ? "active" : ""}
-                key={key}
-                onClick={() => navigate(key)}
-              >
-                <span className="nav-glyph">{item.glyph}</span>
-                <span>{item.label}</span>
-                {key === "components" && <small>1,237</small>}
-              </button>
-            ))}
-
-          <span className="navigation-label secondary-label">QUALITY</span>
-          <button
-            aria-current={page === "audit" ? "page" : undefined}
-            className={page === "audit" ? "active" : ""}
-            onClick={() => navigate("audit")}
-          >
-            <span className="nav-glyph">{pages.audit.glyph}</span>
-            <span>{pages.audit.label}</span>
-            <small className="nav-pass">18/18</small>
-          </button>
+          {(["overview", "tokens", "styles", "icons"] as PageName[]).map((key) => (
+            <button
+              aria-current={page === key ? "page" : undefined}
+              className={page === key ? "active" : ""}
+              key={key}
+              onClick={() => navigate(key)}
+            >
+              <span className="nav-glyph">{pages[key].glyph}</span>
+              <span>{pages[key].label}</span>
+              {key === "icons" && <small>{showcaseStats.icons}</small>}
+            </button>
+          ))}
+          {(["Components", "Scenary"] as const).map((group) => (
+            <div className="section-navigation" key={group}>
+              <span className="navigation-label secondary-label">{group.toUpperCase()}</span>
+              {sections
+                .filter((section) => section.group === group)
+                .map((section) => {
+                  const active = page === "components" && (route.slug ?? sections[0].slug) === section.slug;
+                  return (
+                    <button
+                      aria-current={active ? "page" : undefined}
+                      className={active ? "active" : ""}
+                      key={section.slug}
+                      onClick={() => navigate(`components/${section.slug}`)}
+                    >
+                      <span>{section.name}</span>
+                    </button>
+                  );
+                })}
+            </div>
+          ))}
         </nav>
 
         <div className="theme-control">
@@ -180,13 +198,6 @@ export default function App() {
           </div>
         </div>
 
-        <footer className="sidebar-footer">
-          <span className="sync-icon">✓</span>
-          <div>
-            <strong>Figma source snapshot</strong>
-            <small>oEYH…KXcl · 34:1767</small>
-          </div>
-        </footer>
       </aside>
 
       <div className="workspace">
@@ -208,12 +219,12 @@ export default function App() {
             <div className="global-search">
               <button
                 aria-expanded={searchOpen}
-                aria-label="Search source catalog"
+                aria-label="Search the library"
                 className="global-search-trigger"
                 onClick={() => setSearchOpen(true)}
               >
                 <span>⌕</span>
-                <span>Search source catalog</span>
+                <span>Search the library</span>
                 <kbd>⌘ K</kbd>
               </button>
               {searchOpen && (
@@ -226,7 +237,7 @@ export default function App() {
                       onKeyDown={(event) => {
                         if (event.key === "Escape") setSearchOpen(false);
                       }}
-                      placeholder="Search Variables and Component Sets"
+                      placeholder="Search components, tokens and icons"
                       value={search}
                     />
                     <button
@@ -243,7 +254,7 @@ export default function App() {
                         onClick={() => navigate(result.page)}
                       >
                         <span className="search-result-glyph">
-                          {result.type === "Token" ? "◉" : "◇"}
+                          {result.type === "Token" ? "◉" : result.type === "Icon" ? "✦" : "◇"}
                         </span>
                         <span>
                           <strong>{result.title}</strong>
@@ -253,10 +264,10 @@ export default function App() {
                       </button>
                     ))}
                     {search && searchResults.length === 0 && (
-                      <p>No source records match “{search}”.</p>
+                      <p>Nothing matches “{search}”.</p>
                     )}
                     {!search && (
-                      <p>Type a token or Component Set name to jump there.</p>
+                      <p>Type a component, token or icon name to jump there.</p>
                     )}
                   </div>
                 </div>
@@ -277,8 +288,10 @@ export default function App() {
           {page === "overview" && <OverviewPage onNavigate={navigate} />}
           {page === "tokens" && <TokensPage themeMode={themeMode} />}
           {page === "styles" && <StylesPage />}
-          {page === "components" && <ComponentsPage />}
-          {page === "audit" && <AuditPage />}
+          {page === "components" && (
+            <ComponentsPage itemSlug={route.item} onNavigate={navigate} slug={route.slug} />
+          )}
+          {page === "icons" && <IconsPage />}
         </main>
       </div>
     </div>

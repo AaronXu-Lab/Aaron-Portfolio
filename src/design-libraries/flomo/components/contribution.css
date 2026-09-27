@@ -1,0 +1,78 @@
+/* flomo Contribution family (Figma section 337:48989). */
+
+/* Contribution/Cell 196:21728: fill = Contribution/Level-n, strokes drawn inside. */
+.fm-contribution-cell {
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--fm-n-corner-radius-small);
+  background: var(--level, var(--fm-contribution-level-0));
+}
+.fm-contribution-cell[data-state="Today"] {
+  border: 1px solid var(--fm-line-regular);
+}
+.fm-contribution-cell[data-state="Selected"] {
+  border: 1px solid var(--fm-line-deep);
+}
+.fm-contribution-cell[data-size="Large"] {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  border-width: 2px;
+}
+.fm-contribution-cell[data-size="Large"][data-state="Selected"] {
+  border-color: #00000075;
+}
+
+/* Contribution 6135:502483 */
+.fm-contribution {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fm-contribution-row {
+  display: flex;
+  justify-content: space-between;
+}
+[data-library="flomo"] .fm-contribution-hit {
+  display: block;
+  padding: 0;
+  border-radius: var(--fm-n-corner-radius-small);
+}
+.fm-contribution-hit:focus-visible {
+  outline-offset: 1px;
+}
+[data-flomo-platform="Web"] .fm-contribution-hit:hover .fm-contribution-cell {
+  box-shadow: inset 0 0 0 16px var(--fm-hover);
+}
+
+/* Contribution/Statistics 304:45162: raw #9d9d9d in Figma. */
+.fm-contribution-stats {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: min(280px, 100%);
+  color: #9d9d9d;
+  white-space: nowrap;
+}
+.fm-contribution-count {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.fm-contribution-num {
+  /* Figma sets flomoFont-V3 here directly (not the platform font); SF is the nearest available fallback. */
+  font-family: "flomoFont-V3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 28px;
+  text-box: trim-both cap alphabetic;
+  -webkit-font-smoothing: antialiased;
+}
+.fm-contribution-label {
+  font-family: "PingFang SC", var(--fm-p-font-family);
+  font-size: 12px;
+  line-height: 12px;
+}

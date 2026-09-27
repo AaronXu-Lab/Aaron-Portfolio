@@ -1,0 +1,90 @@
+/* Image Uploader 21:54058 */
+.fm-image-uploader {
+  position: relative;
+  flex: none;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: var(--fm-n-corner-radius-medium);
+  font-family: var(--fm-p-font-family);
+}
+.fm-image-uploader .fm-image-uploader-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+.fm-image-uploader .fm-image-uploader-mask {
+  position: absolute;
+  inset: 0;
+  background: var(--fm-mask);
+}
+.fm-image-uploader .fm-image-uploader-blur {
+  position: absolute;
+  inset: 0;
+  background: var(--fm-mask);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.fm-image-uploader .fm-image-uploader-tip,
+.fm-image-uploader .fm-image-uploader-percent,
+.fm-image-uploader .fm-image-uploader-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #ffffff; /* White100 */
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+.fm-image-uploader .fm-image-uploader-tip {
+  left: calc(50% + 0.5px);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-regular);
+  line-height: 16px;
+}
+.fm-image-uploader .fm-image-uploader-percent {
+  font-family: "Barlow", var(--fm-p-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+}
+.fm-image-uploader .fm-image-uploader-number {
+  left: calc(50% + 0.5px);
+  font-family: "flomoFont-V3", var(--fm-p-font-family);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+/* Playground */
+.fm-image-uploader-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.fm-image-uploader-demo-actions {
+  display: flex;
+  gap: 8px;
+}
+.fm-image-uploader-demo .fm-image-uploader-demo-button {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-general-theme-primary);
+  color: #ffffff;
+  font-family: var(--fm-p-font-family);
+  font-size: var(--fm-p-font-body-size);
+}
+.fm-image-uploader-demo .fm-image-uploader-demo-button[data-kind="secondary"] {
+  background: var(--fm-fills-primary);
+  color: var(--fm-text-regular);
+}
+[data-flomo-platform="Web"] .fm-image-uploader-demo .fm-image-uploader-demo-button:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}

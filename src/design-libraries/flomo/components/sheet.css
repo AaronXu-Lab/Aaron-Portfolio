@@ -1,0 +1,250 @@
+/* Sheet 1165:37840 */
+.fm-sheet {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  background: var(--fm-backgrounds-primary);
+  color: var(--fm-text-regular);
+  font-family: var(--fm-p-font-family);
+}
+.fm-sheet[data-type="bottom"] {
+  width: 400px;
+  height: 400px;
+  border-radius: var(--fm-n-corner-radius-large) var(--fm-n-corner-radius-large) 0 0;
+}
+.fm-sheet[data-type="center-1"] {
+  width: 580px;
+  height: 640px;
+  border-radius: var(--fm-n-corner-radius-large);
+}
+.fm-sheet[data-type="center-2"] {
+  width: 1080px;
+  height: 640px;
+  border-radius: var(--fm-n-corner-radius-large);
+}
+
+/* NavigationBar Wrapper - Model */
+.fm-sheet .fm-sheet-navi {
+  flex: none;
+  padding: var(--fm-p-navi-offset-modal-increment) 0;
+  overflow: hidden;
+}
+.fm-sheet .fm-sheet-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--fm-p-navi-offset-vertical) var(--fm-p-navi-offset-horizontal);
+}
+.fm-sheet .fm-sheet-leading {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+}
+.fm-sheet .fm-sheet-trailing {
+  display: flex;
+  margin-left: auto;
+}
+.fm-sheet .fm-sheet-title-part {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  padding: 6px;
+  border-radius: var(--fm-n-corner-radius-small);
+  transform: translate(-50%, -50%);
+}
+.fm-sheet .fm-sheet-title {
+  padding: 4px;
+  color: var(--fm-text-emphasize);
+  font-size: 16px;
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 16px;
+  white-space: nowrap;
+}
+.fm-sheet .fm-sheet-close {
+  display: flex;
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: transparent;
+  color: var(--fm-text-subtle);
+}
+[data-flomo-platform="Web"] .fm-sheet .fm-sheet-close:hover {
+  background: var(--fm-hover);
+}
+
+/* Content Area */
+.fm-sheet .fm-sheet-area {
+  display: flex;
+  flex: 1 0 0;
+  min-height: 1px;
+  padding: var(--fm-n-padding-narrow);
+  overflow: hidden;
+}
+.fm-sheet .fm-sheet-content {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 1px;
+  border: 0;
+  /* Figma dash [3, 3] (a CSS dashed border draws 3/2). */
+  background:
+    repeating-linear-gradient(90deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) top / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) bottom / 100% 1px no-repeat,
+    repeating-linear-gradient(180deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) left 0 top 1px / 1px calc(100% - 2px) no-repeat,
+    repeating-linear-gradient(180deg, var(--fm-line-regular) 0 3px, transparent 3px 6px) right 0 top 1px / 1px calc(100% - 2px) no-repeat;
+  color: var(--fm-text-regular);
+  font-size: var(--fm-p-font-body-size);
+  font-weight: var(--fm-p-font-weight-emphasize);
+  line-height: 24px;
+  white-space: nowrap;
+}
+.fm-sheet .fm-sheet-columns {
+  display: flex;
+  flex: 1 0 0;
+  min-height: 1px;
+}
+.fm-sheet .fm-sheet-columns > .fm-sheet-area:first-child {
+  flex: none;
+  width: 360px;
+}
+.fm-sheet .fm-sheet-bottom-space {
+  flex: none;
+  height: 20px;
+}
+
+/* Static specimen: the Figma set shows the surfaces over the Black60 mask. */
+.fm-sheet-frame {
+  display: flex;
+  padding: 20px;
+  background: #00000099;
+}
+.fm-sheet-frame[data-type="bottom"] {
+  padding-bottom: 0;
+}
+
+/* Live demo */
+.fm-sheet-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+.fm-sheet-demo-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--fm-secondary);
+  font-size: 12px;
+}
+.fm-sheet-demo .fm-sheet-demo-select select {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--fm-line);
+  border-radius: 6px;
+  background: var(--fm-surface);
+  color: var(--fm-text);
+  font-size: 13px;
+}
+.fm-sheet-demo .fm-sheet-demo-trigger {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--fm-n-corner-radius-medium);
+  background: var(--fm-general-theme-primary);
+  color: #ffffff;
+  font-family: var(--fm-p-font-family);
+  font-size: var(--fm-p-font-body-size);
+}
+[data-flomo-platform="Web"] .fm-sheet-demo .fm-sheet-demo-trigger:hover {
+  background-image: linear-gradient(var(--fm-hover), var(--fm-hover));
+}
+.fm-sheet-demo .fm-sheet-demo-note {
+  margin-top: 12px;
+  color: var(--fm-muted);
+  font-size: 12px;
+}
+
+.fm-sheet-modal {
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+.fm-sheet-modal::backdrop {
+  background: #00000099; /* Black60, the Sheet Wrapper mask */
+  opacity: 0;
+}
+.fm-sheet-modal[data-shown]::backdrop {
+  opacity: 1;
+}
+.fm-sheet-modal[data-type="bottom"] {
+  width: min(100vw, var(--fm-p-sheet-max-width));
+  margin: auto auto 0;
+}
+.fm-sheet-modal[data-type="bottom"] .fm-sheet {
+  width: 100%;
+  height: min(var(--fm-p-sheet-max-height), calc(100dvh - 52px));
+  transform: translateY(100%);
+  touch-action: none;
+}
+.fm-sheet-modal[data-type="bottom"] .fm-sheet-navi {
+  cursor: grab;
+  user-select: none;
+}
+.fm-sheet-modal[data-type="bottom"] .fm-sheet-navi:active {
+  cursor: grabbing;
+}
+.fm-sheet-modal[data-type="bottom"][data-shown] .fm-sheet {
+  transform: translateY(0);
+}
+.fm-sheet-modal:not([data-type="bottom"]) {
+  margin: auto;
+}
+.fm-sheet-modal:not([data-type="bottom"]) .fm-sheet {
+  height: min(var(--fm-p-sheet-max-height), calc(100dvh - 48px));
+  opacity: 0;
+  transform: scale(0.96);
+}
+.fm-sheet-modal[data-type="center-1"] .fm-sheet {
+  width: min(var(--fm-p-sheet-max-width), calc(100vw - 48px));
+}
+.fm-sheet-modal[data-type="center-2"] .fm-sheet {
+  width: min(1080px, calc(100vw - 48px));
+}
+.fm-sheet-modal:not([data-type="bottom"])[data-shown] .fm-sheet {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Figma: slide up + mask 0 → 1 on enter, reversed on exit. iOS uses a spring-like curve, Android the standard easing. */
+  .fm-sheet-modal::backdrop {
+    transition: opacity 300ms ease-out;
+  }
+  .fm-sheet-modal .fm-sheet {
+    transition:
+      transform 300ms cubic-bezier(0.2, 0, 0, 1),
+      opacity 200ms ease-out;
+  }
+  [data-flomo-platform="iOS"] .fm-sheet-modal[data-shown] .fm-sheet {
+    transition: transform 500ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .fm-sheet-modal[data-closing] .fm-sheet {
+    transition:
+      transform 260ms cubic-bezier(0.3, 0, 0.8, 0.15),
+      opacity 200ms ease-in;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fm-sheet-modal::backdrop,
+  .fm-sheet-modal .fm-sheet {
+    transition: none;
+  }
+}

@@ -1,7 +1,12 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import catalog from "./catalog.json";
-import { FlomoSpecimen, OverlayDemo } from "./components";
-import { documentation, specs } from "./specs";
+import { families, isDrawn, platforms, type Family, type Item, type Platform, type Props } from "./showcase";
+
+const documentation: Record<string, string> = {
+  "time-format": "源库中的时间格式规范文档，没有独立组件定义。保留源节点，便于查看原规范。",
+  "easy-script": "源库中的快捷记录 Widget 文档，没有独立组件定义。",
+  "empty-page-a": "源库中的空页面组合示例，没有独立组件定义。可交互展示见另一组 Empty Page。",
+};
 
 const pages = {
   components: "组件",
@@ -17,153 +22,227 @@ function route() {
   const [page, family] = location.hash.replace(/^#\/?/, "").split("/");
   return {
     page: (page in pages ? page : "components") as Page,
-    family: catalog.families.some((f) => f.id === family) ? family : "button",
+    family: families.some((f) => f.id === family) ? family : "button",
   };
 }
-function ComponentPanel({ familyID }: { familyID: string }) {
-  const family = catalog.families.find((f) => f.id === familyID)!;
-  const spec = specs[familyID];
-  const [config, setConfig] = useState(spec?.defaults || {});
+function Specimen({
+  family,
+  item,
+  props,
+  interactive,
+  notify,
+}: {
+  family: Family;
+  item: Item;
+  props: Props;
+  interactive: boolean;
+  notify: (message: string) => void;
+}) {
+  const render = family.module?.renderers[item.id];
+  return render ? (
+    <>{render({ props, interactive, notify })}</>
+  ) : (
+    <span className="fm-missing">待实现</span>
+  );
+}
+function ItemPanel({ family, item, heading }: { family: Family; item: Item; heading: boolean }) {
+  const [config, setConfig] = useState<Props>(item.defaults);
   const [revision, setRevision] = useState(0);
   const [status, setStatus] = useState("");
-  const definitions = catalog.components.filter(
-    (c) => c.sectionID === family.nodeID,
-  );
   const notify = (value: string) => setStatus(value);
+  const drawn = isDrawn(item, config);
+  // Comparison columns: as many as fit the widest Figma variant plus stage padding (20px × 2 + border), max 3.
+  const properties = useRef<HTMLElement>(null); // the item block; its width is the comparison width
+  const [fit, setFit] = useState(3);
+  // Specimens wider than one column scale down proportionally (not below 50%) instead of being clipped.
+  const [zoom, setZoom] = useState(1);
+  useEffect(() => {
+    const node = properties.current;
+    if (!node) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry.contentRect.width;
+      setFit(Math.max(1, Math.min(3, Math.floor((width + 16) / (item.width + 42 + 16)))));
+      setZoom(Math.max(0.5, Math.min(1, (width - 42) / item.width)));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [item.width]);
+  return (
+    <section
+      className="fm-item"
+      ref={properties}
+      id={`item-${item.id.replace(":", "-")}`}
+      style={zoom < 1 ? ({ "--fm-zoom": zoom } as CSSProperties) : undefined}
+    >
+      {heading && <h2 className="fm-item-title">{item.name}</h2>}
+      <section className="fm-panel">
+        <div className="fm-section-title">
+          <h3>默认示例</h3>
+          {item.axes.length > 0 && (
+            <button
+              className="fm-text-button"
+              onClick={() => {
+                setConfig({ ...item.defaults });
+                setRevision((n) => n + 1);
+                setStatus("已重置");
+              }}
+            >
+              重置
+            </button>
+          )}
+        </div>
+        {item.axes.length > 0 && (
+          <div className="fm-controls">
+            {item.axes.map((axis) => (
+              <label key={axis.name} title={item.requires[axis.name]?.when(config) === false ? item.requires[axis.name].hint : undefined}>
+                <span>
+                  {axis.name}
+                  {item.requires[axis.name]?.when(config) === false && <small className="fm-inactive-tag">当前不生效</small>}
+                </span>
+                <select
+                  value={config[axis.name]}
+                  onChange={(e) => setConfig({ ...config, [axis.name]: e.target.value })}
+                >
+                  {axis.values.map((value) => (
+                    <option key={value}>{value}</option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
+        )}
+        <div className="fm-stage fm-default-stage">
+          <div className="fm-stage-inner">
+            <Specimen key={revision} family={family} item={item} props={config} interactive notify={notify} />
+          </div>
+        </div>
+        {!drawn && <p className="fm-note">源设计没有绘制这个组合，示例按各属性的规则推演。</p>}
+        <p className="fm-status" role="status">
+          {status || "可在预览中直接操作。"}
+        </p>
+      </section>
+      {item.axes.length > 0 && (
+        <section className="fm-properties">
+          <h3>属性对比</h3>
+          {item.axes.map((axis) => {
+            const rule = item.requires[axis.name];
+            const inactive = rule ? !rule.when(config) : false;
+            const hintId = `hint-${item.id.replace(":", "-")}-${axis.name.replace(/\W+/g, "-")}`;
+            return (
+            <div className="fm-axis" key={axis.name}>
+              <h4>{axis.name}</h4>
+              {inactive && (
+                <p className="fm-axis-hint" id={hintId}>
+                  {rule.hint}
+                </p>
+              )}
+              <div
+                className="fm-axis-gate"
+                data-inactive={inactive || undefined}
+                tabIndex={inactive ? 0 : undefined}
+                title={inactive ? rule.hint : undefined}
+                aria-describedby={inactive ? hintId : undefined}
+              >
+              <div
+                className="fm-comparison"
+                inert={inactive}
+                style={{ "--count": Math.min(fit, axis.values.length === 4 ? 2 : Math.min(axis.values.length, 3)) } as CSSProperties}
+              >
+                {axis.values.map((value) => {
+                  const props = { ...config, [axis.name]: value };
+                  const valid = isDrawn(item, props);
+                  return (
+                    <div className="fm-comparison-item" key={value}>
+                      <code>
+                        {axis.name}={value}
+                      </code>
+                      <div
+                        className="fm-stage"
+                        data-undrawn={!valid || undefined}
+                        tabIndex={valid ? undefined : 0}
+                        title={valid ? undefined : "源设计没有绘制这个组合"}
+                      >
+                        <div className="fm-stage-inner" inert={!valid}>
+                          <Specimen
+                            key={revision}
+                            family={family}
+                            item={item}
+                            props={props}
+                            interactive={false}
+                            notify={notify}
+                          />
+                        </div>
+                      </div>
+                      {!valid && <small className="fm-undrawn">源设计未绘制此组合</small>}
+                    </div>
+                  );
+                })}
+              </div>
+              </div>
+            </div>
+            );
+          })}
+        </section>
+      )}
+    </section>
+  );
+}
+function ComponentPanel({ familyID }: { familyID: string }) {
+  const family = families.find((f) => f.id === familyID)!;
+  const [status, setStatus] = useState("");
+  const definitions = catalog.components.filter((c) => c.sectionID === family.nodeID);
   return (
     <>
       <header className="fm-page-heading">
         <div>
           <p className="fm-kicker">Components</p>
           <h1>{family.name}</h1>
-          <p>{spec?.description || documentation[familyID]}</p>
+          <p>{family.module?.description || documentation[familyID]}</p>
         </div>
-        <a
-          className="fm-source-link"
-          href={figma(family.nodeID)}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a className="fm-source-link" href={figma(family.nodeID)} target="_blank" rel="noreferrer">
           Figma ↗
         </a>
       </header>
-      {spec ? (
-        <>
-          <section className="fm-panel">
-            <div className="fm-section-title">
-              <h2>默认示例</h2>
-              <button
-                className="fm-text-button"
-                onClick={() => {
-                  setConfig({ ...spec.defaults });
-                  setRevision((n) => n + 1);
-                  setStatus("已重置");
-                }}
-              >
-                重置
-              </button>
-            </div>
-            <div className="fm-controls">
-              {spec.axes.map((axis) => (
-                <label key={axis.name}>
-                  <span>{axis.name}</span>
-                  <select
-                    value={config[axis.name]}
-                    onChange={(e) =>
-                      setConfig({ ...config, [axis.name]: e.target.value })
-                    }
-                  >
-                    {axis.values.map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </label>
-              ))}
-            </div>
-            <div className="fm-stage fm-default-stage">
-              <FlomoSpecimen
-                key={revision}
-                family={familyID}
-                config={config}
-                notify={notify}
-                demo
-              />
-            </div>
-            {spec.note && <p className="fm-note">{spec.note}</p>}
-            <p className="fm-status" role="status">
-              {status || "可在预览中直接操作。"}
-            </p>
-          </section>
-          <section className="fm-properties">
-            <h2>属性对比</h2>
-            {spec.axes.map((axis) => (
-              <div className="fm-axis" key={axis.name}>
-                <h3>{axis.name}</h3>
-                <div
-                  className="fm-comparison"
-                  style={
-                    {
-                      "--count":
-                        axis.values.length === 4
-                          ? 2
-                          : Math.min(axis.values.length, 3),
-                    } as CSSProperties
-                  }
-                >
-                  {axis.values.map((value) => (
-                    <div className="fm-comparison-item" key={value}>
-                      <code>
-                        {axis.name}={value}
-                      </code>
-                      <div className="fm-stage">
-                        <FlomoSpecimen
-                          key={revision}
-                          family={familyID}
-                          config={{ ...config, [axis.name]: value }}
-                          notify={notify}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </section>
-          {["dialog", "sheet", "menu", "snackbar"].includes(familyID) && (
-            <section className="fm-demo">
-              <h2>交互演示</h2>
-              <OverlayDemo
-                key={revision}
-                family={familyID}
-                config={config}
-                notify={notify}
-              />
-            </section>
-          )}
-        </>
+      {family.items.length > 1 && (
+        <nav className="fm-item-index" aria-label={`${family.name} 组件`}>
+          {family.items.map((item) => (
+            <a key={item.id} href={`#item-${item.id.replace(":", "-")}`} onClick={(e) => {
+              e.preventDefault();
+              document.getElementById(`item-${item.id.replace(":", "-")}`)?.scrollIntoView({
+                behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+              });
+            }}>
+              {item.name}
+            </a>
+          ))}
+        </nav>
+      )}
+      {family.items.length ? (
+        family.items.map((item) => (
+          <ItemPanel key={item.id} family={family} item={item} heading={family.items.length > 1} />
+        ))
       ) : (
         <div className="fm-panel fm-documentation">
           <span>文档条目</span>
           <h2>{family.name}</h2>
           <p>{documentation[familyID]}</p>
-          <a
-            className="fm-source-link"
-            href={figma(family.nodeID)}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="fm-source-link" href={figma(family.nodeID)} target="_blank" rel="noreferrer">
             查看源设计 ↗
           </a>
         </div>
+      )}
+      {family.module?.demo && (
+        <section className="fm-demo">
+          <h2>交互演示</h2>
+          {family.module.demo(setStatus)}
+          <p className="fm-status" role="status">{status}</p>
+        </section>
       )}
       <details className="fm-definitions">
         <summary>
           源库定义 <span>{definitions.length}</span>
         </summary>
-        <p>
-          这里保留原设计的平台、变体名称与尺寸；上方按 SwiftUI 组件能力提供 Web
-          示例。
-        </p>
+        <p>这里保留原设计的变体名称与尺寸；上方按 Figma 源设计实现 Web 组件。</p>
         <div className="fm-table-wrap">
           <table>
             <thead>
@@ -433,7 +512,7 @@ function Icons() {
       <PageHeading
         title="图标"
         kicker="Icons"
-        description="展示仓库附带的原始 SVG；没有附带图形资源的定义保留名称与源节点。"
+        description="展示源库图标页的原始 SVG。以 _icon 开头的图标在 Figma 中标记为弃用，保留 10% 不透明度的原样。"
       />
       <label className="fm-search">
         搜索图标
@@ -500,7 +579,7 @@ function Source() {
           [catalog.variables.length, "变量"],
           [catalog.styles.length, "样式"],
           [catalog.components.length, "组件定义"],
-          [catalog.families.length, "组件分组"],
+          [families.length, "组件分组"],
         ].map(([n, label]) => (
           <div key={label}>
             <strong>{n}</strong>
@@ -509,9 +588,9 @@ function Source() {
         ))}
       </div>
       <p className="fm-note">
-        Web 展示覆盖 20 组组件，另外 3
-        组为源设计文档。源库的跨平台变体作为目录保留，不将每条目录记录视作独立的
-        Web 实现。
+        Web 展示覆盖 {families.filter((f) => f.items.length).length} 组组件，
+        另外 {families.filter((f) => !f.items.length).length} 组为源设计文档。
+        组件按 Figma 源设计逐变体实现，并随平台切换 iOS、Android 与 Web 的交互手感。
       </p>
       <div className="fm-filter">
         <label>
@@ -575,6 +654,7 @@ function Source() {
 export default function App() {
   const [current, setCurrent] = useState(route);
   const [theme, setTheme] = useState("Light");
+  const [platform, setPlatform] = useState<Platform>("iOS");
   const [menu, setMenu] = useState(false);
   const [filter, setFilter] = useState("");
   useEffect(() => {
@@ -588,6 +668,27 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.flomoTheme = theme;
   }, [theme]);
+  useEffect(() => {
+    document.documentElement.dataset.flomoPlatform = platform;
+  }, [platform]);
+  // Android touch feedback: a ripple from the pointer on any .fm-press specimen.
+  useEffect(() => {
+    const ripple = (event: PointerEvent) => {
+      if (document.documentElement.dataset.flomoPlatform !== "Android") return;
+      const target = (event.target as Element).closest<HTMLElement>(".fm-press");
+      if (!target || target.matches(":disabled, [aria-disabled='true']")) return;
+      const box = target.getBoundingClientRect();
+      const size = Math.hypot(box.width, box.height) * 2;
+      const wave = document.createElement("span");
+      wave.className = "fm-ripple";
+      wave.style.cssText = `width:${size}px;height:${size}px;left:${event.clientX - box.left - size / 2}px;top:${event.clientY - box.top - size / 2}px`;
+      target.append(wave);
+      wave.addEventListener("animationend", () => wave.remove());
+      setTimeout(() => wave.remove(), 1000);
+    };
+    document.addEventListener("pointerdown", ripple);
+    return () => document.removeEventListener("pointerdown", ripple);
+  }, []);
   useEffect(() => {
     const escape = (event: KeyboardEvent) => {
       if (event.key === "Escape" && menu) {
@@ -609,6 +710,14 @@ export default function App() {
         <a href="/design/more/">← 更多组件库</a>
         <div>
           <span className="fm-topbar-name">flomo / {pages[current.page]}</span>
+          <label className="fm-theme-control">
+            <span className="sr-only">平台</span>
+            <select aria-label="平台" value={platform} onChange={(e) => setPlatform(e.target.value as Platform)}>
+              {platforms.map((p) => (
+                <option key={p}>{p}</option>
+              ))}
+            </select>
+          </label>
           <label className="fm-theme-control">
             <span className="sr-only">外观</span>
             <select
@@ -649,7 +758,7 @@ export default function App() {
               <span>{label}</span>
               <small>
                 {id === "components"
-                  ? "23"
+                  ? String(families.length)
                   : id === "tokens"
                     ? "667"
                     : id === "styles"
@@ -673,7 +782,7 @@ export default function App() {
               />
             </label>
             <nav className="fm-family-nav" aria-label="组件分组">
-              {catalog.families
+              {families
                 .filter((f) =>
                   f.name.toLowerCase().includes(filter.toLowerCase()),
                 )
@@ -684,14 +793,14 @@ export default function App() {
                     onClick={() => navigate("components", f.id)}
                   >
                     <span>{f.name}</span>
-                    {documentation[f.id] && <small>文档</small>}
+                    {!f.items.length && <small>文档</small>}
                   </button>
                 ))}
             </nav>
           </>
         )}
         <p className="fm-sidebar-note">
-          SwiftUI → Web
+          Figma → Web
           <br />
           源库的细节，浏览器里的交互。
         </p>
@@ -705,7 +814,20 @@ export default function App() {
       )}
       <main className="fm-main" id="main-content">
         {current.page === "components" ? (
-          <ComponentPanel key={current.family} familyID={current.family} />
+          <>
+            <label className="fm-family-switcher">
+              <span>组件</span>
+              <select value={current.family} onChange={(e) => navigate("components", e.target.value)}>
+                {families.map((f) => (
+                  <option key={f.id} value={f.id}>
+                    {f.name}
+                    {f.items.length ? "" : "（文档）"}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <ComponentPanel key={current.family} familyID={current.family} />
+          </>
         ) : current.page === "tokens" ? (
           <Tokens theme={theme} />
         ) : current.page === "styles" ? (

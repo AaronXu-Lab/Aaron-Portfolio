@@ -1,0 +1,2004 @@
+[
+ {
+  "name": "alphabet.a",
+  "variant": null,
+  "file": "alphabet.a.svg",
+  "size": 16,
+  "id": "8103:18127"
+ },
+ {
+  "name": "alphabet.a.uppercase.lowercase",
+  "variant": null,
+  "file": "alphabet.a.uppercase.lowercase.svg",
+  "size": 16,
+  "id": "8444:37842"
+ },
+ {
+  "name": "archive",
+  "variant": "16",
+  "file": "archive-16.svg",
+  "size": 16,
+  "id": "1111:3854"
+ },
+ {
+  "name": "archive",
+  "variant": "20",
+  "file": "archive-20.svg",
+  "size": 20,
+  "id": "6627:43822"
+ },
+ {
+  "name": "archive.eye",
+  "variant": null,
+  "file": "archive.eye.svg",
+  "size": 16,
+  "id": "3047:19400"
+ },
+ {
+  "name": "arrow.down",
+  "variant": null,
+  "file": "arrow.down.svg",
+  "size": 16,
+  "id": "5598:31396"
+ },
+ {
+  "name": "arrow.down.line",
+  "variant": "16",
+  "file": "arrow.down.line-16.svg",
+  "size": 16,
+  "id": "1458:16"
+ },
+ {
+  "name": "arrow.down.line",
+  "variant": "20",
+  "file": "arrow.down.line-20.svg",
+  "size": 20,
+  "id": "362:50"
+ },
+ {
+  "name": "arrow.left",
+  "variant": null,
+  "file": "arrow.left.svg",
+  "size": 16,
+  "id": "214:297"
+ },
+ {
+  "name": "arrow.left.arrow.right",
+  "variant": null,
+  "file": "arrow.left.arrow.right.svg",
+  "size": 16,
+  "id": "1701:14976"
+ },
+ {
+  "name": "arrow.right",
+  "variant": null,
+  "file": "arrow.right.svg",
+  "size": 16,
+  "id": "1491:6279"
+ },
+ {
+  "name": "arrow.triangle.2.circlepath",
+  "variant": "16",
+  "file": "arrow.triangle.2.circlepath-16.svg",
+  "size": 16,
+  "id": "3154:27659"
+ },
+ {
+  "name": "arrow.triangle.2.circlepath",
+  "variant": "20",
+  "file": "arrow.triangle.2.circlepath-20.svg",
+  "size": 20,
+  "id": "6678:29777"
+ },
+ {
+  "name": "arrow.trianglehead.2.clockwise",
+  "variant": "16",
+  "file": "arrow.trianglehead.2.clockwise-16.svg",
+  "size": 16,
+  "id": "398:1095"
+ },
+ {
+  "name": "arrow.trianglehead.2.clockwise",
+  "variant": "20",
+  "file": "arrow.trianglehead.2.clockwise-20.svg",
+  "size": 20,
+  "id": "6594:65395"
+ },
+ {
+  "name": "arrow.trianglehead.clockwise",
+  "variant": null,
+  "file": "arrow.trianglehead.clockwise.svg",
+  "size": 16,
+  "id": "8102:18053"
+ },
+ {
+  "name": "arrow.trianglehead.counterclockwise",
+  "variant": null,
+  "file": "arrow.trianglehead.counterclockwise.svg",
+  "size": 16,
+  "id": "1493:8318"
+ },
+ {
+  "name": "arrow.trianglehead.counterclockwise.dot",
+  "variant": null,
+  "file": "arrow.trianglehead.counterclockwise.dot.svg",
+  "size": 16,
+  "id": "508:1406"
+ },
+ {
+  "name": "arrow.up",
+  "variant": null,
+  "file": "arrow.up.svg",
+  "size": 16,
+  "id": "5598:31413"
+ },
+ {
+  "name": "arrow.up.arrow.down",
+  "variant": null,
+  "file": "arrow.up.arrow.down.svg",
+  "size": 16,
+  "id": "3115:24621"
+ },
+ {
+  "name": "arrow.uturn.left",
+  "variant": null,
+  "file": "arrow.uturn.left.svg",
+  "size": 16,
+  "id": "1819:7895"
+ },
+ {
+  "name": "at.sign",
+  "variant": null,
+  "file": "at.sign.svg",
+  "size": 16,
+  "id": "4768:34333"
+ },
+ {
+  "name": "bell",
+  "variant": "16",
+  "file": "bell-16.svg",
+  "size": 16,
+  "id": "1717:15278"
+ },
+ {
+  "name": "bell",
+  "variant": "20",
+  "file": "bell-20.svg",
+  "size": 20,
+  "id": "6594:65426"
+ },
+ {
+  "name": "besom",
+  "variant": null,
+  "file": "besom.svg",
+  "size": 16,
+  "id": "8337:522"
+ },
+ {
+  "name": "board",
+  "variant": "16",
+  "file": "board-16.svg",
+  "size": 16,
+  "id": "208:259"
+ },
+ {
+  "name": "board",
+  "variant": "20",
+  "file": "board-20.svg",
+  "size": 20,
+  "id": "1880:5320"
+ },
+ {
+  "name": "board.arrow.2.counterclockwise",
+  "variant": "16",
+  "file": "board.arrow.2.counterclockwise-16.svg",
+  "size": 16,
+  "id": "9077:10375"
+ },
+ {
+  "name": "board.arrow.2.counterclockwise",
+  "variant": "20",
+  "file": "board.arrow.2.counterclockwise-20.svg",
+  "size": 20,
+  "id": "9077:10382"
+ },
+ {
+  "name": "board.arrow.2.counterclockwise.rhombus",
+  "variant": "16",
+  "file": "board.arrow.2.counterclockwise.rhombus-16.svg",
+  "size": 16,
+  "id": "9077:10358"
+ },
+ {
+  "name": "board.arrow.2.counterclockwise.rhombus",
+  "variant": "20",
+  "file": "board.arrow.2.counterclockwise.rhombus-20.svg",
+  "size": 20,
+  "id": "9077:10366"
+ },
+ {
+  "name": "board.badge",
+  "variant": "16",
+  "file": "board.badge-16.svg",
+  "size": 16,
+  "id": "8975:115"
+ },
+ {
+  "name": "board.badge",
+  "variant": "20",
+  "file": "board.badge-20.svg",
+  "size": 20,
+  "id": "8975:121"
+ },
+ {
+  "name": "board.rhombus",
+  "variant": "16",
+  "file": "board.rhombus-16.svg",
+  "size": 16,
+  "id": "2795:12346"
+ },
+ {
+  "name": "board.rhombus",
+  "variant": "20",
+  "file": "board.rhombus-20.svg",
+  "size": 20,
+  "id": "7897:15859"
+ },
+ {
+  "name": "board.rhombus.hollow",
+  "variant": "16",
+  "file": "board.rhombus.hollow-16.svg",
+  "size": 16,
+  "id": "8975:102"
+ },
+ {
+  "name": "board.rhombus.hollow",
+  "variant": "20",
+  "file": "board.rhombus.hollow-20.svg",
+  "size": 20,
+  "id": "8975:108"
+ },
+ {
+  "name": "brush",
+  "variant": "16",
+  "file": "brush-16.svg",
+  "size": 16,
+  "id": "8888:16672"
+ },
+ {
+  "name": "brush",
+  "variant": "20",
+  "file": "brush-20.svg",
+  "size": 20,
+  "id": "8888:16674"
+ },
+ {
+  "name": "bubble",
+  "variant": "16",
+  "file": "bubble-16.svg",
+  "size": 16,
+  "id": "4434:12001"
+ },
+ {
+  "name": "bubble",
+  "variant": "20",
+  "file": "bubble-20.svg",
+  "size": 20,
+  "id": "405:64"
+ },
+ {
+  "name": "calendar",
+  "variant": "16",
+  "file": "calendar-16.svg",
+  "size": 16,
+  "id": "1253:7048"
+ },
+ {
+  "name": "calendar",
+  "variant": "20",
+  "file": "calendar-20.svg",
+  "size": 20,
+  "id": "6678:29816"
+ },
+ {
+  "name": "calendar.doublearrow",
+  "variant": null,
+  "file": "calendar.doublearrow.svg",
+  "size": 16,
+  "id": "2784:10119"
+ },
+ {
+  "name": "calendar.doublearrow.plus",
+  "variant": null,
+  "file": "calendar.doublearrow.plus.svg",
+  "size": 16,
+  "id": "2784:10118"
+ },
+ {
+  "name": "calendar.plus",
+  "variant": null,
+  "file": "calendar.plus.svg",
+  "size": 16,
+  "id": "1885:38"
+ },
+ {
+  "name": "checkmark",
+  "variant": "16",
+  "file": "checkmark-16.svg",
+  "size": 16,
+  "id": "289:34"
+ },
+ {
+  "name": "checkmark",
+  "variant": "20",
+  "file": "checkmark-20.svg",
+  "size": 20,
+  "id": "6633:36795"
+ },
+ {
+  "name": "chevron.2.down.up",
+  "variant": null,
+  "file": "chevron.2.down.up.svg",
+  "size": 16,
+  "id": "6034:32748"
+ },
+ {
+  "name": "chevron.2.left",
+  "variant": null,
+  "file": "chevron.2.left.svg",
+  "size": 16,
+  "id": "3464:73"
+ },
+ {
+  "name": "chevron.2.right",
+  "variant": null,
+  "file": "chevron.2.right.svg",
+  "size": 16,
+  "id": "3464:74"
+ },
+ {
+  "name": "chevron.2.up.down",
+  "variant": null,
+  "file": "chevron.2.up.down.svg",
+  "size": 16,
+  "id": "6034:32763"
+ },
+ {
+  "name": "chevron.down",
+  "variant": "large",
+  "file": "chevron.down-large.svg",
+  "size": 16,
+  "id": "214:315"
+ },
+ {
+  "name": "chevron.down",
+  "variant": "medium",
+  "file": "chevron.down-medium.svg",
+  "size": 16,
+  "id": "1409:5529"
+ },
+ {
+  "name": "chevron.down",
+  "variant": "small",
+  "file": "chevron.down-small.svg",
+  "size": 16,
+  "id": "1234:2594"
+ },
+ {
+  "name": "chevron.left",
+  "variant": "large",
+  "file": "chevron.left-large.svg",
+  "size": 16,
+  "id": "1371:6544"
+ },
+ {
+  "name": "chevron.left",
+  "variant": "medium",
+  "file": "chevron.left-medium.svg",
+  "size": 16,
+  "id": "1409:5527"
+ },
+ {
+  "name": "chevron.left",
+  "variant": "small",
+  "file": "chevron.left-small.svg",
+  "size": 16,
+  "id": "1371:6527"
+ },
+ {
+  "name": "chevron.right",
+  "variant": "large",
+  "file": "chevron.right-large.svg",
+  "size": 16,
+  "id": "1371:6537"
+ },
+ {
+  "name": "chevron.right",
+  "variant": "medium",
+  "file": "chevron.right-medium.svg",
+  "size": 16,
+  "id": "1409:5528"
+ },
+ {
+  "name": "chevron.right",
+  "variant": "small",
+  "file": "chevron.right-small.svg",
+  "size": 16,
+  "id": "212:293"
+ },
+ {
+  "name": "chevron.up",
+  "variant": "large",
+  "file": "chevron.up-large.svg",
+  "size": 16,
+  "id": "214:316"
+ },
+ {
+  "name": "chevron.up",
+  "variant": "medium",
+  "file": "chevron.up-medium.svg",
+  "size": 16,
+  "id": "1409:5526"
+ },
+ {
+  "name": "chevron.up",
+  "variant": "small",
+  "file": "chevron.up-small.svg",
+  "size": 16,
+  "id": "1371:6522"
+ },
+ {
+  "name": "circle",
+  "variant": "16",
+  "file": "circle-16.svg",
+  "size": 16,
+  "id": "5774:33752"
+ },
+ {
+  "name": "circle",
+  "variant": "20",
+  "file": "circle-20.svg",
+  "size": 20,
+  "id": "6678:29789"
+ },
+ {
+  "name": "circle.3",
+  "variant": "16",
+  "file": "circle.3-16.svg",
+  "size": 16,
+  "id": "3436:6828"
+ },
+ {
+  "name": "circle.3",
+  "variant": "20",
+  "file": "circle.3-20.svg",
+  "size": 20,
+  "id": "6627:42113"
+ },
+ {
+  "name": "circle.alphabet.a",
+  "variant": "16",
+  "file": "circle.alphabet.a-16.svg",
+  "size": 16,
+  "id": "5864:28515"
+ },
+ {
+  "name": "circle.alphabet.a",
+  "variant": "20",
+  "file": "circle.alphabet.a-20.svg",
+  "size": 20,
+  "id": "6678:29795"
+ },
+ {
+  "name": "circle.checkmark",
+  "variant": "16",
+  "file": "circle.checkmark-16.svg",
+  "size": 16,
+  "id": "5884:1681"
+ },
+ {
+  "name": "circle.checkmark",
+  "variant": "20",
+  "file": "circle.checkmark-20.svg",
+  "size": 20,
+  "id": "5936:33270"
+ },
+ {
+  "name": "circle.checkmark.badge",
+  "variant": "16",
+  "file": "circle.checkmark.badge-16.svg",
+  "size": 16,
+  "id": "6594:65579"
+ },
+ {
+  "name": "circle.checkmark.badge",
+  "variant": "20",
+  "file": "circle.checkmark.badge-20.svg",
+  "size": 20,
+  "id": "6594:65581"
+ },
+ {
+  "name": "circle.checkmark.plus",
+  "variant": "16",
+  "file": "circle.checkmark.plus-16.svg",
+  "size": 16,
+  "id": "4116:7592"
+ },
+ {
+  "name": "circle.checkmark.plus",
+  "variant": "20",
+  "file": "circle.checkmark.plus-20.svg",
+  "size": 20,
+  "id": "6594:65432"
+ },
+ {
+  "name": "circle.half.fill",
+  "variant": null,
+  "file": "circle.half.fill.svg",
+  "size": 16,
+  "id": "362:21"
+ },
+ {
+  "name": "circle.half.fill.plus",
+  "variant": null,
+  "file": "circle.half.fill.plus.svg",
+  "size": 16,
+  "id": "1888:2304"
+ },
+ {
+  "name": "circle.i",
+  "variant": "16",
+  "file": "circle.i-16.svg",
+  "size": 16,
+  "id": "7647:27476"
+ },
+ {
+  "name": "circle.i",
+  "variant": "20",
+  "file": "circle.i-20.svg",
+  "size": 20,
+  "id": "7647:27503"
+ },
+ {
+  "name": "circle.line.circle",
+  "variant": null,
+  "file": "circle.line.circle.svg",
+  "size": 16,
+  "id": "300:1660"
+ },
+ {
+  "name": "circle.minus",
+  "variant": null,
+  "file": "circle.minus.svg",
+  "size": 16,
+  "id": "1130:3309"
+ },
+ {
+  "name": "circle.question",
+  "variant": null,
+  "file": "circle.question.svg",
+  "size": 16,
+  "id": "2596:1924"
+ },
+ {
+  "name": "circle.xmark",
+  "variant": null,
+  "file": "circle.xmark.svg",
+  "size": 16,
+  "id": "5721:15833"
+ },
+ {
+  "name": "clock",
+  "variant": "16",
+  "file": "clock-16.svg",
+  "size": 16,
+  "id": "676:2938"
+ },
+ {
+  "name": "clock",
+  "variant": "20",
+  "file": "clock-20.svg",
+  "size": 20,
+  "id": "6678:32034"
+ },
+ {
+  "name": "clock.arrow.clockwise.dash",
+  "variant": "16",
+  "file": "clock.arrow.clockwise.dash-16.svg",
+  "size": 16,
+  "id": "4081:124073"
+ },
+ {
+  "name": "clock.arrow.clockwise.dash",
+  "variant": "20",
+  "file": "clock.arrow.clockwise.dash-20.svg",
+  "size": 20,
+  "id": "6627:46193"
+ },
+ {
+  "name": "cloud",
+  "variant": "16",
+  "file": "cloud-16.svg",
+  "size": 16,
+  "id": "4539:33143"
+ },
+ {
+  "name": "cloud",
+  "variant": "20",
+  "file": "cloud-20.svg",
+  "size": 20,
+  "id": "8814:44738"
+ },
+ {
+  "name": "cloud.checkmark",
+  "variant": "16",
+  "file": "cloud.checkmark-16.svg",
+  "size": 16,
+  "id": "5630:20928"
+ },
+ {
+  "name": "cloud.checkmark",
+  "variant": "20",
+  "file": "cloud.checkmark-20.svg",
+  "size": 20,
+  "id": "8814:44737"
+ },
+ {
+  "name": "cloud.xmark",
+  "variant": "16",
+  "file": "cloud.xmark-16.svg",
+  "size": 16,
+  "id": "4539:33177"
+ },
+ {
+  "name": "cloud.xmark",
+  "variant": "20",
+  "file": "cloud.xmark-20.svg",
+  "size": 20,
+  "id": "8814:44736"
+ },
+ {
+  "name": "contents",
+  "variant": "16",
+  "file": "contents-16.svg",
+  "size": 16,
+  "id": "3476:11799"
+ },
+ {
+  "name": "contents",
+  "variant": "20",
+  "file": "contents-20.svg",
+  "size": 20,
+  "id": "6627:43934"
+ },
+ {
+  "name": "cross.open.dot",
+  "variant": "16",
+  "file": "cross.open.dot-16.svg",
+  "size": 16,
+  "id": "8201:57616"
+ },
+ {
+  "name": "cross.open.dot",
+  "variant": "20",
+  "file": "cross.open.dot-20.svg",
+  "size": 20,
+  "id": "8201:57624"
+ },
+ {
+  "name": "dollar",
+  "variant": "16",
+  "file": "dollar-16.svg",
+  "size": 16,
+  "id": "675:2907"
+ },
+ {
+  "name": "dollar",
+  "variant": "20",
+  "file": "dollar-20.svg",
+  "size": 20,
+  "id": "6627:42122"
+ },
+ {
+  "name": "dot.3",
+  "variant": "16",
+  "file": "dot.3-16.svg",
+  "size": 16,
+  "id": "7110:2533"
+ },
+ {
+  "name": "dot.3",
+  "variant": "20",
+  "file": "dot.3-20.svg",
+  "size": 20,
+  "id": "7110:2516"
+ },
+ {
+  "name": "dot.3.vertical",
+  "variant": "16",
+  "file": "dot.3.vertical-16.svg",
+  "size": 16,
+  "id": "8617:40902"
+ },
+ {
+  "name": "dot.3.vertical",
+  "variant": "20",
+  "file": "dot.3.vertical-20.svg",
+  "size": 20,
+  "id": "8617:40904"
+ },
+ {
+  "name": "dot.6",
+  "variant": "16",
+  "file": "dot.6-16.svg",
+  "size": 16,
+  "id": "943:2395"
+ },
+ {
+  "name": "dot.6",
+  "variant": "20",
+  "file": "dot.6-20.svg",
+  "size": 20,
+  "id": "2962:18266"
+ },
+ {
+  "name": "dot.line.3.vertical",
+  "variant": null,
+  "file": "dot.line.3.vertical.svg",
+  "size": 16,
+  "id": "300:1656"
+ },
+ {
+  "name": "eye",
+  "variant": null,
+  "file": "eye.svg",
+  "size": 16,
+  "id": "300:1601"
+ },
+ {
+  "name": "fan.chart",
+  "variant": "16",
+  "file": "fan.chart-16.svg",
+  "size": 16,
+  "id": "6711:35199"
+ },
+ {
+  "name": "fan.chart",
+  "variant": "20",
+  "file": "fan.chart-20.svg",
+  "size": 20,
+  "id": "6711:35201"
+ },
+ {
+  "name": "file",
+  "variant": "16",
+  "file": "file-16.svg",
+  "size": 16,
+  "id": "300:1590"
+ },
+ {
+  "name": "file",
+  "variant": "20",
+  "file": "file-20.svg",
+  "size": 20,
+  "id": "1880:5319"
+ },
+ {
+  "name": "file.arrow.in",
+  "variant": "16",
+  "file": "file.arrow.in-16.svg",
+  "size": 16,
+  "id": "5407:984"
+ },
+ {
+  "name": "file.arrow.in",
+  "variant": "20",
+  "file": "file.arrow.in-20.svg",
+  "size": 20,
+  "id": "6627:43927"
+ },
+ {
+  "name": "file.arrow.out",
+  "variant": "16",
+  "file": "file.arrow.out-16.svg",
+  "size": 16,
+  "id": "5406:726"
+ },
+ {
+  "name": "file.arrow.out",
+  "variant": "20",
+  "file": "file.arrow.out-20.svg",
+  "size": 20,
+  "id": "6627:43920"
+ },
+ {
+  "name": "file.csv",
+  "variant": null,
+  "file": "file.csv.svg",
+  "size": 16,
+  "id": "5953:16690"
+ },
+ {
+  "name": "file.line.2",
+  "variant": "16",
+  "file": "file.line.2-16.svg",
+  "size": 16,
+  "id": "8586:72"
+ },
+ {
+  "name": "file.line.2",
+  "variant": "20",
+  "file": "file.line.2-20.svg",
+  "size": 20,
+  "id": "8586:77"
+ },
+ {
+  "name": "file.pdf",
+  "variant": null,
+  "file": "file.pdf.svg",
+  "size": 16,
+  "id": "4451:29013"
+ },
+ {
+  "name": "file.plus",
+  "variant": "16",
+  "file": "file.plus-16.svg",
+  "size": 16,
+  "id": "1932:27"
+ },
+ {
+  "name": "file.plus",
+  "variant": "20",
+  "file": "file.plus-20.svg",
+  "size": 20,
+  "id": "8201:58186"
+ },
+ {
+  "name": "file.xls",
+  "variant": null,
+  "file": "file.xls.svg",
+  "size": 16,
+  "id": "4451:29014"
+ },
+ {
+  "name": "filter",
+  "variant": null,
+  "file": "filter.svg",
+  "size": 16,
+  "id": "852:59"
+ },
+ {
+  "name": "flag",
+  "variant": null,
+  "file": "flag.svg",
+  "size": 16,
+  "id": "362:17"
+ },
+ {
+  "name": "flag.plus",
+  "variant": null,
+  "file": "flag.plus.svg",
+  "size": 16,
+  "id": "1886:2288"
+ },
+ {
+  "name": "folder.collapse",
+  "variant": "16",
+  "file": "folder.collapse-16.svg",
+  "size": 16,
+  "id": "208:225"
+ },
+ {
+  "name": "folder.collapse",
+  "variant": "20",
+  "file": "folder.collapse-20.svg",
+  "size": 20,
+  "id": "1880:5321"
+ },
+ {
+  "name": "folder.expand",
+  "variant": "16",
+  "file": "folder.expand-16.svg",
+  "size": 16,
+  "id": "3239:6080"
+ },
+ {
+  "name": "folder.expand",
+  "variant": "20",
+  "file": "folder.expand-20.svg",
+  "size": 20,
+  "id": "2373:15725"
+ },
+ {
+  "name": "gear",
+  "variant": "16",
+  "file": "gear-16.svg",
+  "size": 16,
+  "id": "354:2415"
+ },
+ {
+  "name": "gear",
+  "variant": "20",
+  "file": "gear-20.svg",
+  "size": 20,
+  "id": "5884:5736"
+ },
+ {
+  "name": "googledrive",
+  "variant": null,
+  "file": "googledrive.svg",
+  "size": 16,
+  "id": "6728:65348"
+ },
+ {
+  "name": "hand.forefinger",
+  "variant": null,
+  "file": "hand.forefinger.svg",
+  "size": 16,
+  "id": "8653:485"
+ },
+ {
+  "name": "hexagon.ai",
+  "variant": "16",
+  "file": "hexagon.ai-16.svg",
+  "size": 16,
+  "id": "9202:1543"
+ },
+ {
+  "name": "hexagon.ai",
+  "variant": "20",
+  "file": "hexagon.ai-20.svg",
+  "size": 20,
+  "id": "9202:1549"
+ },
+ {
+  "name": "hourglass",
+  "variant": "16",
+  "file": "hourglass-16.svg",
+  "size": 16,
+  "id": "7361:638"
+ },
+ {
+  "name": "hourglass",
+  "variant": "20",
+  "file": "hourglass-20.svg",
+  "size": 20,
+  "id": "7361:634"
+ },
+ {
+  "name": "icon.placeholder",
+  "variant": "16",
+  "file": "icon.placeholder-16.svg",
+  "size": 16,
+  "id": "5279:11533"
+ },
+ {
+  "name": "icon.placeholder",
+  "variant": "20",
+  "file": "icon.placeholder-20.svg",
+  "size": 20,
+  "id": "6375:18134"
+ },
+ {
+  "name": "kanban",
+  "variant": null,
+  "file": "kanban.svg",
+  "size": 16,
+  "id": "8380:40394"
+ },
+ {
+  "name": "line.3.horizon",
+  "variant": null,
+  "file": "line.3.horizon.svg",
+  "size": 16,
+  "id": "234:254"
+ },
+ {
+  "name": "line.3.vertical",
+  "variant": "16",
+  "file": "line.3.vertical-16.svg",
+  "size": 16,
+  "id": "7361:643"
+ },
+ {
+  "name": "line.3.vertical",
+  "variant": "20",
+  "file": "line.3.vertical-20.svg",
+  "size": 20,
+  "id": "7361:647"
+ },
+ {
+  "name": "line.3.vertical.plus",
+  "variant": null,
+  "file": "line.3.vertical.plus.svg",
+  "size": 16,
+  "id": "4485:29226"
+ },
+ {
+  "name": "line.4",
+  "variant": null,
+  "file": "line.4.svg",
+  "size": 16,
+  "id": "8308:51637"
+ },
+ {
+  "name": "line.4.alignleft",
+  "variant": null,
+  "file": "line.4.alignleft.svg",
+  "size": 16,
+  "id": "8102:17998"
+ },
+ {
+  "name": "line.4.alignright",
+  "variant": null,
+  "file": "line.4.alignright.svg",
+  "size": 16,
+  "id": "8102:18041"
+ },
+ {
+  "name": "line.4.center",
+  "variant": null,
+  "file": "line.4.center.svg",
+  "size": 16,
+  "id": "8102:18027"
+ },
+ {
+  "name": "line.4.magnifyingglass",
+  "variant": "16",
+  "file": "line.4.magnifyingglass-16.svg",
+  "size": 16,
+  "id": "8201:57401"
+ },
+ {
+  "name": "line.4.magnifyingglass",
+  "variant": "20",
+  "file": "line.4.magnifyingglass-20.svg",
+  "size": 20,
+  "id": "8201:57409"
+ },
+ {
+  "name": "line.checkmark.3",
+  "variant": null,
+  "file": "line.checkmark.3.svg",
+  "size": 16,
+  "id": "4238:95"
+ },
+ {
+  "name": "line.chervon.up.chervon.down",
+  "variant": null,
+  "file": "line.chervon.up.chervon.down.svg",
+  "size": 16,
+  "id": "7415:29502"
+ },
+ {
+  "name": "link",
+  "variant": "16",
+  "file": "link-16.svg",
+  "size": 16,
+  "id": "300:1634"
+ },
+ {
+  "name": "link",
+  "variant": "20",
+  "file": "link-20.svg",
+  "size": 20,
+  "id": "405:62"
+ },
+ {
+  "name": "link.broken",
+  "variant": null,
+  "file": "link.broken.svg",
+  "size": 16,
+  "id": "5747:39566"
+ },
+ {
+  "name": "loader",
+  "variant": "16",
+  "file": "loader-16.svg",
+  "size": 16,
+  "id": "300:1704"
+ },
+ {
+  "name": "loader",
+  "variant": "20",
+  "file": "loader-20.svg",
+  "size": 20,
+  "id": "6631:53588"
+ },
+ {
+  "name": "location",
+  "variant": null,
+  "file": "location.svg",
+  "size": 16,
+  "id": "300:1675"
+ },
+ {
+  "name": "lock",
+  "variant": "16",
+  "file": "lock-16.svg",
+  "size": 16,
+  "id": "1018:2892"
+ },
+ {
+  "name": "lock",
+  "variant": "20",
+  "file": "lock-20.svg",
+  "size": 20,
+  "id": "6627:42103"
+ },
+ {
+  "name": "lock.dot",
+  "variant": null,
+  "file": "lock.dot.svg",
+  "size": 16,
+  "id": "8901:67"
+ },
+ {
+  "name": "lock.slash",
+  "variant": null,
+  "file": "lock.slash.svg",
+  "size": 16,
+  "id": "8901:72"
+ },
+ {
+  "name": "magnifier.arrow.right.arrow.left",
+  "variant": null,
+  "file": "magnifier.arrow.right.arrow.left.svg",
+  "size": 16,
+  "id": "8308:51808"
+ },
+ {
+  "name": "mail",
+  "variant": "16",
+  "file": "mail-16.svg",
+  "size": 16,
+  "id": "676:2956"
+ },
+ {
+  "name": "mail",
+  "variant": "20",
+  "file": "mail-20.svg",
+  "size": 20,
+  "id": "6678:29759"
+ },
+ {
+  "name": "mail.dot",
+  "variant": null,
+  "file": "mail.dot.svg",
+  "size": 16,
+  "id": "4668:20556"
+ },
+ {
+  "name": "mail.open",
+  "variant": null,
+  "file": "mail.open.svg",
+  "size": 16,
+  "id": "4666:20512"
+ },
+ {
+  "name": "minus",
+  "variant": "16",
+  "file": "minus-16.svg",
+  "size": 16,
+  "id": "8201:57611"
+ },
+ {
+  "name": "minus",
+  "variant": "20",
+  "file": "minus-20.svg",
+  "size": 20,
+  "id": "8201:57613"
+ },
+ {
+  "name": "null",
+  "variant": null,
+  "file": "null.svg",
+  "size": 16,
+  "id": "300:1584"
+ },
+ {
+  "name": "paperplane",
+  "variant": "16",
+  "file": "paperplane-16.svg",
+  "size": 16,
+  "id": "1524:12165"
+ },
+ {
+  "name": "paperplane",
+  "variant": "20",
+  "file": "paperplane-20.svg",
+  "size": 20,
+  "id": "6678:29765"
+ },
+ {
+  "name": "parentheses.x",
+  "variant": null,
+  "file": "parentheses.x.svg",
+  "size": 16,
+  "id": "8245:70667"
+ },
+ {
+  "name": "pause",
+  "variant": null,
+  "file": "pause.svg",
+  "size": 16,
+  "id": "1523:1518"
+ },
+ {
+  "name": "pencil",
+  "variant": "16",
+  "file": "pencil-16.svg",
+  "size": 16,
+  "id": "235:258"
+ },
+ {
+  "name": "pencil",
+  "variant": "20",
+  "file": "pencil-20.svg",
+  "size": 20,
+  "id": "7936:16666"
+ },
+ {
+  "name": "people",
+  "variant": "16",
+  "file": "people-16.svg",
+  "size": 16,
+  "id": "667:2866"
+ },
+ {
+  "name": "people",
+  "variant": "20",
+  "file": "people-20.svg",
+  "size": 20,
+  "id": "5885:5795"
+ },
+ {
+  "name": "people.2",
+  "variant": "16",
+  "file": "people.2-16.svg",
+  "size": 16,
+  "id": "1018:2890"
+ },
+ {
+  "name": "people.2",
+  "variant": "20",
+  "file": "people.2-20.svg",
+  "size": 20,
+  "id": "6627:42017"
+ },
+ {
+  "name": "people.plus",
+  "variant": "16",
+  "file": "people.plus-16.svg",
+  "size": 16,
+  "id": "7929:16465"
+ },
+ {
+  "name": "people.plus",
+  "variant": "20",
+  "file": "people.plus-20.svg",
+  "size": 20,
+  "id": "7929:16470"
+ },
+ {
+  "name": "percentage",
+  "variant": "16",
+  "file": "percentage-16.svg",
+  "size": 16,
+  "id": "7361:598"
+ },
+ {
+  "name": "percentage",
+  "variant": "20",
+  "file": "percentage-20.svg",
+  "size": 20,
+  "id": "7361:593"
+ },
+ {
+  "name": "phone",
+  "variant": null,
+  "file": "phone.svg",
+  "size": 16,
+  "id": "667:2891"
+ },
+ {
+  "name": "picture",
+  "variant": null,
+  "file": "picture.svg",
+  "size": 16,
+  "id": "300:1654"
+ },
+ {
+  "name": "pin",
+  "variant": "16",
+  "file": "pin-16.svg",
+  "size": 16,
+  "id": "7361:661"
+ },
+ {
+  "name": "pin",
+  "variant": "20",
+  "file": "pin-20.svg",
+  "size": 20,
+  "id": "7361:668"
+ },
+ {
+  "name": "pin.slash",
+  "variant": "16",
+  "file": "pin.slash-16.svg",
+  "size": 16,
+  "id": "7361:676"
+ },
+ {
+  "name": "pin.slash",
+  "variant": "20",
+  "file": "pin.slash-20.svg",
+  "size": 20,
+  "id": "7361:684"
+ },
+ {
+  "name": "play",
+  "variant": null,
+  "file": "play.svg",
+  "size": 16,
+  "id": "8351:54320"
+ },
+ {
+  "name": "plug",
+  "variant": "16",
+  "file": "plug-16.svg",
+  "size": 16,
+  "id": "3536:25515"
+ },
+ {
+  "name": "plug",
+  "variant": "20",
+  "file": "plug-20.svg",
+  "size": 20,
+  "id": "6594:65468"
+ },
+ {
+  "name": "plus",
+  "variant": "16",
+  "file": "plus-16.svg",
+  "size": 16,
+  "id": "1317:3444"
+ },
+ {
+  "name": "plus",
+  "variant": "20",
+  "file": "plus-20.svg",
+  "size": 20,
+  "id": "413:662"
+ },
+ {
+  "name": "printer",
+  "variant": null,
+  "file": "printer.svg",
+  "size": 16,
+  "id": "4451:29042"
+ },
+ {
+  "name": "puzzle",
+  "variant": "16",
+  "file": "puzzle-16.svg",
+  "size": 16,
+  "id": "7914:14803"
+ },
+ {
+  "name": "puzzle",
+  "variant": "20",
+  "file": "puzzle-20.svg",
+  "size": 20,
+  "id": "7914:14806"
+ },
+ {
+  "name": "rectangle.2.vertical",
+  "variant": "16",
+  "file": "rectangle.2.vertical-16.svg",
+  "size": 16,
+  "id": "3084:19662"
+ },
+ {
+  "name": "rectangle.2.vertical",
+  "variant": "20",
+  "file": "rectangle.2.vertical-20.svg",
+  "size": 20,
+  "id": "6594:65412"
+ },
+ {
+  "name": "rectangle.arrow.in",
+  "variant": "16",
+  "file": "rectangle.arrow.in-16.svg",
+  "size": 16,
+  "id": "9203:22148"
+ },
+ {
+  "name": "rectangle.arrow.in",
+  "variant": "20",
+  "file": "rectangle.arrow.in-20.svg",
+  "size": 20,
+  "id": "9203:22150"
+ },
+ {
+  "name": "rectangle.arrow.out",
+  "variant": "16",
+  "file": "rectangle.arrow.out-16.svg",
+  "size": 16,
+  "id": "9203:22142"
+ },
+ {
+  "name": "rectangle.arrow.out",
+  "variant": "20",
+  "file": "rectangle.arrow.out-20.svg",
+  "size": 20,
+  "id": "9203:22144"
+ },
+ {
+  "name": "rectangle.spark",
+  "variant": "16",
+  "file": "rectangle.spark-16.svg",
+  "size": 16,
+  "id": "6678:21966"
+ },
+ {
+  "name": "rectangle.spark",
+  "variant": "20",
+  "file": "rectangle.spark-20.svg",
+  "size": 20,
+  "id": "6678:29801"
+ },
+ {
+  "name": "rhombus.fill",
+  "variant": "16",
+  "file": "rhombus.fill-16.svg",
+  "size": 16,
+  "id": "2799:12360"
+ },
+ {
+  "name": "rhombus.fill",
+  "variant": "20",
+  "file": "rhombus.fill-20.svg",
+  "size": 20,
+  "id": "6594:65450"
+ },
+ {
+  "name": "robot",
+  "variant": "16",
+  "file": "robot-16.svg",
+  "size": 16,
+  "id": "7705:181"
+ },
+ {
+  "name": "robot",
+  "variant": "20",
+  "file": "robot-20.svg",
+  "size": 20,
+  "id": "7707:176"
+ },
+ {
+  "name": "search",
+  "variant": "16",
+  "file": "search-16.svg",
+  "size": 16,
+  "id": "8334:350"
+ },
+ {
+  "name": "search",
+  "variant": "20",
+  "file": "search-20.svg",
+  "size": 20,
+  "id": "8334:354"
+ },
+ {
+  "name": "serial.number.line.3",
+  "variant": "16",
+  "file": "serial.number.line.3-16.svg",
+  "size": 16,
+  "id": "7361:619"
+ },
+ {
+  "name": "serial.number.line.3",
+  "variant": "20",
+  "file": "serial.number.line.3-20.svg",
+  "size": 20,
+  "id": "7361:613"
+ },
+ {
+  "name": "shield.checkmark",
+  "variant": "16",
+  "file": "shield.checkmark-16.svg",
+  "size": 16,
+  "id": "2207:9645"
+ },
+ {
+  "name": "shield.checkmark",
+  "variant": "20",
+  "file": "shield.checkmark-20.svg",
+  "size": 20,
+  "id": "6627:43811"
+ },
+ {
+  "name": "sidebar.left",
+  "variant": "16",
+  "file": "sidebar.left-16.svg",
+  "size": 16,
+  "id": "8483:24769"
+ },
+ {
+  "name": "sidebar.left",
+  "variant": "20",
+  "file": "sidebar.left-20.svg",
+  "size": 20,
+  "id": "8483:24773"
+ },
+ {
+  "name": "sidebar.right",
+  "variant": "16",
+  "file": "sidebar.right-16.svg",
+  "size": 16,
+  "id": "8483:24746"
+ },
+ {
+  "name": "sidebar.right",
+  "variant": "20",
+  "file": "sidebar.right-20.svg",
+  "size": 20,
+  "id": "1246:2303"
+ },
+ {
+  "name": "slider.horizontal.3",
+  "variant": "16",
+  "file": "slider.horizontal.3-16.svg",
+  "size": 16,
+  "id": "1717:15064"
+ },
+ {
+  "name": "slider.horizontal.3",
+  "variant": "20",
+  "file": "slider.horizontal.3-20.svg",
+  "size": 20,
+  "id": "6064:51912"
+ },
+ {
+  "name": "space",
+  "variant": "16",
+  "file": "space-16.svg",
+  "size": 16,
+  "id": "1664:17800"
+ },
+ {
+  "name": "space",
+  "variant": "20",
+  "file": "space-20.svg",
+  "size": 20,
+  "id": "1637:7175"
+ },
+ {
+  "name": "sparkles",
+  "variant": null,
+  "file": "sparkles.svg",
+  "size": 16,
+  "id": "1524:13181"
+ },
+ {
+  "name": "square",
+  "variant": null,
+  "file": "square.svg",
+  "size": 16,
+  "id": "7561:19835"
+ },
+ {
+  "name": "square.2.curve",
+  "variant": "16",
+  "file": "square.2.curve-16.svg",
+  "size": 16,
+  "id": "1796:122"
+ },
+ {
+  "name": "square.2.curve",
+  "variant": "20",
+  "file": "square.2.curve-20.svg",
+  "size": 20,
+  "id": "7925:46104"
+ },
+ {
+  "name": "square.2.curve.plus",
+  "variant": null,
+  "file": "square.2.curve.plus.svg",
+  "size": 16,
+  "id": "8110:35733"
+ },
+ {
+  "name": "square.2.stack",
+  "variant": "16",
+  "file": "square.2.stack-16.svg",
+  "size": 16,
+  "id": "300:1556"
+ },
+ {
+  "name": "square.2.stack",
+  "variant": "20",
+  "file": "square.2.stack-20.svg",
+  "size": 20,
+  "id": "6678:32045"
+ },
+ {
+  "name": "square.4.grid",
+  "variant": null,
+  "file": "square.4.grid.svg",
+  "size": 16,
+  "id": "7685:51606"
+ },
+ {
+  "name": "square.arrow.right",
+  "variant": "16",
+  "file": "square.arrow.right-16.svg",
+  "size": 16,
+  "id": "3416:125"
+ },
+ {
+  "name": "square.arrow.right",
+  "variant": "20",
+  "file": "square.arrow.right-20.svg",
+  "size": 20,
+  "id": "6678:29783"
+ },
+ {
+  "name": "square.arrow.up",
+  "variant": null,
+  "file": "square.arrow.up.svg",
+  "size": 16,
+  "id": "3845:7699"
+ },
+ {
+  "name": "square.arrow.up.right.out",
+  "variant": "16",
+  "file": "square.arrow.up.right.out-16.svg",
+  "size": 16,
+  "id": "8201:57477"
+ },
+ {
+  "name": "square.arrow.up.right.out",
+  "variant": "20",
+  "file": "square.arrow.up.right.out-20.svg",
+  "size": 20,
+  "id": "8201:57482"
+ },
+ {
+  "name": "square.checkmark",
+  "variant": null,
+  "file": "square.checkmark.svg",
+  "size": 16,
+  "id": "5329:693"
+ },
+ {
+  "name": "square.checkmark.out",
+  "variant": null,
+  "file": "square.checkmark.out.svg",
+  "size": 16,
+  "id": "4238:80"
+ },
+ {
+  "name": "square.dash.people",
+  "variant": "16",
+  "file": "square.dash.people-16.svg",
+  "size": 16,
+  "id": "403:31"
+ },
+ {
+  "name": "square.dash.people",
+  "variant": "20",
+  "file": "square.dash.people-20.svg",
+  "size": 20,
+  "id": "8327:248"
+ },
+ {
+  "name": "square.f",
+  "variant": null,
+  "file": "square.f.svg",
+  "size": 16,
+  "id": "9204:1566"
+ },
+ {
+  "name": "square.f.plus",
+  "variant": null,
+  "file": "square.f.plus.svg",
+  "size": 16,
+  "id": "9109:39486"
+ },
+ {
+  "name": "square.f.slash",
+  "variant": null,
+  "file": "square.f.slash.svg",
+  "size": 16,
+  "id": "9109:39495"
+ },
+ {
+  "name": "square.line.vertical.colon.line.vertical",
+  "variant": "16",
+  "file": "square.line.vertical.colon.line.vertical-16.svg",
+  "size": 16,
+  "id": "8201:57632"
+ },
+ {
+  "name": "square.line.vertical.colon.line.vertical",
+  "variant": "20",
+  "file": "square.line.vertical.colon.line.vertical-20.svg",
+  "size": 20,
+  "id": "8201:57639"
+ },
+ {
+  "name": "square.mini",
+  "variant": null,
+  "file": "square.mini.svg",
+  "size": 16,
+  "id": "2050:7986"
+ },
+ {
+  "name": "square.pencil",
+  "variant": "16",
+  "file": "square.pencil-16.svg",
+  "size": 16,
+  "id": "8975:129"
+ },
+ {
+  "name": "square.pencil",
+  "variant": "20",
+  "file": "square.pencil-20.svg",
+  "size": 20,
+  "id": "8975:133"
+ },
+ {
+  "name": "star",
+  "variant": "16",
+  "file": "star-16.svg",
+  "size": 16,
+  "id": "8721:33"
+ },
+ {
+  "name": "star",
+  "variant": "20",
+  "file": "star-20.svg",
+  "size": 20,
+  "id": "8721:35"
+ },
+ {
+  "name": "star.fill",
+  "variant": "16",
+  "file": "star.fill-16.svg",
+  "size": 16,
+  "id": "8721:28"
+ },
+ {
+  "name": "star.fill",
+  "variant": "20",
+  "file": "star.fill-20.svg",
+  "size": 20,
+  "id": "8721:30"
+ },
+ {
+  "name": "structure",
+  "variant": "16",
+  "file": "structure-16.svg",
+  "size": 16,
+  "id": "7705:168"
+ },
+ {
+  "name": "structure",
+  "variant": "20",
+  "file": "structure-20.svg",
+  "size": 20,
+  "id": "7705:174"
+ },
+ {
+  "name": "table",
+  "variant": "16",
+  "file": "table-16.svg",
+  "size": 16,
+  "id": "7361:656"
+ },
+ {
+  "name": "table",
+  "variant": "20",
+  "file": "table-20.svg",
+  "size": 20,
+  "id": "7361:652"
+ },
+ {
+  "name": "tag",
+  "variant": null,
+  "file": "tag.svg",
+  "size": 16,
+  "id": "1254:7081"
+ },
+ {
+  "name": "text",
+  "variant": null,
+  "file": "text.svg",
+  "size": 16,
+  "id": "8338:19766"
+ },
+ {
+  "name": "text.line.4",
+  "variant": null,
+  "file": "text.line.4.svg",
+  "size": 16,
+  "id": "8887:16195"
+ },
+ {
+  "name": "thumbs.down",
+  "variant": "16",
+  "file": "thumbs.down-16.svg",
+  "size": 16,
+  "id": "8435:19148"
+ },
+ {
+  "name": "thumbs.down",
+  "variant": "20",
+  "file": "thumbs.down-20.svg",
+  "size": 20,
+  "id": "8435:19150"
+ },
+ {
+  "name": "thumbs.down.fill",
+  "variant": "16",
+  "file": "thumbs.down.fill-16.svg",
+  "size": 16,
+  "id": "8545:20145"
+ },
+ {
+  "name": "thumbs.down.fill",
+  "variant": "20",
+  "file": "thumbs.down.fill-20.svg",
+  "size": 20,
+  "id": "8545:20147"
+ },
+ {
+  "name": "thumbs.up",
+  "variant": "16",
+  "file": "thumbs.up-16.svg",
+  "size": 16,
+  "id": "8435:19140"
+ },
+ {
+  "name": "thumbs.up",
+  "variant": "20",
+  "file": "thumbs.up-20.svg",
+  "size": 20,
+  "id": "8435:19145"
+ },
+ {
+  "name": "thumbs.up.fill",
+  "variant": "16",
+  "file": "thumbs.up.fill-16.svg",
+  "size": 16,
+  "id": "8545:20140"
+ },
+ {
+  "name": "thumbs.up.fill",
+  "variant": "20",
+  "file": "thumbs.up.fill-20.svg",
+  "size": 20,
+  "id": "8545:20142"
+ },
+ {
+  "name": "tilde.2",
+  "variant": "16",
+  "file": "tilde.2-16.svg",
+  "size": 16,
+  "id": "2450:13182"
+ },
+ {
+  "name": "tilde.2",
+  "variant": "20",
+  "file": "tilde.2-20.svg",
+  "size": 20,
+  "id": "8616:40896"
+ },
+ {
+  "name": "toggle",
+  "variant": "16",
+  "file": "toggle-16.svg",
+  "size": 16,
+  "id": "7364:384"
+ },
+ {
+  "name": "toggle",
+  "variant": "20",
+  "file": "toggle-20.svg",
+  "size": 20,
+  "id": "7364:327"
+ },
+ {
+  "name": "trapezoid.line.vertical.trapezoid",
+  "variant": null,
+  "file": "trapezoid.line.vertical.trapezoid.svg",
+  "size": 16,
+  "id": "911:3711"
+ },
+ {
+  "name": "trash",
+  "variant": "16",
+  "file": "trash-16.svg",
+  "size": 16,
+  "id": "584:21"
+ },
+ {
+  "name": "trash",
+  "variant": "20",
+  "file": "trash-20.svg",
+  "size": 20,
+  "id": "6627:43855"
+ },
+ {
+  "name": "trash.eye",
+  "variant": null,
+  "file": "trash.eye.svg",
+  "size": 16,
+  "id": "3047:19375"
+ },
+ {
+  "name": "triangle.exclamation",
+  "variant": null,
+  "file": "triangle.exclamation.svg",
+  "size": 16,
+  "id": "1519:4432"
+ },
+ {
+  "name": "workflow",
+  "variant": "16",
+  "file": "workflow-16.svg",
+  "size": 16,
+  "id": "8908:36"
+ },
+ {
+  "name": "workflow",
+  "variant": "20",
+  "file": "workflow-20.svg",
+  "size": 20,
+  "id": "8908:45"
+ },
+ {
+  "name": "wrench",
+  "variant": "16",
+  "file": "wrench-16.svg",
+  "size": 16,
+  "id": "7919:14828"
+ },
+ {
+  "name": "wrench",
+  "variant": "20",
+  "file": "wrench-20.svg",
+  "size": 20,
+  "id": "7919:14830"
+ },
+ {
+  "name": "xmark",
+  "variant": "16",
+  "file": "xmark-16.svg",
+  "size": 16,
+  "id": "1318:3479"
+ },
+ {
+  "name": "xmark",
+  "variant": "20",
+  "file": "xmark-20.svg",
+  "size": 20,
+  "id": "6631:49911"
+ },
+ {
+  "name": "zero.one",
+  "variant": "16",
+  "file": "zero.one-16.svg",
+  "size": 16,
+  "id": "7361:630"
+ },
+ {
+  "name": "zero.one",
+  "variant": "20",
+  "file": "zero.one-20.svg",
+  "size": 20,
+  "id": "7361:627"
+ }
+]

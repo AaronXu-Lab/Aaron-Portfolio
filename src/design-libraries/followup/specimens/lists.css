@@ -1,0 +1,769 @@
+/* List Item · Left Panel Item · File Item · Group Title · Name Card specimens (lists.tsx). */
+
+.fu-lists-li,
+.fu-lists-lpi,
+.fu-lists-lph,
+.fu-lists-file,
+.fu-lists-gt,
+.fu-lists-gtt,
+.fu-lists-tail,
+.fu-lists-dropdown,
+.fu-lists-switch {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 510;
+  font-style: normal;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fu-lists-t14 {
+  font-size: 14px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.fu-lists-t13 {
+  flex: none;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.fu-lists-muted {
+  flex: none;
+  color: var(--followup-text-default-secondary);
+  text-align: right;
+}
+
+.fu-lists-inter {
+  font-family: "Inter Variable", Inter, sans-serif;
+}
+
+.fu-lists-native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fu-lists-native:focus-visible + .fu-lists-box,
+.fu-lists-li :is(button, label):focus-visible,
+.fu-lists-lpi button:focus-visible,
+.fu-lists-file button:focus-visible,
+.fu-lists-gt button:focus-visible,
+.fu-lists-gtt button:focus-visible,
+.fu-lists-tail-dropdown:focus-visible,
+.fu-lists-menu-item:focus-visible,
+.fu-lists-switch:focus-visible,
+.fu-lists-platte:focus-visible {
+  outline: 2px solid var(--followup-primary);
+  outline-offset: 1px;
+}
+
+/* ---------- atoms ---------- */
+
+.fu-lists-pic {
+  display: block;
+  flex: none;
+  border-radius: var(--followup-radius-normal);
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALdSURBVHgB7Zo9b9NQFIbfGAanU8KWTE3GMpGwJRJUTrekv6CCLBUjE8ijR0ssWdmapr8ApVMTIUTaCXejY/CUdAsTNlBR7jExWKFp7vVXbKmP5Hza0vvee87x8bUzmKNpWs7+Zr9EBk/Z101csy1JZGCyVxO/0NXf6Af/fmaoqrrJ/ngPJEz0ckxI2NZ13fxj4LX6BekR72LKG/Kje+ortc3moY30kbv6efVdYlPxHGklgydS4pJVBKZdQvpi34tjINWk3sB9kZ1L5RIaOw0Ui0XIsoywGY/HMD4ZODfOuY/hNqA0FEd8lJTLZWfLP8hjeDLkOoYrhKrVauTivTQaDccID1wzUHlc+fvZtm0MTgawLRthImdlZ5Dc0FR2FIzfjlcex2XAOxok/nR0iqhotprOe7FQ5NpfuApZloWo8M4qzQgPQlXoJgqFAnL5HC6nl5jNZoibQAa8lYnE97o9TKdTxInvE5mbdC75fB7N3SbixreBrJz9/7dsFnHj2wCFDJ05vYw+jhA3gXKgd9iDoijOyJMZkRYgLAIZoLJ33D/GOglcRnmgJnDr4ZaTN5Zt4Wx0FlrJjdQAtQVUmaiX8lKv1zEYDLgbttuIzACV1b1ne07rfRPUsFHu9N/1EYRIDJBoEk8mbqNWq6FUKuHo8Mh3SIV+RVapVrD/Yn+leBcyK7L/IqHOgN+LHhJPJi4+X0CUUAwsS1YRyEStXoMogQ2sStaoCWSAN1mjxLcBStbWbiuS1QkRfBmIY4WCF2EDJHydIbMI13mAViJckiSe4DIwmUwQN4vXGsvgMhBG0yUKLTHywGWARiNOE8PBkPviiDuJqf2lhotW6XiX/USgPKNQpYHiDR9CqAoZhuFsSeLuBse6IQMm0ospzW/hp5MMGbjGB6SVDLqS/EPupHIWmGZd1w8kraN9ZV+2U2WCtJJmzJ9WcVFVtc1Cih49SO7jNizk5Q25o2ls4Bm/AQoq5MANAoQ6AAAAAElFTkSuQmCC")
+    center / cover no-repeat;
+}
+
+.fu-lists-char {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--followup-radius-normal);
+  background: var(--followup-red40);
+  color: var(--followup-white100);
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+.fu-lists-char > span {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}
+
+.fu-lists-char--16 {
+  width: 16px;
+  height: 16px;
+  font-size: 9px;
+}
+
+.fu-lists-char--20 {
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+}
+
+.fu-lists-box {
+  display: inline-flex;
+  flex: none;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--followup-radius-normal);
+  /* 1.5px strokes as inset shadows: Chrome floors fractional border widths to whole pixels. */
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-gray30);
+}
+
+.fu-lists-box.is-checked {
+  box-shadow: none;
+  background: var(--followup-selector-tint);
+  color: var(--followup-white100);
+}
+
+.fu-lists-icon-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border: 0;
+  border-radius: var(--followup-radius-normal);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.fu-lists-live .fu-lists-icon-btn:is(:hover, :active),
+.fu-lists-live.fu-lists-gt-toggle:is(:hover, :active),
+.fu-lists-live .fu-lists-outline-btn:is(:hover, :active) {
+  background: var(--followup-general-hover-light);
+}
+
+/* ---------- Switch ---------- */
+
+.fu-lists-switch {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  box-sizing: border-box;
+  width: 28px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--followup-switch-off);
+  cursor: pointer;
+}
+
+.fu-lists-switch[data-on="true"] {
+  background: var(--followup-switch-on);
+}
+
+.fu-lists-switch:disabled {
+  background: var(--followup-switch-disable-off);
+  cursor: not-allowed;
+}
+
+.fu-lists-switch[data-on="true"]:disabled {
+  background: var(--followup-switch-disable-on);
+}
+
+.fu-lists-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--followup-white100);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+  transition: left 0.15s ease;
+}
+
+.fu-lists-switch[data-on="true"] .fu-lists-switch-knob {
+  left: 14px;
+}
+
+.fu-lists-switch--large {
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.fu-lists-switch--large .fu-lists-switch-knob {
+  width: 20px;
+  height: 20px;
+}
+
+.fu-lists-switch--large[data-on="true"] .fu-lists-switch-knob {
+  left: 18px;
+}
+
+.fu-lists-switch--text {
+  width: auto;
+  gap: 4px;
+  justify-content: flex-end;
+  padding: 2px 8px 2px 2px;
+}
+
+.fu-lists-switch--text[data-on="true"] {
+  padding: 2px 2px 2px 8px;
+}
+
+.fu-lists-switch--text .fu-lists-switch-knob,
+.fu-lists-switch--text[data-on="true"] .fu-lists-switch-knob {
+  position: static;
+  flex: none;
+}
+
+.fu-lists-switch--text:not([data-on="true"]) .fu-lists-switch-knob {
+  order: -1;
+}
+
+.fu-lists-switch-text {
+  color: var(--followup-white100);
+  font-size: 13px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+/* ---------- Tails + dropdown menu ---------- */
+
+.fu-lists-tail {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding: 6px;
+}
+
+label.fu-lists-tail {
+  cursor: pointer;
+}
+
+.fu-lists-dropdown {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
+.fu-lists-tail-dropdown {
+  display: inline-flex;
+  anchor-name: var(--fu-lists-anchor);
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+  height: 28px;
+  margin: 0;
+  padding: 6px 4px 6px 6px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--followup-text-default-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.fu-lists-live.fu-lists-tail-dropdown:is(:hover, [aria-expanded="true"]) {
+  background: var(--followup-general-hover-light);
+}
+
+/* Top-layer popover placed under the trigger's right edge (flips above when there is no room). */
+.fu-lists-menu {
+  position: fixed;
+  position-anchor: var(--fu-lists-anchor);
+  position-try-fallbacks: flip-block;
+  inset: auto;
+  top: anchor(bottom);
+  right: anchor(right);
+  box-sizing: border-box;
+  min-width: 160px;
+  margin: 4px 0 0;
+  padding: var(--followup-padding-menu);
+  overflow: visible;
+  border: 0;
+  border-radius: var(--followup-radius-popover);
+  background: var(--followup-general-popover-bg);
+  box-shadow: 0 0 16px rgb(51 44 96 / 8%);
+  color: inherit;
+}
+
+.fu-lists-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--followup-gap-menu);
+}
+
+.fu-lists-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 8px 16px 8px 8px;
+  border: 0;
+  border-radius: var(--followup-radius-normal);
+  background: transparent;
+  color: var(--followup-text-default-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fu-lists-menu-item:is(:hover, :focus-visible) {
+  background: var(--followup-general-hover-normal);
+}
+
+/* ---------- List Item ---------- */
+
+.fu-lists-li {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+  width: max-content;
+  padding: 12px 4px 12px 0;
+  color: var(--followup-text-default-primary);
+}
+
+.fu-lists-li.is-fixed {
+  width: 320px;
+}
+
+.fu-lists-li.has-prefix {
+  gap: 8px;
+}
+
+label.fu-lists-li {
+  cursor: pointer;
+}
+
+.fu-lists-li-pic {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 16px;
+}
+
+.fu-lists-li-main,
+.fu-lists-li-texts {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.fu-lists-li-texts {
+  flex-direction: column;
+}
+
+.is-fixed :is(.fu-lists-li-main, .fu-lists-li-texts) {
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.fu-lists-li-text {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  padding-right: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.is-fixed .fu-lists-li-text {
+  align-self: stretch;
+  white-space: normal;
+}
+
+.fu-lists-li-desc {
+  align-self: stretch;
+  padding-right: 12px;
+  color: var(--followup-text-default-secondary);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.fu-lists-li-content {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 16px;
+  padding: 0 4px 0 8px;
+}
+
+.fu-lists-li-tail {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+}
+
+/* ---------- Dividers ---------- */
+
+.fu-lists-divider {
+  position: relative;
+  width: 200px;
+  height: 0;
+}
+
+.fu-lists-divider-line {
+  position: absolute;
+  top: -0.5px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--followup-divider-normal);
+}
+
+.fu-lists-divider-line.is-round {
+  border-radius: 0.5px;
+}
+
+.fu-lists-lpd {
+  position: relative;
+  width: 200px;
+  height: 16px;
+}
+
+.fu-lists-lpd > span {
+  position: absolute;
+  top: 7.5px;
+  right: 10px;
+  left: 10px;
+  height: 1px;
+  border-radius: 0.5px;
+  background: var(--followup-divider-normal);
+}
+
+/* ---------- Left Panel Item / Header ---------- */
+
+.fu-lists-lpi,
+.fu-lists-lph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 250px;
+  overflow: hidden;
+  border-radius: var(--followup-radius-normal);
+}
+
+.fu-lists-ink-strong {
+  color: var(--followup-text-emphasize-primary);
+}
+
+.fu-lists-ink {
+  color: var(--followup-text-default-primary);
+}
+
+.fu-lists-live.fu-lists-lpi:hover {
+  background: var(--followup-general-hover-normal);
+}
+
+.fu-lists-lpi-wrap,
+.fu-lists-lph-wrap {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  min-width: 1px;
+}
+
+.fu-lists-lpi-text,
+.fu-lists-lph-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fu-lists-lpi-content {
+  flex: none;
+  overflow: hidden;
+  color: var(--followup-text-emphasize-secondary);
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-lists-ink .fu-lists-lpi-content {
+  color: var(--followup-text-default-secondary);
+}
+
+.fu-lists-lpi-buttons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 16px;
+  color: var(--followup-text-default-primary);
+}
+
+.fu-lists-expand .fu-icon,
+.fu-lists-gt-toggle .fu-icon {
+  transition: transform 0.15s ease;
+}
+
+.fu-lists-expand.is-collapsed .fu-icon,
+.fu-lists-gt-toggle.is-collapsed .fu-icon {
+  transform: rotate(-90deg);
+}
+
+.fu-lists-lph {
+  align-items: flex-start;
+  padding: 10px 8px;
+  color: var(--followup-text-emphasize-secondary);
+}
+
+.fu-lists-lph.has-icon {
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+}
+
+.fu-lists-lph-wrap {
+  gap: 24px;
+}
+
+.has-icon .fu-lists-lph-wrap {
+  gap: 4px;
+}
+
+.fu-lists-lph-text.fu-lists-inter {
+  font-weight: 500;
+}
+
+.fu-lists-lph-content {
+  flex: none;
+  text-align: right;
+}
+
+/* ---------- File Item ---------- */
+
+.fu-lists-file {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: var(--followup-radius-normal);
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-tertiary);
+  color: var(--followup-text-default-primary);
+}
+
+.fu-lists-file.is-error {
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-general-error-tertiary);
+}
+
+.fu-lists-file--normal {
+  width: 360px;
+  height: 40px;
+  padding: 0 6px 0 12px;
+}
+
+.fu-lists-file--simple {
+  width: 200px;
+  height: 32px;
+}
+
+.fu-lists-file-main {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 8px;
+  min-width: 1px;
+}
+
+.fu-lists-file--normal .fu-lists-file-main {
+  padding-right: 8px;
+}
+
+.fu-lists-file.is-error .fu-lists-file-main {
+  color: var(--followup-general-error-primary);
+}
+
+.fu-lists-file-name {
+  flex: 1 0 0;
+  min-width: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fu-lists-live .fu-lists-spin {
+  animation: fu-lists-spin 1s linear infinite;
+}
+
+@keyframes fu-lists-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Group Title ---------- */
+
+.fu-lists-gt {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: max-content;
+}
+
+.fu-lists-gt-main {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 16px;
+}
+
+.fu-lists-gt-title {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 28px;
+  border-radius: var(--followup-radius-normal);
+}
+
+.fu-lists-gt-title.is-wrapped {
+  height: 32px;
+  padding: 0 8px;
+  background: var(--followup-tertiary);
+}
+
+.fu-lists-gt-title.has-pic {
+  height: 32px;
+  gap: 8px;
+}
+
+.fu-lists-gt-text {
+  overflow: hidden;
+  color: var(--followup-text-emphasize-primary);
+  font-size: 16px;
+  /* Figma SF Pro Semibold 590; the static SF Pro Text Semibold (600) reproduces its metrics. */
+  font-weight: 600;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fu-lists-gt-text.fu-lists-inter {
+  font-weight: 600;
+}
+
+.fu-lists-gt-toggle {
+  display: inline-flex;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--followup-radius-normal);
+  background: transparent;
+  color: var(--followup-text-emphasize-primary);
+  cursor: pointer;
+}
+
+.fu-lists-gt-toggle.is-outbound {
+  position: absolute;
+  left: -28px;
+  padding: 4px;
+}
+
+.fu-lists-gtt {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 28px;
+}
+
+.fu-lists-outline-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--followup-radius-normal);
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-button-outline);
+  color: var(--followup-text-default-primary);
+  cursor: pointer;
+}
+
+.fu-lists-gtt-content {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  color: var(--followup-text-emphasize-secondary);
+  text-align: right;
+}
+
+/* ---------- Platte Cell ---------- */
+
+.fu-lists-platte {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--followup-text-default-primary);
+  cursor: pointer;
+}
+
+.fu-lists-platte-color {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: var(--followup-dropdown-red);
+}
+
+/* Figma: a 1.5px outside stroke on a frame inset -1.5px, i.e. a ring from -3px to -1.5px. */
+.fu-lists-platte.is-selected::after {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 var(--followup-stroke-regular) var(--followup-primary);
+  content: "";
+}
+
+.fu-lists-platte-null {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 0.5px);
+  transform: translate(-50%, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fu-lists-switch-knob,
+  .fu-lists-expand .fu-icon,
+  .fu-lists-gt-toggle .fu-icon {
+    transition: none;
+  }
+
+  .fu-lists-live .fu-lists-spin {
+    animation: none;
+  }
+}
