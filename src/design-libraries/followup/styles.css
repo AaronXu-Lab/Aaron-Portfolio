@@ -122,7 +122,7 @@ code {
 .brand > span:last-child small {
   margin-top: var(--fu-length-21);
   color: var(--muted);
-  font-size: var(--fu-length-42);
+  font-size: 12px;
   letter-spacing: 0.02em;
 }
 
@@ -137,8 +137,8 @@ code {
 .navigation-label {
   display: block;
   margin: var(--fu-length-31) var(--fu-length-23) var(--fu-length-45);
-  color: var(--fu-color-46);
-  font-size: var(--fu-length-23);
+  color: var(--muted);
+  font-size: 12px;
   font-weight: 760;
   letter-spacing: 0.13em;
 }
@@ -157,7 +157,7 @@ code {
   cursor: pointer;
   background: transparent;
   color: var(--fu-color-49);
-  font-size: var(--fu-length-50);
+  font-size: 14px;
   font-weight: 560;
   text-align: left;
   transition:
@@ -177,7 +177,7 @@ code {
 
 :is(.primary-navigation, .section-navigation) > button.active {
   background: var(--primary-faint);
-  color: var(--primary);
+  color: var(--primary-text);
   font-weight: 680;
 }
 
@@ -201,14 +201,14 @@ code {
   border-radius: var(--fu-length-52);
   background: var(--surface-muted);
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 12px;
   font-weight: 650;
   text-align: center;
 }
 
 :is(.primary-navigation, .section-navigation) > button.active small {
   background: var(--fu-color-53);
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 :is(.primary-navigation, .section-navigation) > button small.nav-pass {
@@ -236,7 +236,7 @@ code {
 
 .theme-control small {
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 12px;
 }
 
 .theme-dots {
@@ -318,7 +318,7 @@ code {
 
 .sidebar-footer strong {
   color: var(--text-secondary);
-  font-size: var(--fu-length-42);
+  font-size: 13px;
   font-weight: 650;
 }
 
@@ -326,7 +326,7 @@ code {
   overflow: hidden;
   margin-top: var(--fu-length-35);
   color: var(--muted);
-  font-size: var(--fu-length-48);
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -362,8 +362,8 @@ code {
 }
 
 .topbar-title span {
-  color: var(--fu-color-69);
-  font-size: var(--fu-length-48);
+  color: var(--muted);
+  font-size: 12px;
   font-weight: 760;
   letter-spacing: 0.12em;
 }
@@ -371,7 +371,7 @@ code {
 .topbar-title strong {
   margin-top: var(--fu-length-35);
   color: var(--text);
-  font-size: var(--fu-length-44);
+  font-size: 15px;
   font-weight: 680;
 }
 
@@ -405,8 +405,8 @@ code {
   border-radius: var(--fu-length-48);
   cursor: pointer;
   background: var(--fu-color-73);
-  color: var(--fu-color-74);
-  font-size: var(--fu-length-42);
+  color: var(--muted);
+  font-size: 13px;
   text-align: left;
 }
 
@@ -419,9 +419,9 @@ code {
   border: var(--fu-length-20) solid var(--border);
   border-radius: var(--fu-length-75);
   background: var(--surface-soft);
-  color: var(--fu-color-76);
+  color: var(--muted);
   font-family: inherit;
-  font-size: var(--fu-length-48);
+  font-size: 12px;
 }
 
 .search-popover {
@@ -454,7 +454,7 @@ code {
   border: 0;
   outline: 0;
   color: var(--text);
-  font-size: var(--fu-length-31);
+  font-size: 14px;
 }
 
 .search-popover label button {
@@ -499,7 +499,7 @@ code {
   place-items: center;
   border-radius: var(--fu-length-38);
   background: var(--primary-faint);
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .search-results > button > span:nth-child(2) {
@@ -512,7 +512,7 @@ code {
 .search-results strong {
   overflow: hidden;
   color: var(--text);
-  font-size: var(--fu-length-42);
+  font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -520,19 +520,19 @@ code {
 .search-results small {
   margin-top: var(--fu-length-35);
   color: var(--muted);
-  font-size: var(--fu-length-48);
+  font-size: 13px;
 }
 
 .search-results em {
   color: var(--muted);
-  font-size: var(--fu-length-48);
+  font-size: 12px;
   font-style: normal;
 }
 
 .search-results > p {
   margin: var(--fu-length-30) var(--fu-length-31);
   color: var(--muted);
-  font-size: var(--fu-length-42);
+  font-size: 13px;
   text-align: center;
 }
 
@@ -545,7 +545,7 @@ code {
   border-radius: var(--fu-length-48);
   background: var(--surface);
   color: var(--text-secondary);
-  font-size: var(--fu-length-23);
+  font-size: 13px;
   font-weight: 620;
   transition:
     border 140ms ease,
@@ -554,7 +554,7 @@ code {
 
 .figma-link:hover {
   border-color: var(--primary);
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .page-container {
@@ -570,8 +570,8 @@ code {
 }
 
 .eyebrow {
-  color: var(--primary);
-  font-size: var(--fu-length-48);
+  color: var(--primary-text);
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
 }
@@ -605,7 +605,7 @@ code {
   max-width: 70ch;
   margin: var(--fu-length-50) 0 0;
   color: var(--muted);
-  font-size: var(--fu-length-50);
+  font-size: 15px;
   line-height: 1.65;
 }
 
@@ -628,7 +628,7 @@ code {
 .title-metric span {
   margin-top: var(--fu-length-20);
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -664,7 +664,7 @@ code {
   border-radius: var(--fu-length-52);
   background: var(--surface-soft);
   color: var(--muted);
-  font-size: var(--fu-length-48);
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -677,8 +677,8 @@ code {
 .text-action {
   cursor: pointer;
   background: transparent;
-  color: var(--primary);
-  font-size: var(--fu-length-23);
+  color: var(--primary-text);
+  font-size: 13px;
   font-weight: 650;
 }
 
@@ -725,7 +725,7 @@ code {
   max-width: var(--fu-length-103);
   margin: var(--fu-length-30) 0 0;
   color: var(--fu-color-104);
-  font-size: var(--fu-length-44);
+  font-size: 16px;
   line-height: 1.7;
 }
 
@@ -745,7 +745,7 @@ code {
   padding: 0 var(--fu-length-17);
   border-radius: var(--fu-length-48);
   cursor: pointer;
-  font-size: var(--fu-length-42);
+  font-size: 14px;
   font-weight: 660;
   transition:
     transform 140ms ease,
@@ -834,7 +834,7 @@ code {
 
 .orbit-card span {
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.12em;
 }
@@ -888,7 +888,7 @@ code {
 
 .metric-card > span {
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 13px;
   font-weight: 620;
 }
 
@@ -903,7 +903,7 @@ code {
 .metric-card small {
   margin-top: var(--fu-length-45);
   color: var(--muted);
-  font-size: var(--fu-length-48);
+  font-size: 13px;
 }
 
 .metric-card i {
@@ -917,7 +917,7 @@ code {
   border-radius: var(--fu-length-48);
   background: color-mix(in srgb, var(--metric-color) 10%, white);
   color: var(--metric-color);
-  font-size: var(--fu-length-42);
+  font-size: 13px;
   font-style: normal;
 }
 
@@ -972,12 +972,12 @@ code {
 
 .distribution-row span {
   color: var(--text-secondary);
-  font-size: var(--fu-length-23);
+  font-size: 13px;
 }
 
 .distribution-row strong {
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 13px;
   font-weight: 650;
 }
 
@@ -1028,7 +1028,7 @@ code {
   border-radius: var(--fu-length-48);
   background: hsl(calc(250deg - var(--orbit-index) * 18deg) 75% 96%);
   color: hsl(calc(250deg - var(--orbit-index) * 18deg) 62% 55%);
-  font-size: var(--fu-length-42);
+  font-size: 13px;
   font-weight: 750;
 }
 
@@ -1041,19 +1041,19 @@ code {
 
 .collection-orbit strong {
   color: var(--text-secondary);
-  font-size: var(--fu-length-23);
+  font-size: 14px;
   font-weight: 650;
 }
 
 .collection-orbit small {
   margin-top: var(--fu-length-35);
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 13px;
 }
 
 .collection-orbit i {
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 13px;
   font-style: normal;
 }
 
@@ -1105,14 +1105,14 @@ code {
 .reference-tile strong {
   margin-top: var(--fu-length-38);
   color: var(--text-secondary);
-  font-size: var(--fu-length-48);
+  font-size: 13px;
 }
 
 .reference-tile small {
   margin-top: var(--fu-length-35);
   color: var(--muted);
   font-family: ui-monospace, monospace;
-  font-size: var(--fu-length-45);
+  font-size: 12px;
 }
 
 /* Token browser */
@@ -1140,7 +1140,7 @@ code {
   cursor: pointer;
   background: var(--surface);
   color: var(--text-secondary);
-  font-size: var(--fu-length-48);
+  font-size: 14px;
   text-align: left;
 }
 
@@ -1152,13 +1152,13 @@ code {
   border-radius: var(--fu-length-52);
   background: var(--surface-muted);
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 12px;
 }
 
 .collection-tabs button.active {
   border-color: color-mix(in srgb, var(--primary) 30%, transparent);
   background: var(--primary-faint);
-  color: var(--primary);
+  color: var(--primary-text);
   font-weight: 680;
 }
 
@@ -1205,7 +1205,7 @@ code {
   outline: 0;
   background: transparent;
   color: var(--text);
-  font-size: var(--fu-length-23);
+  font-size: 14px;
 }
 
 .search-field:focus-within {
@@ -1232,7 +1232,7 @@ code {
   cursor: pointer;
   background: transparent;
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -1261,7 +1261,7 @@ code {
 
 .view-switcher button.active {
   background: var(--primary-faint);
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .collection-meta {
@@ -1290,7 +1290,7 @@ code {
   background: linear-gradient(135deg, var(--fu-color-136), var(--primary));
   box-shadow: 0 var(--fu-length-38) var(--fu-length-33) var(--fu-color-137);
   color: var(--fu-color-4);
-  font-size: var(--fu-length-48);
+  font-size: 12px;
   font-weight: 750;
 }
 
@@ -1301,7 +1301,7 @@ code {
 
 .collection-meta strong {
   color: var(--text);
-  font-size: var(--fu-length-50);
+  font-size: 15px;
   font-weight: 680;
 }
 
@@ -1309,7 +1309,7 @@ code {
   margin-top: var(--fu-length-43);
   color: var(--muted);
   font-family: ui-monospace, monospace;
-  font-size: var(--fu-length-38);
+  font-size: 13px;
 }
 
 .token-list.table {
@@ -1375,7 +1375,7 @@ code {
   place-items: center;
   background: var(--surface-muted);
   color: var(--muted);
-  font-size: var(--fu-length-23);
+  font-size: 13px;
   font-weight: 680;
 }
 
@@ -1390,7 +1390,7 @@ code {
 .token-name strong {
   overflow: hidden;
   color: var(--text-secondary);
-  font-size: var(--fu-length-23);
+  font-size: 14px;
   font-weight: 620;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1401,20 +1401,20 @@ code {
 .token-scope span {
   margin-top: var(--fu-length-43);
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 13px;
 }
 
 .token-value code {
   overflow: hidden;
   color: var(--text);
-  font-size: var(--fu-length-48);
+  font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .token-value small {
   overflow: hidden;
-  color: var(--primary);
+  color: var(--primary-text);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1426,7 +1426,7 @@ code {
 .token-scope code {
   margin-top: var(--fu-length-43);
   color: var(--fu-color-141);
-  font-size: var(--fu-length-45);
+  font-size: 12px;
 }
 
 .token-list.grid {
@@ -1474,12 +1474,12 @@ code {
 .empty-state strong {
   margin-top: var(--fu-length-50);
   color: var(--text);
-  font-size: var(--fu-length-50);
+  font-size: 15px;
 }
 
 .empty-state p {
   margin: var(--fu-length-75) 0 0;
-  font-size: var(--fu-length-23);
+  font-size: 14px;
 }
 
 /* Styles */
@@ -1515,7 +1515,7 @@ code {
   border-radius: var(--fu-length-42);
   background: var(--surface-muted);
   color: var(--text-secondary);
-  font-size: var(--fu-length-31);
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -1531,13 +1531,13 @@ code {
 
 .style-type-tabs strong {
   color: var(--text-secondary);
-  font-size: var(--fu-length-42);
+  font-size: 14px;
 }
 
 .style-type-tabs small {
   margin-top: var(--fu-length-43);
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 12px;
 }
 
 .style-browser {
@@ -1600,14 +1600,14 @@ code {
 
 .style-card-copy strong {
   color: var(--text-secondary);
-  font-size: var(--fu-length-23);
+  font-size: 14px;
 }
 
 .style-card-copy span {
   grid-row: 2;
   margin-top: var(--fu-length-75);
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 13px;
 }
 
 .style-card-copy code {
@@ -1615,7 +1615,7 @@ code {
   grid-column: 2;
   align-self: center;
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 13px;
 }
 
 .paint-style-card {
@@ -1643,7 +1643,7 @@ code {
 .effect-style-card strong,
 .grid-style-card strong {
   color: var(--text-secondary);
-  font-size: var(--fu-length-23);
+  font-size: 14px;
 }
 
 .paint-style-card small,
@@ -1651,7 +1651,7 @@ code {
 .grid-style-card small {
   margin-top: var(--fu-length-35);
   color: var(--muted);
-  font-size: var(--fu-length-38);
+  font-size: 13px;
 }
 
 .paint-style-card code,
@@ -1660,7 +1660,7 @@ code {
   align-self: end;
   margin: var(--fu-length-31) var(--fu-length-35) 0 var(--fu-length-31);
   color: var(--muted);
-  font-size: var(--fu-length-45);
+  font-size: 13px;
 }
 
 .effect-style-card,
@@ -1690,7 +1690,7 @@ code {
   place-items: center;
   border-radius: var(--fu-length-17);
   background: var(--surface);
-  color: var(--primary);
+  color: var(--primary-text);
   font-size: var(--fu-length-33);
   font-weight: 700;
 }
@@ -1731,13 +1731,13 @@ code {
   padding-top: var(--fu-length-17);
   border-top: var(--fu-length-20) solid var(--border);
   color: var(--muted);
-  font-size: var(--fu-length-48);
+  font-size: 13px;
 }
 
 .browser-footnote code {
   margin-left: auto;
   color: var(--fu-color-154);
-  font-size: var(--fu-length-38);
+  font-size: 12px;
 }
 
 .status-dot {
@@ -1926,8 +1926,20 @@ code {
     margin-left: auto;
   }
 
+  /* Narrow screens: name on its own line, value + alias below, so names aren't truncated. */
   .token-row {
-    grid-template-columns: var(--fu-length-47) minmax(0, 1fr) auto;
+    grid-template-columns: var(--fu-length-47) minmax(0, 1fr);
+    row-gap: 6px;
+  }
+
+  .token-row > :first-child {
+    grid-row: span 2;
+    align-self: start;
+  }
+
+  .token-name strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .token-scope {
@@ -2011,8 +2023,8 @@ code {
 }
 
 [data-library="followup"] body { font-family: inherit; line-height: 1.5; }
-.library-back { margin: 0 var(--library-space-24) var(--library-space-16); font-size: 12px; color: var(--muted); }
-.library-back:hover { color: var(--primary); }
+.library-back { margin: 0 var(--library-space-24) var(--library-space-16); font-size: 13px; color: var(--muted); }
+.library-back:hover { color: var(--primary-text); }
 .library-back:active { opacity: .7; }
 /* Shell press feedback; specimens keep the pressed states drawn in Figma. */
 :is(button, a):active:not(:disabled):not(.item-stage *, .variant-matrix *) { opacity: .85; }
@@ -2047,7 +2059,7 @@ code {
 .section-navigation > button {
   min-height: 32px;
   padding-left: 12px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .section-switcher {
@@ -2069,14 +2081,14 @@ code {
   cursor: pointer;
   background: var(--surface);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 560;
   transition: border-color 140ms ease, color 140ms ease;
 }
 
 .item-index button:hover {
   border-color: var(--primary);
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .item-panel {
@@ -2117,7 +2129,7 @@ code {
 
 .axis-control > span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -2128,7 +2140,7 @@ code {
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .axis-segments {
@@ -2149,7 +2161,7 @@ code {
   cursor: pointer;
   background: transparent;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 560;
   white-space: nowrap;
   transition: background 140ms ease, color 140ms ease;
@@ -2184,7 +2196,7 @@ code {
 .item-note {
   margin: -6px 0 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .variant-matrix > h3 {
@@ -2193,13 +2205,13 @@ code {
   gap: 8px;
   margin: 8px 0 10px;
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 650;
 }
 
 .variant-matrix > h3 small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 560;
 }
 
@@ -2235,7 +2247,7 @@ code {
 .specimen-missing {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .icon-toolbar {
@@ -2292,7 +2304,7 @@ code {
   max-width: 100%;
   overflow: hidden;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2310,7 +2322,7 @@ code {
 
   .section-switcher span {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
   }
 

@@ -1032,8 +1032,11 @@ html[data-library="followup"] {
   --border-strong: var(--followup-divider-deep, var(--fu-color-8));
   --text: var(--followup-text-emphasize-primary, var(--fu-color-9));
   --text-secondary: var(--followup-text-default-primary, var(--fu-color-10));
-  --muted: var(--followup-text-default-secondary, var(--fu-color-11));
+  /* Shell-only muted text, nudged toward Emphasize/Primary so small labels reach AA (4.5:1). */
+  --muted: color-mix(in oklab, var(--followup-text-default-secondary, var(--fu-color-11)) 78%, var(--followup-text-emphasize-primary, var(--fu-color-9)));
   --primary: var(--followup-primary, var(--fu-color-12));
+  /* Primary as small text: same hue, darkened toward Emphasize/Primary so it reaches 4.5:1 on tinted fills. */
+  --primary-text: color-mix(in oklab, var(--primary) 80%, var(--followup-text-emphasize-primary, var(--fu-color-9)));
   --primary-soft: var(--followup-tertiary, var(--fu-color-13));
   --primary-faint: var(--followup-quaternary, var(--fu-color-14));
   --error: var(--followup-general-error-primary, var(--fu-color-15));
@@ -1295,7 +1298,8 @@ html[data-library="flomo"] {
   --fm-soft: var(--fm-fills-quaternary);
   --fm-text: var(--fm-text-regular);
   --fm-heading: var(--fm-text-emphasize);
-  --fm-muted: var(--fm-text-subtle);
+  /* Shell-only muted text: Text/Subtle alone is ~3:1 on the page; mix toward Text/Regular for AA. */
+  --fm-muted: color-mix(in oklab, var(--fm-text-subtle) 60%, var(--fm-text-regular));
   --fm-secondary: var(--fm-text-regular);
   --fm-accent: var(--fm-general-theme-primary);
   --fm-line: var(--fm-line-light);

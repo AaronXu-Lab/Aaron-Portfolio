@@ -2,6 +2,7 @@ import {
   componentSets,
   components,
   references,
+  styles,
   type ComponentSetRecord,
   type FigmaComponent,
 } from "./catalog";
@@ -173,6 +174,9 @@ const scenarySections: ShowcaseSection[] = [...scenaryFrames].map(([id, name]) =
 export const sections: ShowcaseSection[] = [...componentSections, ...scenarySections];
 
 export const icons = iconManifest as IconRecord[];
+
+/** Styles without the underscore-prefixed drafts. */
+export const publicStyles = styles.filter((style) => !style.name.startsWith("_"));
 
 export const showcaseStats = {
   sections: sections.length,

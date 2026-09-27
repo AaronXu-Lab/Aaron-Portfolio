@@ -50,6 +50,14 @@ python3 scripts/import-flomo-library.py /path/to/FlomoComponents/FlomoComponents
 
 导入器只解析声明，不执行附带代码。重新导入颜色后需同步 `global.css` 中 flomo 的三套语义变量、`--fm-n-*` 与 `--fm-p-*`；组件变体改变时同步对应的 `components/<family>.tsx`。
 
+## 外壳可读性
+
+展厅外壳（导航、页头、Token／样式列表、控件标签、说明文字）与组件示例分开对待：示例的字号、颜色必须与 Figma 一致；外壳遵守以下下限。
+
+- 字号：主要内容（名称、色值、导航、按钮、输入框）14px，次要信息（别名、说明、标签、状态）13px，计数、角标、大写小标题最低 12px；页面描述 15px 起。
+- 对比度：外壳文字不低于 4.5:1。弱化文字用 `--muted`（Followup）／`--fm-muted`（flomo），强调色文字用 `--primary-text`；它们由 Figma 变量混合得出，不要直接用 Figma 的 Secondary／Subtle 色或写死浅灰。
+- 窄屏：信息不截断到看不出含义，长名称换行或改为上下排列。
+
 ## 验证
 
 ```bash

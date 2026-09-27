@@ -1,11 +1,6 @@
 import { useMemo, useState } from "react";
-import {
-  inventory,
-  rgbaToCss,
-  styles,
-  type FigmaStyle,
-  type RGBAValue,
-} from "../data/catalog";
+import { rgbaToCss, type FigmaStyle, type RGBAValue } from "../data/catalog";
+import { publicStyles as styles } from "../data/showcase";
 
 type StyleType = "TEXT" | "PAINT" | "EFFECT" | "GRID";
 
@@ -112,7 +107,6 @@ function PaintStyleCard({ style }: { style: FigmaStyle }) {
         <strong>{style.name}</strong>
         <small>{(style.paints?.[0] as PaintRecord | undefined)?.type}</small>
       </div>
-      <code>{style.id.slice(0, 12)}…</code>
     </article>
   );
 }
@@ -174,11 +168,11 @@ export function StylesPage() {
           <h1>Published Styles</h1>
           <p>
             Typography, gradients, effects, and layout guides reconstructed
-            from the file’s 32 local Style records.
+            from the file’s {styles.length} published styles.
           </p>
         </div>
         <div className="title-metric">
-          <strong>{inventory.styles}</strong>
+          <strong>{styles.length}</strong>
           <span>styles</span>
         </div>
       </section>
@@ -186,10 +180,10 @@ export function StylesPage() {
       <section className="style-type-tabs">
         {(
           [
-            ["TEXT", "Text", inventory.textStyles],
-            ["PAINT", "Paint", inventory.paintStyles],
-            ["EFFECT", "Effect", inventory.effectStyles],
-            ["GRID", "Grid", inventory.gridStyles],
+            ["TEXT", "Text", styleMetric("TEXT")],
+            ["PAINT", "Paint", styleMetric("PAINT")],
+            ["EFFECT", "Effect", styleMetric("EFFECT")],
+            ["GRID", "Grid", styleMetric("GRID")],
           ] as const
         ).map(([value, label, count]) => (
           <button
@@ -250,7 +244,6 @@ export function StylesPage() {
           <span>
             Showing {visibleStyles.length} of {styleMetric(type)} {type} styles
           </span>
-          <code>IDs preserved from Figma</code>
         </footer>
       </section>
     </div>

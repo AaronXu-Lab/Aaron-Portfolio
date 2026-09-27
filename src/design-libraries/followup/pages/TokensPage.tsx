@@ -152,9 +152,7 @@ export function TokensPage({ themeMode }: TokensPageProps) {
             </span>
             <div>
               <strong>{collectionName}</strong>
-              <small>
-                {collection?.id} · {visibleVariables.length} shown
-              </small>
+              <small>{visibleVariables.length} shown</small>
             </div>
           </div>
           <span className="status-pill">
@@ -187,7 +185,6 @@ export function TokensPage({ themeMode }: TokensPageProps) {
                 </div>
                 <div className="token-scope">
                   <span>{token.scopes[0] ?? "ALL_SCOPES"}</span>
-                  <code>{token.id.replace("VariableID:", "")}</code>
                 </div>
               </article>
             );

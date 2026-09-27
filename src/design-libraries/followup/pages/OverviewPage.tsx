@@ -1,5 +1,5 @@
 import { collections, inventory, references } from "../data/catalog";
-import { sections, showcaseStats } from "../data/showcase";
+import { publicStyles, sections, showcaseStats } from "../data/showcase";
 
 type OverviewPageProps = {
   onNavigate: (page: string) => void;
@@ -15,7 +15,7 @@ const metrics = [
   },
   {
     label: "Published styles",
-    value: inventory.styles,
+    value: publicStyles.length,
     detail: "Paint · Text · Effect · Grid",
     page: "styles",
     tone: "blue",
@@ -107,7 +107,7 @@ export function OverviewPage({ onNavigate }: OverviewPageProps) {
                 key={collection.id}
                 onClick={() => onNavigate("tokens")}
               >
-                <span style={{ "--orbit-index": index } as React.CSSProperties}>
+                <span aria-hidden="true" style={{ "--orbit-index": index } as React.CSSProperties}>
                   {collection.name.charAt(0)}
                 </span>
                 <div>
