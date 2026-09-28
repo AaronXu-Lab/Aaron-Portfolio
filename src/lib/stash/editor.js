@@ -1,4 +1,4 @@
-import { Annotation, Compartment, EditorState, StateField, Transaction } from '@codemirror/state';
+import { Annotation, Compartment, EditorState, Prec, StateField, Transaction } from '@codemirror/state';
 import { Decoration, EditorView, keymap, placeholder } from '@codemirror/view';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { continueList, highlightMarkdown } from './markdown.js';
@@ -19,11 +19,14 @@ const highlighting = StateField.define({
   provide: field => EditorView.decorations.from(field),
 });
 
-export function createEditor(parent, onChange, onBlur, onComposition) {
+export function createEditor(parent, onChange, onComposition, onSaveShortcut) {
   const editable = new Compartment();
   let enabled = false;
   const extensions = [
-    highlighting, history(), keymap.of([{ key: 'Enter', run: continueListCommand }, ...defaultKeymap, ...historyKeymap]),
+    highlighting, history(), Prec.highest(keymap.of([
+      { key: 'Enter', run: continueListCommand },
+      { key: 'Mod-s', run: () => { onSaveShortcut(); return true; } },
+    ])), keymap.of([...defaultKeymap, ...historyKeymap]),
     EditorView.lineWrapping, placeholder('输入或粘贴 Markdown 文本'),
     editable.of([EditorState.readOnly.of(true), EditorView.editable.of(false)]),
     EditorView.contentAttributes.of(view => ({ 'aria-label': '暂存内容', 'aria-multiline': 'true', 'aria-disabled': String(view.state.readOnly), spellcheck: 'false', autocapitalize: 'off' })),
@@ -31,7 +34,6 @@ export function createEditor(parent, onChange, onBlur, onComposition) {
       if (update.docChanged && !update.transactions.every(t => t.annotation(remote))) onChange();
     }),
     EditorView.domEventHandlers({
-      blur: () => { onBlur(); },
       compositionstart: () => { onComposition(true); },
       compositionend: () => { onComposition(false); },
     }),

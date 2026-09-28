@@ -15,10 +15,44 @@ function reveal(node) {
   node.animate([{ opacity: 0, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 220, easing: 'ease-out' });
 }
 let box = null, dirty = false, revision = 0, timer, busy = 0, queue = Promise.resolve(), composing = false, uploading = false;
+const intervalKey = 'stash-save-interval';
+const intervals = new Set([0, 5000, 15000, 30000, 60000]);
+let saveInterval = 15000;
+try {
+  const stored = localStorage.getItem(intervalKey);
+  if (stored !== null && intervals.has(Number(stored))) saveInterval = Number(stored);
+} catch { /* Private browsing can disable storage. */ }
+let saveCountdownAnimation;
+function stopSaveCountdown() {
+  saveCountdownAnimation?.cancel();
+  saveCountdownAnimation = null;
+  $('save-status').dataset.countdown = 'false';
+}
+function scheduleSave() {
+  clearTimeout(timer);
+  stopSaveCountdown();
+  if (dirty && !composing && saveInterval && !uploading) {
+    timer = setTimeout(save, saveInterval);
+    $('save-status').dataset.countdown = 'true';
+    if (!reducedMotion.matches) {
+      saveCountdownAnimation = $('save-indicator-progress').animate(
+        [{ strokeDashoffset: '0' }, { strokeDashoffset: '100' }],
+        { duration: saveInterval, easing: 'linear', fill: 'forwards' },
+      );
+    }
+  }
+}
+function syncSaveControls() {
+  $('save-now').hidden = saveInterval !== 0;
+  $('save-now').disabled = !dirty || !box || Boolean(box.file) || uploading || !navigator.onLine || !connected;
+  $('save-interval').value = String(saveInterval);
+}
 function status(state) {
-  const labels = { loading: '加载中...', idle: '自动保存', saving: '保存中...', saved: '已保存', failed: '未保存' };
+  const labels = { loading: '加载中...', idle: saveInterval ? '自动保存' : '手动保存', pending: saveInterval ? '等待自动保存' : '尚未保存', saving: '保存中...', saved: '已保存', failed: '未保存' };
+  if (state !== 'pending') stopSaveCountdown();
   $('save-status').dataset.state = state;
-  $('save-status').textContent = labels[state];
+  $('save-status-label').textContent = labels[state];
+  syncSaveControls();
 }
 function syncConnectivity() {
   const offline = !navigator.onLine || !connected;
@@ -26,6 +60,7 @@ function syncConnectivity() {
   $('upload').disabled = offline || !box || uploading;
   $('remove').disabled = offline || uploading;
   $('download').setAttribute('aria-disabled', String(offline));
+  syncSaveControls();
 }
 function offlineNotice() { error('当前离线', '连接网络后才能读取或存放内容'); }
 function updateSurface() {
@@ -63,13 +98,28 @@ function toast(message) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { node.hidden = true; }, 3000);
 }
-// Cmd/Ctrl+S never reaches the browser save dialog or the save pipeline; saving is automatic.
+function saveShortcut() {
+  if (saveInterval === 0) { save(true); return; }
+  toast('内容修改后会自动保存，无需手动保存');
+}
+// Capture before CodeMirror and the browser's Save Page shortcut, including Edge on Windows.
 window.addEventListener('keydown', event => {
-  if ((event.metaKey || event.ctrlKey) && !event.altKey && event.key.toLowerCase() === 's') {
+  if ((event.metaKey || event.ctrlKey) && !event.altKey && (event.code === 'KeyS' || event.key?.toLowerCase() === 's')) {
     event.preventDefault();
-    toast('内容修改后会自动保存，无需手动保存');
+    event.stopImmediatePropagation();
+    saveShortcut();
   }
 }, true);
+$('save-settings').addEventListener('click', () => $('save-settings-dialog').showModal());
+$('save-interval').addEventListener('change', event => {
+  const next = Number(event.target.value);
+  if (!intervals.has(next)) return;
+  saveInterval = next;
+  try { localStorage.setItem(intervalKey, String(next)); } catch { /* Keep the setting for this tab. */ }
+  scheduleSave();
+  status(dirty ? 'pending' : box?.text ? 'saved' : 'idle');
+});
+$('save-now').addEventListener('click', () => save(true));
 function folderDialog() {
   $('file').value = '';
   error('无法直接上传文件夹', '请先压缩为 ZIP 文件再上传，Playground 等文件夹包也需要压缩');
@@ -96,7 +146,7 @@ function render(state, syncText = false) {
   box = state;
   const hasFile = Boolean(state.file);
   if (hasFile) {
-    clearTimeout(timer); dirty = false; composing = false; revision++;
+    clearTimeout(timer); stopSaveCountdown(); dirty = false; composing = false; revision++;
     if (!hadFile || text.value) text.reset();
   } else if (hadFile) {
     text.reset(); dirty = false;
@@ -113,7 +163,7 @@ function render(state, syncText = false) {
   filename(state.file?.name);
   updateImagePreview(state.file);
   $('file-detail').textContent = hasFile ? formatSize(state.file.size) : '';
-  status(dirty ? 'saving' : state.text ? 'saved' : 'idle');
+  status(dirty ? 'pending' : state.text ? 'saved' : 'idle');
   updateSurface();
   updateCountdown();
 }
@@ -132,8 +182,10 @@ function enqueue(action, title = '文字保存失败', recovery = '文字尚未�
   queue = task;
   return task;
 }
-function save() {
+function save(force = false) {
   clearTimeout(timer);
+  stopSaveCountdown();
+  if (!force && !saveInterval) return;
   if (!dirty || composing || uploading || box?.file) return;
   if (!navigator.onLine || !connected) { status('failed'); return; }
   const value = text.value, version = revision;
@@ -149,21 +201,20 @@ function save() {
     }
     if (revision === version) dirty = false;
     render(state);
-    status(dirty ? 'saving' : 'saved');
+    status(dirty ? 'pending' : 'saved');
+    if (dirty) scheduleSave();
     error('');
   });
 }
 const text = createEditor($('text'), () => {
   dirty = true; revision++;
   $('copy').disabled = !text.value;
-  status('saving');
-  clearTimeout(timer);
-  if (!composing) timer = setTimeout(save, 700);
-}, save, active => {
+  status('pending');
+  scheduleSave();
+}, active => {
   composing = active;
-  clearTimeout(timer);
-  if (!active && dirty) timer = setTimeout(save, 700);
-});
+  scheduleSave();
+}, saveShortcut);
 $('copy').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(text.value); $('copy').setAttribute('aria-label', '已复制'); $('copy').title = '已复制'; setTimeout(() => { $('copy').setAttribute('aria-label', '复制文字'); $('copy').title = '复制文字'; }, 1500); }
   catch { error('文字复制失败', '选中文字后手动复制'); }
@@ -174,7 +225,7 @@ function finishUpload(operation) {
   uploading = false; text.disabled = Boolean(box.file);
   $('upload').disabled = false; $('remove').disabled = false;
   updateSurface(); $('file').value = '';
-  if (dirty && !box.file) { clearTimeout(timer); timer = setTimeout(save, 700); }
+  if (dirty && !box.file) scheduleSave();
 }
 async function upload(file) {
   if (!file || !box) return;
@@ -193,6 +244,7 @@ async function upload(file) {
   if (body.size > 10 * 1024 * 1024) { sizeDialog(); return; }
   if (activeUpload) { activeUpload.cancelled = true; activeUpload.xhr?.abort(); }
   clearTimeout(timer);
+  stopSaveCountdown();
   const operation = { cancelled: false, xhr: null };
   activeUpload = operation;
   uploading = true; error(''); progress(0, file.size); updateSurface();

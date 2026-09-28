@@ -10,7 +10,7 @@
   <main>
     <header class="intro"><h1>暂存箱</h1><p id="countdown" aria-hidden="true"></p></header>
     <section id="drop" class="box" aria-label="暂存区域">
-      <div id="toolbar" class="box-actions"><span id="save-status" data-state="loading" role="status" aria-live="polite">加载中...</span><div><button id="copy" class="quiet icon-button" aria-label="复制文字" title="复制文字" disabled><img src="./copy.svg" width="20" height="20" alt=""></button><button id="upload" class="quiet icon-button" aria-label="上传文件" title="上传文件" disabled><img src="./upload-simple.svg" width="20" height="20" alt=""></button></div></div>
+      <div id="toolbar" class="box-actions"><span id="save-status" data-state="loading" role="status" aria-live="polite"><svg id="save-indicator" viewBox="0 0 20 20" aria-hidden="true"><circle class="save-indicator-track" cx="10" cy="10" r="8"/><circle id="save-indicator-progress" class="save-indicator-progress" cx="10" cy="10" r="8" pathLength="100"/><circle class="save-indicator-dot" cx="10" cy="10" r="3"/></svg><span id="save-status-label">加载中...</span></span><div><button id="save-now" class="quiet" hidden disabled>保存</button><button id="save-settings" class="quiet" aria-label="保存设置" title="保存设置">设置</button><button id="copy" class="quiet icon-button" aria-label="复制文字" title="复制文字" disabled><img src="./copy.svg" width="20" height="20" alt=""></button><button id="upload" class="quiet icon-button" aria-label="上传文件" title="上传文件" disabled><img src="./upload-simple.svg" width="20" height="20" alt=""></button></div></div>
       <div id="text" class="markdown-editor"></div>
       <div id="file-content" class="file-content" hidden>
         <button id="image-preview" class="image-preview" aria-label="放大查看图片" hidden><img id="preview-image" alt=""></button>
@@ -29,6 +29,7 @@
 
   </main>
   <dialog id="message-dialog" aria-labelledby="message-title" aria-describedby="message-description"><h2 id="message-title">提示</h2><p id="message-description"></p><form method="dialog"><button autofocus>知道了</button></form></dialog>
+  <dialog id="save-settings-dialog" aria-labelledby="save-settings-title"><h2 id="save-settings-title">保存设置</h2><label for="save-interval">自动保存</label><select id="save-interval"><option value="0">关闭，手动保存</option><option value="5000">停顿 5 秒后保存</option><option value="15000">停顿 15 秒后保存</option><option value="30000">停顿 30 秒后保存</option><option value="60000">停顿 1 分钟后保存</option></select><p>设置只保存在当前浏览器。关闭自动保存后，点击「保存」或按 Ctrl / Command + S 同步文字。</p><form method="dialog"><button autofocus>完成</button></form></dialog>
   <dialog id="lightbox" aria-label="图片预览"><button id="close-lightbox" class="quiet" aria-label="关闭图片预览" autofocus>关闭</button><img id="lightbox-image" alt=""></dialog>
   <script src="./app.js" type="module"></script>
 </body>
