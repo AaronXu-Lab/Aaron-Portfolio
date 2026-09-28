@@ -22,9 +22,7 @@ npm run preview    # 本地预览构建产物
 | Static assets | `dist/` |
 | Node.js version | `22`（见 `.node-version`） |
 
-Astro 静态生成主站，不需要 `@astrojs/cloudflare` 适配器。Formyson 子站使用 Workers + D1 + R2 提供内容后台和动态产品／文章页面；其余页面继续静态托管。静态响应头来自 `public/_headers`，动态响应头由 Worker 设置。
-
-Formyson 后台：`/formyson/admin/`。支持固定账号登录、产品和文章管理、图片上传、Markdown 正文及发布状态。开发、部署、凭据与备份说明见 [Formyson 内容管理](workflows/formyson-admin.md)。
+Astro 静态生成主站，不需要 `@astrojs/cloudflare` 适配器。静态响应头来自 `public/_headers`。
 
 ## 站点结构
 

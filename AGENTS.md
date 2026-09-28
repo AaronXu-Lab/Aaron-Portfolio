@@ -22,16 +22,12 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/content/blog/` | 博客文章（脚本生成，**勿手改**） |
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
 | `src/pages/design.astro` | `/design/` 活体样式指南：全部 token 与组件的实渲染；底部「其他组件库」读 `src/data/libraries.ts`，无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
-| `workers/formyson/` | Formyson 内容后台、登录、动态页面与 D1 迁移；改动后运行 `npm run test:formyson` |
-| `src/pages/formyson/admin.astro` | Formyson 管理页面；前端脚本与样式在 `public/formyson/admin/` |
 | `scripts/` | 新建/导入/标点脚本 |
 | `workflows/` | 沉淀工作流：新增案例（AI 剧本）、新增博客（脚本） |
 
 ## 常用命令
 
 ```bash
-npm run dev:formyson # 构建并启动完整 Formyson 后台，http://localhost:8787
-npm run test:formyson # Formyson 登录、内容管理、上传与前台集成测试（先 build）
 npm run dev          # http://localhost:4321
 npm run build        # 必须零错误才算完成
 npm run test:flypy   # flypy 逻辑核测试（node:test,跑 tests/flypy-core.test.mjs）;单测某条用 node --test --test-name-pattern '<名>' tests/flypy-core.test.mjs
@@ -49,11 +45,9 @@ macOS 下双击仓库根目录的 `新建文章.command` 等价于 `npm run new`
 
 ## 部署
 
-主站实际部署为 Cloudflare Worker `aaron-portfolio`，通过 Workers Builds 关联 GitHub 仓库，监听 `main` 分支。Build command 为 `npm run build`，Deploy command 为 `npx wrangler deploy`，静态资产目录为 `dist/`，Node 22（见 `.node-version`）。根目录 `wrangler.jsonc` 定义部署入口、域名和绑定；不再使用 Pages 配置。
+主站实际部署为 Cloudflare Worker `aaron-portfolio`，通过 Workers Builds 关联 GitHub 仓库，监听 `main` 分支。Build command 为 `npm run build`，Deploy command 为 `npx wrangler deploy`，静态资产目录为 `dist/`，Node 22（见 `.node-version`）。根目录 `wrangler.jsonc` 定义静态资产与域名；不再使用 Pages 配置。
 
-Astro 仍输出静态资源，不需要 Cloudflare Astro 适配器。Formyson 的 `/formyson/*` 由 `workers/formyson/worker.js` 优先处理，使用 D1 内容库与 R2 图片存储，其他页面继续静态托管。`public/_headers` 随构建复制到 `dist/`，动态响应由 Worker 补充对应响应头。现有 `aaron-portfolio-stash` Worker 继续独立部署。
-
-**Formyson 后台**：见 [workflows/formyson-admin.md](workflows/formyson-admin.md)。产品／文章的线上唯一数据源是 D1，`_data.ts` 仅为品牌常量和初始种子。不得通过重新导入种子覆盖运营内容；凭据不得提交到仓库。
+Astro 输出纯静态资源，不需要 Cloudflare Astro 适配器。`public/_headers` 随构建复制到 `dist/` 生效自定义响应头。现有 `aaron-portfolio-stash` Worker 继续独立部署。
 
 ## 工作流
 
@@ -75,5 +69,3 @@ Astro 仍输出静态资源，不需要 Cloudflare Astro 适配器。Formyson �
 7. **不可 silent 更改**:路由 slug、导航文案、既有内容语态。
 8. **Eyebrow 只用于区块级**:大写 mono 引导标签（`.mono-label` 及各页 kicker）只允许出现在区块级——页头 kicker、`SectionHead`/section 头部、区块内的分组标题，每个区块至多一组；卡片内部、表格表头、图注、列表项、翻页链接一律不用大写 eyebrow——这些位置的小字用 `.mono-sm`（不大写，颜色可取 `--text-mono`）,表头用加粗小字。页面 scoped 的 kicker 类只管布局与颜色，字体字号字距一律组合 `.mono-label` / `.mono-sm` 原语提供，不得自行重定义。
 9. **PWA 安装入口**:PWA 工具相对独立（可能从主屏幕直接启动）,**不放「返回上级」链接**,顶栏左侧那个位置留给「安装应用」按钮。必须提供可见的「安装应用」按钮；在支持 `beforeinstallprompt` 的浏览器中仅由用户点击后调用安装提示，并监听 `appinstalled` 更新状态。iOS 等不支持主动提示的环境须给出「添加到主屏幕」步骤；三星浏览器须提示其 WebAPK 可能触发 Android 安全警告并建议改用最新版 Chrome。禁止页面加载后自动弹出安装提示。
-
-10. **Formyson 独立站**：沿用 `src/pages/formyson/_Layout.astro` 中已有视觉 token，新增页面和动态内容样式引用这些变量。修改后台或动态页面后，除 `npm run build` 外还需 `npm run test:formyson`；用 Wrangler 验证，不以 Astro 静态预览作为完整功能验收。
