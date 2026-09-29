@@ -90,17 +90,8 @@ function error(title = '', description = '') {
   $('message-description').textContent = description;
   if (!$('message-dialog').open) $('message-dialog').showModal();
 }
-let toastTimer;
-function toast(message) {
-  const node = $('toast');
-  node.textContent = message;
-  if (node.hidden) { node.hidden = false; reveal(node); }
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { node.hidden = true; }, 3000);
-}
 function saveShortcut() {
-  if (saveInterval === 0) { save(true); return; }
-  toast('内容修改后会自动保存，无需手动保存');
+  save(true);
 }
 // Capture before CodeMirror and the browser's Save Page shortcut, including Edge on Windows.
 window.addEventListener('keydown', event => {

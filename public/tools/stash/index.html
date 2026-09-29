@@ -6,7 +6,6 @@
   <title>暂存箱 · Aaron Xu</title><link rel="icon" href="./icon-32.png" type="image/png"><link rel="apple-touch-icon" href="./icon-180.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#f4f2ec"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="暂存箱"><link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
   <main>
     <header class="intro"><h1>暂存箱</h1><p id="countdown" aria-hidden="true"></p></header>
     <section id="drop" class="box" aria-label="暂存区域">
@@ -29,7 +28,7 @@
 
   </main>
   <dialog id="message-dialog" aria-labelledby="message-title" aria-describedby="message-description"><h2 id="message-title">提示</h2><p id="message-description"></p><form method="dialog"><button autofocus>知道了</button></form></dialog>
-  <dialog id="save-settings-dialog" aria-labelledby="save-settings-title"><h2 id="save-settings-title">保存设置</h2><label for="save-interval">自动保存</label><select id="save-interval"><option value="0">关闭，手动保存</option><option value="5000">停顿 5 秒后保存</option><option value="15000">停顿 15 秒后保存</option><option value="30000">停顿 30 秒后保存</option><option value="60000">停顿 1 分钟后保存</option></select><p>设置只保存在当前浏览器。关闭自动保存后，点击「保存」或按 Ctrl / Command + S 同步文字。</p><form method="dialog"><button autofocus>完成</button></form></dialog>
+  <dialog id="save-settings-dialog" aria-labelledby="save-settings-title"><h2 id="save-settings-title">保存设置</h2><label for="save-interval">自动保存</label><select id="save-interval"><option value="0">关闭，手动保存</option><option value="5000">停顿 5 秒后保存</option><option value="15000">停顿 15 秒后保存</option><option value="30000">停顿 30 秒后保存</option><option value="60000">停顿 1 分钟后保存</option></select><p>设置只保存在当前浏览器。按 Ctrl / Command + S 可立即保存，无需等待倒计时；关闭自动保存后也可点击「保存」。</p><form method="dialog"><button autofocus>完成</button></form></dialog>
   <dialog id="lightbox" aria-label="图片预览"><button id="close-lightbox" class="quiet" aria-label="关闭图片预览" autofocus>关闭</button><img id="lightbox-image" alt=""></dialog>
   <script src="./app.js" type="module"></script>
 </body>
