@@ -147,6 +147,21 @@ export const games: ToolEntry[] = [
 
 export const tools: ToolEntry[] = [
   {
+    slug: 'prompt-lab',
+    name: 'Prompt 擂台',
+    en: 'PROMPT ARENA',
+    description:
+      '同一段固定 Prompt，不同模型的产品实现：切换模型与版本，直接体验作品，一键复制测试题。支持安装与离线访问已缓存作品。',
+    icon: '/tools/prompt-lab/pelican-v4-192.png',
+    iconAlt: '鹈鹕骑自行车，Prompt 擂台图标',
+    pwa: true,
+    status: 'shipped',
+    tags: ['PWA', '模型对比', '固定 Prompt'],
+    date: '2026.09',
+    href: '/tools/prompt-lab/',
+    newTab: true,
+  },
+  {
     slug: 'stash',
     name: '暂存箱',
     en: 'STASH',

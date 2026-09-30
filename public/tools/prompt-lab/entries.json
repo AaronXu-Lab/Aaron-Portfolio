@@ -1,0 +1,42 @@
+[
+  {
+    "id": "gpt-6-pelican-run-01",
+    "model": "GPT-6.1 Sol",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "海风骑行 · Pelican Island",
+    "date": "2026-09-29",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gpt-6-pelican-run-01/index.html"
+  },
+  {
+    "id": "gpt-6-astra-pelican-run-01",
+    "model": "GPT-6 Astra",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "落日邮差 · Pelican Post",
+    "date": "2026-09-29",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gpt-6-astra-pelican-run-01/index.html"
+  },
+  {
+    "id": "gpt-6-sol-high-pelican-run-01",
+    "model": "GPT-6 Sol",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "鹈鹕海岸线 · Pelican Coastline",
+    "date": "2026-09-29",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gpt-6-sol-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "opus-5-5-high-pelican-run-01",
+    "model": "Opus 5.5",
+    "version": "claude-opus-5-5",
+    "reasoningEffort": "High",
+    "title": "喉囊快递 · Pouch Express",
+    "date": "2026-09-29",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/opus-5-5-high-pelican-run-01/index.html"
+  }
+]

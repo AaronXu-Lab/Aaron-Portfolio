@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#f7f6f3"><meta name="description" content="同一段 Prompt，不同模型的产品实现。"><title>Prompt 擂台 · 模型作品测试台</title><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./pelican-v4-192.png"><link rel="apple-touch-icon" href="./pelican-v4-192.png"><link rel="stylesheet" href="./style.css"><script type="module" src="./app.js"></script></head>
+<body>
+<div class="app">
+  <header><h1>Prompt 擂台</h1><a id="open-work" target="_blank" rel="noopener noreferrer" aria-disabled="true">新窗口打开 ↗</a></header>
+  <main>
+    <section class="controls" aria-label="测试控制">
+      <div class="switcher"><label class="sr-only" for="model">选择模型 / 版本</label><div class="model-select"><select id="model" disabled><option>加载中…</option></select></div><button id="copy" class="primary" disabled>复制 Prompt</button></div>
+    </section>
+    <div id="empty" role="status" hidden><p id="empty-message"></p><button id="retry" type="button">重新加载</button></div>
+    <iframe id="preview" title="模型作品预览" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads" hidden></iframe>
+  </main>
+</div>
+<p id="status" role="status" aria-live="polite"></p>
+<dialog id="prompt-dialog" aria-labelledby="prompt-heading"><div class="dialog-heading"><h2 id="prompt-heading">手动复制 Prompt</h2><form method="dialog"><button aria-label="关闭手动复制">关闭</button></form></div><pre id="prompt">正在加载…</pre></dialog>
+<script>document.getElementById('retry').onclick = () => location.reload();</script>
+</body></html>

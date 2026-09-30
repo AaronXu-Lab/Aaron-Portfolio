@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#bce4df" />
+  <title>鹈鹕海岸线 · Pelican Coastline</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="game" id="game">
+    <div class="sky-glow" aria-hidden="true"></div>
+    <canvas id="scene" aria-label="鹈鹕骑自行车的实时三维海岸场景"></canvas>
+
+    <header class="hud">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">◒</span><span>PELICAN<br>COASTLINE</span></div>
+      <div class="top-actions">
+        <button class="icon-button" id="soundButton" type="button" aria-label="开启声音" title="声音 M">♪</button>
+        <button class="icon-button" id="pauseButton" type="button" aria-label="暂停" title="暂停 P">Ⅱ</button>
+      </div>
+    </header>
+
+    <section class="scoreboard" aria-label="骑行成绩">
+      <div class="score-block"><span class="score-label">已收集</span><strong id="fishCount">00</strong><span class="score-unit">条小鱼</span></div>
+      <div class="score-divider"></div>
+      <div class="score-block distance"><span class="score-label">海岸里程</span><strong id="distance">000</strong><span class="score-unit">米</span></div>
+      <div class="combo" id="combo" aria-live="polite"></div>
+    </section>
+
+    <div class="status-banner" id="statusBanner" aria-live="polite">向左或向右滑动，收集小鱼！</div>
+    <div class="pause-card" id="pauseCard" hidden><div class="pause-icon">◒</div><h1>海风歇一歇</h1><p>再骑一段，海岸线还在前方。</p><button id="resumeButton" type="button">继续骑行 <span>→</span></button></div>
+
+    <div class="controls" aria-label="游戏控制">
+      <div class="steer-control"><button id="leftButton" class="round-control steer" type="button" aria-label="向左骑行">←</button><button id="rightButton" class="round-control steer" type="button" aria-label="向右骑行">→</button></div>
+      <div class="action-control"><button id="jumpButton" class="round-control jump" type="button" aria-label="跳跃">↥<small>跳跃</small></button><button id="boostButton" class="round-control boost" type="button" aria-label="按住加速"><span>⚡</span><small>加速</small></button></div>
+    </div>
+    <div class="bottom-hud"><span>← → 转向 <i>·</i> 空格跳跃 <i>·</i> ↑ 加速 <i>·</i> P 暂停</span><div class="energy"><span>能量</span><div class="energy-track"><div id="energyFill"></div></div></div></div>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

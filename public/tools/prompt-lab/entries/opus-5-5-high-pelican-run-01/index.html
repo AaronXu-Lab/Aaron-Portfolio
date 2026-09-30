@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#1d2433">
+  <title>喉囊快递 · Pouch Express</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas id="scene" aria-label="鹈鹕骑自行车沿海岸送鱼的 3D 场景：拖动转向，轻点跳跃"></canvas>
+
+  <div class="hud">
+    <header class="top">
+      <div class="stats">
+        <div class="pouch" title="喉囊里的鱼">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12c3.2-4.3 8.6-5.3 12.6-2.6L19.5 6v12l-4.4-3.4C11.1 17.3 5.7 16.3 2.5 12z"/><circle cx="7.6" cy="11.2" r="1.1" class="dot"/></svg>
+          <b id="pouchN">0</b><span class="cap">/12</span>
+          <i class="bar"><i id="pouchBar"></i></i>
+        </div>
+        <div class="sub"><span id="fedN">送达 0</span><span id="distN">0 m</span></div>
+      </div>
+      <nav class="tools">
+        <button id="btnTime" type="button" aria-label="切换时段（T）" title="切换时段 · T">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        </button>
+        <button id="btnCam" type="button" aria-label="切换视角（C）" title="切换视角 · C">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8h3.2l1.8-2.5h7L17.3 8h3.2v11h-17z"/><circle cx="12" cy="13.2" r="3.4"/></svg>
+        </button>
+        <button id="btnSound" type="button" aria-label="声音开关（M）" title="声音 · M">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.8L13 5v14l-5.2-4.5H4z"/><path class="on" d="M16.2 9.2a4 4 0 0 1 0 5.6M18.8 6.6a7.6 7.6 0 0 1 0 10.8"/><path class="off" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg>
+        </button>
+        <button id="btnPause" type="button" aria-label="暂停与帮助（P）" title="暂停 · P">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13M15.5 5.5v13"/></svg>
+        </button>
+      </nav>
+    </header>
+
+    <div class="station" id="station" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg>
+      <span>雏鸟站</span><b id="stationN">0</b><span>m</span>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <p class="coach" id="coach"></p>
+
+    <footer class="controls">
+      <button class="ctl bell" id="btnBell" type="button" aria-label="按铃，吓走路上的海鸥（B）">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5v-5a6 6 0 0 1 12 0v5l1.8 1.8H4.2z"/><path d="M10 21a2.2 2.2 0 0 0 4 0"/></svg>
+        <kbd>B</kbd>
+      </button>
+      <div class="right">
+        <button class="ctl sprint" id="btnSprint" type="button" aria-label="按住冲刺（↑ 或 W）">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2.5 5 13.5h6.2L10 21.5l9-11.5h-6.3z"/></svg>
+          <kbd>↑</kbd>
+        </button>
+        <button class="ctl hop" id="btnHop" type="button" aria-label="跳跃（空格）">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5v-14M5.5 11.5 12 5l6.5 6.5"/></svg>
+          <kbd>␣</kbd>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <div class="panel" id="panel" hidden>
+    <div class="card" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+      <h1 id="panelTitle">暂停一下</h1>
+      <p class="lead">沿海岸骑行，用喉囊兜住鱼，经过雏鸟站时自动投喂。撞到螃蟹、路锥或海鸥会洒掉一半的鱼。</p>
+      <dl class="keys">
+        <dt>转向</dt><dd><span class="touch">左右拖动</span><kbd>←</kbd><kbd>→</kbd><kbd>A</kbd><kbd>D</kbd></dd>
+        <dt>跳跃</dt><dd><span class="touch">轻点 / 上滑</span><kbd>空格</kbd></dd>
+        <dt>冲刺</dt><dd><span class="touch">按住闪电</span><kbd>↑</kbd><kbd>W</kbd></dd>
+        <dt>刹车</dt><dd><kbd>↓</kbd><kbd>S</kbd></dd>
+        <dt>按铃</dt><dd><span class="touch">铃铛</span><kbd>B</kbd></dd>
+        <dt>视角 / 时段</dt><dd><kbd>C</kbd><kbd>T</kbd></dd>
+        <dt>声音 / 暂停</dt><dd><kbd>M</kbd><kbd>P</kbd><kbd>Esc</kbd></dd>
+      </dl>
+      <p class="total" id="totalN"></p>
+      <div class="actions">
+        <button type="button" id="btnRestart" class="ghost">重新出发 <kbd>R</kbd></button>
+        <button type="button" id="btnResume" class="primary">继续骑行 <kbd>P</kbd></button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

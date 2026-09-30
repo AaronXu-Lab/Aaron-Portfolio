@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#d2e9e3"><title>海风骑行 · Pelican Island</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main id="experience" aria-label="鹈鹕的环岛骑行">
+  <canvas id="world" tabindex="0" aria-label="可拖动旋转、双指缩放的实时三维鹈鹕骑行场景"></canvas>
+  <header class="topbar"><div class="wordmark"><span class="brand-line">PELICAN ISLAND</span><h1>海风骑行</h1></div><div class="top-actions"><button id="night" aria-keyshortcuts="N" class="icon-button" aria-label="切换到夜晚" aria-pressed="false"><img src="./icons/moon.svg" alt=""></button><button id="pause" aria-keyshortcuts="Space P" class="icon-button" aria-label="暂停骑行" aria-pressed="false"><img src="./icons/pause.svg" alt=""></button></div></header>
+  <div class="readout" aria-label="骑行状态"><div><strong id="speed">8</strong><span>km/h</span></div><span class="divider"></span><div class="fish-count"><img src="./icons/fish.svg" alt="收集的鱼"><strong id="fish-count">0</strong></div><span class="lap"><span id="lap-count">0</span> 圈</span></div>
+  <div class="side-actions"><button id="view" aria-keyshortcuts="V" class="icon-button" aria-label="切换到环岛视角" aria-pressed="false"><img src="./icons/arrows-out.svg" alt=""></button><button id="reset" aria-keyshortcuts="R" class="icon-button" aria-label="重置视角"><img src="./icons/arrow-counter-clockwise.svg" alt=""></button></div>
+  <p id="toast" role="status" aria-live="polite"></p>
+  <div class="bottom"><p class="gesture" id="gesture"><span id="gesture-text">拖动看四周 · 双指缩放</span><button id="keyboard-help" type="button" aria-haspopup="dialog" aria-keyshortcuts="H Shift+/">快捷键</button></p><div class="ride-controls"><button id="bell" aria-keyshortcuts="B" class="round-control" aria-label="按响车铃"><img src="./icons/bell.svg" alt=""><span>车铃</span></button><button id="boost" aria-keyshortcuts="ArrowUp W" class="boost"><img src="./icons/lightning.svg" alt=""><span>长按加速</span><span class="boost-dot"></span></button><button id="jump" aria-keyshortcuts="J" class="round-control" aria-label="让鹈鹕跃起"><img src="./icons/arrow-up.svg" alt=""><span>跃起</span></button></div></div>
+  <dialog id="shortcut-dialog" aria-labelledby="shortcut-title">
+    <div class="shortcut-heading"><h2 id="shortcut-title">键盘快捷键</h2><button id="shortcut-close" type="button" aria-label="关闭快捷键说明">关闭</button></div>
+    <dl class="shortcut-list">
+      <div><dt><kbd>Space</kbd> / <kbd>P</kbd></dt><dd>暂停或继续</dd></div>
+      <div><dt><kbd>↑</kbd> / <kbd>W</kbd></dt><dd>长按加速，松开恢复</dd></div>
+      <div><dt><kbd>J</kbd></dt><dd>跃起</dd></div>
+      <div><dt><kbd>B</kbd></dt><dd>车铃</dd></div>
+      <div><dt><kbd>V</kbd></dt><dd>切换跟随与环岛视角</dd></div>
+      <div><dt><kbd>N</kbd></dt><dd>切换昼夜</dd></div>
+      <div><dt><kbd>R</kbd></dt><dd>重置视角</dd></div>
+      <div><dt><kbd>←</kbd> / <kbd>→</kbd></dt><dd>旋转视角</dd></div>
+      <div><dt><kbd>+</kbd> / <kbd>-</kbd></dt><dd>放大或缩小</dd></div>
+      <div><dt><kbd>H</kbd> / <kbd>?</kbd></dt><dd>查看快捷键</dd></div>
+    </dl>
+    <p class="shortcut-note">先点击场景或用 Tab 聚焦控件。按钮聚焦时，空格和 Enter 操作该按钮；Esc 关闭说明。</p>
+  </dialog>
+  <div id="loading" class="loading" role="status"><span class="loading-ring"></span><p>海风正在赶来…</p></div>
+  <div id="error" class="error" hidden><h2>场景未能启动</h2><p>请使用支持 WebGL 的浏览器，再试一次。</p><button onclick="location.reload()">重新加载</button></div>
+</main>
+<script type="module" src="./app.js"></script>
+</body></html>
