@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#bce7e5">
+<title>风从喉囊里经过 · Pelican Ride</title>
+<style>
+:root{color-scheme:light;--ink:#183d47;--muted:#52747a;--coral:#e97652;--cream:#fff7e8;--line:rgba(23,62,70,.18)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"PingFang SC",sans-serif;color:var(--ink);background:#bce7e5}button{font:inherit;color:inherit}#app{position:relative;width:100%;height:100%;min-height:420px;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#a9dedd 0%,#d8eee0 62%,#f6dcae 100%)}#stage{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.vignette{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.22),transparent 35%,rgba(25,52,58,.07));z-index:1}.topbar{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:18px;right:18px;display:flex;align-items:flex-start;justify-content:space-between;pointer-events:none}.brand{display:flex;align-items:center;gap:10px}.brandmark{width:38px;height:38px;border:1px solid rgba(24,61,71,.22);background:rgba(255,249,232,.65);backdrop-filter:blur(10px);border-radius:14px;display:grid;place-items:center;font-size:21px;box-shadow:0 4px 14px #26546215}.brandcopy{line-height:1.1}.brandcopy strong{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.brandcopy span{font-size:10px;color:var(--muted);letter-spacing:.08em}.weather{pointer-events:auto;display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:99px;padding:8px 11px;background:#fff8e6a8;backdrop-filter:blur(10px);font-size:11px;color:#43656b}.weather i{width:7px;height:7px;border-radius:50%;background:#74b788;box-shadow:0 0 0 3px #74b78829}.title{position:absolute;z-index:2;top:15%;left:50%;transform:translateX(-50%);width:max-content;max-width:94%;text-align:center;pointer-events:none;text-shadow:0 1px 0 #fff9}.eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#38676b;font-weight:700}.title h1{font-family:Georgia,"Songti SC",serif;font-weight:500;font-size:clamp(27px,7vw,48px);letter-spacing:.02em;line-height:1.1;margin:8px 0 5px;color:#1d5055}.title p{font-family:Georgia,"Songti SC",serif;font-size:13px;color:#4e7779;margin:0}.hud{position:absolute;z-index:3;left:18px;bottom:calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:9px;pointer-events:none}.stat{background:#fff8e8c7;backdrop-filter:blur(12px);border:1px solid #fff9;border-radius:16px;padding:10px 13px;min-width:120px;box-shadow:0 8px 24px #24556216}.stat small{font-size:9px;letter-spacing:.16em;color:#638086;text-transform:uppercase;display:block}.stat strong{font-size:22px;font-weight:650;letter-spacing:-.03em}.stat em{font-style:normal;font-size:10px;color:#53777d;margin-left:4px}.speed-row{display:flex;align-items:center;gap:5px;margin-top:2px}.speed-step{width:22px;height:22px;border:1px solid #79999a55;border-radius:50%;background:#fff8e9;color:#305b62;font-size:14px;line-height:1;padding:0;cursor:pointer;touch-action:manipulation}.speed-step:active{transform:scale(.9)}.right-controls{position:absolute;z-index:4;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:flex-end;gap:9px}.round-controls{display:flex;gap:8px}.icon-btn{width:44px;height:44px;border:1px solid #fff9;border-radius:50%;background:#fff8e6d9;backdrop-filter:blur(12px);display:grid;place-items:center;box-shadow:0 5px 16px #275a6319;cursor:pointer;transition:transform .18s,background .18s;touch-action:manipulation}.icon-btn:hover{transform:translateY(-2px);background:#fff}.icon-btn:active{transform:scale(.94)}.icon-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.pedal{width:min(176px,44vw);height:54px;border:0;border-radius:18px;background:#e87955;color:#fff9ef;font-size:13px;font-weight:650;letter-spacing:.04em;box-shadow:0 8px 22px #ad503b40;cursor:pointer;touch-action:manipulation;transition:transform .16s,filter .16s}.pedal:hover{filter:brightness(1.04);transform:translateY(-1px)}.pedal:active{transform:scale(.97)}.pedal span{font-size:17px;margin-right:7px}.hint{position:absolute;z-index:3;bottom:calc(30px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#fff8e5a3;border:1px solid #ffffff92;backdrop-filter:blur(8px);border-radius:99px;padding:7px 12px;color:#52767a;font-size:10px;white-space:nowrap;pointer-events:none}.toast{position:absolute;z-index:5;left:50%;top:68px;transform:translate(-50%,-8px);opacity:0;transition:.25s;background:#173e46;color:#fff8e8;border-radius:99px;padding:9px 14px;font-size:11px;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.soundmark{font-size:16px}.speed-indicator{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#fff8e6d9;border:1px solid #fff9;font-size:11px;font-weight:700;color:#52777b}.help{position:absolute;z-index:3;top:70px;right:18px;font-size:9px;color:#477177;text-align:right;line-height:1.7;opacity:.75}.touch-zone{display:none}
+@media(max-width:520px){#app{min-height:480px}.topbar{left:14px;right:14px}.title{top:16%;}.title h1{font-size:clamp(27px,8vw,36px)}.title p{font-size:12px}.hud{left:13px;bottom:calc(16px + env(safe-area-inset-bottom))}.stat{min-width:104px;padding:8px 11px;border-radius:14px}.stat strong{font-size:19px}.right-controls{right:12px;bottom:calc(16px + env(safe-area-inset-bottom));gap:7px}.icon-btn,.speed-indicator{width:40px;height:40px}.pedal{height:49px;width:152px;border-radius:16px}.hint{display:none}.help{display:none}}
+@media(max-height:550px) and (min-width:600px){.title{top:10%}.hud,.right-controls{bottom:12px}.title h1{font-size:30px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app" aria-label="鹈鹕骑行 3D 互动场景">
+<canvas id="stage" aria-label="一只鹈鹕正在海岸公路上骑自行车的实时 3D 场景"></canvas><div class="vignette"></div>
+<header class="topbar"><div class="brand"><div class="brandmark">✳</div><div class="brandcopy"><strong>PELican ride</strong><span>COASTAL DAYDREAM · 01</span></div></div><div class="weather"><i></i>海风 12 km/h　☼ 24°</div></header>
+<section class="title"><div class="eyebrow">A LITTLE RIDE BY THE SEA</div><h1>风从喉囊里经过</h1><p>把今天，骑成一段海岸线</p></section>
+<div class="help">SPACE 暂停　↑ 加速　↓ 慢行<br>J 跳跃　C 切换视角　R 重来</div>
+<div class="hud"><div class="stat"><small>今日里程 · DISTANCE</small><strong id="distance">0.0</strong><em>km</em></div><div class="stat"><small>骑行速度 · CRUISING</small><div class="speed-row"><button class="speed-step" id="slower" aria-label="减速（向下箭头）">−</button><strong id="speed">12</strong><em>km/h</em><button class="speed-step" id="faster" aria-label="加速（向上箭头）">+</button></div></div></div>
+<div class="hint">↑ ↓ 调节速度　·　点击踏板开始骑行</div>
+<div class="right-controls"><div class="round-controls"><button class="icon-btn" id="viewBtn" aria-label="切换观察视角（C）" title="切换视角 C"><svg viewBox="0 0 24 24"><path d="M3 12s3.3-6 9-6 9 6 9 6-3.3 6-9 6-9-6-9-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></button><div class="speed-indicator" id="gear">12</div><button class="icon-btn" id="jumpBtn" aria-label="跳跃（J）" title="跳跃 J"><svg viewBox="0 0 24 24"><path d="m5 15 7-7 7 7M12 8v12"/></svg></button></div><button class="pedal" id="rideBtn"><span>↗</span><b>开始骑行</b></button></div>
+<div class="toast" id="toast" role="status"></div>
+</main>
+<script>window.addEventListener("error",e=>{const t=document.querySelector("#toast");t.textContent="3D scene error: "+e.message;t.classList.add("show")});window.addEventListener("unhandledrejection",e=>{const t=document.querySelector("#toast");t.textContent="3D scene error: "+e.reason;t.classList.add("show")});</script>
+<script type="module">
+import * as THREE from './three.module.min.js';
+const canvas=document.querySelector('#stage'),app=document.querySelector('#app');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
+const scene=new THREE.Scene();scene.background=new THREE.Color('#b8e3df');scene.fog=new THREE.Fog('#b8e3df',22,72);
+const camera=new THREE.PerspectiveCamera(38,innerWidth/innerHeight,.1,120);let view=0;
+scene.add(new THREE.HemisphereLight('#e9ffff','#c88d65',2.05));const sun=new THREE.DirectionalLight('#fff2cf',3.1);sun.position.set(-5,12,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-14;sun.shadow.camera.right=14;sun.shadow.camera.top=14;sun.shadow.camera.bottom=-14;scene.add(sun);
+const mat=(c,rough=.82,metal=0)=>new THREE.MeshStandardMaterial({color:c,roughness:rough,metalness:metal});
+const sand=mat('#e8c993'),road=mat('#cfb68d'),ocean=mat('#6db8b5',.32),foam=mat('#d3ebe0'),green=mat('#779c72'),darkGreen=mat('#426f66'),coral=mat('#e87653'),rubber=mat('#29444a'),chrome=mat('#f4eee0',.28,.52),frameMat=mat('#e87551',.36,.28),feather=mat('#f5ead3'),wingMat=mat('#ddcaa8'),billMat=mat('#eaa951'),pouchMat=mat('#ec865f'),legMat=mat('#df8d50'),eyeMat=mat('#173943',.25);
+function mesh(geo,m,parent=scene){const o=new THREE.Mesh(geo,m);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}function ball(parent,m,p,s){const o=mesh(new THREE.SphereGeometry(1,20,14),m,parent);o.position.set(...p);o.scale.set(...s);return o}function tube(parent,a,b,r,m,radial=8){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),d=new THREE.Vector3().subVectors(B,A);const o=mesh(new THREE.CylinderGeometry(r,r,d.length(),radial),m,parent);o.position.copy(A).add(B).multiplyScalar(.5);o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());return o}
+// Coast, road, surf ribbons and low rolling dunes
+const floor=mesh(new THREE.PlaneGeometry(180,180),sand);floor.rotation.x=-Math.PI/2;floor.position.y=-.09;floor.receiveShadow=true;
+const sea=mesh(new THREE.PlaneGeometry(180,50),ocean);sea.rotation.x=-Math.PI/2;sea.position.set(0,-.045,-32);sea.receiveShadow=false;
+const roadMesh=mesh(new THREE.PlaneGeometry(140,4.4),road);roadMesh.rotation.x=-Math.PI/2;roadMesh.position.set(0,-.025,0);roadMesh.receiveShadow=true;
+// painted route edges + tiny lane ticks
+for(const z of [-2.04,2.04]){const line=mesh(new THREE.BoxGeometry(120,.018,.035),foam);line.position.set(0,.005,z);line.castShadow=false}
+for(let i=-14;i<=14;i++){const dash=mesh(new THREE.BoxGeometry(1.1,.012,.045),mat('#f7ebcf'));dash.position.set(i*4,.006,0);dash.castShadow=false}
+// distant island mounds
+for(let i=0;i<12;i++){const x=-29+i*5.4;const h=2.6+(i*7%5)*.55;const hill=mesh(new THREE.SphereGeometry(1,18,12),i%2?green:darkGreen);hill.scale.set(5.2,h,2.4);hill.position.set(x,.25,-37-(i%3)*2);hill.castShadow=false;hill.receiveShadow=true}
+// sun and cloud puffs
+const sunDisc=mesh(new THREE.SphereGeometry(1,28,20),mat('#ffe3a0',.4));sunDisc.position.set(-13,12,-34);sunDisc.scale.set(2.1,2.1,.28);sunDisc.castShadow=false;
+for(const [x,y,z,s] of [[-8,9,-24,1.2],[-3,9.7,-25,.85],[2,8.6,-28,1.05],[12,10,-34,1.3],[16,10.5,-35,.8]]){const g=new THREE.Group();scene.add(g);for(let k=0;k<4;k++)ball(g,mat('#f8f4e8',1),[k*.8,.18*Math.sin(k*3),0],[s*(.57+(k%2)*.18),s*.42,s*.28]);g.position.set(x,y,z);g.traverse(o=>{if(o.isMesh)o.castShadow=false})}
+// coastal shrubs and whimsical palms, spaced along the ride
+for(let i=0;i<20;i++){const x=-39+i*4.2;if(i%3===0){const trunk=mesh(new THREE.CylinderGeometry(.13,.2,2.2,7),mat('#a66f50'));trunk.position.set(x,1.05,4.4+(i%2)*1.4);trunk.rotation.z=.12*Math.sin(i);for(let k=0;k<5;k++){const leaf=mesh(new THREE.ConeGeometry(.22,2.1,5),i%2?darkGreen:green);leaf.position.set(x+Math.cos(k*1.25)*.72,2.12+Math.sin(k*1.25)*.23,4.4+(i%2)*1.4+Math.sin(k*1.25)*.62);leaf.rotation.z=Math.PI/2-k*1.25;leaf.rotation.x=.22*Math.cos(k);leaf.castShadow=false}}else{const shrub=ball(scene,i%2?green:darkGreen,[x,.32,4.3+(i%4)*.38],[.9,.45,.62]);shrub.castShadow=false}}
+// bicycle geometry, in the rider's local world. X is forward, Y up.
+const bike=new THREE.Group();scene.add(bike);bike.position.set(0,0,0);
+const wheels=[];function wheel(x){const g=new THREE.Group();g.position.set(x,.62,0);bike.add(g);const tire=mesh(new THREE.TorusGeometry(.57,.055,10,40),rubber,g);tire.rotation.y=Math.PI/2;tire.castShadow=true;const rim=mesh(new THREE.TorusGeometry(.49,.018,7,36),chrome,g);rim.rotation.y=Math.PI/2;for(let i=0;i<12;i++){const a=i*Math.PI/6;tube(g,[0,0,0],[0,.48*Math.cos(a),.48*Math.sin(a)],.008,chrome,5)}const hub=ball(g,chrome,[0,0,0],[.12,.12,.12]);wheels.push(g);return g}wheel(-1.05);wheel(1.12);
+// frame triangle and forks
+const rear=[-1.05,.62,0],front=[1.12,.62,0],crank=[-.12,.72,0],seat=[-.53,1.22,0],head=[.62,1.2,0];
+for(const [a,b,r,m] of [[rear,seat,.052,frameMat],[seat,crank,.052,frameMat],[crank,rear,.052,frameMat],[seat,head,.055,frameMat],[head,crank,.055,frameMat],[head,front,.043,chrome]])tube(bike,a,b,r,m);
+tube(bike,[-.68,1.25,0],[-.36,1.25,0],.075,rubber);tube(bike,[-.62,1.26,0],seat,.035,chrome);tube(bike,[.58,1.25,0],[.94,1.25,0],.04,rubber);tube(bike,[.83,1.24,0],[.88,1.42,0],.035,chrome);ball(bike,coral,[-.12,.72,0],[.13,.13,.12]);
+// pedals + animated crank
+const crankGroup=new THREE.Group();crankGroup.position.set(-.12,.72,0);bike.add(crankGroup);for(const sign of [-1,1]){tube(crankGroup,[0,0,sign*.09],[.38,0,sign*.09],.026,chrome);tube(crankGroup,[.38,-.05,sign*.09],[.38,.05,sign*.09],.035,rubber)}
+// pelican, seat and rider rig
+const rider=new THREE.Group();bike.add(rider);rider.position.set(-.15,1.2,0);
+// saddle contact
+ball(rider,rubber,[-.37,-.03,0],[.3,.075,.23]);
+// body, cream belly and neck
+const torso=new THREE.Group();rider.add(torso);torso.position.set(-.02,.62,0);
+ball(torso,feather,[-.04,.16,0],[.52,.55,.38]);ball(torso,wingMat,[-.15,-.12,.24],[.36,.38,.18]);
+// wing pivots and feather tips
+const wings=[];for(const side of [-1,1]){const w=new THREE.Group();w.position.set(-.25,.3,side*.3);torso.add(w);const main=ball(w,wingMat,[-.08,-.05,side*.1],[.39,.19,.15]);main.rotation.z=.15;for(let k=0;k<3;k++){const tip=ball(w,feather,[-.31-k*.08,-.12-k*.035,side*.11],[.17,.055,.07]);tip.rotation.z=-.32}wings.push(w)}
+// curved upright neck using smooth tube
+const neckCurve=new THREE.CatmullRomCurve3([new THREE.Vector3(.18,.22,0),new THREE.Vector3(.33,.54,0),new THREE.Vector3(.47,.81,0),new THREE.Vector3(.65,.91,0)]);mesh(new THREE.TubeGeometry(neckCurve,20,.115,12,false),feather,torso);
+ball(torso,feather,[.68,.97,0],[.29,.29,.25]);ball(torso,eyeMat,[.8,1.02,.205],[.045,.052,.035]);ball(torso,mat('#fffaf1'),[.81,1.04,.23],[.014,.016,.012]);
+// signature long bill, lower pouch and smile line
+const bill=mesh(new THREE.ConeGeometry(.13,.78,12),billMat,torso);bill.rotation.z=-Math.PI/2;bill.position.set(1.13,.9,0);bill.scale.set(1,.78,.7);
+const pouch=ball(torso,pouchMat,[.98,.67,0],[.28,.22,.2]);pouch.rotation.z=-.32;
+const lower=mesh(new THREE.ConeGeometry(.105,.62,12),mat('#d98250'),torso);lower.rotation.z=-Math.PI/2;lower.position.set(1.04,.65,0);lower.scale.set(1,.7,.65);
+// cheek feather spot
+ball(torso,mat('#f5dcae'),[.61,.88,.21],[.11,.075,.035]);
+// simple alternating articulated legs, with IK-like segments to rotating pedals
+const legs=[];for(const side of [-1,1]){const upper=mesh(new THREE.CylinderGeometry(.047,.06,.42,8),legMat,rider);const lowerLeg=mesh(new THREE.CylinderGeometry(.035,.045,.38,8),legMat,rider);const foot=ball(rider,legMat,[0,0,0],[.19,.065,.095]);legs.push({upper,lower:lowerLeg,foot,side})}
+function placeSegment(o,a,b){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),d=B.clone().sub(A);o.position.copy(A).add(B).multiplyScalar(.5);o.scale.y=d.length()/(o.geometry.parameters.height||1);o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize())}
+// basket + tiny flowers along the roadside
+const basket=mesh(new THREE.CylinderGeometry(.19,.15,.2,12),mat('#c68e56'),bike);basket.position.set(.78,1.48,0);for(let i=0;i<4;i++){const flower=ball(bike,i%2?coral:mat('#f7dc7d'),[.65+i*.09,1.61,0],[.075,.08,.075]);flower.castShadow=false}
+// subtle dust motes, plus animated wave foam segments
+const motes=[];for(let i=0;i<22;i++){const mote=ball(scene,mat('#fff2d7'),[(Math.random()-.5)*26,.3+Math.random()*2.2,1.5+Math.random()*5],[.025,.025,.025]);mote.castShadow=false;motes.push(mote)}
+let running=false,speed=12,distance=0,jump=0,jumpV=0,elapsed=0,toastTimer;const $=s=>document.querySelector(s);function announce(text){const t=$('#toast');t.textContent=text;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1500)}
+function setSpeed(n){speed=Math.max(4,Math.min(28,n));$('#speed').textContent=speed;$('#gear').textContent=speed}
+function toggleRide(){running=!running;$('#rideBtn').querySelector('b').textContent=running?'暂停骑行':'继续骑行';$('#rideBtn').querySelector('span').textContent=running?'Ⅱ':'↗';if(running)announce('海风正好，出发！');else announce('在海边歇一会儿')}
+function hop(){if(jump<=.01){jumpV=4.6;announce('起飞啦！')}}function toggleView(){view=(view+1)%3;announce(['跟着海风看风景','切换到骑手视角','回到海岸全景'][view])}
+$('#rideBtn').addEventListener('click',toggleRide);$('#slower').addEventListener('click',()=>setSpeed(speed-2));$('#faster').addEventListener('click',()=>setSpeed(speed+2));$('#jumpBtn').addEventListener('click',hop);$('#viewBtn').addEventListener('click',toggleView);
+
+addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.repeat&&e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;switch(e.key){case' ':toggleRide();break;case'ArrowUp':setSpeed(speed+2);break;case'ArrowDown':setSpeed(speed-2);break;case'j':case'J':hop();break;case'c':case'C':toggleView();break;case'r':case'R':distance=0;setSpeed(12);running=false;$('#rideBtn').querySelector('b').textContent='开始骑行';announce('重新开始，慢慢享受海风');break}});
+let last=performance.now();function resize(){const w=app.clientWidth,h=app.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=55;camera.updateProjectionMatrix()}addEventListener('resize',resize);resize();const startupNarrow=app.clientWidth<520;camera.position.set(startupNarrow?2.8:2.6,startupNarrow?5.9:4.8,startupNarrow?13.2:7.5);camera.lookAt(.05,startupNarrow?2.05:1.9,0);
+function animate(now){requestAnimationFrame(animate);const dt=Math.min((now-last)/1000,.05);last=now;elapsed+=dt;const cadence=running?speed*.028:0;crankGroup.rotation.x+=cadence*dt;for(const w of wheels)w.rotation.x+=cadence*dt*1.55;
+const phase=elapsed*(running?Math.max(.4,speed*.16):.8);rider.position.y=1.2+jump+.018*Math.sin(phase*2)+(running?.025*Math.sin(phase*2):0);torso.rotation.z=running?.025*Math.sin(phase):.012*Math.sin(elapsed*.8);wings[0].rotation.z=.05+.07*Math.sin(phase*2);wings[1].rotation.z=-.05-.07*Math.sin(phase*2);
+legs.forEach((L,i)=>{const a=phase*1.8+i*Math.PI,knee=[-.02+Math.cos(a)*.27,.1+Math.sin(a)*.22+L.side*.05,.3*L.side],hip=[-.16,.18,.15*L.side],foot=[-.12+Math.cos(a)*.4,-.01+Math.sin(a)*.34+L.side*.03,.18*L.side];placeSegment(L.upper,hip,knee);placeSegment(L.lower,knee,foot);L.foot.position.set(...foot);L.foot.rotation.z=Math.sin(a)*.2});
+if(running){distance+=dt*speed/3600;$('#distance').textContent=distance.toFixed(1);bike.position.x+=dt*speed*.032;if(bike.position.x>4)bike.position.x=-4;}
+if(jump>0){jump+=jumpV*dt;jumpV-=10*dt;if(jump<0){jump=0;jumpV=0}}
+const tx=bike.position.x,narrow=app.clientWidth<520,camPos=view===0?(narrow?[tx+2.8,5.9,13.2]:[tx+2.6,4.8,7.5]):view===1?(narrow?[tx-2.4,4.1,9.2]:[tx-3.8,4.1,7.5]):[tx+1.5,narrow?11:10.5,narrow?19:17];camera.position.lerp(new THREE.Vector3(...camPos),1-Math.exp(-dt*2.5));camera.lookAt(tx+.05,narrow?2.05:1.9,0);
+sea.position.z=-26;sea.material.color.setHSL(.49+.018*Math.sin(elapsed*.35),.34,.53);motes.forEach((m,i)=>{m.position.x+=dt*(running?-.2:.08);if(m.position.x>14)m.position.x=-14;m.position.y+=Math.sin(elapsed+i)*dt*.05});renderer.render(scene,camera)}requestAnimationFrame(animate);
+</script>
+</body></html>
