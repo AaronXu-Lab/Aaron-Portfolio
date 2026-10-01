@@ -38,5 +38,25 @@
     "date": "2026-09-29",
     "promptVersion": "pelican-v1",
     "entry": "entries/opus-5-5-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "fable-5-1-high-pelican-run-01",
+    "model": "Fable 5.1",
+    "version": "claude-fable-5-1",
+    "reasoningEffort": "High",
+    "title": "潮汐骑手 · Tide Rider",
+    "date": "2026-09-30",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/fable-5-1-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "sonnet-5-5-high-pelican-run-01",
+    "model": "Sonnet 5.5",
+    "version": "claude-sonnet-5-5",
+    "reasoningEffort": "High",
+    "title": "踏浪鹈鹕 · Pedal Pelican",
+    "date": "2026-09-30",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/sonnet-5-5-high-pelican-run-01/index.html"
   }
 ]

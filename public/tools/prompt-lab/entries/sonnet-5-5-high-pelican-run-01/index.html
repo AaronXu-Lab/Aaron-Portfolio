@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#2b2350">
+<title>踏浪鹈鹕 · Pedal Pelican</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c" aria-label="鹈鹕骑自行车 3D 场景"></canvas>
+
+<div id="fx" aria-hidden="true"></div>
+
+<div id="hud">
+  <div class="row top">
+    <div id="hearts" class="hearts" aria-label="生命"></div>
+    <div class="icons">
+      <button class="ib" data-act="bell" aria-label="按铃 (B)" title="按铃 (B)"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15zM10 21h4"/></svg><kbd>B</kbd></button>
+      <button class="ib" data-act="cam" aria-label="切换视角 (C)" title="切换视角 (C)"><svg viewBox="0 0 24 24"><path d="M3 8h4l2-3h6l2 3h4v11H3zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg><kbd>C</kbd></button>
+      <button class="ib" data-act="mute" aria-label="静音 (M)" title="静音 (M)"><svg viewBox="0 0 24 24" id="icoSnd"><path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><kbd>M</kbd></button>
+      <button class="ib" data-act="pause" aria-label="暂停 (P)" title="暂停 (P)"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg><kbd>P</kbd></button>
+    </div>
+  </div>
+  <div class="score">
+    <b id="score">0</b>
+    <span><i id="dist">0</i> m · 鱼 <i id="fish">0</i><em id="combo"></em></span>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <div id="hint"></div>
+</div>
+
+<div id="pad">
+  <div class="grp">
+    <button class="pb" data-act="left" aria-label="向左变道 (←/A)"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><kbd>←</kbd></button>
+    <button class="pb" data-act="right" aria-label="向右变道 (→/D)"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg><kbd>→</kbd></button>
+  </div>
+  <div class="grp">
+    <button class="pb boost" data-act="boost" aria-label="冲刺 (Shift/↓)"><span>冲刺</span><kbd>Shift</kbd></button>
+    <button class="pb jump" data-act="jump" aria-label="跳跃，空中按住滑翔 (空格/↑)"><span>跳</span><kbd>Space</kbd></button>
+  </div>
+</div>
+
+<div id="overlay" hidden>
+  <div class="panel">
+    <h1 id="ovTitle">暂停</h1>
+    <p id="ovText"></p>
+    <button id="ovBtn" class="cta">继续</button>
+    <p class="keys">← → 变道 · 空格 跳跃 / 空中按住滑翔<br>Shift 冲刺 · B 铃 · C 视角 · M 静音 · P 暂停 · R 重来</p>
+  </div>
+</div>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
