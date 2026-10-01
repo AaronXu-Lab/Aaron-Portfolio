@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c3a48">
+<title>环堤晚骑</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<p id="fail" hidden>无法创建 3D 场景。</p>
+<p class="sr-only">一只鹈鹕骑着自行车，在晚霞下的环形木堤上前进。左右滑动画面可以转向。左转用 A 或左方向键，右转用 D 或右方向键，加速用 W 或上方向键，刹车用 S 或下方向键，摇铃用空格，叫声用 H，切换镜头用 C，开关声音用 M，打开按键说明用 K，回到路中用 R。</p>
+<div class="top">
+  <button type="button" id="btn-sound" aria-pressed="false" aria-keyshortcuts="M">声关</button>
+  <div class="top-r">
+    <button type="button" id="btn-cam" aria-keyshortcuts="C">镜头</button>
+    <button type="button" id="btn-help" aria-expanded="false" aria-controls="help" aria-keyshortcuts="K">按键</button>
+  </div>
+</div>
+<p id="hint">左右滑动转向</p>
+<div id="help" hidden>
+  <p>转向：左右滑动画面，或按住下方左右按钮。键盘 A / D，或 ← / →。</p>
+  <p>加速：按住加速。键盘 W，或 ↑。松开后回到漫游速度。</p>
+  <p>刹车：按住刹车。键盘 S，或 ↓。</p>
+  <p>摇铃：点按摇铃，或空格。</p>
+  <p>叫声：点按叫声，或 H。喉囊会鼓起来。</p>
+  <p>镜头：点按镜头，或 C。</p>
+  <p>声音：点按左上角，或 M。</p>
+  <p>回到路中：键盘 R。</p>
+</div>
+<div class="dock" role="group" aria-label="骑行操作">
+  <button type="button" class="pad" id="btn-brake" aria-keyshortcuts="S"><kbd>S</kbd>刹车</button>
+  <button type="button" class="pad" id="btn-bell" aria-keyshortcuts="Space"><kbd>空格</kbd>摇铃</button>
+  <button type="button" class="pad" id="btn-squawk" aria-keyshortcuts="H"><kbd>H</kbd>叫声</button>
+  <button type="button" class="pad pad-main" id="btn-left" aria-keyshortcuts="A"><kbd>A</kbd>左转</button>
+  <button type="button" class="pad pad-main pad-go" id="btn-boost" aria-keyshortcuts="W"><kbd>W</kbd>加速</button>
+  <button type="button" class="pad pad-main" id="btn-right" aria-keyshortcuts="D"><kbd>D</kbd>右转</button>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

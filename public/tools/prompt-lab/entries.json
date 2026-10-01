@@ -60,6 +60,16 @@
     "entry": "entries/sonnet-5-5-high-pelican-run-01/index.html"
   },
   {
+    "id": "grok-4-7-high-pelican-run-01",
+    "model": "Grok 4.7",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "环堤晚骑 · Lantern Pier",
+    "date": "2026-10-01",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/grok-4-7-high-pelican-run-01/index.html"
+  },
+  {
     "id": "gpt-6-luna-high-pelican-run-01",
     "model": "GPT-6 Luna",
     "version": "未提供",
