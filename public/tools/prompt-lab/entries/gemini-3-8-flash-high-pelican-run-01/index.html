@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>海风骑士 · Pelican Coast Cruiser</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- 3D WebGL Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Overlay UI Layer -->
+    <div class="ui-layer">
+      <!-- Top HUD Bar -->
+      <div class="top-bar">
+        <div class="stats-group">
+          <div class="stat-pill" title="捕获的飞鱼">
+            <span>🐟</span>
+            <span id="stat-fish">0</span>
+            <span class="unit">尾</span>
+          </div>
+          <div class="stat-pill" title="骑行里程">
+            <span>🚩</span>
+            <span id="stat-distance">0.00</span>
+            <span class="unit">km</span>
+          </div>
+          <div class="stat-pill" title="即时车速">
+            <span>⚡</span>
+            <span id="stat-speed">18</span>
+            <span class="unit">km/h</span>
+          </div>
+        </div>
+
+        <div class="quick-tools">
+          <button id="btn-camera" class="tool-btn" title="视角切换 (C)">
+            <span>📷</span>
+            <span id="label-cam" class="hide-mobile">跟随视角</span>
+          </button>
+          <button id="btn-time" class="tool-btn" title="光影时段 (T)">
+            <span>🌅</span>
+            <span id="label-time" class="hide-mobile">落日余晖</span>
+          </button>
+          <button id="btn-sound" class="tool-btn" title="声音开关 (M)">
+            <span>🔊</span>
+          </button>
+          <button id="btn-help" class="tool-btn" title="快捷键操作指南 (?)">
+            <span>⌨️</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mid-Right Quick Bubbles (Bell & Gulp) -->
+      <div class="mid-actions">
+        <button id="btn-bell" class="action-bubble" title="按响车铃 (B)">
+          <span>🔔</span>
+          <span class="bubble-label">车铃</span>
+        </button>
+        <button id="btn-gulp" class="action-bubble" title="大嘴吞食 (E)">
+          <span>🐟</span>
+          <span class="bubble-label">吞食</span>
+        </button>
+      </div>
+
+      <!-- Bottom Touch Controls & Keyboard Bar -->
+      <div class="bottom-section">
+        <!-- Touch Controls for Mobile -->
+        <div class="touch-controls">
+          <!-- Left: Steering -->
+          <div class="steer-cluster">
+            <button id="btn-left" class="touch-btn steer-btn" aria-label="向左变向 (A / ←)">◀</button>
+            <button id="btn-right" class="touch-btn steer-btn" aria-label="向右变向 (D / →)">▶</button>
+          </div>
+
+          <!-- Right: Jump & Pedal -->
+          <div class="pedal-cluster">
+            <button id="btn-jump" class="touch-btn jump-btn" aria-label="展翅跳跃 (Space)">🪶 跳跃</button>
+            <button id="btn-pedal" class="touch-btn pedal-btn" aria-label="踩踏加速 (W / ↑)">⚡ 蹬车</button>
+          </div>
+        </div>
+
+        <!-- Desktop Keyboard Shortcuts Bar -->
+        <div class="keyboard-bar">
+          <div class="kbd-item"><kbd>W</kbd> / <kbd>↑</kbd> 蹬车</div>
+          <div class="kbd-item"><kbd>A</kbd> <kbd>D</kbd> 转向</div>
+          <div class="kbd-item"><kbd>Space</kbd> 展翅跳跃</div>
+          <div class="kbd-item"><kbd>B</kbd> 车铃</div>
+          <div class="kbd-item"><kbd>E</kbd> 吞食</div>
+          <div class="kbd-item"><kbd>C</kbd> 视角</div>
+          <div class="kbd-item"><kbd>T</kbd> 光影</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Help & Shortcut Sheet Modal -->
+    <div id="modal-help" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2 class="modal-title">🚴 海风骑士 · 骑行指南</h2>
+          <button id="btn-help-close" class="btn-close">✕</button>
+        </div>
+        <div class="help-grid">
+          <div class="help-item">
+            <div class="keys"><kbd>W</kbd> 或 <kbd>↑</kbd></div>
+            <div class="desc">加速蹬车（长按提速）</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>S</kbd> 或 <kbd>↓</kbd></div>
+            <div class="desc">刹车减速</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>A</kbd> <kbd>D</kbd> 或 <kbd>←</kbd> <kbd>→</kbd></div>
+            <div class="desc">左右压弯变向</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>Space</kbd></div>
+            <div class="desc">兔跳并舒展双翼</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>Shift</kbd></div>
+            <div class="desc">顺风大力振翅冲刺</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>B</kbd></div>
+            <div class="desc">拨动黄铜车铃（吓跑小蟹）</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>E</kbd></div>
+            <div class="desc">张开大嘴吞囊捕鱼</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>C</kbd></div>
+            <div class="desc">切换 4 种运镜视角</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>T</kbd></div>
+            <div class="desc">切换 白昼/落日/星夜</div>
+          </div>
+          <div class="help-item">
+            <div class="keys"><kbd>M</kbd></div>
+            <div class="desc">开启/静音音效</div>
+          </div>
+        </div>
+        <div class="modal-tip">
+          💡 <strong>触控提示：</strong>双击屏幕右侧可瞬间冲刺；向上滑动即可跳跃；自由环绕视角下可滑动屏幕任意角度观赏鹈鹕骑行细节。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Entry Script -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

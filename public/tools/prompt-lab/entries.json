@@ -78,5 +78,15 @@
     "date": "2026-10-01",
     "promptVersion": "pelican-v1",
     "entry": "entries/gpt-6-luna-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "gemini-3-8-flash-high-pelican-run-01",
+    "model": "Gemini 3.8 Flash",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "海风骑士 · Pelican Coast Cruiser",
+    "date": "2026-10-01",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gemini-3-8-flash-high-pelican-run-01/index.html"
   }
 ]
