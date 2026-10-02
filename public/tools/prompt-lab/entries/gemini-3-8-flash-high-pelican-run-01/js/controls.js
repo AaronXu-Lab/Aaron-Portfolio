@@ -214,7 +214,7 @@ export class Controls {
     if (this.keysDown['KeyD'] || this.keysDown['ArrowRight']) steer += 1;
     if (this.touchSteer) steer += this.touchSteer;
 
-    this.steerInput = THREE.MathUtils.clamp(steer, -1, 1);
+    this.steerInput = Math.max(-1, Math.min(1, steer));
 
     // 2. Acceleration / Pedaling
     this.isAccelerating = (

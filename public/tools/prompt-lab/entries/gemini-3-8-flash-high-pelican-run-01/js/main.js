@@ -35,7 +35,7 @@ class PelicanApp {
     this.cameraModes = ['follow', 'beak', 'side', 'orbit'];
     this.currentCamIndex = 0;
 
-    this.clock = new THREE.Clock();
+    this.lastTimestamp = performance.now();
 
     this.initScene();
     this.initEntities();
@@ -63,7 +63,7 @@ class PelicanApp {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;
   }
@@ -354,7 +354,9 @@ class PelicanApp {
   render(timestamp) {
     requestAnimationFrame((t) => this.render(t));
 
-    const dt = Math.min(this.clock.getDelta(), 0.1);
+    const now = performance.now();
+    const dt = Math.min((now - this.lastTimestamp) / 1000, 0.1);
+    this.lastTimestamp = now;
 
     // Update Physics & Controls
     this.updatePhysics(dt);
@@ -383,7 +385,15 @@ class PelicanApp {
   }
 }
 
-// Start application when DOM is ready
-window.addEventListener('DOMContentLoaded', () => {
-  window.pelicanApp = new PelicanApp();
-});
+// Start application when DOM is ready or immediately if already loaded
+function startApp() {
+  if (!window.pelicanApp) {
+    window.pelicanApp = new PelicanApp();
+  }
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
+}
