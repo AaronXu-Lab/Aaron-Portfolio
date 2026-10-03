@@ -4,8 +4,8 @@
   "assets": [
     {
       "key": "portrait",
-      "prompt": "Editorial illustrated avatar for a UX engineer portfolio, portrait 4:5. Fictional adult East Asian designer in simple dark clothing, neutral friendly expression, upper body centered, warm ivory backdrop, restrained charcoal and muted orange palette, subtle paper texture, sophisticated clean illustration. Invented identity, not a real person's portrait. No text, no logos, no watermark.",
-      "source": "/Users/aaronxu/.codex/generated_images/01a0c990-f578-7a72-a2f6-7876651b9ae9/exec-3e54a41b-a9fa-4049-892d-4fc9f3ad5f1e.png"
+      "prompt": "Cartoon-style 2D editorial avatar, portrait 4:5. Fictional East Asian adult man with tousled black hair, rounded dark glasses, gentle smile, charcoal sweater and three-quarter pose. Bold clean outlines, simplified expressive features, slightly oversized head, flat matte colors and cel shading. Warm ivory background with muted orange circle. No photorealism, skin texture, text, logos or watermark. Invented character, not a real person.",
+      "source": "portrait.png"
     },
     {
       "key": "automation",
