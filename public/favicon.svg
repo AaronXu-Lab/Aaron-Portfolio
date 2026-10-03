@@ -1,4 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#21242b"/>
-  <path d="M20 18 L44 46 M44 18 L20 46" stroke="#8ba3f7" stroke-width="7" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Aaron Xu</title>
+  <style>
+    /* Standalone asset: match the site's light/dark accent tokens. */
+    :root { color: oklch(0.58 0.18 262); }
+    @media (prefers-color-scheme: dark) {
+      :root { color: oklch(0.7 0.15 262); }
+    }
+  </style>
+  <g stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 15c10 8 20 26 30 34"/>
+    <path d="M47 15C37 23 27 41 17 49"/>
+  </g>
 </svg>
