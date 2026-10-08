@@ -88,5 +88,15 @@
     "date": "2026-10-01",
     "promptVersion": "pelican-v1",
     "entry": "entries/gemini-3-8-flash-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "haiku-5-5-high-pelican-run-01",
+    "model": "Haiku 5.5",
+    "version": "claude-haiku-5-5",
+    "reasoningEffort": "High",
+    "title": "夕照木栈道 · Boardwalk Dusk",
+    "date": "2026-10-07",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/haiku-5-5-high-pelican-run-01/index.html"
   }
 ]
