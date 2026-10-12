@@ -22,6 +22,10 @@ export interface CaseEntry {
   /** 路由:/work/<slug>/,同时是 .astro 文件名 */
   slug: string;
   kind: CaseKind;
+  /** 在全部案例页的临时区块展示 */
+  temporary?: boolean;
+  /** 用新标签页打开独立演示 */
+  newTab?: boolean;
   /** 上首页精选区与页脚;案例页「返回」回首页,否则回 /work/ */
   featured?: boolean;
   /** 首页卡角标,如 '01' */
@@ -96,6 +100,18 @@ export const cases: CaseEntry[] = [
     footerLabel: 'AI 设计系统 · 长案例',
     nextHint: 'Long Essay · Lab',
     nextLine: '让 AI 稳定产出 production-level 设计稿 —— 复合设计系统探索',
+  },
+  {
+    slug: 'design-engineering-workflow',
+    kind: 'minor',
+    temporary: true,
+    newTab: true,
+    title: '把设计带进真实产品',
+    minorLabel: 'Design Engineering',
+    minorDesc: 'Design Agent · 并行协作 · 设计迁移',
+    footerLabel: '设计工程工作流',
+    nextHint: 'Case 04',
+    nextLine: '把设计带进真实产品 —— Design Agent 与设计迁移工作流',
   },
   {
     slug: 'other',

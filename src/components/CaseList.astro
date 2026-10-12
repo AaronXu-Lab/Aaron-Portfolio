@@ -11,7 +11,8 @@ interface Props {
   all?: boolean;
 }
 const { all = false } = Astro.props;
-const list = all ? cases : cases.filter((c) => c.featured);
+const list = (all ? cases : cases.filter((c) => c.featured)).filter((c) => !c.temporary);
+const temporaryCases = all ? cases.filter((c) => c.temporary) : [];
 ---
 
 <div class="project-grid">
@@ -23,6 +24,8 @@ const list = all ? cases : cases.filter((c) => c.featured);
           class="card project-card reveal"
           style={i > 0 ? `--d:${i * 0.1}s` : undefined}
           href={`/work/${c.slug}/`}
+          target={c.newTab ? '_blank' : undefined}
+          rel={c.newTab ? 'noopener noreferrer' : undefined}
         >
           <MediaSlot label={c.media!.label} node={c.media!.node} ratio={c.media!.ratio} src={c.media!.src} />
           <div class="project-body">
@@ -54,7 +57,9 @@ const list = all ? cases : cases.filter((c) => c.featured);
   list
     .filter((c) => c.kind === 'lab')
     .map((c) => (
-      <a class="band long-case reveal" href={`/work/${c.slug}/`}>
+      <a class="band long-case reveal" href={`/work/${c.slug}/`}
+          target={c.newTab ? '_blank' : undefined}
+          rel={c.newTab ? 'noopener noreferrer' : undefined}>
         <div class="long-case-text">
           <div class="long-case-kicker">
             <span class="mono-sm lab">{c.labKicker}</span>
@@ -76,7 +81,9 @@ const list = all ? cases : cases.filter((c) => c.featured);
       list
         .filter((c) => c.kind === 'minor')
         .map((c) => (
-          <a class="card minor-card reveal" href={`/work/${c.slug}/`}>
+          <a class="card minor-card reveal" href={`/work/${c.slug}/`}
+          target={c.newTab ? '_blank' : undefined}
+          rel={c.newTab ? 'noopener noreferrer' : undefined}>
             <div>
               <div class="mono-sm minor-kicker">{c.minorLabel}</div>
               <h3>{c.title}</h3>
@@ -107,7 +114,37 @@ const list = all ? cases : cases.filter((c) => c.featured);
   </div>
 )}
 
+
+{temporaryCases.length > 0 && (
+  <section class="temporary-section" aria-labelledby="temporary-heading">
+    <h2 id="temporary-heading" class="reveal">临时，还没做好</h2>
+    <div class="minor-row">
+      {temporaryCases.map((c) => (
+        <a class="card minor-card reveal" href={`/work/${c.slug}/`}
+          target={c.newTab ? '_blank' : undefined}
+          rel={c.newTab ? 'noopener noreferrer' : undefined}>
+          <div>
+            <div class="mono-sm minor-kicker">{c.minorLabel}</div>
+            <h3>{c.title}</h3>
+            <p>{c.minorDesc}</p>
+          </div>
+          <span class="project-go mono-sm">查看 <span class="arrow">→</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
 <style>
+  .temporary-section {
+    margin-top: var(--gutter);
+    padding-top: calc(var(--gutter) / 2);
+    border-top: 1px solid var(--border);
+  }
+
+  .temporary-section h2 {
+    font-size: clamp(22px, 3vw, 30px);
+  }
   .project-grid {
     display: grid;
     grid-template-columns: 1fr;

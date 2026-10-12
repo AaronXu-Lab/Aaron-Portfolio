@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import MediaSlot from '../../components/MediaSlot.astro';
+import { cases } from '../../data/cases';
+
+const nextCase = cases[cases.findIndex((entry) => entry.slug === 'ai-design-system') + 1];
 
 /**
  * 长案例：复合设计系统 —— 按 ds/project 原型的 15 个分幕重建。
@@ -836,10 +839,10 @@ const Dots = (n: number, danger = false) =>
     </section>
 
     <nav class="case-next reveal" aria-label="继续浏览">
-      <a class="card next-card" href="/work/other/">
+      <a class="card next-card" href={`/work/${nextCase.slug}/`} target={nextCase.newTab ? '_blank' : undefined} rel={nextCase.newTab ? 'noopener noreferrer' : undefined}>
         <div>
-          <div class="hint">Other Work</div>
-          <div class="name">其他作品 —— Figma 插件 · 技术分享 · 动效设计</div>
+          <div class="hint">{nextCase.nextHint}</div>
+          <div class="name">{nextCase.nextLine}</div>
         </div>
         <span class="go" aria-hidden="true">→</span>
       </a>

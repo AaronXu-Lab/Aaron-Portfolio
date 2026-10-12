@@ -65,7 +65,7 @@ const nextCase = !hasCustomNext && order >= 0 ? (cases[order + 1] ?? null) : nul
         {hasCustomNext && <slot name="next" />}
         {
           nextCase && (
-            <a class="card next-card" href={`/work/${nextCase.slug}/`}>
+            <a class="card next-card" href={`/work/${nextCase.slug}/`} target={nextCase.newTab ? '_blank' : undefined} rel={nextCase.newTab ? 'noopener noreferrer' : undefined}>
               <div>
                 <div class="hint">{nextCase.nextHint}</div>
                 <div class="name">{nextCase.nextLine}</div>
