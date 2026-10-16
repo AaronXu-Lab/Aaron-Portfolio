@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>灯塔湾鲜鱼快线 · Pelbay Courier</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="stage" aria-label="鹈鹕骑自行车 3D 交互场景"></div>
+
+    <div class="hud-layer">
+      <header class="hud-top">
+        <div class="telemetry-bar" role="status" aria-live="polite">
+          <div class="stat-item">
+            <span class="stat-label">时速</span>
+            <span class="stat-value" id="hud-speed">17</span>
+            <span class="stat-unit">km/h</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">喉囊</span>
+            <span class="stat-value" id="hud-pouch">1 / 5</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">送达</span>
+            <span class="stat-value" id="hud-delivered">0</span>
+            <span class="stat-unit">★</span>
+          </div>
+        </div>
+
+        <div class="mode-pills" role="toolbar" aria-label="场景与镜头切换">
+          <button type="button" class="pill-btn" id="btn-light" title="切换昼夜天色 (L)">
+            <span class="pill-title">天色 · L</span>
+            <span class="pill-val">晴昼</span>
+          </button>
+          <button type="button" class="pill-btn" id="btn-cam" title="切换摄像机视角 (V)">
+            <span class="pill-title">视角 · V</span>
+            <span class="pill-val">跟拍</span>
+          </button>
+          <button type="button" class="pill-btn" id="btn-gear" title="切换巡航挡位 (C)">
+            <span class="pill-title">挡位 · C</span>
+            <span class="pill-val">巡航</span>
+          </button>
+          <button type="button" class="pill-btn" id="btn-sound" title="开关合成音效 (M)">
+            <span class="pill-title">音效 · M</span>
+            <span class="pill-val">开启</span>
+          </button>
+          <button
+            type="button"
+            class="pill-btn"
+            id="btn-help"
+            aria-expanded="false"
+            aria-controls="help-modal"
+            title="查看键盘快捷键 (H / ?)"
+          >
+            <span class="pill-title">按键 · H</span>
+            <span class="pill-val">快捷键</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="hud-toast" id="hud-toast" role="status" aria-live="polite"></div>
+
+      <footer class="hud-bottom">
+        <div class="control-deck">
+          <div class="steer-pad" id="steer-pad" aria-label="左右转向触控区">
+            <button type="button" class="ctrl-btn" id="btn-left" aria-label="向左变道转向">
+              <span class="ctrl-icon">←</span>
+              <span class="ctrl-text">左转</span>
+              <span class="kbd-hint">A / ←</span>
+            </button>
+            <button type="button" class="ctrl-btn" id="btn-right" aria-label="向右变道转向">
+              <span class="ctrl-icon">→</span>
+              <span class="ctrl-text">右转</span>
+              <span class="kbd-hint">D / →</span>
+            </button>
+          </div>
+
+          <div class="action-grid" role="group" aria-label="骑行与鹈鹕动作">
+            <button type="button" class="ctrl-btn btn-primary" id="btn-sprint" aria-label="踩踏加速">
+              <span class="ctrl-icon">⚡</span>
+              <span class="ctrl-text">加速</span>
+              <span class="kbd-hint">W / ↑</span>
+            </button>
+            <button type="button" class="ctrl-btn" id="btn-brake" aria-label="减速滑行">
+              <span class="ctrl-icon">▾</span>
+              <span class="ctrl-text">减速</span>
+              <span class="kbd-hint">S / ↓</span>
+            </button>
+            <button type="button" class="ctrl-btn" id="btn-hop" aria-label="兔跳扑翼">
+              <span class="ctrl-icon">⇪</span>
+              <span class="ctrl-text">扑翼跳</span>
+              <span class="kbd-hint">Space</span>
+            </button>
+            <button type="button" class="ctrl-btn" id="btn-beak" aria-label="张嘴捕鱼或投递">
+              <span class="ctrl-icon">🐟</span>
+              <span class="ctrl-text">鼓囊</span>
+              <span class="kbd-hint">E / F</span>
+            </button>
+            <button type="button" class="ctrl-btn" id="btn-bell" aria-label="按响铜车铃">
+              <span class="ctrl-icon">🔔</span>
+              <span class="ctrl-text">车铃</span>
+              <span class="kbd-hint">B</span>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="modal-backdrop" id="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title" hidden>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2 class="modal-title" id="help-title">触控手势与键盘快捷键</h2>
+          <button type="button" class="modal-close" id="btn-close-help">关闭 (Esc)</button>
+        </div>
+        <ul class="shortcut-list">
+          <li class="shortcut-row">
+            <span>踩踏冲刺 / 刹车减速</span>
+            <span class="shortcut-keys"><kbd>W</kbd><kbd>↑</kbd> / <kbd>S</kbd><kbd>↓</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>左右变道转向（支持触控滑动）</span>
+            <span class="shortcut-keys"><kbd>A</kbd><kbd>←</kbd> / <kbd>D</kbd><kbd>→</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>兔跳 &amp; 展翅扑翼</span>
+            <span class="shortcut-keys"><kbd>Space</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>张嘴捕鱼 / 栈桥投递鲜鱼</span>
+            <span class="shortcut-keys"><kbd>E</kbd> / <kbd>F</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>摇响复古黄铜车铃</span>
+            <span class="shortcut-keys"><kbd>B</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>切换巡航挡位（巡航/疾驰/慢骑/驻车）</span>
+            <span class="shortcut-keys"><kbd>C</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>切换视角 / 镜头复位</span>
+            <span class="shortcut-keys"><kbd>V</kbd> / <kbd>R</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>切换昼夜天色（晴昼/落日/星夜）</span>
+            <span class="shortcut-keys"><kbd>L</kbd> / <kbd>T</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>开关合成音效 / 快捷键面板</span>
+            <span class="shortcut-keys"><kbd>M</kbd> / <kbd>H</kbd><kbd>?</kbd></span>
+          </li>
+          <li class="shortcut-row">
+            <span>3D 画面手势</span>
+            <span class="shortcut-keys"><kbd>单指拖拽环视</kbd><kbd>双指缩放</kbd></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

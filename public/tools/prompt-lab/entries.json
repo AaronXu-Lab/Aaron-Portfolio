@@ -98,5 +98,15 @@
     "date": "2026-10-07",
     "promptVersion": "pelican-v1",
     "entry": "entries/haiku-5-5-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "gemini-4-argon-high-pelican-run-01",
+    "model": "Gemini 4 Argon",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "灯塔湾鲜鱼快线 · Pelbay Courier",
+    "date": "2026-10-16",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gemini-4-argon-high-pelican-run-01/index.html"
   }
 ]
