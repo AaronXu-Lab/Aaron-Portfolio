@@ -108,5 +108,15 @@
     "date": "2026-10-16",
     "promptVersion": "pelican-v1",
     "entry": "entries/gemini-4-argon-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "gpt-6-1-terra-high-pelican-run-01",
+    "model": "GPT-6.1 Terra",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "海风慢递 · The Coastal Ride",
+    "date": "2026-10-26",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gpt-6-1-terra-high-pelican-run-01/index.html"
   }
 ]
