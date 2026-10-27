@@ -1,0 +1,43 @@
+设计工程工作流案例交接
+
+目标
+把已完成的设计工程师转正答辩材料改写并实现为 Aaron-Portfolio 的一个新案例。建议方向“从设计规则，到真实产品”，以 Design Agent 与设计迁移为重点，早期 DESIGN.md 探索作为方法起点。不是把转正答辩逐页搬上网站，也不覆盖已有 ai-design-system 案例。
+
+交付材料
+presentation.html：当前唯一 HTML 的完整快照，共 19 页，图片与示意界面内嵌，可直接打开。#slide/1 为开场，#overview 为总览，上下翻页，P 为演讲者视图。
+speaker-notes.json：与这 19 页对应的完整备注、叙事和转场。旧 PPTX、旧演讲稿、历次备份都不是当前事实源。
+assets/design-md-ide.png：实际 Antigravity IDE 文档截图，来自截取后的 YAML/Markdown 交界，不是虚构编辑器。
+assets/ds-gallery-button.png：用户提供的 Design System Gallery Button 页面截图。
+assets/unconstrained-ui.png：本人文章里的无约束反例，用来说明风格约束的必要性，不是 AXO 上线页面。
+
+案例主线
+1. DESIGN.md：试用期初期的探索。格式本身用于承载视觉规则，不是“这一份规则刚好以视觉为主”。在如今实际项目中的独立作用已经很小，价值在于早期形成共同视觉依据，以及展示我的验证方式。Google 来源等外部说法须按主站写作要求查证官方资料。
+   方法四点：固定衡量尺子；在核心约束上投入，其余先粗糙但可运行；借鉴训练模型的经验跨场景调规则；在真实环境中形成“生成、运行、发现问题、调整规则、重新验证”的 loop。
+   局限：视觉/UI 约束不等于需求解读与 UX 流程设计；组件用法仍需当前资料；把全部规则堆进单文件会增加维护和上下文负担。
+2. Design Agent：为让设计跟上开发进度，把需求、组件、实现、检查和人工评审接起来。用户确认开发约 20 人、设计约 1.5 人，但不能把比例换算成未经证实的提效倍数。产品工作一直围绕 AXO，不写成转型或突然接手 AXO。
+   第 10 页是八个 Skill 总览：Design Orchestrator / Design Shaping / Component Advisor / UX Info Redundancy Audit / Flow Completeness Audit / Task Walkthrough / Wording Reviewer / Canvas Design。具体英文名、职责、链接以 HTML 和当前项目为准。
+   三个关联环节：生成初版、分类检查、独立走查；MCP 是贯穿它们的资料服务，不是第四步或第九个 Skill。它按需返回相关组件用法、示例、参数，避免整库灌入上下文。Component Advisor 先判断候选、再获取资料、再确定怎么用。
+   独立走查借鉴 Graph Engineering 的上下文隔离思想，通过新的会话和必要交接信息来降低结论污染。只说思想借鉴，不宣称使用了实际 graph engine 框架。
+   保留人工评审。Design Agent 仍在持续优化，没有上线规模、团队采用率或明确效果数据。
+3. 设计迁移：设计产出确认后，怎样把它带入开发环境并接上真实功能。传统产品→设计→开发的串行交付，改为共同需求下设计做原型、研发做真实接口与功能并行推进，迭代最后一天集中迁移，检查与人工验收后进入发布流程。用户确认几乎所有迭代如此；不宣称“一天即可上线”或所有迁移都很快。
+   核对页面字段/接口字段、按钮动作/业务操作、提示/成功失败状态。共用组件是迁移的一部分，不另立组件库章节。备注中保留一次新 Modal Panel 与旧 Dialog 不一致的案例，以及先独立维护发布组件库的调整。
+   第 18 页是内嵌的迁移前后示意：左侧复用 aw-design-fake canonical 数据和 showFakeSonner；右侧使用实际答辩文本与目录，在浏览器里处理字符/行数并下载 JSON。右侧并未连接 AXO 的生产接口，不能标为真实产品或上线证据。其用途是解释“保留界面，换成实际数据与可执行行为”。
+4. 收尾：视觉规则→设计任务→真实产品；下一阶段只有持续优化 Design Agent。不要新增无依据的未来路线。具体迭代步骤无需密集列出。
+
+表达与视觉
+自然、直白、面向非设计岗，标题先说清楚结论。页面减少长说明，多用流程前后对照；细节可放折叠说明。不要 AI 腔、虚构指标或夸大成果。沿用 Aaron-Portfolio 的 CaseLayout 与现有设计 Token，HTML 幻灯片只作内容和视觉参考，不把淡色幻灯片 CSS 拷进网站。遵守该项目 AGENTS.md，尤其图片、动效与标点规则。当前所有需要的图片已提供，不再沿用占位清单。
+幻灯片里有原生 SVG 流程/插图与 HTML 示例。这些可以用于理解叙事，但网站是否采用必须服从主站规则；不要把装饰 SVG 或 HTML 伪截图直接当作已验证的产品素材。
+
+一手资料
+已有早期案例：https://xuweinan.com/work/ai-design-system/
+Design Agent：https://github.com/AaronXu-Lab/Design-Agent
+本地项目：/Users/wally/Documents/Github/Design-Agent
+组件 MCP：https://github.com/AaronXu-Lab/AaronUI-Web/tree/main/mcp
+实际设计规范：/Users/wally/Documents/SHIZAI/SOIA/axo-app-fe/DESIGN.md（当前 2.3.2）
+本地工作笔记：/Users/wally/Documents/SHIZAI/工作笔记
+Fake Skill：/Users/wally/Documents/AaronSkill/aw-design-fake/SKILL.md（1.8.1）
+Graph Engineering 思想参考：https://github.com/context4ai/agent-graph/blob/main/docs/en/graph-engineering.md
+主站新增案例工作流：/Users/wally/Documents/Aaron-Portfolio/workflows/add-case.md
+
+执行范围
+在 Aaron-Portfolio 保存项目的 local 环境中作为新独立任务执行，不创建 worktree。读取主站工作流、案例注册表与已有相关案例，完成新案例页面和登记，检查构建与实际预览。不要覆盖已有案例或顺带改其他页面。新案例标题与 slug 按该项目工作流确定，建议 design-engineering-workflow。当前授权是新案例制作；无需把内部答辩整份公开附在案例上。完成后交付可审阅的本地结果，发布按该项目既有明确授权处理。

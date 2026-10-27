@@ -1,0 +1,13 @@
+{
+  "source": "/Users/wally/Documents/SHIZAI/SOIA/output/答辩幻灯片/交付/转正答辩_总览比例修正版.html",
+  "sourceSha256": "1a45f44636a918c04a07f71edecbe9d0f2aaa98e72b25ba8f3fb3086834520c6",
+  "slides": 19,
+  "files": [
+    "presentation.html",
+    "speaker-notes.json",
+    "handoff.txt",
+    "assets/unconstrained-ui.png",
+    "assets/design-md-ide.png",
+    "assets/ds-gallery-button.png"
+  ]
+}

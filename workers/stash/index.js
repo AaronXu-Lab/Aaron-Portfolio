@@ -2,8 +2,8 @@ export const MAX_FILE = 10 * 1024 * 1024;
 export const MAX_TEXT = 100 * 1024;
 export const TTL = 7 * 24 * 60 * 60 * 1000;
 const KEY = 'box.json';
-const empty = () => ({ text: '', file: null, updatedAt: null, expiresAt: null });
-const live = (state, now) => state.expiresAt && state.expiresAt <= now ? empty() : state.file ? { ...state, text: '' } : state;
+const empty = () => ({ text: '', file: null, images: [], updatedAt: null, expiresAt: null });
+const live = (state, now) => state.expiresAt && state.expiresAt <= now ? empty() : state.file ? { ...state, text: '', images: [] } : { ...state, images: state.images || [] };
 const json = (data, status = 200) => Response.json(data, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -17,8 +17,8 @@ export async function change(bucket, update, now = Date.now()) {
   for (let attempt = 0; attempt < 12; attempt++) {
     const { state, etag } = await read(bucket);
     const next = update(live(state, now));
-    const active = next.text !== '' || next.file;
-    const result = { ...next, text: next.file ? '' : next.text, updatedAt: active ? now : null, expiresAt: active ? now + TTL : null };
+    const active = next.text !== '' || next.file || next.images?.length;
+    const result = { ...next, text: next.file ? '' : next.text, images: next.file ? [] : next.images || [], updatedAt: active ? now : null, expiresAt: active ? now + TTL : null };
     const written = await bucket.put(KEY, JSON.stringify(result), {
       onlyIf: new Headers(etag ? { 'If-Match': etag } : { 'If-None-Match': '*' }),
     });
@@ -55,7 +55,7 @@ export async function cleanup(bucket, now = Date.now()) {
     const candidates = page.objects.filter(object => +object.uploaded < now - 24 * 60 * 60 * 1000);
     if (candidates.length) {
       const current = (await read(bucket)).state;
-      const unused = candidates.filter(object => object.key !== current.file?.key).map(object => object.key);
+      const unused = candidates.filter(object => object.key !== current.file?.key && !current.images?.some(image => image.key === object.key)).map(object => object.key);
       if (unused.length) await bucket.delete(unused);
     }
     cursor = page.truncated ? page.cursor : undefined;
@@ -67,7 +67,7 @@ export default {
       const url = new URL(request.url);
       const route = url.pathname.replace(/^\/api\/stash/, '') || '/';
       const method = request.method;
-      if (!['/', '/text', '/file'].includes(route)) return json({ error: '未找到' }, 404);
+      if (!['/', '/text', '/file', '/image'].includes(route)) return json({ error: '未找到' }, 404);
       if (method !== 'GET') {
         const origin = request.headers.get('Origin');
         if (origin && origin !== url.origin) return json({ error: '请从暂存箱页面操作' }, 403);
@@ -83,6 +83,25 @@ export default {
           return { ...state, text };
         }));
       }
+      if (method === 'PUT' && route === '/image') {
+        const type = request.headers.get('Content-Type');
+        if (!['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/avif', 'image/bmp', 'image/x-icon', 'image/svg+xml'].includes(type)) {
+          throw new HttpError(415, '不支持的图片格式');
+        }
+        const data = await bodyBytes(request, MAX_FILE);
+        if (!data.byteLength) throw new HttpError(400, '图片为空');
+        const id = crypto.randomUUID(), key = `files/${id}`;
+        await env.BOX.put(key, data, { httpMetadata: { contentType: 'application/octet-stream' } });
+        return json(await change(env.BOX, state => {
+          if (state.file) throw new HttpError(409, '删除文件后才能添加图片');
+          if (state.images.length >= 20) throw new HttpError(413, '最多添加 20 张图片');
+          return { ...state, images: [...state.images, { id, key, type, size: data.byteLength }] };
+        }));
+      }
+      if (method === 'DELETE' && route === '/image') {
+        const id = url.searchParams.get('id');
+        return json(await change(env.BOX, state => ({ ...state, images: state.images.filter(image => image.id !== id) })));
+      }
       if (method === 'PUT' && route === '/file') {
         let name;
         try { name = decodeURIComponent(request.headers.get('X-File-Name') || '未命名文件'); }
@@ -96,14 +115,15 @@ export default {
       }
       if (method === 'DELETE' && route === '/file') return json(await change(env.BOX, state => ({ ...state, file: null })));
       if (method === 'DELETE' && route === '/') return json(await change(env.BOX, empty));
-      if (method === 'GET' && route === '/file') {
+      if (method === 'GET' && (route === '/file' || route === '/image')) {
         const state = live((await read(env.BOX)).state, Date.now());
-        if (!state.file) return json({ error: '箱子里没有文件' }, 404);
-        const file = await env.BOX.get(state.file.key);
+        const item = route === '/image' ? state.images.find(image => image.id === url.searchParams.get('id')) : state.file;
+        if (!item) return json({ error: '箱子里没有文件' }, 404);
+        const file = await env.BOX.get(item.key);
         if (!file) return json({ error: '文件已不存在' }, 404);
         return new Response(file.body, { headers: {
           'Content-Type': 'application/octet-stream',
-          'Content-Disposition': `attachment; filename="download"; filename*=UTF-8''${encodeURIComponent(state.file.name).replace(/['()*]/g, c => '%' + c.charCodeAt(0).toString(16))}`,
+          'Content-Disposition': `attachment; filename="download"; filename*=UTF-8''${encodeURIComponent(item.name || 'image').replace(/['()*]/g, c => '%' + c.charCodeAt(0).toString(16))}`,
           'Content-Length': String(file.size), 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff',
           'Content-Security-Policy': "sandbox; default-src 'none'",
         } });

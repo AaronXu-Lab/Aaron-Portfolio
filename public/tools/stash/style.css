@@ -122,3 +122,13 @@ dialog form { text-align: right; }
 main { padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); }
 #download[aria-disabled='true'] { opacity: .45; cursor: default; }
 @media(max-width:600px) { main { padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); } }
+
+.input-images { display: flex; flex: none; gap: 12px; overflow-x: auto; padding: 8px 0; }
+.input-images:empty { display: none; }
+.input-image { position: relative; flex: 0 0 112px; width: 112px; height: 112px; border-radius: 10px; background: var(--tint); overflow: hidden; }
+.input-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.input-image-open { display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: zoom-in; }
+.input-image-open:hover { opacity: .85; background: var(--tint); }
+.input-image-remove { position: absolute; top: 5px; right: 5px; width: 28px; height: 28px; padding: 0; font-size: 20px; background: var(--paper); color: var(--ink); border: 1px solid var(--line); }
+.input-image-remove:hover { background: var(--tint); }
+.input-image span { position: absolute; inset: auto 0 0; padding: 5px; background: var(--paper); color: var(--muted); font-size: 12px; text-align: center; }

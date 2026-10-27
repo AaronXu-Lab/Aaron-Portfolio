@@ -1,3 +1,4 @@
+import { createInputImages, isImage, inputImageType } from './input-images.js';
 import { createImagePreview } from './image-preview.js';
 import { countdown } from './countdown.js';
 import { formatSize, filenameParts } from './file-display.js';
@@ -6,6 +7,11 @@ const $ = id => document.getElementById(id);
 const api = '/api/stash';
 const updateImagePreview = createImagePreview();
 let activeUpload = null;
+let pendingImages = 0;
+const inputImages = createInputImages($('input-images'), id => enqueue(async () => {
+  if (!navigator.onLine || !connected) { offlineNotice(); return; }
+  render(await request('/image?id=' + encodeURIComponent(id), { method: 'DELETE' }));
+}, '图片删除失败', '请稍后重试'));
 let selection = 0, loadErrorShown = false, connected = false;
 let surface = 'loading';
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -66,6 +72,7 @@ function offlineNotice() { error('当前离线', '连接网络后才能读取或
 function updateSurface() {
   $('toolbar').hidden = uploading || Boolean(box?.file);
   $('text').hidden = uploading || Boolean(box?.file);
+  $('input-images').hidden = uploading || Boolean(box?.file);
   $('file-content').hidden = uploading || !box?.file;
   $('upload-progress').hidden = !uploading;
   const next = uploading ? 'upload-progress' : box?.file ? 'file-content' : box ? 'text' : 'loading';
@@ -153,6 +160,7 @@ function render(state, syncText = false) {
   $('remove').disabled = uploading;
   filename(state.file?.name);
   updateImagePreview(state.file);
+  inputImages.render(state.images || []);
   $('file-detail').textContent = hasFile ? formatSize(state.file.size) : '';
   status(dirty ? 'pending' : state.text ? 'saved' : 'idle');
   updateSurface();
@@ -272,6 +280,33 @@ async function upload(file) {
     }
   }, '文件上传失败', '检查网络后重新上传文件');
 }
+async function addImages(files) {
+  if (!box || box.file || uploading) { error('暂时无法添加图片', '请先删除文件或等待上传完成'); return; }
+  if (!navigator.onLine || !connected) { offlineNotice(); return; }
+  if ((box.images?.length || 0) + pendingImages + files.length > 20) { error('图片数量超出限制', '最多添加 20 张图片'); return; }
+  if (files.some(file => file.size > 10 * 1024 * 1024)) { error('图片超过大小限制', '每张图片不能超过 10 MB'); return; }
+  for (const file of files) {
+    pendingImages++;
+    const done = inputImages.pending(file);
+    enqueue(async () => {
+      try {
+        const state = await request('/image', { method: 'PUT', body: file, headers: { 'Content-Type': inputImageType(file) }, signal: AbortSignal.timeout(180000) });
+        render(state);
+      } finally { pendingImages--; done(); }
+    }, '图片保存失败', '文字已保留，请重新粘贴或拖入图片');
+  }
+}
+function acceptFiles(files) {
+  if (files.length && files.every(isImage)) { addImages(files); return; }
+  if (files.length !== 1) { error('文件数量超出限制', '图片可多选，其他文件每次选择 1 个'); return; }
+  upload(files[0]);
+}
+$('drop').addEventListener('paste', event => {
+  const files = [...(event.clipboardData?.files || [])].filter(isImage);
+  if (!files.length) return;
+  event.preventDefault(); event.stopPropagation();
+  addImages(files);
+}, true);
 $('cancel-upload').addEventListener('click', () => {
   if (!activeUpload) return;
   const operation = activeUpload;
@@ -280,15 +315,15 @@ $('cancel-upload').addEventListener('click', () => {
   finishUpload(operation);
 });
 $('upload').addEventListener('click', () => $('file').click());
-$('file').addEventListener('change', () => upload($('file').files[0]));
+$('file').addEventListener('change', () => { acceptFiles([...$('file').files]); $('file').value = ''; });
 $('drop').addEventListener('dragover', event => { event.preventDefault(); if (box && event.dataTransfer.types.includes('Files')) { event.dataTransfer.dropEffect = 'copy'; $('drop').classList.add('dragover'); } });
 $('drop').addEventListener('dragleave', event => { if (!$('drop').contains(event.relatedTarget)) $('drop').classList.remove('dragover'); });
 $('drop').addEventListener('drop', event => {
-  event.preventDefault(); $('drop').classList.remove('dragover');
+  event.preventDefault(); event.stopPropagation(); $('drop').classList.remove('dragover');
+  if (!event.dataTransfer.types.includes('Files')) return;
   if ([...event.dataTransfer.items].some(item => item.webkitGetAsEntry?.()?.isDirectory)) { selection++; folderDialog(); return; }
-  if (event.dataTransfer.files.length !== 1) { error('文件数量超出限制', '每次选择 1 个文件'); return; }
-  upload(event.dataTransfer.files[0]);
-});
+  acceptFiles([...event.dataTransfer.files]);
+}, true);
 $('remove').addEventListener('click', () => { enqueue(async () => { render(await request('/file', { method: 'DELETE' }), true); error(''); }, '文件删除失败', '稍后点击「删除文件」重试'); });
 async function refresh() {
   if (busy || document.hidden) return;
@@ -308,7 +343,7 @@ async function refresh() {
   }
 }
 window.addEventListener('beforeunload', event => {
-  if (!dirty && !uploading) return;
+  if (!dirty && !uploading && !pendingImages) return;
   event.preventDefault(); event.returnValue = '';
 });
 window.addEventListener('focus', refresh);

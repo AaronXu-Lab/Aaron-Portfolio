@@ -109,3 +109,54 @@ test('empty and one-byte files upload and download without a minimum size', asyn
     assert.deepEqual(new Uint8Array(await (await call(b, '/file')).arrayBuffer()), bytes);
   }
 });
+
+test('images coexist with text, survive text saves, and can be individually removed', async () => {
+  const b = new Bucket();
+  await call(b, '/text', { method: 'PUT', body: 'keep text' });
+  const bytes = new Uint8Array([137, 80, 78, 71]);
+  const add = () => call(b, '/image', { method: 'PUT', body: bytes, headers: { 'Content-Type': 'image/png' } });
+  await Promise.all([add(), add()]);
+  const state = await (await call(b)).json();
+  assert.equal(state.text, 'keep text'); assert.equal(state.file, null); assert.equal(state.images.length, 2);
+  await call(b, '/text', { method: 'PUT', body: '' });
+  const saved = await (await call(b)).json();
+  assert.equal(saved.images.length, 2); assert.ok(saved.expiresAt);
+  const image = await call(b, '/image?id=' + state.images[0].id);
+  assert.deepEqual(new Uint8Array(await image.arrayBuffer()), bytes);
+  assert.match(image.headers.get('Content-Disposition'), /^attachment/);
+  const removed = await (await call(b, '/image?id=' + state.images[0].id, { method: 'DELETE' })).json();
+  assert.equal(removed.images.length, 1);
+  assert.equal((await call(b, '/image?id=' + state.images[0].id)).status, 404);
+  await call(b, '/image?id=' + state.images[1].id, { method: 'DELETE' });
+  assert.equal((await (await call(b)).json()).expiresAt, null);
+});
+
+test('image limits and file replacement preserve exclusive payload semantics', async () => {
+  const b = new Bucket();
+  const put = body => call(b, '/image', { method: 'PUT', body, headers: { 'Content-Type': 'image/png' } });
+  assert.equal((await put(new Uint8Array(MAX_FILE + 1))).status, 413);
+  assert.equal((await put('')).status, 400);
+  assert.equal((await call(b, '/image', { method: 'PUT', body: 'html' })).status, 415);
+  for (let i = 0; i < 20; i++) assert.equal((await put('image')).status, 200);
+  assert.equal((await put('image')).status, 413);
+  const state = await (await call(b)).json();
+  for (const image of state.images) b.objects.get(image.key).uploaded = new Date(Date.now() - 2 * 86400000);
+  await cleanup(b);
+  assert.ok(await b.get(state.images[0].key));
+  await call(b, '/file', { method: 'PUT', body: 'file' });
+  assert.deepEqual((await (await call(b)).json()).images, []);
+  assert.equal((await put('image')).status, 409);
+  assert.equal((await call(b, '/image?id=' + state.images[0].id)).status, 404);
+  await cleanup(b);
+  assert.equal(await b.get(state.images[0].key), null);
+});
+
+test('expired images cannot be read and are reclaimed', async () => {
+  const b = new Bucket();
+  await b.put('files/old-image', 'image');
+  b.objects.get('files/old-image').uploaded = new Date(Date.now() - TTL - 1);
+  await change(b, () => ({ text: '', file: null, images: [{ id: 'old', key: 'files/old-image' }] }), Date.now() - TTL - 1);
+  assert.equal((await call(b, '/image?id=old')).status, 404);
+  await cleanup(b);
+  assert.equal(await b.get('files/old-image'), null);
+});

@@ -1,0 +1,190 @@
+
+> xuweinan-portfolio@1.0.0 build
+> npm run build:stash && astro build
+
+
+> xuweinan-portfolio@1.0.0 build:stash
+> node scripts/build-stash.mjs
+
+02:47:27 [content] Syncing content
+02:47:27 [content] Synced content
+02:47:27 [types] Generated 215ms
+02:47:27 [build] output: "static"
+02:47:27 [build] mode: "static"
+02:47:27 [build] directory: /Users/wally/Documents/Aaron-Portfolio/dist/
+02:47:27 [build] Collecting build info...
+02:47:27 [build] ✓ Completed in 227ms.
+02:47:27 [build] Building static entrypoints...
+02:47:28 [vite] ✓ built in 893ms
+02:47:28 [build] ✓ Completed in 909ms.
+
+ building client (vite) 
+02:47:28 [vite] transforming...
+02:47:28 [vite] ✓ 196 modules transformed.
+02:47:28 [vite] rendering chunks...
+02:47:29 [vite] computing gzip size...
+02:47:29 [vite] dist/_astro/inter-vietnamese-wght-normal.CBcvBZtf.woff2                 10.25 kB
+02:47:29 [vite] dist/_astro/inter-greek-ext-wght-normal.DlzME5K_.woff2                  11.23 kB
+02:47:29 [vite] dist/_astro/inter-cyrillic-wght-normal.DqGufNeO.woff2                   18.75 kB
+02:47:29 [vite] dist/_astro/inter-greek-wght-normal.CkhJZR-_.woff2                      19.00 kB
+02:47:29 [vite] dist/_astro/inter-cyrillic-ext-wght-normal.BOeWTOD4.woff2               25.96 kB
+02:47:29 [vite] dist/_astro/inter-latin-wght-normal.Dx4kXJAl.woff2                      48.26 kB
+02:47:29 [vite] dist/_astro/inter-latin-ext-wght-normal.DO1Apj_S.woff2                  85.07 kB
+02:47:29 [vite] dist/_astro/flomo.CdCF2fDK.css                                          77.67 kB │ gzip:  11.88 kB
+02:47:29 [vite] dist/_astro/followup.Du0wqiMG.css                                      128.05 kB │ gzip:  20.67 kB
+02:47:29 [vite] dist/_astro/client.C2Ju3rc_.js                                         193.69 kB │ gzip:  60.42 kB
+02:47:29 [vite] dist/_astro/flypy.astro_astro_type_script_index_0_lang.Cpun0urS.js     313.82 kB │ gzip: 143.63 kB
+02:47:29 [vite] dist/_astro/flomo.astro_astro_type_script_index_0_lang.D6gNez5d.js     448.90 kB │ gzip:  76.10 kB
+02:47:29 [vite] dist/_astro/followup.astro_astro_type_script_index_0_lang.CzmtAQlJ.js  959.28 kB │ gzip: 146.28 kB
+02:47:29 [WARN] [vite] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+02:47:29 [vite] ✓ built in 603ms
+
+ generating static routes 
+02:47:29 ▶ src/pages/blog/[id].astro
+02:47:29   ├─ /blog/硕市生freshshow作品/index.html (+5ms) 
+02:47:29   ├─ /blog/华硕电子产品调研/index.html (+1ms) 
+02:47:29   ├─ /blog/华硕set校园营销大赛宣传海报/index.html (+1ms) 
+02:47:29   ├─ /blog/vfun初单网易cc视频精编/index.html (+1ms) 
+02:47:29   ├─ /blog/第一次大广赛/index.html (+1ms) 
+02:47:29   ├─ /blog/uniqlo客户端重设计/index.html (+1ms) 
+02:47:29   ├─ /blog/创业红娘名片/index.html (+1ms) 
+02:47:29   ├─ /blog/2015年华科新闻学院宣传部招新视频/index.html (+1ms) 
+02:47:29   ├─ /blog/v-fun15年招新视频/index.html (+2ms) 
+02:47:29   ├─ /blog/环青海湖视频华科轮滑社招新宣传/index.html (+1ms) 
+02:47:29   ├─ /blog/2015启明开放日宣传片/index.html (+1ms) 
+02:47:29   ├─ /blog/广告创意与策划展示/index.html (+1ms) 
+02:47:29   ├─ /blog/2015年dian团队年会暖场视频/index.html (+1ms) 
+02:47:29   ├─ /blog/新闻学院官方appnewsbang的原型设计/index.html (+1ms) 
+02:47:29   ├─ /blog/dian团队2016春招宣传单/index.html (+2ms) 
+02:47:29   ├─ /blog/java学习完成打卡/index.html (+1ms) 
+02:47:29   ├─ /blog/小安宝祝福刘老师生日快乐/index.html (+1ms) 
+02:47:29   ├─ /blog/vfun7周年祝福动画/index.html (+1ms) 
+02:47:29   ├─ /blog/vivo告别不快点线篇/index.html (+1ms) 
+02:47:29   ├─ /blog/娃哈哈首届全国名校广告创意精英赛/index.html (+0ms) 
+02:47:29   ├─ /blog/vfun16招新海报/index.html (+0ms) 
+02:47:29   ├─ /blog/传播班随机点名器/index.html (+1ms) 
+02:47:29   ├─ /blog/dian2016冬季招新海报/index.html (+1ms) 
+02:47:29   ├─ /blog/小黄车临摹/index.html (+0ms) 
+02:47:29   ├─ /blog/2016款15英寸macbookpro简单上手评测/index.html (+1ms) 
+02:47:29   ├─ /blog/dian团队年终红包/index.html (+1ms) 
+02:47:29   ├─ /blog/dian团队年鉴封面设计/index.html (+1ms) 
+02:47:29   ├─ /blog/dian年终茶话会海报/index.html (+1ms) 
+02:47:29   ├─ /blog/小习惯记录习惯/index.html (+1ms) 
+02:47:29   ├─ /blog/去找作者/index.html (+1ms) 
+02:47:29   ├─ /blog/去微博找作者/index.html (+1ms) 
+02:47:29   ├─ /blog/作者生态运营/index.html (+0ms) 
+02:47:29   ├─ /blog/申请苹果企业开发者账号/index.html (+0ms) 
+02:47:29   ├─ /blog/内测qq群/index.html (+1ms) 
+02:47:29   ├─ /blog/app-想读/index.html (+0ms) 
+02:47:29   ├─ /blog/记两次百度面试/index.html (+0ms) 
+02:47:29   ├─ /blog/想看动画视频构思/index.html (+0ms) 
+02:47:29   ├─ /blog/维度打击/index.html (+1ms) 
+02:47:29   ├─ /blog/关于围观bug反馈及功能建议的调查问卷/index.html (+1ms) 
+02:47:29   ├─ /blog/色情与互联网发展/index.html (+1ms) 
+02:47:29   ├─ /blog/小米6狂想曲/index.html (+1ms) 
+02:47:29   ├─ /blog/写在微信取消聊天文件入口之后/index.html (+0ms) 
+02:47:29   ├─ /blog/抓内容还是养内容/index.html (+0ms) 
+02:47:29   ├─ /blog/挖掘机技术哪家强/index.html (+0ms) 
+02:47:29   ├─ /blog/个人实习日志app/index.html (+1ms) 
+02:47:29   ├─ /blog/两个人物小动画/index.html (+1ms) 
+02:47:29   ├─ /blog/ae教程使用插件简单制作一拳超人五官动画/index.html (+0ms) 
+02:47:29   ├─ /blog/来说一说实习的两家公司的区别/index.html (+1ms) 
+02:47:29   ├─ /blog/一些游戏开发设想/index.html (+0ms) 
+02:47:29   ├─ /blog/动效是对于行为的设计/index.html (+1ms) 
+02:47:29   ├─ /blog/三星s助手改版建议/index.html (+1ms) 
+02:47:29   ├─ /blog/简历/index.html (+1ms) 
+02:47:29   ├─ /blog/交互设计名词解释/index.html (+1ms) 
+02:47:29   ├─ /blog/转交互设计师笔试面试问题收集汇总/index.html (+1ms) 
+02:47:29   ├─ /blog/如何搭建一个个人博客hexo/index.html (+1ms) 
+02:47:29   ├─ /blog/记一次阿里爸爸的笔试上/index.html (+1ms) 
+02:47:29   ├─ /blog/记一次阿里爸爸的笔试下/index.html (+0ms) 
+02:47:29   ├─ /blog/记一次阿里爸爸的笔试中/index.html (+0ms) 
+02:47:29   ├─ /blog/搜狐笔试心得/index.html (+1ms) 
+02:47:29   ├─ /blog/2017年1-9月实习报告/index.html (+1ms) 
+02:47:29   ├─ /blog/实习作品合集/index.html (+0ms) 
+02:47:29   ├─ /blog/美团笔试粗答/index.html (+0ms) 
+02:47:29   ├─ /blog/秋招心路历程/index.html (+0ms) 
+02:47:29   ├─ /blog/主流私人云存储服务产品体验分析报告/index.html (+0ms) 
+02:47:29   ├─ /blog/个人交互设计常用软件整理/index.html (+1ms) 
+02:47:29   ├─ /blog/一些好用的小软件/index.html (+0ms) 
+02:47:29   ├─ /blog/关于我的手机史/index.html (+0ms) 
+02:47:29   ├─ /blog/vlog-一次风驰电掣的卡丁车体验/index.html (+0ms) 
+02:47:29   ├─ /blog/全面屏人机交互更新/index.html (+1ms) 
+02:47:29   ├─ /blog/20190809下班骑行/index.html (+1ms) 
+02:47:29   ├─ /blog/每个设计师都应该会的-mac-端-adb-安装教程/index.html (+0ms) 
+02:47:29   ├─ /blog/关于-android-r-的第一印象/index.html (+0ms) 
+02:47:29   ├─ /blog/2021-ucan-记录/index.html (+0ms) 
+02:47:29   ├─ /blog/惠州跳伞-whats-up-danger/index.html (+0ms) 
+02:47:29   ├─ /blog/如何在将-blender-模型三渲二之后导入-ae/index.html (+1ms) 
+02:47:29   ├─ /blog/写给设计师的开发知识动效篇/index.html (+1ms) 
+02:47:29   ├─ /blog/写给设计师的开发知识adb篇/index.html (+0ms) 
+02:47:29   ├─ /blog/写给设计师的开发知识爬虫篇/index.html (+0ms) 
+02:47:29   ├─ /blog/写给设计师的开发知识布局与自适应/index.html (+0ms) 
+02:47:29   ├─ /blog/写给设计师的开发知识卡顿篇/index.html (+0ms) 
+02:47:29   ├─ /blog/如何使用adb工具箱/index.html (+0ms) 
+02:47:29   ├─ /blog/menubaradb-应用开发日志/index.html (+0ms) 
+02:47:29   ├─ /blog/oppo-0321-发布会-x6-与年终奖/index.html (+0ms) 
+02:47:29   ├─ /blog/ai绘图-stable-difussion-配置过程/index.html (+0ms) 
+02:47:29   ├─ /blog/炜哥的ai学习笔记lora训练集准备/index.html (+1ms) 
+02:47:29   ├─ /blog/炜哥的ai学习笔记lora-block-weight-插件学习/index.html (+0ms) 
+02:47:29   ├─ /blog/炜哥的ai学习笔记one-button-prompt-插件学习/index.html (+0ms) 
+02:47:29   ├─ /blog/炜哥的ai学习笔记sd基础原理/index.html (+0ms) 
+02:47:29   ├─ /blog/炜哥的ai学习笔记supermerger插件学习/index.html (+0ms) 
+02:47:29   ├─ /blog/炜哥的ai学习笔记主流模型原理/index.html (+0ms) 
+02:47:29   ├─ /blog/sdxl-1-0-release-announcement/index.html (+1ms) 
+02:47:29   ├─ /blog/gpt-调试工具-隐私政策/index.html (+0ms) 
+02:47:29   ├─ /blog/comfyui-examples-翻译笔记/index.html (+0ms) 
+02:47:29   ├─ /blog/微信-苹果-苹果税/index.html (+0ms) 
+02:47:29   ├─ /blog/到-2023-年为止的手机故事iphone-5s/index.html (+0ms) 
+02:47:29   ├─ /blog/icon-字体化我管理-icon-的方式/index.html (+0ms) 
+02:47:29   ├─ /blog/how-to-set-up-ai-repaint-server-in-local/index.html (+0ms) 
+02:47:29   ├─ /blog/comic-folder-s-structure/index.html (+0ms) 
+02:47:29   ├─ /blog/comic-manga-privacy-policy/index.html (+0ms) 
+02:47:29   ├─ /blog/mgx-功能体验分析/index.html (+0ms) 
+02:47:29   ├─ /blog/这些网站帮我实现了漫画自由/index.html (+0ms) 
+02:47:29   ├─ /blog/漫画推荐突然看懂了再见绘梨/index.html (+0ms) 
+02:47:29   ├─ /blog/设计师的代码革命figma-mcp-与-cursor-的协同工作流/index.html (+0ms) 
+02:47:29   ├─ /blog/当-app-开始融化聊聊-loopit灵光还有-a2ui-协议/index.html (+1ms) 
+02:47:29   ├─ /blog/gpt-5-4-发布这是你感兴趣的一切/index.html (+0ms) 
+02:47:29   ├─ /blog/用-designmd-约束-ai-设计一次从验证到收敛的实践复盘/index.html (+0ms) 
+02:47:29   ├─ /blog/fable-逆向工程-mastergo-文件/index.html (+1ms) 
+02:47:29   └─ /blog/why-difys-still-matters/index.html (+1ms) 
+02:47:29 ▶ src/pages/blog/index.astro
+02:47:29   └─ /blog/index.html (+9ms) 
+02:47:29 ▶ src/pages/design/[slug].astro
+02:47:29 ▶ src/pages/design/flomo.astro
+02:47:29   └─ /design/flomo/index.html (+1ms) 
+02:47:29 ▶ src/pages/design/followup.astro
+02:47:29   └─ /design/followup/index.html (+0ms) 
+02:47:29 ▶ src/pages/design/more.astro
+02:47:29   └─ /design/more/index.html (+1ms) 
+02:47:29 ▶ src/pages/design.astro
+02:47:29   └─ /design/index.html (+1ms) 
+02:47:29 ▶ src/pages/index.astro
+02:47:29   └─ /index.html (+2ms) 
+02:47:29 ▶ src/pages/products/index.astro
+02:47:29   └─ /products/index.html (+1ms) 
+02:47:29 ▶ src/pages/skills/index.astro
+02:47:29   └─ /skills/index.html (+1ms) 
+02:47:29 ▶ src/pages/tools/flypy.astro
+02:47:29   └─ /tools/flypy/index.html (+0ms) 
+02:47:29 ▶ src/pages/work/ai-design-system.astro
+02:47:29   └─ /work/ai-design-system/index.html (+1ms) 
+02:47:29 ▶ src/pages/work/comic-manga.astro
+02:47:29   └─ /work/comic-manga/index.html (+3ms) 
+02:47:29 ▶ src/pages/work/followup-ai.astro
+02:47:29   └─ /work/followup-ai/index.html (+1ms) 
+02:47:29 ▶ src/pages/work/index.astro
+02:47:29   └─ /work/index.html (+1ms) 
+02:47:29 ▶ src/pages/work/other.astro
+02:47:29   └─ /work/other/index.html (+1ms) 
+02:47:29 ▶ /tools/
+02:47:29   └─ /tools/index.html (+0ms) 
+02:47:29 ✓ Completed in 111ms.
+
+02:47:29 [build] 122 page(s) built in 1.95s
+02:47:29 [build] Complete!
