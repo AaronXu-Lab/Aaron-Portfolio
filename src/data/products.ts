@@ -147,6 +147,13 @@ export const games: ToolEntry[] = [
 
 export const tools: ToolEntry[] = [
   {
+    slug: 'wardrobe', name: '衣集', en: 'WARDROBE',
+    description: '把衣架上的衣服整理成透明图片和标签，本地保存，筛选后打包导出。',
+    icon: '/tools/wardrobe/icon-192.png', iconAlt: '衣集：衣架与衬衫',
+    pwa: true, status: 'shipped', tags: ['本地相册', 'AI 去背'],
+    href: '/tools/wardrobe/', newTab: true,
+  },
+  {
     slug: 'prompt-lab',
     name: 'Prompt 擂台',
     en: 'PROMPT ARENA',
