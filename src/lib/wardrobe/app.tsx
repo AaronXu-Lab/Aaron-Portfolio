@@ -622,7 +622,7 @@ function App() {
         contentType="iconText"
       >
         <ScrollRegion className="page-scroll" label="衣服素材页面">
-          <main>
+          <main className={page === "capture" ? "capture-main" : undefined}>
             {fatal ? (
               <ErrorState
                 className="empty"
@@ -644,62 +644,70 @@ function App() {
                     <GearSixIcon size={21} />
                   </Button>
                 </div>
-                <div className="capture-target">
-                  <CoatHangerIcon size={88} weight="thin" />
-                  <p>拍下完整衣服</p>
+                <div className="capture-content">
+                  <div className="capture-target">
+                    <CoatHangerIcon size={88} weight="thin" />
+                    <p>拍下完整衣服</p>
+                  </div>
+                  {!config.apiKey && (
+                    <Alert
+                      className="context-alert"
+                      role="status"
+                      color="blue"
+                      border={false}
+                      text="添加衣服前，先连接 OpenAI。"
+                      trailing={
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={openSettings}
+                        >
+                          连接
+                        </Button>
+                      }
+                    />
+                  )}
+                  {offline && (
+                    <p className="help" role="status">
+                      当前离线，联网后可处理照片。
+                    </p>
+                  )}
+                  <div className="capture-actions">
+                    <Button
+                      variant="fill"
+                      size="lg"
+                      disabled={adding || offline}
+                      onClick={() =>
+                        config.apiKey
+                          ? cameraRef.current?.click()
+                          : openSettings()
+                      }
+                    >
+                      <CameraIcon size={22} />
+                      拍照
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      disabled={adding || offline}
+                      onClick={() =>
+                        config.apiKey
+                          ? fileRef.current?.click()
+                          : openSettings()
+                      }
+                    >
+                      <ImagesIcon size={22} />
+                      从相册选择
+                    </Button>
+                  </div>
+                  {(activeCount > 0 || adding) && (
+                    <p className="help" role="status">
+                      {adding
+                        ? "正在保存原图…"
+                        : `正在整理 ${activeCount} 件，请保持页面打开。`}
+                    </p>
+                  )}
                 </div>
-                {!config.apiKey && (
-                  <Alert
-                    className="context-alert"
-                    role="status"
-                    color="blue"
-                    border={false}
-                    text="添加衣服前，先连接 OpenAI。"
-                    trailing={
-                      <Button variant="ghost" size="sm" onClick={openSettings}>
-                        连接
-                      </Button>
-                    }
-                  />
-                )}
-                {offline && (
-                  <p className="help" role="status">
-                    当前离线，联网后可处理照片。
-                  </p>
-                )}
-                <div className="capture-actions">
-                  <Button
-                    variant="fill"
-                    size="lg"
-                    disabled={adding || offline}
-                    onClick={() =>
-                      config.apiKey
-                        ? cameraRef.current?.click()
-                        : openSettings()
-                    }
-                  >
-                    <CameraIcon size={22} />
-                    拍照
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    disabled={adding || offline}
-                    onClick={() =>
-                      config.apiKey ? fileRef.current?.click() : openSettings()
-                    }
-                  >
-                    <ImagesIcon size={22} />
-                    从相册选择
-                  </Button>
-                </div>
-                {(activeCount > 0 || adding) && (
-                  <p className="help" role="status">
-                    {adding
-                      ? "正在保存原图…"
-                      : `正在整理 ${activeCount} 件，请保持页面打开。`}
-                  </p>
-                )}
               </Tabs.Panel>
             ) : (
               <Tabs.Panel value="album">
