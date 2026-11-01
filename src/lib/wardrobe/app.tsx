@@ -60,6 +60,7 @@ import {
 } from "./api.mjs";
 import { ScrollArea } from "@base-ui/react/scroll-area";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
+import { keepScreenAwake } from "./screen-wake-lock.mjs";
 import "./style.css";
 
 function Photo({ blob, alt = "", className = "" }) {
@@ -587,6 +588,10 @@ function App() {
     }
   }
   const activeCount = Object.keys(busy).length + queue.length;
+  const isProcessing = adding || activeCount > 0;
+  useEffect(() => {
+    if (isProcessing) return keepScreenAwake(navigator, document);
+  }, [isProcessing]);
   return (
     <div className="wardrobe-app">
       <input
@@ -971,7 +976,11 @@ function App() {
                               aria-label={`${selecting ? "选择" : "查看"}${item.coarse} ${item.fine.join("、")}`}
                             >
                               <Photo
-                                blob={item.transparentBlob ?? item.originalBlob}
+                                blob={
+                                  item.transparentBlob ??
+                                  item.preparedBlob ??
+                                  item.originalBlob
+                                }
                                 alt={item.coarse}
                               />
                               {working && (
@@ -1259,8 +1268,10 @@ function App() {
               <Photo
                 blob={
                   viewOriginal
-                    ? current.originalBlob
-                    : (current.transparentBlob ?? current.originalBlob)
+                    ? (current.preparedBlob ?? current.originalBlob)
+                    : (current.transparentBlob ??
+                      current.preparedBlob ??
+                      current.originalBlob)
                 }
                 alt={
                   viewOriginal || !current.transparentBlob
