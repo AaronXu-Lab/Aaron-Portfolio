@@ -24,7 +24,8 @@
     "check:design-libraries": "tsc -p tsconfig.design-libraries.json && node src/design-libraries/followup/audit.mjs && node scripts/audit-flomo-library.mjs",
     "build:wardrobe": "node scripts/build-wardrobe.mjs",
     "test:wardrobe": "node --test tests/wardrobe-core.test.mjs",
-    "check:wardrobe": "tsc -p tsconfig.wardrobe.json && npm run test:wardrobe"
+    "check:wardrobe": "tsc -p tsconfig.wardrobe.json && npm run test:wardrobe",
+    "test:ninja": "node --test tests/flying-ninja-cat/*.test.cjs"
   },
   "dependencies": {
     "@aaronxu-lab/aaron-ui": "file:vendor/aaronxu-lab-aaron-ui-0.9.0.tgz",

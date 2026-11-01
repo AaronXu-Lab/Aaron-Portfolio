@@ -7,7 +7,7 @@ const VIEW_OFFSET_X = (CANVAS_WIDTH - WIDTH * VIEW_SCALE) / 2;
 const VIEW_OFFSET_Y = 0;
 const FPS = 30;
 const STEP_MS = 1000 / FPS;
-const BUILD_VERSION = "20260803-3";
+const BUILD_VERSION = "20261101-2";
 const ASSET_LOAD_CONCURRENCY = 4;
 
 const CAT_X = 200;
@@ -416,6 +416,13 @@ class SoundBank {
     this.sounds = new Map();
     this.loops = new Map();
     this.currentMusic = null;
+    this.active = new Set();
+    this.suspended = false;
+    try {
+      this.muted = localStorage.getItem("flying-ninja-cat-muted") === "true";
+    } catch {
+      this.muted = false;
+    }
 
     for (const [name, source] of Object.entries(manifest)) {
       const audio = new Audio(source);
@@ -426,6 +433,7 @@ class SoundBank {
   }
 
   play(name, { loop = false, volume } = {}) {
+    if (this.suspended) return;
     const source = this.sounds.get(name);
     if (!source) return;
     if (loop) this.stop(name);
@@ -433,7 +441,12 @@ class SoundBank {
     const audio = source.cloneNode();
     audio.loop = loop;
     audio.volume = volume ?? source.volume;
-    audio.play().catch(() => {});
+    audio.muted = this.muted;
+    this.active.add(audio);
+    audio.addEventListener("ended", () => this.active.delete(audio), { once: true });
+    audio.play().catch(() => {
+      if (!loop) this.active.delete(audio);
+    });
     if (loop) this.loops.set(name, audio);
     return audio;
   }
@@ -443,6 +456,7 @@ class SoundBank {
     if (!audio) return;
     audio.pause();
     audio.currentTime = 0;
+    this.active.delete(audio);
     this.loops.delete(name);
   }
 
@@ -454,7 +468,8 @@ class SoundBank {
     if (!source) return;
     source.loop = true;
     source.currentTime = 0;
-    source.play().catch(() => {});
+    source.muted = this.muted;
+    if (!this.suspended) source.play().catch(() => {});
     this.currentMusic = { name, audio: source };
   }
 
@@ -463,6 +478,28 @@ class SoundBank {
     this.currentMusic.audio.pause();
     this.currentMusic.audio.currentTime = 0;
     this.currentMusic = null;
+  }
+
+  setMuted(muted) {
+    this.muted = muted;
+    for (const audio of this.active) audio.muted = muted;
+    if (this.currentMusic) this.currentMusic.audio.muted = muted;
+    try {
+      localStorage.setItem("flying-ninja-cat-muted", String(muted));
+    } catch { /* Storage is optional. */ }
+  }
+
+  setSuspended(suspended) {
+    this.suspended = suspended;
+    if (suspended) {
+      this.currentMusic?.audio.pause();
+      for (const audio of this.active) audio.pause();
+      // Do not replay stale pickup/jump sounds when returning to the game.
+      this.active = new Set(this.loops.values());
+    } else {
+      this.currentMusic?.audio.play().catch(() => {});
+      for (const audio of this.loops.values()) audio.play().catch(() => {});
+    }
   }
 }
 
@@ -476,6 +513,9 @@ class FlyingNinjaCat {
     this.hover = "";
     this.pointer = { x: 0, y: 0, down: false };
     this.spaceDown = false;
+    this.paused = false;
+    this.dirty = true;
+    this.activePointerId = null;
     this.mobileFullscreenAttempted = false;
     this.accumulator = 0;
     this.previousTime = performance.now();
@@ -483,22 +523,12 @@ class FlyingNinjaCat {
     this.seed = (Date.now() >>> 0) || 0x12345678;
     this.orientationQuery = window.matchMedia("(orientation: landscape)");
     this.isLandscape = this.orientationQuery.matches;
+    this.sound.setSuspended(!this.isLandscape);
+    this.orientationQuery.addEventListener("change", (event) => this.setLandscape(event.matches));
     this.bindInput();
-    this.orientationQuery.addEventListener("change", (event) => {
-      this.isLandscape = event.matches;
-      this.pointer.down = false;
-      this.spaceDown = false;
-      if (this.player) this.player.holding = false;
-      this.previousTime = performance.now();
-      this.accumulator = 0;
-      if (!this.isLandscape) this.sound.stopMusic();
-      this.setStatus(
-        this.isLandscape
-          ? "已切换为横屏，可以继续游玩。"
-          : "请将设备旋转为横屏后继续游玩。",
-      );
-    });
+    this.syncControls();
     this.setStatus("标题画面。选择开始游戏或游戏方法。");
+    if (!this.isLandscape) this.setStatus("请将设备旋转为横屏后继续游玩。");
     requestAnimationFrame((time) => this.loop(time));
   }
 
@@ -535,29 +565,53 @@ class FlyingNinjaCat {
     canvas.addEventListener("pointermove", (event) => {
       this.pointer = { ...this.canvasPoint(event), down: this.pointer.down };
       this.updateHover();
+      this.dirty = true;
     });
 
     canvas.addEventListener("pointerdown", (event) => {
+      if (this.isLandscape === false || this.paused) return;
+      if (event.button !== 0 || event.isPrimary === false || this.activePointerId !== null) return;
       event.preventDefault();
       this.requestMobileFullscreen(event);
       canvas.focus({ preventScroll: true });
       canvas.setPointerCapture?.(event.pointerId);
+      this.activePointerId = event.pointerId;
       this.pointer = { ...this.canvasPoint(event), down: true };
       this.onActionDown();
     });
 
     const releasePointer = (event) => {
+      if (event.pointerId !== this.activePointerId) return;
       event.preventDefault();
+      this.activePointerId = null;
       this.pointer = { ...this.canvasPoint(event), down: false };
       this.onActionUp();
     };
     canvas.addEventListener("pointerup", releasePointer);
     canvas.addEventListener("pointercancel", releasePointer);
+    canvas.addEventListener("lostpointercapture", releasePointer);
     canvas.addEventListener("contextmenu", (event) => event.preventDefault());
 
     window.addEventListener("keydown", (event) => {
-      if (!this.isLandscape) return;
-
+      if (event.target?.closest?.("button, input, textarea, select") || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (this.isLandscape === false) return;
+      if (event.code === "KeyP" || (event.code === "Escape" && this.state !== "help")) {
+        event.preventDefault();
+        if (!event.repeat) this.setPaused(!this.paused);
+        return;
+      }
+      if (event.code === "KeyM") {
+        event.preventDefault();
+        if (!event.repeat) this.toggleMute();
+        return;
+      }
+      if (this.paused) {
+        if (["Space", "Enter"].includes(event.code)) {
+          event.preventDefault();
+          if (!event.repeat) this.setPaused(false);
+        }
+        return;
+      }
       if (event.code === "Space") {
         event.preventDefault();
         if (!this.spaceDown) {
@@ -586,10 +640,72 @@ class FlyingNinjaCat {
     });
 
     window.addEventListener("blur", () => {
-      this.pointer.down = false;
-      this.spaceDown = false;
-      if (this.player) this.player.holding = false;
+      this.setPaused(true);
     });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) this.setPaused(true);
+    });
+    document.querySelector("#pause-button")?.addEventListener("click", () => this.setPaused(!this.paused));
+    document.querySelector("#resume-button")?.addEventListener("click", () => {
+      this.setPaused(false);
+      canvas.focus({ preventScroll: true });
+    });
+    document.querySelector("#mute-button")?.addEventListener("click", () => this.toggleMute());
+  }
+
+  setPaused(paused) {
+    if (!paused && (this.isLandscape === false || document.hidden)) return;
+    if (this.paused === paused) return;
+    this.paused = paused;
+    this.pointer.down = false;
+    this.activePointerId = null;
+    this.spaceDown = false;
+    if (this.player) this.player.holding = false;
+    this.accumulator = 0;
+    this.previousTime = performance.now();
+    this.dirty = true;
+    this.sound.setSuspended(paused || this.isLandscape === false);
+    this.syncControls();
+    this.setStatus(paused ? "已暂停。点击继续游戏或按空格继续。" : "已继续游戏。");
+  }
+
+  setLandscape(isLandscape) {
+    this.isLandscape = isLandscape;
+    this.pointer.down = false;
+    this.activePointerId = null;
+    this.spaceDown = false;
+    if (this.player) this.player.holding = false;
+    this.accumulator = 0;
+    this.previousTime = performance.now();
+    this.dirty = true;
+    // Orientation is an independent gate, not a toggle of the user's pause.
+    this.sound.setSuspended(this.paused || !isLandscape);
+    this.syncControls();
+    this.setStatus(!isLandscape
+      ? "请将设备旋转为横屏后继续游玩。"
+      : this.paused ? "已暂停。点击继续游戏或按空格继续。" : "已切换为横屏，可以继续游玩。");
+  }
+
+  toggleMute() {
+    this.sound.setMuted(!this.sound.muted);
+    this.syncControls();
+  }
+
+  syncControls() {
+    const pause = document.querySelector("#pause-button");
+    const mute = document.querySelector("#mute-button");
+    const overlay = document.querySelector("#pause-overlay");
+    if (pause) {
+      pause.textContent = this.paused ? "继续" : "暂停";
+      pause.setAttribute("aria-pressed", String(this.paused));
+    }
+    if (mute) {
+      mute.textContent = this.sound.muted ? "声音：关" : "声音：开";
+      mute.setAttribute("aria-pressed", String(this.sound.muted));
+    }
+    if (overlay) overlay.hidden = !this.paused;
+    const controls = document.querySelector("#game-controls");
+    if (controls) controls.hidden = false;
   }
 
   requestMobileFullscreen(event) {
@@ -639,8 +755,8 @@ class FlyingNinjaCat {
   }
 
   onActionDown() {
-    if (!this.isLandscape) return;
-
+    this.dirty = true;
+    if (this.paused || this.isLandscape === false) return;
     if (this.state === "title") {
       const start = { x: 355, y: 332, width: 112, height: 72 };
       const help = { x: 470, y: 332, width: 112, height: 72 };
@@ -686,8 +802,6 @@ class FlyingNinjaCat {
   }
 
   onActionUp() {
-    if (!this.isLandscape) return;
-
     if (this.player) this.player.holding = false;
   }
 
@@ -1262,21 +1376,20 @@ class FlyingNinjaCat {
   loop(time) {
     const elapsed = Math.min(250, time - this.previousTime);
     this.previousTime = time;
+    if (!this.paused && this.isLandscape !== false) this.accumulator += elapsed;
 
-    if (!this.isLandscape) {
-      this.accumulator = 0;
-      requestAnimationFrame((nextTime) => this.loop(nextTime));
-      return;
-    }
-
-    this.accumulator += elapsed;
-
+    let updated = false;
     while (this.accumulator >= STEP_MS) {
       this.update();
       this.accumulator -= STEP_MS;
+      updated = true;
     }
 
-    this.draw();
+    // Rendering identical SWF frames at 120/144 Hz only wastes GPU work.
+    if (updated || this.dirty) {
+      this.draw();
+      this.dirty = false;
+    }
     requestAnimationFrame((nextTime) => this.loop(nextTime));
   }
 
@@ -1668,6 +1781,9 @@ class FlyingNinjaCat {
   debugSnapshot() {
     return {
       buildVersion: BUILD_VERSION,
+      paused: this.paused,
+      isLandscape: this.isLandscape,
+      muted: this.sound.muted,
       state: this.state,
       score: this.score,
       bestScore: this.bestScore,

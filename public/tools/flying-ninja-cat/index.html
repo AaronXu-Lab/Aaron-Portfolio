@@ -13,7 +13,7 @@
     />
     <title>飞天忍者猫 · HTML5 重制版</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./style.css?v=20260803-1" />
+    <link rel="stylesheet" href="./style.css?v=20261101-2" />
   </head>
   <body>
     <main class="game-shell">
@@ -25,6 +25,16 @@
         role="application"
         aria-label="飞天忍者猫。点击或按空格跳跃，再次点击发射绳索。"
       ></canvas>
+      <div id="game-controls" class="game-controls" role="group" aria-label="游戏控制" hidden>
+        <button id="pause-button" type="button" aria-pressed="false" title="暂停或继续（P）">暂停</button>
+        <button id="mute-button" type="button" aria-pressed="false" title="切换声音（M）">声音：开</button>
+      </div>
+      <section id="pause-overlay" class="pause-overlay" aria-label="游戏已暂停" hidden>
+        <h1>已暂停</h1>
+        <p>准备好了，再继续冒险。</p>
+        <button id="resume-button" type="button">继续游戏</button>
+        <small>空格 / P 继续 · M 切换声音</small>
+      </section>
       <p id="status" class="sr-only" aria-live="polite">正在载入游戏素材</p>
     </main>
     <section class="orientation-gate" role="status" aria-live="polite">
@@ -33,6 +43,6 @@
       <p>旋转设备后，即可继续游玩《飞天忍者猫》。</p>
     </section>
     <script src="./item-data.js?v=20260803-1"></script>
-    <script type="module" src="./game.js?v=20260803-3"></script>
+    <script type="module" src="./game.js?v=20261101-2"></script>
   </body>
 </html>
