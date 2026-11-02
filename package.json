@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run build:stash && npm run build:wardrobe && astro build",
+    "build": "npm run build:stash && npm run build:wardrobe && npm run build:forest && astro build",
     "preview": "astro preview",
     "test:candy": "node --test tests/candy-match-core.test.mjs",
     "test:flypy": "node --test tests/flypy-core.test.mjs",
@@ -23,6 +23,7 @@
     "deploy": "npm run build && wrangler deploy",
     "check:design-libraries": "tsc -p tsconfig.design-libraries.json && node src/design-libraries/followup/audit.mjs && node scripts/audit-flomo-library.mjs",
     "build:wardrobe": "node scripts/build-wardrobe.mjs",
+    "build:forest": "node scripts/build-forest-three.mjs",
     "test:wardrobe": "node --test tests/wardrobe-core.test.mjs tests/wardrobe-wake-lock.test.mjs",
     "check:wardrobe": "tsc -p tsconfig.wardrobe.json && npm run test:wardrobe",
     "test:ninja": "node --test tests/flying-ninja-cat/*.test.cjs"

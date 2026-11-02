@@ -9,11 +9,15 @@
  * 方法论与新增植物样式的步骤见 workflows/focus-forest-plants.md。
  *
  * 环境动感：画面静止时视角仍在极缓慢地摆动，全场树木像被轻风吹拂一样轻晃。
- * 代价是可见时会持续渲染(不再「静止即停 rAF」);低性能与 prefers-reduced-motion
- * 下环境动画整体关掉，页面不可见时照旧完全停渲染。
+ * 代价是可见时会持续渲染(不再「静止即停 rAF」),所以只剩环境动画时限到 30fps ——
+ * 这么慢的摆动 30 帧和 120 帧肉眼分不出，GPU 与电量却省掉大半;拖动 / 进出场 / 收起等
+ * 真动作仍跑满帧。低性能与 prefers-reduced-motion 下环境动画整体关掉，页面不可见时完全停渲染。
+ *
+ * three 走 vendor/three.forest.min.js:由 scripts/build-forest-three.mjs 按本文件用到的
+ * `THREE.Xxx` 从完整构建里摇树生成 —— 这里新用一个类，记得重跑 npm run build:forest。
  */
 
-import * as THREE from '../vendor/three.module.min.js';
+import * as THREE from '../vendor/three.forest.min.js';
 import { forestSpot, hash01 } from './core.js';
 
 /** 单页森林上限，超过就分页 —— 也是 clone 方案的适用上限。 */
@@ -49,8 +53,21 @@ const DRIFT = { azSpeed: 0.13, azAmp: 0.11, polarSpeed: 0.09, polarAmp: 0.025 };
 /** 轻风：每株植物按自己的相位晃,不整齐划一。 */
 const BREEZE = { rollSpeed: 0.85, rollAmp: 0.022, pitchSpeed: 0.63, pitchAmp: 0.015 };
 
-/** three r155+ 用物理光照单位，强度量级比旧版大。 */
+/**
+ * three r155+ 用物理光照单位，强度量级比旧版大。
+ * 深色模式是「月夜」:整体压暗、偏冷,否则一座正午亮度的岛浮在深蓝夜空上很扎眼。
+ */
 const LIGHT = { hemi: 2.1, sun: 2.4 };
+const DAY = { sky: 0xffffff, ground: 0x6f8f5f, sun: 0xfff2da, hemiK: 1, sunK: 1 };
+const NIGHT = { sky: 0xc4d4ff, ground: 0x4f6a5c, sun: 0xdde6ff, hemiK: 0.66, sunK: 0.6 };
+
+/** 只剩环境动画(或专注中的慢速生长)时的帧间隔;真动作期间跑满帧。 */
+const CALM_STEP = 1 / 30;
+/** 滚轮这类「改完立刻要看」的输入之后，满帧再保持这么久(毫秒)。 */
+const HOT_MS = 600;
+
+/** 接触阴影：贴地的一片径向渐变，让植物「落」在草皮上，而不是贴在上面。 */
+const SHADOW = { color: 0x1f3320, plant: 0.34, forest: 0.3 };
 
 /**
  * 生长追赶的时间常数（秒）：每帧按 1 - e^(-dt/τ) 逼近目标。
@@ -97,7 +114,46 @@ function makeMaterials() {
     leafDeep: lambert(0x5faa54),
     blossom: lambert(0xf6a8c0),
     seed: lambert(0x6d4a33),
+    rock: lambert(0x7a5640),
   };
+}
+
+/** 阴影贴图：64px 的径向渐变,中心实、边缘全透明,全场共用一张。 */
+function makeShadowTexture() {
+  const size = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(0.45, 'rgba(255,255,255,0.55)');
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  return new THREE.CanvasTexture(canvas);
+}
+
+function shadowMaterial(map, opacity) {
+  return new THREE.MeshBasicMaterial({
+    map,
+    color: SHADOW.color,
+    transparent: true,
+    opacity,
+    depthWrite: false,
+    // 贴着草皮,深度上往前推一点,免得远看时和草面打架闪烁
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    polygonOffsetUnits: -4,
+  });
+}
+
+/** 一片阴影：不参与拾取(点树时不能点中树下的影子)。 */
+function shadowOf(mat, [x, y, z], r) {
+  const mesh = new THREE.Mesh(GEO.disc, mat);
+  mesh.position.set(x, y, z);
+  mesh.scale.set(r, 1, r);
+  mesh.raycast = () => {};
+  return mesh;
 }
 
 /**
@@ -113,8 +169,29 @@ const GEO = {
   blob: new THREE.IcosahedronGeometry(1, 2),
   soil: new THREE.CylinderGeometry(2.5, 2.15, 0.72, 36),
   grass: new THREE.CylinderGeometry(2.54, 2.5, 0.2, 36),
+  // 浮岛下半截：段数故意少,收窄成一块倒挂的岩石,刻面感和上面的圆柱土层拉开
+  underside: new THREE.CylinderGeometry(2.08, 0.32, 1, 9, 3),
   rock: new THREE.DodecahedronGeometry(1, 1),
+  // 阴影片：单位半径、已放平,scale.x/z 就是半径
+  disc: new THREE.PlaneGeometry(2, 2).rotateX(-Math.PI / 2),
 };
+jagged(GEO.underside, 0.16);
+
+/**
+ * 把岩石下半截除顶圈外的顶点按角度径向推拉一点,规整的圆台就成了崎岖的岩块。
+ * 扰动只取决于角度:接缝两侧那对重复顶点角度相同,拿到同一个扰动,不会裂缝。
+ */
+function jagged(geo, amount) {
+  const p = geo.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    if (p.getY(i) > 0.49) continue;
+    const a = Math.atan2(p.getX(i), p.getZ(i));
+    const k = 1 + amount * Math.sin(a * 5 + p.getY(i) * 7) * Math.cos(a * 3 - 1.3);
+    p.setX(i, p.getX(i) * k);
+    p.setZ(i, p.getZ(i) * k);
+  }
+  geo.computeVertexNormals();
+}
 
 /** 枝干方向换算用的基准轴（GEO.stem 沿 +Y）。 */
 const UP = new THREE.Vector3(0, 1, 0);
@@ -231,9 +308,49 @@ function applyGrowth(parts, p) {
   }
 }
 
+/**
+ * 森林里的树不需要生长动画，所以把定格的一株烘成单个网格:二十多个部件 → 1 次绘制。
+ * 30 株的森林因此从 ~600 次 draw call 降到 ~60(含阴影片),射线拾取也只用测 30 个包围球。
+ * 颜色写进顶点色，全场共用一份 vertexColors 材质;材质色本来就是线性空间，原样搬过去。
+ */
+function bakePlant(root) {
+  root.updateMatrixWorld(true);
+  const inverse = new THREE.Matrix4().copy(root.matrixWorld).invert();
+  const local = new THREE.Matrix4();
+  const normalMatrix = new THREE.Matrix3();
+  const v = new THREE.Vector3();
+  const position = [];
+  const normal = [];
+  const color = [];
+  root.traverseVisible((node) => {
+    if (!node.isMesh) return;
+    local.multiplyMatrices(inverse, node.matrixWorld);
+    normalMatrix.getNormalMatrix(local);
+    const { index, attributes } = node.geometry;
+    const { r, g, b } = node.material.color;
+    const count = index ? index.count : attributes.position.count;
+    for (let i = 0; i < count; i++) {
+      const k = index ? index.getX(i) : i;
+      v.fromBufferAttribute(attributes.position, k).applyMatrix4(local);
+      position.push(v.x, v.y, v.z);
+      v.fromBufferAttribute(attributes.normal, k).applyMatrix3(normalMatrix).normalize();
+      normal.push(v.x, v.y, v.z);
+      color.push(r, g, b);
+    }
+  });
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(position), 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(normal), 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(color), 3));
+  geo.computeBoundingSphere();
+  return geo;
+}
+
 function buildIsland(mat, scale) {
   const g = new THREE.Group();
   g.add(part(GEO.soil, mat.soil, [0, -0.36, 0], [1, 1, 1]));
+  // 倒挂的岩块要够深：相机仰角 30° 俯看，浅了会整个藏在土层前沿后面
+  g.add(part(GEO.underside, mat.rock, [0, -1.62, 0], [1, 1.86, 1], [0, 0.35, 0]));
   g.add(part(GEO.grass, mat.grass, [0, 0.02, 0], [1, 1, 1]));
   // 少量石头装饰，位置固定，不参与动画
   g.add(part(GEO.rock, mat.seed, [1.62, 0.06, 0.72], [0.17, 0.12, 0.15], [0.4, 0.8, 0.2]));
@@ -249,21 +366,22 @@ const backOut = (x) => 1 + 2.2 * (x - 1) ** 3 + 1.4 * (x - 1) ** 2;
 const backOut01 = (x) => 1 + 2.70158 * (x - 1) ** 3 + 1.70158 * (x - 1) ** 2;
 const smooth = (x) => x * x * (3 - 2 * x);
 
-export function createScene(canvas, { motion = true } = {}) {
+export function createScene(canvas, { motion = true, onQuality } = {}) {
   // 透明画布：天空由 CSS 的 --sky 提供，深浅色与「离开页面变暗」都归样式表管，不在这里再存一份颜色
   // MSAA 一律打开:这点面数在手机上也不构成负担,关掉的锯齿感远比开销显眼
+  // 不要 high-performance:双显卡笔记本会为这点面数专门唤醒独显，白白耗电发热
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
     antialias: true,
-    powerPreference: 'high-performance',
+    powerPreference: 'default',
   });
   renderer.shadowMap.enabled = false;
 
   const scene = new THREE.Scene();
 
-  const hemi = new THREE.HemisphereLight(0xffffff, 0x6f8f5f, LIGHT.hemi);
-  const sun = new THREE.DirectionalLight(0xfff2da, LIGHT.sun);
+  const hemi = new THREE.HemisphereLight(DAY.sky, DAY.ground, LIGHT.hemi);
+  const sun = new THREE.DirectionalLight(DAY.sun, LIGHT.sun);
   sun.position.set(3.4, 6.2, 3.8);
   scene.add(hemi, sun);
 
@@ -272,10 +390,15 @@ export function createScene(canvas, { motion = true } = {}) {
   // 活株用独立材质副本：放弃时的淡出只能改自己的 opacity,不能牵连森林
   const activeMat = makeMaterials();
   const baseMat = makeMaterials();
+  const shadowMap = makeShadowTexture();
+  const plantShadowMat = shadowMaterial(shadowMap, SHADOW.plant);
+  const forestShadowMat = shadowMaterial(shadowMap, SHADOW.forest);
 
   const plantView = new THREE.Group();
   const plant = buildPlant(activeMat);
-  plantView.add(buildIsland(activeMat, 0.66), plant.root);
+  // 活株的阴影不挂在植株上：种子下落、庆祝回弹时影子应该钉在地上，只随生长变大
+  const plantShadow = shadowOf(plantShadowMat, [0, 0.083, 0], 1);
+  plantView.add(buildIsland(activeMat, 0.66), plantShadow, plant.root);
   scene.add(plantView);
 
   const forestView = new THREE.Group();
@@ -283,9 +406,17 @@ export function createScene(canvas, { motion = true } = {}) {
   forestView.add(buildIsland(baseMat, 2.6));
   scene.add(forestView);
 
-  // 森林里的植株：clone 共享几何体与材质，只改变换
-  // ponytail: clone 每株（≤30 株）;真要放开上限再换 InstancedMesh
+  // 森林里的植株：定格的一株烘成单网格(见 bakePlant),按画质各烘一份、用到才烘
   const forestTemplate = buildPlant(baseMat);
+  const forestMat = new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true });
+  const baked = {};
+  const bakedAt = (p) => {
+    if (!baked[p]) {
+      applyGrowth(forestTemplate.parts, p);
+      baked[p] = bakePlant(forestTemplate.root);
+    }
+    return baked[p];
+  };
   const forestPlants = [];
   let forestRecords = [];
 
@@ -321,8 +452,32 @@ export function createScene(canvas, { motion = true } = {}) {
   let last = 0;
   let acc = 0;
   let busy = false;
+  let lively = false; // 上一帧有没有「真动作」(区别于只剩环境动画)
+  let hotUntil = 0;
   let frames = 0;
   let slowFrames = 0;
+
+  /** 滚轮缩放这类输入不经过动画队列，靠它把接下来一小段时间顶回满帧。 */
+  const kick = () => {
+    hotUntil = performance.now() + HOT_MS;
+  };
+
+  // 深色模式 = 月夜光照;跟随系统切换
+  const darkQuery = matchMedia('(prefers-color-scheme: dark)');
+  let night = darkQuery.matches;
+  function light() {
+    const look = night ? NIGHT : DAY;
+    hemi.color.setHex(look.sky);
+    hemi.groundColor.setHex(look.ground);
+    sun.color.setHex(look.sun);
+    hemi.intensity = LIGHT.hemi * look.hemiK * (1 - dim * 0.62);
+    sun.intensity = LIGHT.sun * look.sunK * (1 - dim * 0.7);
+  }
+  darkQuery.addEventListener?.('change', (e) => {
+    night = e.matches;
+    light();
+    requestRender();
+  });
 
   const target = new THREE.Vector3();
   const spherical = new THREE.Vector3();
@@ -340,8 +495,12 @@ export function createScene(canvas, { motion = true } = {}) {
     applyGrowth(plant.parts, p);
     const k = smooth(clamp((p - WOOD.from) / WOOD.span, 0, 1));
     activeMat.bark.color.lerpColors(SPROUT_GREEN, BARK_BROWN, k);
+    // 影子跟着树冠铺开：种子时只是脚下一小圈，成树时罩住整个冠幅
+    const crown = smooth(clamp((p - 0.3) / 0.6, 0, 1));
+    plantShadow.scale.set(0.26 + 0.8 * crown, 1, 0.26 + 0.8 * crown);
   }
   grow(shown);
+  light();
 
   function updateCamera() {
     const conf = CAM[mode];
@@ -411,15 +570,20 @@ export function createScene(canvas, { motion = true } = {}) {
     group.rotation.x = Math.sin(clock * BREEZE.pitchSpeed + phase * 1.7) * BREEZE.pitchAmp;
   }
 
+  /**
+   * 推进一帧。返回这一帧之后是否还要继续排帧;同时把 lively 记成「有没有真动作」——
+   * 只剩环境摆动与专注中的慢速生长时 lively = false,下一帧起降到 CALM_STEP。
+   */
   function tick(dt) {
     clock += dt;
     let alive = false;
+    let moving = false;
 
     if (tween > 0) {
       // 庆祝脉冲:整株从 86% 回弹到 100%,略过冲
       tween = Math.max(0, tween - dt / 0.42);
       plant.root.scale.setScalar(0.82 + 0.18 * backOut(1 - tween));
-      alive = true;
+      moving = true;
     }
 
     // 专注中的目标进度每帧按真实时间重算:上层秒级刷新只管数字,生长不再走台阶
@@ -434,32 +598,34 @@ export function createScene(canvas, { motion = true } = {}) {
       shown = motion ? shown + gap * (1 - Math.exp(-dt / GROW_TAU)) : goal;
       if (Math.abs(goal - shown) < 0.0004) shown = goal; // 收尾,免得无限逼近
       grow(shown);
-      alive = true;
+      // 跟随模式下的生长每帧只挪一丝，算环境级;钉到新进度的那种追赶才是看得见的动作
+      if (span) alive = true;
+      else moving = true;
     }
 
-    if (entering.length && advance(entering, dt, POP.dur, backOut01)) alive = true;
-    if (exiting.length && advance(exiting, dt, POP.out, smooth, true)) alive = true;
+    if (entering.length && advance(entering, dt, POP.dur, backOut01)) moving = true;
+    if (exiting.length && advance(exiting, dt, POP.out, smooth, true)) moving = true;
 
     if (bump) {
       bump.t = Math.min(1, bump.t + dt / BUMP.dur);
       // 一去一回:sin 的半个周期,起终点都正好是原尺寸
       bump.g.scale.setScalar(bump.base * (1 + Math.sin(bump.t * Math.PI) * BUMP.amp));
       if (bump.t >= 1) bump = null;
-      alive = true;
+      moving = true;
     }
 
     // 卡片收起 / 展开后重新居中：镜头平移跟着滑过去,和卡片同一个节奏
     if (shift !== shiftGoal) {
       shift += (shiftGoal - shift) * (1 - Math.exp(-dt / SHIFT_TAU));
       if (Math.abs(shiftGoal - shift) < 0.2) shift = shiftGoal;
-      alive = true;
+      moving = true;
     }
 
     if (drop > 0) {
       drop = Math.max(0, drop - dt / 0.45);
       const k = 1 - drop; // 加速下落,落到 y=0
       plant.root.position.y = 0.9 * (1 - k * k);
-      alive = true;
+      moving = true;
     }
 
     if (ambient()) {
@@ -471,9 +637,8 @@ export function createScene(canvas, { motion = true } = {}) {
     if (dim !== dimTarget) {
       const step = dt / 0.5;
       dim = dim < dimTarget ? Math.min(dimTarget, dim + step) : Math.max(dimTarget, dim - step);
-      hemi.intensity = LIGHT.hemi * (1 - dim * 0.62);
-      sun.intensity = LIGHT.sun * (1 - dim * 0.7);
-      alive = true;
+      light();
+      moving = true;
     }
 
     if (fade < 1) {
@@ -482,22 +647,27 @@ export function createScene(canvas, { motion = true } = {}) {
         m.transparent = true;
         m.opacity = fade;
       }
-      alive = alive || fade > 0;
+      plantShadowMat.opacity = SHADOW.plant * fade;
+      if (fade > 0) moving = true;
     }
 
-    if (particles.update(dt)) alive = true;
+    if (particles.update(dt)) moving = true;
 
-    return alive;
+    lively = moving;
+    return alive || moving;
   }
 
   function frame(now) {
     raf = 0;
     if (paused) return;
-    const dt = Math.min(0.05, (now - last) / 1000);
+    // 只用 rAF 时间戳互减，不和 performance.now() 混：两个时钟可能差出一大截(后台恢复、
+    // 无头浏览器)，混用会让 dt 变成负数、acc 永远够不到门槛，循环空转却一帧不画
+    const dt = last ? clamp((now - last) / 1000, 0, 0.05) : 0;
     last = now;
     acc += dt;
-    const step = quality === 'low' ? 1 / 30 : 0;
-    if (acc >= step) {
+    const calm = quality === 'low' || (!lively && !holds.size && now > hotUntil);
+    // 留 4ms 余量:60Hz 下两帧累加会因浮点误差略小于 1/30,不留就退化成每三帧一渲(20fps)
+    if (acc >= (calm ? CALM_STEP - 0.004 : 0)) {
       sampleQuality(dt);
       busy = tick(acc);
       render();
@@ -509,8 +679,8 @@ export function createScene(canvas, { motion = true } = {}) {
   function start() {
     if (raf || paused) return;
     busy = true;
-    last = performance.now();
-    acc = quality === 'low' ? 1 / 30 : 0;
+    last = 0; // 首帧以自己的时间戳起算
+    acc = CALM_STEP; // 首帧总是立刻画，之后再看要不要降帧
     raf = requestAnimationFrame(frame);
   }
 
@@ -543,6 +713,7 @@ export function createScene(canvas, { motion = true } = {}) {
       // 低画质换更简单的森林植株(PRD:远处/大量植株用简化模型)
       if (was !== next && forestRecords.length) showForest(forestRecords, onPick);
     }
+    if (was !== next) onQuality?.(next);
     resize();
   }
 
@@ -587,8 +758,7 @@ export function createScene(canvas, { motion = true } = {}) {
     dimTarget = on ? 1 : 0;
     if (!motion) {
       dim = dimTarget;
-      hemi.intensity = LIGHT.hemi * (1 - dim * 0.62);
-      sun.intensity = LIGHT.sun * (1 - dim * 0.7);
+      light();
       requestRender();
       return;
     }
@@ -602,6 +772,7 @@ export function createScene(canvas, { motion = true } = {}) {
       m.transparent = false;
       m.opacity = 1;
     }
+    plantShadowMat.opacity = SHADOW.plant;
     plant.root.visible = true;
     plant.root.position.set(0, 0, 0);
     plant.root.rotation.set(0, 0, 0);
@@ -626,6 +797,7 @@ export function createScene(canvas, { motion = true } = {}) {
   function fadeOutPlant() {
     if (!motion) {
       plant.root.visible = false;
+      plantShadowMat.opacity = 0;
       requestRender();
       return;
     }
@@ -683,14 +855,15 @@ export function createScene(canvas, { motion = true } = {}) {
     bump = null;
 
     // 低画质把模板定格在 0.66(相当于旧「成长期」株型),可见部件少约三分之一
-    applyGrowth(forestTemplate.parts, quality === 'low' ? 0.66 : 1);
+    const geo = bakedAt(quality === 'low' ? 0.66 : 1);
     const list = records.slice(-FOREST_LIMIT);
     list.forEach((record, i) => {
-      const g = forestTemplate.root.clone();
+      const g = new THREE.Group();
+      g.add(shadowOf(forestShadowMat, [0, 0.03, 0], 0.95), new THREE.Mesh(geo, forestMat));
       const seed = hash01(record.id);
       const [x, z] = forestSpot(i);
-      g.visible = true;
-      g.position.set(x, 0.05, z);
+      // 草皮顶面在 0.312(岛缩放 2.6),树根略微压进去一点,根盘露在外面
+      g.position.set(x, 0.3, z);
       g.rotation.set(0, seed * Math.PI * 2, 0);
       // 时长越长的树略高一点，肉眼能看出差别但不夸张
       const base = 0.62 + Math.min(0.45, record.minutes / 150) + seed * 0.12;
@@ -801,6 +974,7 @@ export function createScene(canvas, { motion = true } = {}) {
       // 触屏没有滚轮,捏合承担缩放;与滚轮同一套 zoom 与上下限
       const lim = ZOOM[mode];
       zoom = clamp((pinch.zoom * pinch.dist) / touchDist(), lim.min, lim.max);
+      kick();
       return;
     }
     if (e.pointerId !== drag.id) return;
@@ -828,6 +1002,7 @@ export function createScene(canvas, { motion = true } = {}) {
       const next = clamp(zoom * (1 + delta * 0.0018), lim.min, lim.max);
       if (next === zoom) return;
       zoom = next;
+      kick();
       if (ambient()) start();
       else requestRender();
     },

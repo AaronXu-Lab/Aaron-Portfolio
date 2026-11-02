@@ -8,7 +8,7 @@
   --ink: oklch(0.32 0.03 160);
   --ink-2: oklch(0.4 0.025 160);
   --ink-3: oklch(0.47 0.02 160);
-  --card: oklch(1 0 0 / 0.84);
+  --card: oklch(1 0 0 / 0.88);
   --card-solid: oklch(0.99 0.004 160);
   --line: oklch(0.87 0.015 160);
   --leaf: oklch(0.66 0.15 145);
@@ -17,11 +17,16 @@
   --on-leaf: oklch(0.99 0.01 145);
   --bloom: oklch(0.8 0.1 5);
   --sky: oklch(0.93 0.02 220);
+  /* 天空自上而下：顶端 = --sky(与状态栏 theme-color 同值,装成 App 后无缝),近地平线偏暖偏亮 */
+  --sky-low: oklch(0.955 0.022 135);
+  --glow: oklch(0.995 0.03 95 / 0.75);
+  --shade: oklch(0.3 0.03 160);
+  --hi: oklch(1 0 0 / 0.5); /* 卡片顶边的一道内高光 */
   --danger: oklch(0.52 0.16 25);
   --danger-fill: oklch(0.47 0.17 25);
   --danger-hover: oklch(0.41 0.17 25);
   --on-danger: oklch(0.99 0.01 25);
-  --r: 14px;
+  --r: 20px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -30,7 +35,7 @@
     --ink: oklch(0.94 0.01 160);
     --ink-2: oklch(0.8 0.015 160);
     --ink-3: oklch(0.68 0.015 160);
-    --card: oklch(0.26 0.02 165 / 0.82);
+    --card: oklch(0.25 0.02 170 / 0.86);
     --card-solid: oklch(0.24 0.02 165);
     --line: oklch(0.38 0.02 165);
     --leaf: oklch(0.76 0.14 145);
@@ -38,6 +43,10 @@
     --leaf-hover: oklch(0.78 0.14 145);
     --on-leaf: oklch(0.2 0.03 150);
     --sky: oklch(0.28 0.03 235);
+    --sky-low: oklch(0.31 0.035 205);
+    --glow: oklch(0.45 0.05 220 / 0.55);
+    --shade: oklch(0.08 0.02 240);
+    --hi: oklch(1 0 0 / 0.07);
     --danger: oklch(0.72 0.14 25);
     --danger-fill: oklch(0.68 0.16 25);
     --danger-hover: oklch(0.76 0.16 25);
@@ -57,10 +66,15 @@ body {
   overflow: hidden;
 }
 
-/* 画布是透明的，天空就是这里的背景色；离开页面时整片环境一起压暗 */
+/*
+ * 画布是透明的，天空就是这里的背景：竖向渐变 + 植物身后一团柔光(白天是阳光，夜里是月晕)。
+ * 渐变不能过渡，所以「离开页面压暗」交给下面那层 ::after 遮罩的 opacity。
+ */
 body {
-  background: var(--sky);
-  transition: background-color 0.5s var(--ease);
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 38%, var(--glow), transparent 70%),
+    linear-gradient(180deg, var(--sky) 12%, var(--sky-low) 100%);
+  background-color: var(--sky);
   color: var(--ink);
   font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -195,8 +209,18 @@ body.no-3d #stage {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: var(--ink-2);
   font-weight: 600;
+}
+
+.brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--shade) 22%, transparent);
 }
 
 .brand i {
@@ -205,7 +229,6 @@ body.no-3d #stage {
   font-style: normal;
   letter-spacing: 0.1em;
   color: var(--ink-3);
-  margin-left: 6px;
 }
 
 .foot {
@@ -233,7 +256,7 @@ body.no-3d #stage {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--card-solid);
-  box-shadow: 0 8px 22px oklch(0.3 0.03 160 / 0.14);
+  box-shadow: 0 8px 22px color-mix(in oklch, var(--shade) 14%, transparent);
   color: var(--ink-2);
   font-size: 11px;
   line-height: 1.65;
@@ -274,9 +297,13 @@ body.no-3d #stage {
   border: 1px solid var(--line);
   border-radius: var(--r);
   background: var(--card);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 12px 30px oklch(0.3 0.03 160 / 0.1);
+  /* saturate 让透出来的草色保持鲜亮，不会被模糊和白底搅成一团灰褐 */
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 var(--hi),
+    0 1px 2px color-mix(in oklch, var(--shade) 8%, transparent),
+    0 18px 40px -12px color-mix(in oklch, var(--shade) 22%, transparent);
   /* visibility 不过渡,只用延迟决定「什么时候真的消失」(见 body.ui-min .panel) */
   transition: opacity 0.3s var(--ease), translate 0.3s var(--ease), visibility 0s;
 }
@@ -374,7 +401,7 @@ button {
   width: calc((100% - 6px) / var(--n, 4));
   border-radius: 999px;
   background: var(--card-solid);
-  box-shadow: 0 1px 3px oklch(0.3 0.03 160 / 0.16);
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--shade) 16%, transparent);
   translate: calc(var(--i, 1) * 100%) 0;
   transition: translate 0.28s var(--ease);
 }
@@ -486,7 +513,8 @@ button.ghost {
   background: var(--card-solid);
   color: var(--ink);
   font-size: 14px;
-  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.14s var(--ease);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease),
+    transform 0.14s var(--ease), translate 0.2s var(--ease);
 }
 
 /* 居中构图下主按钮不再拉满,给个舒服的固定下限即可 */
@@ -496,6 +524,10 @@ button.primary {
   background: var(--leaf-deep);
   color: var(--on-leaf);
   font-weight: 600;
+  /* 顶部一道内高光 + 同色系投影：像一颗能按下去的软糖，而不是一块平涂色块 */
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.18),
+    0 6px 16px -6px color-mix(in oklch, var(--leaf-deep) 70%, transparent);
 }
 
 button.primary:active,
@@ -538,6 +570,10 @@ button.danger.armed {
   button.primary:hover {
     background: var(--leaf-hover);
     border-color: var(--leaf-hover);
+    translate: 0 -1px;
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.18),
+      0 10px 22px -8px color-mix(in oklch, var(--leaf-deep) 80%, transparent);
   }
 
   button.ghost:hover {
@@ -569,8 +605,20 @@ button.danger.armed {
   font-variant-numeric: tabular-nums;
 }
 
-body.is-dim {
-  background: color-mix(in oklch, var(--sky) 62%, oklch(0.28 0.02 240));
+/* z-index -1:盖住 body 的天空背景，但仍在 3D 画布(定位元素)之下 */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: oklch(0.28 0.02 240);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+
+body.is-dim::after {
+  opacity: 0.38;
 }
 
 body.is-dim .clock {
@@ -646,26 +694,22 @@ body.is-dim .clock {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--card-solid);
-  box-shadow: 0 4px 14px oklch(0.3 0.03 160 / 0.14);
+  box-shadow: 0 4px 14px color-mix(in oklch, var(--shade) 14%, transparent);
   color: var(--ink-2);
   transition: translate 0.34s var(--ease), color 0.2s var(--ease),
     border-color 0.2s var(--ease), transform 0.14s var(--ease);
-}
-
-/* 箭头跟着翻面,别在把手滑动的同时瞬间倒过来 */
-.fold svg {
-  transition: rotate 0.34s var(--ease);
 }
 
 .fold:active {
   transform: scale(0.94);
 }
 
+/* 箭头跟着翻面,别在把手滑动的同时瞬间倒过来 */
 .fold svg {
   display: block;
   width: 15px;
   height: 15px;
-  transition: rotate 0.3s var(--ease);
+  transition: rotate 0.34s var(--ease);
 }
 
 #fold-clock {
@@ -715,6 +759,13 @@ body.ui-min .fold svg {
   }
 }
 
+/* 自动降到低画质(scene 的 onQuality):毛玻璃要对着每帧都在变的画布重算，弱机上撤掉换实底 */
+body.low-gpu .panel {
+  background: var(--card-solid);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 /* ?qa:跳过入场动画，截图稳定 */
 body.qa .panel {
   animation: none;
@@ -729,9 +780,5 @@ body.qa .panel {
   /* 上面只压时长，不压延迟：收起时那 0.3s 的隐藏延迟得单独取消，否则卡片会赖 0.3 秒才走 */
   body.ui-min .panel {
     transition-delay: 0s !important;
-  }
-
-  .track i {
-    transition: none;
   }
 }

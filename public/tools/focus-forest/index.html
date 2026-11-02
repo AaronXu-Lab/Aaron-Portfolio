@@ -16,6 +16,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="专注森林">
 <link rel="stylesheet" href="css/style.css">
+<!--
+  3D 层是 app.js 里动态 import 的，不预载的话要等 app → scene → three 一级一级发现，
+  首屏白等两三个往返。这里让它们和 app.js 并行下载、提前编译。
+-->
+<link rel="modulepreload" href="js/core.js">
+<link rel="modulepreload" href="js/scene.js">
+<link rel="modulepreload" href="vendor/three.forest.min.js">
 </head>
 <body data-view="home">
 
@@ -68,7 +75,7 @@
   <!-- PWA 相对独立，不做返回上级；顶栏右侧给安装入口 -->
   <div class="top">
     <header class="bar" id="bar-top">
-      <span class="brand">专注森林 <i>FOCUS FOREST</i></span>
+      <span class="brand"><img class="brand-mark" src="icon.svg" alt="" width="22" height="22">专注森林 <i>FOCUS FOREST</i></span>
       <button id="install" class="ghost sm" type="button">安装应用</button>
     </header>
     <!-- 安装反馈用浮层,不占布局;默认为空,点击后浮出并自动消失 -->

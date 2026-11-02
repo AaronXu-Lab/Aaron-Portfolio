@@ -15,3 +15,6 @@ output/playwright/
 /public/tools/wardrobe/app.css
 /public/tools/wardrobe/sw.js
 /public/tools/wardrobe/chunks/
+
+# 专注森林：由 npm run build:forest 从完整 three 构建摇树生成
+/public/tools/focus-forest/vendor/three.forest.min.js

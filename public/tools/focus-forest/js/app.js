@@ -51,7 +51,11 @@ async function mount3D() {
   try {
     const mod = await import('./scene.js');
     if (!mod.isWebGLAvailable()) throw new Error('WebGL unavailable');
-    scene = mod.createScene(canvas, { motion: !reduced && !qa });
+    scene = mod.createScene(canvas, {
+      motion: !reduced && !qa,
+      // 自动降到低画质时，样式表也跟着撤掉卡片的毛玻璃(它每帧都要对着动画画布重算)
+      onQuality: (q) => body.classList.toggle('low-gpu', q === 'low'),
+    });
     body.classList.remove('no-3d');
     $('flat').hidden = true;
   } catch (err) {

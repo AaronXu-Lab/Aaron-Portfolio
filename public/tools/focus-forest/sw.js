@@ -2,10 +2,11 @@
  * 专注森林 PWA 的 Service Worker。
  *
  * 预缓存 = 界面 + three 核心 + 默认场景（植物是代码里的低多边形基元，没有额外模型要下）。
- * vendor/ 下是版本锁定的 three 构建产物，内容不变，走缓存优先，不必每次回源 700 KB;
+ * vendor/ 下是版本锁定的 three 构建产物，内容不变，走缓存优先，不必每次回源 560 KB;
+ * 摇树产物 three.forest.min.js 会随 scene.js 用到的类变化，重新生成时要同步升 CACHE 版本号;
  * 其余同源资源走网络优先，断网回退缓存，发版即自动更新。
  */
-const CACHE = 'forest-v2';
+const CACHE = 'forest-v3';
 const SHELL = [
   '/tools/focus-forest/',
   '/tools/focus-forest/?source=pwa',
@@ -13,10 +14,10 @@ const SHELL = [
   '/tools/focus-forest/js/app.js',
   '/tools/focus-forest/js/core.js',
   '/tools/focus-forest/js/scene.js',
-  '/tools/focus-forest/vendor/three.module.min.js',
-  '/tools/focus-forest/vendor/three.core.min.js',
+  '/tools/focus-forest/vendor/three.forest.min.js',
   '/tools/focus-forest/manifest.webmanifest',
   '/tools/focus-forest/icon-192.png',
+  '/tools/focus-forest/icon.svg',
   '/tools/focus-forest/icon-512.png',
 ];
 

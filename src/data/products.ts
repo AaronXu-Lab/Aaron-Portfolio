@@ -54,6 +54,25 @@ export interface ToolEntry {
 
 export const products: ProductEntry[] = [
   {
+    slug: 'lyoon-garment',
+    name: 'Lyoon Garment',
+    en: 'Brand Website',
+    tagline: 'Garment-dye expertise, made for a global audience',
+    description:
+      'An English-language website for a garment-dye apparel manufacturer, bringing together product collections, a wash library, manufacturing capabilities and industry articles. Built to help international brands explore the range and start a production inquiry.',
+    image: '/media/products/lyoon-garment-icon.png',
+    imageAlt: 'Lyoon Garment logo',
+    links: [
+      {
+        label: 'Visit Website',
+        href: 'https://lyoongarment.com/',
+        icon: 'arrow-up-right',
+      },
+    ],
+    tags: ['Website', 'Apparel', 'B2B'],
+    status: 'shipped',
+  },
+  {
     slug: 'comic-manga',
     name: '漫漫书架',
     en: 'COMIC & MANGA',
