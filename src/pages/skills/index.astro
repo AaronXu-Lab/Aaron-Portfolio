@@ -1,6 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { skills } from '../../data/skills';
+
+const groups = [
+  { id: 'design-agent', title: 'Design Agent', href: 'https://github.com/AaronXu-Lab/Design-Agent' },
+  { id: 'other', title: '其他', href: 'https://github.com/AaronXu-Lab/AaronSkill' },
+] as const;
 ---
 
 <Base
@@ -19,8 +24,15 @@ import { skills } from '../../data/skills';
 
     {
       skills.length > 0 ? (
-        <ol class="skill-list">
-          {skills.map((s, i) => (
+        <>
+          {groups.map((group) => (
+            <section class="skill-section" aria-labelledby={`section-${group.id}`}>
+              <div class="section-head reveal">
+                <h2 id={`section-${group.id}`}>{group.title}</h2>
+                <a href={group.href} target="_blank" rel="noopener">查看仓库 ↗</a>
+              </div>
+              <ol class="skill-list">
+          {skills.filter((s) => s.group === group.id).map((s, i) => (
             <li class="reveal" style={`--d:${0.05 * i}s`}>
               <article class="skill-card">
                 <div class="card-top">
@@ -28,7 +40,7 @@ import { skills } from '../../data/skills';
                   {s.status === 'wip' && <span class="chip wip mono-sm">打磨中</span>}
                   {s.date && <span class="mono-sm date">{s.date}</span>}
                 </div>
-                <h2>
+                <h3>
                   {s.href ? (
                     <a href={s.href} target="_blank" rel="noopener">
                       {s.name} ↗
@@ -36,7 +48,7 @@ import { skills } from '../../data/skills';
                   ) : (
                     s.name
                   )}
-                </h2>
+                </h3>
                 <p>{s.description}</p>
                 {s.tags && s.tags.length > 0 && (
                   <div class="tags">
@@ -48,7 +60,10 @@ import { skills } from '../../data/skills';
               </article>
             </li>
           ))}
-        </ol>
+              </ol>
+            </section>
+          ))}
+        </>
       ) : (
         <div class="empty-state reveal" style="--d:.15s">
           <div class="mono-label">COMING SOON</div>
@@ -85,6 +100,27 @@ import { skills } from '../../data/skills';
 
   .page-head .lead {
     max-width: 58ch;
+  }
+
+  .skill-section + .skill-section {
+    margin-top: clamp(56px, 8vw, 96px);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(24px, 3vw, 32px);
+  }
+
+  .section-head a {
+    color: var(--accent-strong);
+    white-space: nowrap;
   }
 
   .skill-list {
@@ -129,16 +165,16 @@ import { skills } from '../../data/skills';
     margin-left: auto;
   }
 
-  .skill-card h2 {
+  .skill-card h3 {
     font-size: 19px;
     letter-spacing: -0.01em;
   }
 
-  .skill-card h2 a {
+  .skill-card h3 a {
     color: inherit;
   }
 
-  .skill-card h2 a:hover {
+  .skill-card h3 a:hover {
     color: var(--accent-strong);
   }
 
