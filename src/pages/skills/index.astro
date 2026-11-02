@@ -1,10 +1,11 @@
 ---
+import Icon from '../../components/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import { skills } from '../../data/skills';
 
 const groups = [
-  { id: 'design-agent', title: 'Design Agent', href: 'https://github.com/AaronXu-Lab/Design-Agent' },
-  { id: 'other', title: '其他', href: 'https://github.com/AaronXu-Lab/AaronSkill' },
+  { id: 'design-agent', title: 'Design Agent', en: 'Design & UX' },
+  { id: 'other', title: '其他', en: 'Other Skills' },
 ] as const;
 ---
 
@@ -25,12 +26,16 @@ const groups = [
     {
       skills.length > 0 ? (
         <>
-          {groups.map((group) => (
-            <section class="skill-section" aria-labelledby={`section-${group.id}`}>
-              <div class="section-head reveal">
-                <h2 id={`section-${group.id}`}>{group.title}</h2>
-                <a href={group.href} target="_blank" rel="noopener">查看仓库 ↗</a>
-              </div>
+          {groups.map((group, index) => (
+            <section class="block" aria-labelledby={`section-${group.id}`}>
+              <button class="section-head section-toggle reveal" type="button" aria-expanded="true" aria-controls={`panel-${group.id}`}>
+                <span class="num">{String(index + 1).padStart(2, '0')}</span>
+                <span class="zh" id={`section-${group.id}`}>{group.title}</span>
+                <span class="en">{group.en}</span>
+                <Icon name="caret-down" size={15} class="toggle-caret" />
+              </button>
+              <div class="collapse" id={`panel-${group.id}`}>
+              <div class="collapse-inner">
               <ol class="skill-list">
           {skills.filter((s) => s.group === group.id).map((s, i) => (
             <li class="reveal" style={`--d:${0.05 * i}s`}>
@@ -61,6 +66,8 @@ const groups = [
             </li>
           ))}
               </ol>
+              </div>
+              </div>
             </section>
           ))}
         </>
@@ -78,6 +85,18 @@ const groups = [
     }
   </div>
 </Base>
+
+<script>
+  // Section 折叠:grid-template-rows 0fr↔1fr 的可中断 transition,caret 旋转指示
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('.section-toggle')) {
+    btn.addEventListener('click', () => {
+      const block = btn.closest('.block');
+      if (!block) return;
+      const collapsed = block.classList.toggle('collapsed');
+      btn.setAttribute('aria-expanded', String(!collapsed));
+    });
+  }
+</script>
 
 <style>
   /* 页头节奏与博客/组件页保持一致 */
@@ -102,25 +121,70 @@ const groups = [
     max-width: 58ch;
   }
 
-  .skill-section + .skill-section {
-    margin-top: clamp(56px, 8vw, 96px);
+  .block + .block {
+    margin-top: clamp(56px, 8vw, 88px);
   }
 
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 24px;
+  /* ---- 可折叠 Section 头(button 化,复用 .section-head 视觉) ---- */
+  .section-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    /* 头本身不再留下方间距,间距挪进可折叠区,折叠时一并收起 */
+    margin-bottom: 0;
+    transition: border-color 0.2s ease;
   }
 
-  .section-head h2 {
-    font-size: clamp(24px, 3vw, 32px);
+  /* caret 是 <Fragment set:html> 注入的原始 svg,拿不到 Astro 作用域属性,故用 :global */
+  .section-toggle :global(.toggle-caret) {
+    margin-left: auto;
+    align-self: center;
+    color: var(--text-3);
+    transition: transform 0.28s var(--ease-out), color 0.2s ease;
   }
 
-  .section-head a {
+  .section-toggle:hover :global(.toggle-caret) {
     color: var(--accent-strong);
-    white-space: nowrap;
+  }
+
+  /* 折叠态:caret 转到向上(默认向下 = 展开) */
+  .block.collapsed :global(.toggle-caret) {
+    transform: rotate(-180deg);
+  }
+
+  .collapse {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.34s var(--ease-out), opacity 0.26s ease;
+  }
+
+  /* 裁剪层:不带内边距,才能被 0fr 轨道压到 0 */
+  .collapse-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* 头与列表间距活在裁剪层内部,折叠时一并收起 */
+  .collapse-inner > :global(ol) {
+    padding-top: clamp(28px, 4vw, 44px);
+  }
+
+  .block.collapsed .collapse {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collapse {
+      transition: opacity 0.2s ease;
+    }
   }
 
   .skill-list {
