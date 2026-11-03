@@ -124,7 +124,8 @@ function syncBand() {
   const bottom = body.classList.contains('ui-min')
     ? panelTop + panel.offsetHeight - $('fold').offsetHeight // 收起后把手落在面板原本占位的底边
     : panelTop;
-  scene.setBand(((top + bottom) / 2) / (innerHeight || 1));
+  const h = innerHeight || 1;
+  scene.setBand((top + bottom) / 2 / h, (bottom - top) / h);
 }
 
 // ---------------------------------------------------------------- 视图切换

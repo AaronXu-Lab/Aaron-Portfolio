@@ -47,6 +47,11 @@ const ZOOM = {
 };
 /** 森林取景要装进画面的半宽:岛半径(2.5 × 2.6)加一点呼吸边。 */
 const FOREST_FIT = 7.2;
+/**
+ * 以及半高：整片森林(后排树冠到岩块尖)在画面上约 10.3 个单位高，留一成余量。
+ * 只按宽度退的话，横屏桌面上宽度绰绰有余，森林就顶出可用空间、压到顶栏上了。
+ */
+const FOREST_FIT_V = 5.9;
 
 /** 环境运镜：极慢、幅度极小,只为让画面不死。 */
 const DRIFT = { azSpeed: 0.13, azAmp: 0.11, polarSpeed: 0.09, polarAmp: 0.025 };
@@ -440,6 +445,8 @@ export function createScene(canvas, { motion = true, onQuality } = {}) {
   let onPick = null;
   /** 可用空间的中心占视口高度的比例(0.5 = 正中);由上层量出面板实际占位后告知。 */
   let bandRatio = 0.5;
+  /** 可用空间的高度占视口的比例：森林按它退机位，保证整片装进去。 */
+  let bandSize = 0.6;
   let shift = 0; // 当前镜头偏移(CSS px,正 = 构图往下)
   let shiftGoal = 0;
   let framed = false;
@@ -518,8 +525,9 @@ export function createScene(canvas, { motion = true, onQuality } = {}) {
     // 否则手机上默认机位只装得下岛中央一小块
     let radius = conf.radius;
     if (mode === 'forest') {
-      const halfW = Math.tan((camera.fov * Math.PI) / 360) * Math.max(camera.aspect, 0.01);
-      radius = Math.max(radius, FOREST_FIT / halfW);
+      const halfH = Math.tan((camera.fov * Math.PI) / 360);
+      const halfW = halfH * Math.max(camera.aspect, 0.01);
+      radius = Math.max(radius, FOREST_FIT / halfW, FOREST_FIT_V / (halfH * bandSize));
     } else if (camera.aspect < 1) {
       radius *= 1.25;
     }
@@ -550,11 +558,13 @@ export function createScene(canvas, { motion = true, onQuality } = {}) {
     else camera.setViewOffset(w, h, 0, -shift, w, h);
   }
 
-  /** 上层量出可用空间(顶栏底边 → 卡片顶边)的中心比例后调这里。 */
-  function setBand(ratio) {
+  /** 上层量出可用空间(顶栏底边 → 卡片顶边)的中心比例与高度比例后调这里。 */
+  function setBand(ratio, size) {
     const next = clamp(Number(ratio) || 0.5, 0.2, 0.8);
-    if (next === bandRatio) return;
+    const nextSize = clamp(Number(size) || 0.6, 0.25, 1);
+    if (next === bandRatio && nextSize === bandSize) return;
     bandRatio = next;
+    bandSize = nextSize;
     start();
     requestRender();
   }

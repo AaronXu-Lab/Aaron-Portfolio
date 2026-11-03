@@ -17,7 +17,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `public/tools/grid-breakpoint/` | 独立静态壳 PWA「Grid 断点计算器」：从 max-width / 列数 / 间距按 Equal Column Deviation 反推响应式断点。`js/core.js` 是纯逻辑核（默认列宽、理想宽度、断点、偏差、`columnsAt` / `columnWidthAt`）,改它要跑 `npm run test:grid`;`js/app.js` 只做读输入、写 DOM |
 | `public/tools/mesh-gradient/` | 独立静态壳工具「Mesh Gradient 图片生成器」：图片 + 渐变背景 + 留白 + 阴影，按真实画布尺寸导出 PNG,配置文件连图片一起存。`js/core.js` 是纯逻辑核（画布尺寸、渐变点分布、IDW 渐变像素、配置读写）,改它要跑 `npm run test:mesh`;`js/app.js` 只做读输入、画 canvas、写 DOM |
 | `public/tools/travel-maps/` | 独立静态壳工具「出发吧打工人」：D3 手账风等时旅行地图，支持多出发城市（`?from=`,默认上海）,新标签页打开(见 [workflows/travel-maps.md](workflows/travel-maps.md)) |
-| `public/tools/focus-forest/` | 独立静态壳 PWA「专注森林」：Three.js 低多边形 3D 专注计时器。`js/core.js` 是纯逻辑核（阶段/计时/存储/分页，改它要跑 `npm run test:forest`）,`js/scene.js` 只管场景与动画(植物是 progress 连续驱动的「生长脚本」，见 [workflows/focus-forest-plants.md](workflows/focus-forest-plants.md)),`vendor/` 是版本锁定的 three r185 构建产物 |
+| `public/tools/focus-forest/` | 独立静态壳 PWA「专注森林」：Three.js 低多边形 3D 专注计时器。`js/core.js` 是纯逻辑核（阶段/计时/存储/分页，改它要跑 `npm run test:forest`）,`js/scene.js` 只管场景与动画(植物是 progress 连续驱动的「生长脚本」，见 [workflows/focus-forest-plants.md](workflows/focus-forest-plants.md)),`vendor/` 是版本锁定的 three r185 构建产物（运行时只加载由 `npm run build:forest` 从中摇树生成、已 gitignore 的 `three.forest.min.js`，导出清单自动扫 `scene.js` 里的 `THREE.Xxx`） |
 | `public/tools/flying-ninja-cat/` | 独立静态壳小游戏「飞天忍者猫」：纯 HTML5 Canvas 重制版，运行时只加载目录内的 `game.js`、`style.css` 与 `assets/`,不依赖 SWF、Ruffle 或外部接口；最高分保存在浏览器 `localStorage`。源版本与永久回归测试位于本地 `Anti-SWF/h5/flying-ninja-cat/` |
 | `src/content/blog/` | 博客文章（脚本生成，**勿手改**） |
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |

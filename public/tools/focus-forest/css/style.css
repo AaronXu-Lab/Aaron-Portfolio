@@ -8,7 +8,7 @@
   --ink: oklch(0.32 0.03 160);
   --ink-2: oklch(0.4 0.025 160);
   --ink-3: oklch(0.47 0.02 160);
-  --card: oklch(1 0 0 / 0.88);
+  --card: oklch(1 0 0 / 0.92);
   --card-solid: oklch(0.99 0.004 160);
   --line: oklch(0.87 0.015 160);
   --leaf: oklch(0.66 0.15 145);
