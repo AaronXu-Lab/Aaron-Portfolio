@@ -288,6 +288,14 @@ h3 {
   justify-content: flex-end;
   margin-bottom: 12px;
 }
+.settings-card .built-in-connection {
+  justify-content: space-between;
+}
+.api-mode-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
 .field {
   margin: 16px 0;
   min-width: 0;

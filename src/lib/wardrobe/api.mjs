@@ -1,15 +1,21 @@
-import { CATEGORIES, validateTags, responseText } from "./core.mjs";
+import { personalApiKey, validateTags, responseText } from "./core.mjs";
+import { imageRequestBody, tagRequestBody } from "./request-body.mjs";
 const BASE = "https://api.openai.com/v1";
-export async function request(path, key, options = {}, timeoutMs = 240000) {
+export const WARDROBE_LOGIN = "/api/wardrobe/session?login=1";
+
+export async function request(path, config, options = {}, timeoutMs = 240000) {
+  const useWorker = config.apiMode === "default";
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     let r;
     try {
-      r = await fetch(BASE + path, {
+      r = await fetch((useWorker ? "/api/wardrobe" : BASE) + path, {
         ...options,
         signal: controller.signal,
-        headers: { Authorization: `Bearer ${key}`, ...options.headers },
+        ...(useWorker
+          ? { redirect: "manual" }
+          : { headers: { ...options.headers, Authorization: `Bearer ${personalApiKey(config)}` } }),
       });
     } catch (e) {
       throw new Error(
@@ -18,6 +24,10 @@ export async function request(path, key, options = {}, timeoutMs = 240000) {
           : "连接 OpenAI 失败，请检查网络。",
       );
     }
+    if (useWorker && (r.type === "opaqueredirect" || r.status === 401 || r.status === 403))
+      throw new Error("请在设置中登录默认模式，或切换到 BYOK。");
+    if (useWorker && r.status === 404)
+      throw new Error("默认模式暂不可用，可切换到 BYOK。");
     let data;
     try {
       data = await r.json();
@@ -31,8 +41,11 @@ export async function request(path, key, options = {}, timeoutMs = 240000) {
     clearTimeout(timer);
   }
 }
-export async function listModels(key) {
-  const d = await request("/models", key, {}, 15000);
+export function checkSession(config) {
+  return request("/session", config, {}, 15000);
+}
+export async function listModels(config) {
+  const d = await request("/models", config, {}, 15000);
   return (d.data ?? []).map((m) => m.id).sort();
 }
 export function dataURL(blob) {
@@ -79,22 +92,9 @@ export async function prepareImage(file) {
   }
 }
 export async function generateImage(original, config) {
-  const form = new FormData();
-  form.append("image", original, "garment.jpg");
-  form.append("model", config.imageModel);
-  form.append("prompt", config.imagePrompt);
-  form.append("background", "transparent");
-  form.append("output_format", "png");
-  form.append(
-    "size",
-    /^gpt-image-(2|2\.5)(?:-|$)/.test(config.imageModel)
-      ? "2048x2048"
-      : "1024x1024",
-  );
-  form.append("quality", "high");
-  const d = await request("/images/edits", config.apiKey, {
+  const d = await request("/images/edits", config, {
     method: "POST",
-    body: form,
+    body: imageRequestBody(original, config),
   });
   const b64 = d.data?.[0]?.b64_json;
   if (!b64) throw new Error("模型没有返回 PNG 图片，请检查图像模型。");
@@ -123,38 +123,10 @@ export async function generateImage(original, config) {
 }
 export async function generateTags(original, config) {
   const image = await dataURL(original);
-  const d = await request("/responses", config.apiKey, {
+  const d = await request("/responses", config, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: config.tagModel,
-      store: false,
-      input: [
-        {
-          role: "user",
-          content: [
-            { type: "input_text", text: config.tagPrompt },
-            { type: "input_image", image_url: image, detail: "auto" },
-          ],
-        },
-      ],
-      text: {
-        format: {
-          type: "json_schema",
-          name: "clothing_tags",
-          strict: true,
-          schema: {
-            type: "object",
-            properties: {
-              coarse: { type: "string", enum: CATEGORIES },
-              fine: { type: "array", items: { type: "string" } },
-            },
-            required: ["coarse", "fine"],
-            additionalProperties: false,
-          },
-        },
-      },
-    }),
+    body: JSON.stringify(tagRequestBody(image, config)),
   });
   return validateTags(JSON.parse(responseText(d)));
 }

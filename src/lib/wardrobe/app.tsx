@@ -16,6 +16,7 @@ import {
   Loading,
   Switch,
   Checkbox,
+  Radio,
   DialogBasic,
   SheetBasic,
   UiProvider,
@@ -38,6 +39,7 @@ import {
   CATEGORIES,
   DEFAULTS,
   cleanSettings,
+  canUseApi,
   matches,
   missingSteps,
   exportMetadata,
@@ -54,12 +56,15 @@ import {
 } from "./db.mjs";
 import {
   listModels,
+  checkSession,
+  WARDROBE_LOGIN,
   prepareImage,
   generateImage,
   generateTags,
 } from "./api.mjs";
 import { ScrollArea } from "@base-ui/react/scroll-area";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
+import { RadioGroup } from "@base-ui/react/radio-group";
 import { keepScreenAwake } from "./screen-wake-lock.mjs";
 import "./style.css";
 
@@ -151,6 +156,7 @@ function ScrollRegion({
     </ScrollArea.Root>
   );
 }
+const MISSING_KEY_MESSAGE = "请先在设置中填写 API Key。";
 function App() {
   const toast = useToast();
   const [items, setItems] = useState<any[]>([]),
@@ -196,6 +202,7 @@ function App() {
     ingesting = useRef(false);
   configRef.current = config;
   detailRef.current = detail;
+  const canConnect = canUseApi(config);
   const notify = (title, tone = "default") =>
     toast.add({ title, tone: tone as any });
   const refresh = async () => {
@@ -230,14 +237,17 @@ function App() {
   }, []);
   useEffect(() => {
     if (!settingsOpen) return;
+    const current = configRef.current;
     const id = ++modelRequest.current;
     setModels([]);
-    if (!config.apiKey) {
+    setConnectionStatus("");
+    setTesting(false);
+    if (!canUseApi(current)) {
       setModelState("填写 Key 后，可测试连接并获取模型列表。");
       return;
     }
     setModelState("正在获取账号可用模型…");
-    listModels(config.apiKey)
+    listModels(current)
       .then((m) => {
         if (id === modelRequest.current) {
           setModels(m);
@@ -247,13 +257,15 @@ function App() {
       .catch((e) => {
         if (id === modelRequest.current)
           setModelState(
-            `模型列表获取失败：${e.message} 已保存的模型仍可使用。`,
+            current.apiMode === "default"
+              ? e.message
+              : `模型列表获取失败：${e.message} 已保存的模型仍可使用。`,
           );
       });
     return () => {
       modelRequest.current++;
     };
-  }, [settingsOpen]);
+  }, [settingsOpen, config.apiMode]);
   const draftRef = useRef<any>(DEFAULTS);
   const saveQueue = useRef(Promise.resolve());
   const saveRevision = useRef(0);
@@ -285,13 +297,13 @@ function App() {
     setSettingsOpen(true);
   };
   async function testConnection() {
-    const key = draft.apiKey.trim();
-    if (!key || testing) return;
+    const current = draftRef.current;
+    if (!canUseApi(current) || testing) return;
     const id = ++modelRequest.current;
     setTesting(true);
     setConnectionStatus("正在测试连接…");
     try {
-      const result = await listModels(key);
+      const result = await listModels(current);
       if (id !== modelRequest.current) return;
       setModels(result);
       setModelState(`已更新 ${result.length} 个可用模型。`);
@@ -373,7 +385,7 @@ function App() {
   async function processItem(id, mode = "missing") {
     if (running.current.has(id)) return;
     running.current.add(id);
-    const cfg = { ...configRef.current };
+    const cfg = configRef.current;
     let didComplete = false;
     try {
       let item = await getClothes(id);
@@ -388,7 +400,7 @@ function App() {
       }
       const steps = mode === "missing" ? missingSteps(item) : [mode];
       if (!steps.length) return;
-      if (!cfg.apiKey) throw new Error("请先在设置中保存 API Key。");
+      if (!canUseApi(cfg)) throw new Error(MISSING_KEY_MESSAGE);
       if (!navigator.onLine) throw new Error("当前离线，联网后可重试。");
       setBusy((b) => ({ ...b, [id]: steps }));
       await Promise.all(
@@ -489,8 +501,8 @@ function App() {
   }
   async function ingest(files) {
     if (ingesting.current) return;
-    if (!configRef.current.apiKey) {
-      notify("先填写 API Key，再添加衣服。");
+    if (!canUseApi(configRef.current)) {
+      notify(MISSING_KEY_MESSAGE);
       openSettings();
       return;
     }
@@ -502,6 +514,15 @@ function App() {
     setAdding(true);
     const ids = [];
     try {
+      if (configRef.current.apiMode === "default") {
+        try {
+          await checkSession(configRef.current);
+        } catch (error) {
+          fail(error);
+          openSettings();
+          return;
+        }
+      }
       for (const file of Array.from(files) as File[]) {
         try {
           const prepared = await prepareImage(file);
@@ -654,13 +675,13 @@ function App() {
                     <CoatHangerIcon size={88} weight="thin" />
                     <p>拍下完整衣服</p>
                   </div>
-                  {!config.apiKey && (
+                  {!canConnect && (
                     <Alert
                       className="context-alert"
                       role="status"
                       color="blue"
                       border={false}
-                      text="添加衣服前，先连接 OpenAI。"
+                      text={MISSING_KEY_MESSAGE}
                       trailing={
                         <Button
                           variant="ghost"
@@ -683,7 +704,7 @@ function App() {
                       size="lg"
                       disabled={adding || offline}
                       onClick={() =>
-                        config.apiKey
+                        canConnect
                           ? cameraRef.current?.click()
                           : openSettings()
                       }
@@ -696,7 +717,7 @@ function App() {
                       size="lg"
                       disabled={adding || offline}
                       onClick={() =>
-                        config.apiKey
+                        canConnect
                           ? fileRef.current?.click()
                           : openSettings()
                       }
@@ -752,13 +773,13 @@ function App() {
                     text="当前离线。可以浏览、编辑和导出；联网后再处理照片。"
                   />
                 )}
-                {!config.apiKey && items.length > 0 && (
+                {!canConnect && items.length > 0 && (
                   <Alert
                     className="context-alert"
                     role="status"
                     color="blue"
                     border={false}
-                    text="连接 OpenAI 后即可添加衣服。"
+                    text={MISSING_KEY_MESSAGE}
                     trailing={
                       <Button variant="ghost" size="sm" onClick={openSettings}>
                         前往设置
@@ -921,12 +942,12 @@ function App() {
                       title="还没有衣服"
                       supporting="description"
                       description={
-                        config.apiKey
+                        canConnect
                           ? "拍照或选图，开始整理衣服。"
-                          : "先连接 OpenAI，再添加你的第一件衣服。"
+                          : MISSING_KEY_MESSAGE
                       }
                       action={
-                        !config.apiKey ? (
+                        !canConnect ? (
                           <Button variant="outline" onClick={openSettings}>
                             连接 OpenAI
                           </Button>
@@ -1092,42 +1113,68 @@ function App() {
           )}
           <div className="settings-card">
             <h2>连接与模型</h2>
-            <Field
-              label="OpenAI API Key"
-              hint="Key 仅存本机；照片直接发送给 OpenAI 处理。"
-            >
-              <Input
-                id="wardrobe-api-key"
-                trailing="button"
-                trailingButton={
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    disabled={!draft.apiKey.trim()}
-                    state={testing ? "loading" : "normal"}
-                    onClick={testConnection}
-                  >
-                    测试连接
-                  </Button>
+            <Field label="API Key 模式">
+              <RadioGroup
+                className="api-mode-options"
+                value={draft.apiMode}
+                onValueChange={(apiMode) =>
+                  updateSettings((d) => ({ ...d, apiMode }))
                 }
-                type="password"
-                autoComplete="off"
-                spellCheck={false}
-                value={draft.apiKey}
-                aria-describedby={
-                  connectionStatus ? "connection-status" : undefined
-                }
-                onValueChange={(value) => {
-                  modelRequest.current++;
-                  setTesting(false);
-                  setConnectionStatus("");
-                  setModels([]);
-                  setModelState("测试连接以获取模型列表。");
-                  updateSettings((d) => ({ ...d, apiKey: value }));
-                }}
-                placeholder="sk-…"
-              />
+              >
+                <Radio value="default" label="默认" />
+                <Radio value="byok" label="BYOK" />
+              </RadioGroup>
             </Field>
+            {draft.apiMode === "byok" ? (
+              <Field
+                label="OpenAI API Key"
+                hint="Key 仅存本机；照片直接发送给 OpenAI 处理。"
+              >
+                <Input
+                  id="wardrobe-api-key"
+                  trailing="button"
+                  trailingButton={
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={!draft.apiKey.trim()}
+                      state={testing ? "loading" : "normal"}
+                      onClick={testConnection}
+                    >
+                      测试连接
+                    </Button>
+                  }
+                  type="password"
+                  autoComplete="off"
+                  spellCheck={false}
+                  value={draft.apiKey}
+                  aria-describedby={
+                    connectionStatus ? "connection-status" : undefined
+                  }
+                  onValueChange={(value) => {
+                    modelRequest.current++;
+                    setTesting(false);
+                    setConnectionStatus("");
+                    setModels([]);
+                    setModelState("测试连接以获取模型列表。");
+                    updateSettings((d) => ({ ...d, apiKey: value }));
+                  }}
+                  placeholder="sk-…"
+                />
+              </Field>
+            ) : (
+              <div className="row-between built-in-connection">
+                <a href={WARDROBE_LOGIN}>登录默认模式</a>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  state={testing ? "loading" : "normal"}
+                  onClick={testConnection}
+                >
+                  测试连接
+                </Button>
+              </div>
+            )}
             {connectionStatus && (
               <p
                 id="connection-status"
@@ -1157,10 +1204,10 @@ function App() {
             <div className="two-fields">
               <Field label="透明图模型">
                 <Combobox
-                  disabled={!draft.generateTransparent}
+                  disabled={draft.apiMode === "default" || !draft.generateTransparent}
                   aria-label="透明图模型"
                   width="fill"
-                  value={draft.imageModel}
+                  value={draft.apiMode === "default" ? DEFAULTS.imageModel : draft.imageModel}
                   items={modelOptions("image")}
                   placeholder="搜索或选择模型"
                   emptyText="没有匹配的模型"
@@ -1173,9 +1220,10 @@ function App() {
               </Field>
               <Field label="标签识别模型">
                 <Combobox
+                  disabled={draft.apiMode === "default"}
                   aria-label="标签识别模型"
                   width="fill"
-                  value={draft.tagModel}
+                  value={draft.apiMode === "default" ? DEFAULTS.tagModel : draft.tagModel}
                   items={modelOptions("tags")}
                   placeholder="搜索或选择模型"
                   emptyText="没有匹配的模型"
@@ -1191,7 +1239,11 @@ function App() {
                 {modelState}
               </p>
             )}
-            <p className="help">模型按用途筛选，账号可见不代表功能兼容。</p>
+            <p className="help">
+              {draft.apiMode === "default"
+                ? "默认模式使用预设模型。"
+                : "模型按用途筛选，账号可见不代表功能兼容。"}
+            </p>
           </div>
           <Disclosure
             className="settings-card prompt-settings"
@@ -1236,8 +1288,8 @@ function App() {
           </Disclosure>
           <Disclosure className="privacy-settings" title="数据与隐私">
             <p>
-              Key 和照片仅保存在此浏览器，API 调用直连 OpenAI。Key
-              以遮罩显示，可清空以移除。
+              相册保存在此浏览器。默认模式由衣集服务器转发照片给 OpenAI 处理。
+              BYOK 模式直连 OpenAI，你的 Key 保存在此浏览器，可随时清空。
             </p>
             <p>本地保存未加密。清除网站数据会删除相册，请定期导出。</p>
             <p>

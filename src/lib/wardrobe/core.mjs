@@ -12,6 +12,7 @@ export const CATEGORIES = [
   "其他",
 ];
 export const DEFAULTS = {
+  apiMode: "default",
   apiKey: "",
   generateTransparent: true,
   recognitionDefaultVersion: 1,
@@ -21,6 +22,12 @@ export const DEFAULTS = {
   tagPrompt:
     '识别原图中的主要衣服或配饰，忽略衣架和背景。coarse 必须从上衣、裤子、裙子、外套、鞋子、包袋、配饰、其他中选一个。fine 使用简短中文标签，包含可见的款式、颜色、版型、袖长、材质和图案；不确定的属性不要猜测。只返回符合指定结构的 JSON：{"coarse":"上衣","fine":["T恤","黑色","宽松","短袖"]}。',
 };
+export function personalApiKey(settings) {
+  return settings.apiMode === "byok" ? settings.apiKey.trim() : "";
+}
+export function canUseApi(settings) {
+  return settings.apiMode === "default" || Boolean(personalApiKey(settings));
+}
 export function validateTags(value) {
   if (
     !value ||
@@ -71,6 +78,9 @@ export function cleanSettings(value) {
   for (const k of Object.keys(DEFAULTS))
     result[k] =
       typeof value?.[k] === typeof DEFAULTS[k] ? value[k] : DEFAULTS[k];
+  // Older settings have a personal Key but no mode.
+  if (value?.apiMode !== "default" && value?.apiMode !== "byok")
+    result.apiMode = result.apiKey.trim() ? "byok" : "default";
   if (result.imagePrompt === LEGACY_IMAGE_PROMPT)
     result.imagePrompt = IMAGE_PROMPT;
   if (

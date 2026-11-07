@@ -24,7 +24,7 @@
     "check:design-libraries": "tsc -p tsconfig.design-libraries.json && node src/design-libraries/followup/audit.mjs && node scripts/audit-flomo-library.mjs",
     "build:wardrobe": "node scripts/build-wardrobe.mjs",
     "build:forest": "node scripts/build-forest-three.mjs",
-    "test:wardrobe": "node --test tests/wardrobe-core.test.mjs tests/wardrobe-wake-lock.test.mjs",
+    "test:wardrobe": "node --test tests/wardrobe-core.test.mjs tests/wardrobe-wake-lock.test.mjs tests/wardrobe-worker.test.mjs",
     "check:wardrobe": "tsc -p tsconfig.wardrobe.json && npm run test:wardrobe",
     "test:ninja": "node --test tests/flying-ninja-cat/*.test.cjs"
   },
@@ -38,6 +38,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "astro": "^5.12.0",
     "fflate": "^0.8.3",
+    "jose": "6.2.12",
     "pinyin-pro": "^3.28.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

@@ -7,6 +7,8 @@ import {
   exportMetadata,
   exportName,
   cleanSettings,
+  personalApiKey,
+  canUseApi,
   DEFAULTS,
   responseText,
 } from "../src/lib/wardrobe/core.mjs";
@@ -65,6 +67,21 @@ test("settings default migration preserves edited prompts and key removal", () =
     "mine",
   );
   assert.equal(cleanSettings({ apiKey: "" }).apiKey, "");
+});
+test("old personal Keys migrate to BYOK and stay saved when using Default", () => {
+  assert.equal(cleanSettings(null).apiMode, "default");
+  const migrated = cleanSettings({ apiKey: "  personal-key  " });
+  assert.equal(migrated.apiMode, "byok");
+  assert.equal(personalApiKey(migrated), "personal-key");
+
+  const switched = cleanSettings({ ...migrated, apiMode: "default" });
+  assert.equal(personalApiKey(switched), "");
+  assert.equal(canUseApi(switched), true);
+  assert.equal(
+    personalApiKey(cleanSettings({ ...switched, apiMode: "byok" })),
+    "personal-key",
+  );
+  assert.equal(canUseApi(cleanSettings({ apiMode: "byok" })), false);
 });
 test("structured responses refuse missing and incomplete output", () => {
   assert.equal(
