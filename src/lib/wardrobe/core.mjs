@@ -1,4 +1,5 @@
 import { IMAGE_PROMPT } from "./prompts.mjs";
+const PREVIOUS_STOCK_IMAGE_PROMPT = IMAGE_PROMPT.replace("1024 × 1024", "2048 × 2048");
 const LEGACY_IMAGE_PROMPT =
   "将照片中的单件衣服或配饰制作成干净的商品素材图。移除衣架、夹子、背景及其他物体，保留完整轮廓。严格保留原始颜色、材质、纹理、图案、标志、剪裁和比例，不改款、不美化、不添加装饰。自然展平，居中，四周留少量透明空间，不添加投影。输出真正带 alpha 通道的透明背景 PNG。";
 export const CATEGORIES = [
@@ -93,7 +94,7 @@ export function cleanSettings(value) {
     result.apiMode = result.apiKey.trim() ? "byok" : "default";
   result.defaultImageModel = defaultModeModel("image", result.defaultImageModel);
   result.defaultTagModel = defaultModeModel("tags", result.defaultTagModel);
-  if (result.imagePrompt === LEGACY_IMAGE_PROMPT)
+  if (result.imagePrompt === LEGACY_IMAGE_PROMPT || result.imagePrompt === PREVIOUS_STOCK_IMAGE_PROMPT)
     result.imagePrompt = IMAGE_PROMPT;
   if (
     value?.recognitionDefaultVersion !== 1 &&

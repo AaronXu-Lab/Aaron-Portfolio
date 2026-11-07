@@ -85,7 +85,7 @@ test("Wardrobe shares the 100-request quota across endpoints for each IP", async
   });
   assert.equal(alternativeImage.status, 200);
   assert.equal(upstream[4].body.get("model"), "gpt-image-2.5-flare");
-  assert.equal(upstream[4].body.get("size"), "2048x2048");
+  assert.equal(upstream[4].body.get("size"), "1024x1024");
 
   while (upstream.length < 100)
     assert.equal((await call(models)).status, 200);

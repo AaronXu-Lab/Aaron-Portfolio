@@ -110,7 +110,10 @@ test("new default replaces only the previous stock prompt, never a custom prompt
     cleanSettings({ imagePrompt: "my custom prompt" }).imagePrompt,
     "my custom prompt",
   );
-  assert.match(DEFAULTS.imagePrompt, /2048 × 2048/);
+  assert.match(DEFAULTS.imagePrompt, /1024 × 1024/);
+  const oldStock = DEFAULTS.imagePrompt.replace("1024 × 1024", "2048 × 2048");
+  assert.equal(cleanSettings({ imagePrompt: oldStock }).imagePrompt, DEFAULTS.imagePrompt);
+  assert.equal(cleanSettings({ imagePrompt: oldStock + "\n自定义要求。" }).imagePrompt, oldStock + "\n自定义要求。");
   assert.match(DEFAULTS.imagePrompt, /商品真实性 ＞ 结构完整性/);
 });
 

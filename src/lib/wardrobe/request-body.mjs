@@ -7,12 +7,7 @@ export function imageRequestBody(original, config) {
   form.append("prompt", config.imagePrompt);
   form.append("background", "transparent");
   form.append("output_format", "png");
-  form.append(
-    "size",
-    /^gpt-image-(2|2\.5)(?:-|$)/.test(config.imageModel)
-      ? "2048x2048"
-      : "1024x1024",
-  );
+  form.append("size", "1024x1024");
   form.append("quality", "high");
   return form;
 }
