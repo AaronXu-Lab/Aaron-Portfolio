@@ -71,7 +71,7 @@ test("Wardrobe shares the 100-request quota across endpoints for each IP", async
   assert.equal((await call("/api/wardrobe/images/edits", {
     method: "POST", headers: { Origin: origin }, body: form,
   })).status, 200);
-  assert.equal(upstream[2].body.get("model"), DEFAULTS.imageModel);
+  assert.equal(upstream[2].body.get("model"), "gpt-image-2.6-sunburst");
   assert.equal(upstream[2].body.get("n"), null);
   const alternativeTags = await call(tags, {
     ...options, body: JSON.stringify({ model: "gpt-6-luna", input }),
@@ -84,8 +84,9 @@ test("Wardrobe shares the 100-request quota across endpoints for each IP", async
     method: "POST", headers: { Origin: origin }, body: form,
   });
   assert.equal(alternativeImage.status, 200);
-  assert.equal(upstream[4].body.get("model"), "gpt-image-2.5-flare");
+  assert.equal(upstream[4].body.get("model"), "gpt-image-2.6-flare");
   assert.equal(upstream[4].body.get("size"), "1024x1024");
+  assert.equal(upstream[4].body.get("background"), "transparent");
 
   while (upstream.length < 100)
     assert.equal((await call(models)).status, 200);

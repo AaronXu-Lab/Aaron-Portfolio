@@ -13,7 +13,7 @@ export const CATEGORIES = [
   "其他",
 ];
 export const DEFAULT_MODE_MODELS = {
-  image: ["gpt-image-2.5-sunburst", "gpt-image-2.5-flare"],
+  image: ["gpt-image-2.6-sunburst", "gpt-image-2.6-flare"],
   tags: ["gpt-6.1-terra", "gpt-6-luna"],
 };
 export const DEFAULTS = {
@@ -21,7 +21,7 @@ export const DEFAULTS = {
   apiKey: "",
   generateTransparent: true,
   recognitionDefaultVersion: 1,
-  imageModel: DEFAULT_MODE_MODELS.image[0],
+  imageModel: "gpt-image-2.5-sunburst",
   tagModel: DEFAULT_MODE_MODELS.tags[0],
   defaultImageModel: DEFAULT_MODE_MODELS.image[0],
   defaultTagModel: DEFAULT_MODE_MODELS.tags[0],
@@ -31,6 +31,9 @@ export const DEFAULTS = {
 };
 export function defaultModeModel(type, value) {
   const options = DEFAULT_MODE_MODELS[type];
+  if (type === "image" && typeof value === "string") {
+    value = value.replace(/^gpt-image-2\.5-(sunburst|flare)$/, "gpt-image-2.6-$1");
+  }
   return options.includes(value) ? value : options[0];
 }
 export function personalApiKey(settings) {

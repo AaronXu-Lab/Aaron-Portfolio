@@ -62,6 +62,12 @@ test("exports never contain original, credentials, or internal errors", () => {
 });
 test("settings default migration preserves edited prompts and key removal", () => {
   assert.deepEqual(cleanSettings(null), DEFAULTS);
+  const upgraded = cleanSettings({
+    defaultImageModel: "gpt-image-2.5-flare",
+    imageModel: "gpt-image-2.5-flare",
+  });
+  assert.equal(upgraded.defaultImageModel, "gpt-image-2.6-flare");
+  assert.equal(upgraded.imageModel, "gpt-image-2.5-flare");
   assert.equal(
     cleanSettings({ apiKey: "", imagePrompt: "mine" }).imagePrompt,
     "mine",
