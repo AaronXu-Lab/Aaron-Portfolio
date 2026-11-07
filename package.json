@@ -38,7 +38,6 @@
     "@phosphor-icons/react": "^2.1.10",
     "astro": "^5.12.0",
     "fflate": "^0.8.3",
-    "jose": "6.2.12",
     "pinyin-pro": "^3.28.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

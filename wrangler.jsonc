@@ -11,8 +11,11 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
   },
-  "ratelimits": [
-    { "name": "WARDROBE_RATE_LIMIT", "namespace_id": "1", "simple": { "limit": 12, "period": 60 } },
+  "durable_objects": {
+    "bindings": [{ "name": "WARDROBE_DAILY_QUOTA", "class_name": "WardrobeDailyQuota" }],
+  },
+  "migrations": [
+    { "tag": "wardrobe-daily-quota-v1", "new_sqlite_classes": ["WardrobeDailyQuota"] },
   ],
   "routes": [
     {

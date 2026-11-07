@@ -1,7 +1,6 @@
 import { personalApiKey, validateTags, responseText } from "./core.mjs";
 import { imageRequestBody, tagRequestBody } from "./request-body.mjs";
 const BASE = "https://api.openai.com/v1";
-export const WARDROBE_LOGIN = "/api/wardrobe/session?login=1";
 
 export async function request(path, config, options = {}, timeoutMs = 240000) {
   const useWorker = config.apiMode === "default";
@@ -24,9 +23,7 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
           : "连接 OpenAI 失败，请检查网络。",
       );
     }
-    if (useWorker && (r.type === "opaqueredirect" || r.status === 401 || r.status === 403))
-      throw new Error("请在设置中登录默认模式，或切换到 BYOK。");
-    if (useWorker && r.status === 404)
+    if (useWorker && (r.type === "opaqueredirect" || r.status === 404))
       throw new Error("默认模式暂不可用，可切换到 BYOK。");
     let data;
     try {
@@ -41,8 +38,8 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
     clearTimeout(timer);
   }
 }
-export function checkSession(config) {
-  return request("/session", config, {}, 15000);
+export function checkDefaultAvailability(config) {
+  return request("/status", config, {}, 15000);
 }
 export async function listModels(config) {
   const d = await request("/models", config, {}, 15000);

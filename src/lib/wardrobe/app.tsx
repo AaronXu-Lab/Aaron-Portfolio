@@ -56,8 +56,7 @@ import {
 } from "./db.mjs";
 import {
   listModels,
-  checkSession,
-  WARDROBE_LOGIN,
+  checkDefaultAvailability,
   prepareImage,
   generateImage,
   generateTags,
@@ -516,7 +515,7 @@ function App() {
     try {
       if (configRef.current.apiMode === "default") {
         try {
-          await checkSession(configRef.current);
+          await checkDefaultAvailability(configRef.current);
         } catch (error) {
           fail(error);
           openSettings();
@@ -1164,7 +1163,7 @@ function App() {
               </Field>
             ) : (
               <div className="row-between built-in-connection">
-                <a href={WARDROBE_LOGIN}>登录默认模式</a>
+                <p className="help">每个 IP 每天可请求 100 次，北京时间零点重置。</p>
                 <Button
                   variant="ghost"
                   size="sm"
