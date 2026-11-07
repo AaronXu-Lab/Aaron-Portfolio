@@ -30,6 +30,7 @@ function visit(path) {
 visit("public/tools/wardrobe/app.js");
 const files = [
   "index.html",
+  "theme.js",
   "app.js",
   "app.css",
   "icon-192.png",

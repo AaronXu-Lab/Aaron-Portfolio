@@ -166,7 +166,6 @@ function App() {
   const [page, setPage] = useState("capture"),
     [draft, setDraft] = useState<any>(DEFAULTS),
     [models, setModels] = useState<string[]>([]),
-    [modelState, setModelState] = useState(""),
     [testing, setTesting] = useState(false),
     [connectionStatus, setConnectionStatus] = useState(""),
     [saveError, setSaveError] = useState("");
@@ -241,25 +240,14 @@ function App() {
     setModels([]);
     setConnectionStatus("");
     setTesting(false);
-    if (!canUseApi(current)) {
-      setModelState("填写 Key 后，可测试连接并获取模型列表。");
-      return;
-    }
-    setModelState("正在获取账号可用模型…");
+    if (current.apiMode !== "byok" || !canUseApi(current)) return;
     listModels(current)
-      .then((m) => {
-        if (id === modelRequest.current) {
-          setModels(m);
-          setModelState(`已更新 ${m.length} 个可用模型。`);
-        }
+      .then((result) => {
+        if (id === modelRequest.current) setModels(result);
       })
-      .catch((e) => {
+      .catch((error) => {
         if (id === modelRequest.current)
-          setModelState(
-            current.apiMode === "default"
-              ? e.message
-              : `模型列表获取失败：${e.message} 已保存的模型仍可使用。`,
-          );
+          setConnectionStatus(`无法获取模型：${error.message} 可重试连接。`);
       });
     return () => {
       modelRequest.current++;
@@ -297,7 +285,7 @@ function App() {
   };
   async function testConnection() {
     const current = draftRef.current;
-    if (!canUseApi(current) || testing) return;
+    if (current.apiMode !== "byok" || !canUseApi(current) || testing) return;
     const id = ++modelRequest.current;
     setTesting(true);
     setConnectionStatus("正在测试连接…");
@@ -305,13 +293,11 @@ function App() {
       const result = await listModels(current);
       if (id !== modelRequest.current) return;
       setModels(result);
-      setModelState(`已更新 ${result.length} 个可用模型。`);
       setConnectionStatus("连接成功");
     } catch (error) {
       if (id === modelRequest.current) {
         setModels([]);
         setConnectionStatus(`连接失败：${error.message}`);
-        setModelState("");
       }
     } finally {
       if (id === modelRequest.current) setTesting(false);
@@ -1111,7 +1097,6 @@ function App() {
             />
           )}
           <div className="settings-card">
-            <h2>连接与模型</h2>
             <Field label="API Key 模式">
               <RadioGroup
                 className="api-mode-options"
@@ -1127,7 +1112,7 @@ function App() {
             {draft.apiMode === "byok" ? (
               <Field
                 label="OpenAI API Key"
-                hint="Key 仅存本机；照片直接发送给 OpenAI 处理。"
+                hint="照片直传 OpenAI。Key 仅存此浏览器，清空即可移除。"
               >
                 <Input
                   id="wardrobe-api-key"
@@ -1155,26 +1140,17 @@ function App() {
                     setTesting(false);
                     setConnectionStatus("");
                     setModels([]);
-                    setModelState("测试连接以获取模型列表。");
                     updateSettings((d) => ({ ...d, apiKey: value }));
                   }}
                   placeholder="sk-…"
                 />
               </Field>
             ) : (
-              <div className="row-between built-in-connection">
-                <p className="help">每个 IP 每天可请求 100 次，北京时间零点重置。</p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  state={testing ? "loading" : "normal"}
-                  onClick={testConnection}
-                >
-                  测试连接
-                </Button>
-              </div>
+              <p className="help">
+                照片经衣集转发给 OpenAI。每个 IP 每天 100 次请求，北京时间零点重置。
+              </p>
             )}
-            {connectionStatus && (
+            {draft.apiMode === "byok" && connectionStatus && (
               <p
                 id="connection-status"
                 role="status"
@@ -1200,13 +1176,15 @@ function App() {
                 }
               />
             </div>
-            <div className="two-fields">
+          </div>
+          {draft.apiMode === "byok" && (
+            <Disclosure className="settings-card" title="模型选择">
               <Field label="透明图模型">
                 <Combobox
-                  disabled={draft.apiMode === "default" || !draft.generateTransparent}
+                  disabled={!draft.generateTransparent}
                   aria-label="透明图模型"
                   width="fill"
-                  value={draft.apiMode === "default" ? DEFAULTS.imageModel : draft.imageModel}
+                  value={draft.imageModel}
                   items={modelOptions("image")}
                   placeholder="搜索或选择模型"
                   emptyText="没有匹配的模型"
@@ -1219,10 +1197,9 @@ function App() {
               </Field>
               <Field label="标签识别模型">
                 <Combobox
-                  disabled={draft.apiMode === "default"}
                   aria-label="标签识别模型"
                   width="fill"
-                  value={draft.apiMode === "default" ? DEFAULTS.tagModel : draft.tagModel}
+                  value={draft.tagModel}
                   items={modelOptions("tags")}
                   placeholder="搜索或选择模型"
                   emptyText="没有匹配的模型"
@@ -1232,18 +1209,11 @@ function App() {
                   }
                 />
               </Field>
-            </div>
-            {modelState && (
-              <p className="help" role="status">
-                {modelState}
+              <p className="help">
+                透明图模型需支持图片编辑和透明输出。标签模型需支持视觉输入和结构化输出。
               </p>
-            )}
-            <p className="help">
-              {draft.apiMode === "default"
-                ? "默认模式使用预设模型。"
-                : "模型按用途筛选，账号可见不代表功能兼容。"}
-            </p>
-          </div>
+            </Disclosure>
+          )}
           <Disclosure
             className="settings-card prompt-settings"
             title="自定义 Prompt"
@@ -1286,14 +1256,7 @@ function App() {
             </Field>
           </Disclosure>
           <Disclosure className="privacy-settings" title="数据与隐私">
-            <p>
-              相册保存在此浏览器。默认模式由衣集服务器转发照片给 OpenAI 处理。
-              BYOK 模式直连 OpenAI，你的 Key 保存在此浏览器，可随时清空。
-            </p>
-            <p>本地保存未加密。清除网站数据会删除相册，请定期导出。</p>
-            <p>
-              透明图模型需支持图片编辑和透明输出；标签模型需支持视觉输入和结构化输出。
-            </p>
+            <p>相册保存在此浏览器，未加密。清除网站数据会删除相册，请定期导出。</p>
           </Disclosure>
         </div>
       </SheetBasic>
