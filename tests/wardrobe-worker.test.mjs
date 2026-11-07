@@ -73,7 +73,21 @@ test("Wardrobe shares the 100-request quota across endpoints for each IP", async
   })).status, 200);
   assert.equal(upstream[2].body.get("model"), DEFAULTS.imageModel);
   assert.equal(upstream[2].body.get("n"), null);
-  for (let count = 3; count < 100; count++)
+  const alternativeTags = await call(tags, {
+    ...options, body: JSON.stringify({ model: "gpt-6-luna", input }),
+  });
+  assert.equal(alternativeTags.status, 200);
+  assert.equal(JSON.parse(upstream[3].body).model, "gpt-6-luna");
+
+  form.set("model", "gpt-image-2.5-flare");
+  const alternativeImage = await call("/api/wardrobe/images/edits", {
+    method: "POST", headers: { Origin: origin }, body: form,
+  });
+  assert.equal(alternativeImage.status, 200);
+  assert.equal(upstream[4].body.get("model"), "gpt-image-2.5-flare");
+  assert.equal(upstream[4].body.get("size"), "2048x2048");
+
+  while (upstream.length < 100)
     assert.equal((await call(models)).status, 200);
   const denied = await call(tags, options);
   assert.equal(denied.status, 429);

@@ -1,4 +1,4 @@
-import { DEFAULTS } from "../../src/lib/wardrobe/core.mjs";
+import { DEFAULT_MODE_MODELS, defaultModeModel } from "../../src/lib/wardrobe/core.mjs";
 import { imageRequestBody, tagRequestBody } from "../../src/lib/wardrobe/request-body.mjs";
 
 const PREFIX = "/api/wardrobe";
@@ -11,7 +11,7 @@ const METHODS = new Map([
   ["/responses", "POST"],
 ]);
 const noCache = { "Cache-Control": "no-store" };
-const modelIds = new Set([DEFAULTS.imageModel, DEFAULTS.tagModel]);
+const modelIds = new Set([...DEFAULT_MODE_MODELS.image, ...DEFAULT_MODE_MODELS.tags]);
 const validImageType = /^image\/(jpeg|png|webp)$/i;
 const validImageURL = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/;
 
@@ -46,7 +46,12 @@ async function upstreamPayload(path, request) {
     const prompt = data.get("prompt");
     if (!(image instanceof Blob) || !image.size || !validImageType.test(image.type) || !validPrompt(prompt))
       return null;
-    return { body: imageRequestBody(image, { ...DEFAULTS, imagePrompt: prompt }) };
+    return {
+      body: imageRequestBody(image, {
+        imageModel: defaultModeModel("image", data.get("model")),
+        imagePrompt: prompt,
+      }),
+    };
   }
   const data = await body.json();
   const content = data?.input?.[0]?.content;
@@ -57,7 +62,10 @@ async function upstreamPayload(path, request) {
   return {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      ...tagRequestBody(image, { ...DEFAULTS, tagPrompt: prompt }),
+      ...tagRequestBody(image, {
+        tagModel: defaultModeModel("tags", data.model),
+        tagPrompt: prompt,
+      }),
       max_output_tokens: 4096,
     }),
   };

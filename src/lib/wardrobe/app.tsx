@@ -38,6 +38,7 @@ import { zip } from "fflate";
 import {
   CATEGORIES,
   DEFAULTS,
+  DEFAULT_MODE_MODELS,
   cleanSettings,
   canUseApi,
   matches,
@@ -303,7 +304,11 @@ function App() {
       if (id === modelRequest.current) setTesting(false);
     }
   }
+  const defaultMode = draft.apiMode === "default";
+  const imageModelField = defaultMode ? "defaultImageModel" : "imageModel";
+  const tagModelField = defaultMode ? "defaultTagModel" : "tagModel";
   const modelOptions = (type: "image" | "tags") => {
+    if (defaultMode) return DEFAULT_MODE_MODELS[type].map((value) => ({ value, label: value }));
     const selected = type === "image" ? draft.imageModel : draft.tagModel;
     const preset = type === "image" ? DEFAULTS.imageModel : DEFAULTS.tagModel;
     const available = models.filter((m) =>
@@ -1177,43 +1182,43 @@ function App() {
               />
             </div>
           </div>
-          {draft.apiMode === "byok" && (
-            <Disclosure className="settings-card" title="模型选择">
-              <Field label="透明图模型">
-                <Combobox
-                  disabled={!draft.generateTransparent}
-                  aria-label="透明图模型"
-                  width="fill"
-                  value={draft.imageModel}
-                  items={modelOptions("image")}
-                  placeholder="搜索或选择模型"
-                  emptyText="没有匹配的模型"
-                  triggerLabel="展开透明图模型"
-                  onValueChange={(value) =>
-                    value &&
-                    updateSettings((d) => ({ ...d, imageModel: value }))
-                  }
-                />
-              </Field>
-              <Field label="标签识别模型">
-                <Combobox
-                  aria-label="标签识别模型"
-                  width="fill"
-                  value={draft.tagModel}
-                  items={modelOptions("tags")}
-                  placeholder="搜索或选择模型"
-                  emptyText="没有匹配的模型"
-                  triggerLabel="展开标签识别模型"
-                  onValueChange={(value) =>
-                    value && updateSettings((d) => ({ ...d, tagModel: value }))
-                  }
-                />
-              </Field>
+          <Disclosure className="settings-card" title="模型选择">
+            <Field label="透明图模型">
+              <Combobox
+                disabled={!draft.generateTransparent}
+                aria-label="透明图模型"
+                width="fill"
+                value={draft[imageModelField]}
+                items={modelOptions("image")}
+                placeholder="搜索或选择模型"
+                emptyText="没有匹配的模型"
+                triggerLabel="展开透明图模型"
+                onValueChange={(value) =>
+                  value &&
+                  updateSettings((d) => ({ ...d, [imageModelField]: value }))
+                }
+              />
+            </Field>
+            <Field label="标签识别模型">
+              <Combobox
+                aria-label="标签识别模型"
+                width="fill"
+                value={draft[tagModelField]}
+                items={modelOptions("tags")}
+                placeholder="搜索或选择模型"
+                emptyText="没有匹配的模型"
+                triggerLabel="展开标签识别模型"
+                onValueChange={(value) =>
+                  value && updateSettings((d) => ({ ...d, [tagModelField]: value }))
+                }
+              />
+            </Field>
+            {!defaultMode && (
               <p className="help">
                 透明图模型需支持图片编辑和透明输出。标签模型需支持视觉输入和结构化输出。
               </p>
-            </Disclosure>
-          )}
+            )}
+          </Disclosure>
           <Disclosure
             className="settings-card prompt-settings"
             title="自定义 Prompt"

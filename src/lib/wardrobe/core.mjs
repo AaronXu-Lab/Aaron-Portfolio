@@ -11,17 +11,27 @@ export const CATEGORIES = [
   "配饰",
   "其他",
 ];
+export const DEFAULT_MODE_MODELS = {
+  image: ["gpt-image-2.5-sunburst", "gpt-image-2.5-flare"],
+  tags: ["gpt-6.1-terra", "gpt-6-luna"],
+};
 export const DEFAULTS = {
   apiMode: "default",
   apiKey: "",
   generateTransparent: true,
   recognitionDefaultVersion: 1,
-  imageModel: "gpt-image-2.5-sunburst",
-  tagModel: "gpt-6.1-terra",
+  imageModel: DEFAULT_MODE_MODELS.image[0],
+  tagModel: DEFAULT_MODE_MODELS.tags[0],
+  defaultImageModel: DEFAULT_MODE_MODELS.image[0],
+  defaultTagModel: DEFAULT_MODE_MODELS.tags[0],
   imagePrompt: IMAGE_PROMPT,
   tagPrompt:
     '识别原图中的主要衣服或配饰，忽略衣架和背景。coarse 必须从上衣、裤子、裙子、外套、鞋子、包袋、配饰、其他中选一个。fine 使用简短中文标签，包含可见的款式、颜色、版型、袖长、材质和图案；不确定的属性不要猜测。只返回符合指定结构的 JSON：{"coarse":"上衣","fine":["T恤","黑色","宽松","短袖"]}。',
 };
+export function defaultModeModel(type, value) {
+  const options = DEFAULT_MODE_MODELS[type];
+  return options.includes(value) ? value : options[0];
+}
 export function personalApiKey(settings) {
   return settings.apiMode === "byok" ? settings.apiKey.trim() : "";
 }
@@ -81,6 +91,8 @@ export function cleanSettings(value) {
   // Older settings have a personal Key but no mode.
   if (value?.apiMode !== "default" && value?.apiMode !== "byok")
     result.apiMode = result.apiKey.trim() ? "byok" : "default";
+  result.defaultImageModel = defaultModeModel("image", result.defaultImageModel);
+  result.defaultTagModel = defaultModeModel("tags", result.defaultTagModel);
   if (result.imagePrompt === LEGACY_IMAGE_PROMPT)
     result.imagePrompt = IMAGE_PROMPT;
   if (

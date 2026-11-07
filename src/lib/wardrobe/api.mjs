@@ -91,7 +91,10 @@ export async function prepareImage(file) {
 export async function generateImage(original, config) {
   const d = await request("/images/edits", config, {
     method: "POST",
-    body: imageRequestBody(original, config),
+    body: imageRequestBody(original, {
+      ...config,
+      imageModel: config.apiMode === "default" ? config.defaultImageModel : config.imageModel,
+    }),
   });
   const b64 = d.data?.[0]?.b64_json;
   if (!b64) throw new Error("模型没有返回 PNG 图片，请检查图像模型。");
@@ -123,7 +126,10 @@ export async function generateTags(original, config) {
   const d = await request("/responses", config, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(tagRequestBody(image, config)),
+    body: JSON.stringify(tagRequestBody(image, {
+      ...config,
+      tagModel: config.apiMode === "default" ? config.defaultTagModel : config.tagModel,
+    })),
   });
   return validateTags(JSON.parse(responseText(d)));
 }
