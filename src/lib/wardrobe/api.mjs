@@ -38,10 +38,14 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
       );
     }
     const upstreamStatus = r.headers.get("x-wardrobe-upstream-status");
+    const upstreamRequestId = r.headers.get(useWorker ? "x-wardrobe-upstream-request-id" : "x-request-id");
+    const upstreamCode = r.headers.get("x-wardrobe-upstream-code");
     const ray = r.headers.get("cf-ray");
     trace?.("response_headers", {
       status: r.status,
       upstreamStatus: /^\d{3}$/.test(upstreamStatus ?? "") ? Number(upstreamStatus) : undefined,
+      upstreamRequestId: /^req_[a-z0-9]{8,64}$/i.test(upstreamRequestId ?? "") ? upstreamRequestId : undefined,
+      upstreamCode: /^[a-z][a-z0-9_]{1,63}$/.test(upstreamCode ?? "") ? upstreamCode : undefined,
       upstreamConnectionError: r.headers.get("x-wardrobe-upstream-error") === "connection",
       ray: /^[a-f0-9]{16}-[A-Z]{3}$/.test(ray ?? "") ? ray : undefined,
     });
@@ -58,7 +62,7 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
         "OpenAI 返回无法读取的响应。");
     }
     if (!r.ok)
-      throw new ProcessingError("http_error", data.error?.message ?? `请求失败（${r.status}）`);
+      throw new ProcessingError((useWorker && data.error?.code) || "http_error", data.error?.message ?? `请求失败（${r.status}）`);
     trace?.("response_received");
     return data;
   } finally {

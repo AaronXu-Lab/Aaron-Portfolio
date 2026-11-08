@@ -102,3 +102,39 @@ test("Wardrobe shares the 100-request quota across endpoints for each IP", async
   assert.equal((await call(models)).status, 200);
 
 });
+
+test("image rejection keeps safe diagnostics without leaking the upstream body", async (t) => {
+  const origin = "https://www.xuweinan.com";
+  const requestId = "req_0123456789abcdef";
+  const env = {
+    OPENAI_API_KEY: "mock-service-key",
+    WARDROBE_DAILY_QUOTA: { getByName: () => ({ consume: async () => 0 }) },
+  };
+  let body;
+  t.mock.method(globalThis, "fetch", async () => new Response(body, {
+    status: 400,
+    headers: { "x-request-id": requestId },
+  }));
+  for (const [upstream, expected] of [
+    [{ code: "moderation_blocked", moderation_details: { moderation_stage: "output" } }, "moderation_output"],
+    [{ code: "invalid_image_format" }, "invalid_image"],
+    [{ code: "invalid_value" }, "invalid_parameter"],
+    [{ code: "unknown_error" }, "upstream_bad_request"],
+    [null, "upstream_bad_request"],
+  ]) {
+    body = upstream ? JSON.stringify({ error: { ...upstream, message: "private upstream text" } }) : "invalid JSON";
+    const form = new FormData();
+    form.set("image", new Blob(["test"], { type: "image/jpeg" }), "test.jpg");
+    form.set("prompt", "去除背景。");
+    const result = await worker.fetch(new Request(origin + "/api/wardrobe/images/edits", {
+      method: "POST", headers: { Origin: origin, "CF-Connecting-IP": "192.0.2.1" }, body: form,
+    }), env);
+    assert.equal(result.status, 400);
+    assert.equal(result.headers.get("x-wardrobe-upstream-status"), "400");
+    assert.equal(result.headers.get("x-wardrobe-upstream-request-id"), requestId);
+    assert.equal(result.headers.get("x-wardrobe-upstream-code"), upstream?.code ?? null);
+    const { error } = await result.json();
+    assert.equal(error.code, expected);
+    assert.doesNotMatch(error.message, /private upstream text/);
+  }
+});

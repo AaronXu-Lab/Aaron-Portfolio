@@ -15,16 +15,16 @@ const modelIds = new Set([...DEFAULT_MODE_MODELS.image, ...DEFAULT_MODE_MODELS.t
 const validImageType = /^image\/(jpeg|png|webp)$/i;
 const validImageURL = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/;
 
-function error(status, message, headers = {}) {
-  return Response.json({ error: { message } }, { status, headers: { ...noCache, ...headers } });
+function error(status, message, headers = {}, code) {
+  return Response.json({ error: { message, code } }, { status, headers: { ...noCache, ...headers } });
 }
 
-function boundedBody(request) {
+function boundedBody(request, limit = MAX_BODY_BYTES) {
   let bytes = 0;
   const limited = request.body?.pipeThrough(new TransformStream({
     transform(chunk, controller) {
       bytes += chunk.byteLength;
-      if (bytes > MAX_BODY_BYTES) {
+      if (bytes > limit) {
         controller.error(new RangeError("Body too large"));
       } else {
         controller.enqueue(chunk);
@@ -32,6 +32,27 @@ function boundedBody(request) {
     },
   }));
   return new Response(limited, { headers: request.headers });
+}
+
+async function imageBadRequest(response, headers) {
+  const { error: upstream } = (await boundedBody(response, 16384).json().catch(() => null)) ?? {};
+  if (typeof upstream?.code === "string" && /^[a-z][a-z0-9_]{1,63}$/.test(upstream.code))
+    headers["X-Wardrobe-Upstream-Code"] = upstream.code;
+  if (upstream?.code === "moderation_blocked") {
+    const stage = upstream.moderation_details?.moderation_stage;
+    const code = stage === "input" ? "moderation_input" : stage === "output" ? "moderation_output" : "moderation_blocked";
+    const message = stage === "output"
+      ? "生成的透明图未通过 OpenAI 审核。可调整图片 Prompt 后重试。"
+      : "这次请求未通过 OpenAI 审核。可检查原图和图片 Prompt 后再试。";
+    return error(400, message, headers, code);
+  }
+  if (["invalid_image", "invalid_image_format", "invalid_image_dimensions", "image_too_large", "image_too_small"].includes(upstream?.code)) {
+    return error(400, "OpenAI 无法处理这张原图。请换一张照片或重新导出为 JPEG 后上传。", headers, "invalid_image");
+  }
+  if (["invalid_value", "unsupported_value", "missing_required_parameter"].includes(upstream?.code)) {
+    return error(400, "OpenAI 拒绝了透明图生成参数。请导出处理日志以便排查。", headers, "invalid_parameter");
+  }
+  return error(400, "OpenAI 拒绝了这次透明图请求。若再次失败，请导出处理日志。", headers, "upstream_bad_request");
 }
 
 function validPrompt(prompt) {
@@ -123,6 +144,11 @@ export default {
       });
       if (!response.ok) {
         const diagnostics = { "X-Wardrobe-Upstream-Status": String(response.status) };
+        const requestId = response.headers.get("x-request-id");
+        if (/^req_[a-z0-9]{8,64}$/i.test(requestId ?? ""))
+          diagnostics["X-Wardrobe-Upstream-Request-Id"] = requestId;
+        if (path === "/images/edits" && response.status === 400)
+          return await imageBadRequest(response, diagnostics);
         await response.body?.cancel();
         return response.status === 429
           ? error(429, "默认模式额度不足或请求过于频繁，请稍后重试。", diagnostics)
