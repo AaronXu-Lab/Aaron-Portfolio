@@ -38,9 +38,6 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
     clearTimeout(timer);
   }
 }
-export function checkDefaultAvailability(config) {
-  return request("/status", config, {}, 15000);
-}
 export async function listModels(config) {
   const d = await request("/models", config, {}, 15000);
   return (d.data ?? []).map((m) => m.id).sort();

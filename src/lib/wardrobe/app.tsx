@@ -57,7 +57,6 @@ import {
 } from "./db.mjs";
 import {
   listModels,
-  checkDefaultAvailability,
   prepareImage,
   generateImage,
   generateTags,
@@ -157,6 +156,12 @@ function ScrollRegion({
   );
 }
 const MISSING_KEY_MESSAGE = "请先在设置中填写 API Key。";
+function localId() {
+  // LAN previews use HTTP, where randomUUID is unavailable.
+  return crypto.randomUUID?.() ?? Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+}
 function App() {
   const toast = useToast();
   const [items, setItems] = useState<any[]>([]),
@@ -489,7 +494,14 @@ function App() {
       if (running.current.size < 2) pump();
     }
   }
-  async function ingest(files) {
+  function handlePhotoSelection(event: React.ChangeEvent<HTMLInputElement>) {
+    const input = event.currentTarget;
+    // The native file list can be cleared with the input, including while async work runs.
+    const files = Array.from(input.files ?? []);
+    input.value = "";
+    if (files.length) void ingest(files);
+  }
+  async function ingest(files: File[]) {
     if (ingesting.current) return;
     if (!canUseApi(configRef.current)) {
       notify(MISSING_KEY_MESSAGE);
@@ -504,19 +516,10 @@ function App() {
     setAdding(true);
     const ids = [];
     try {
-      if (configRef.current.apiMode === "default") {
-        try {
-          await checkDefaultAvailability(configRef.current);
-        } catch (error) {
-          fail(error);
-          openSettings();
-          return;
-        }
-      }
-      for (const file of Array.from(files) as File[]) {
+      for (const file of files) {
         try {
           const prepared = await prepareImage(file);
-          const id = crypto.randomUUID(),
+          const id = localId(),
             now = Date.now();
           await putClothes({
             id,
@@ -536,7 +539,7 @@ function App() {
         }
       }
       if (ids.length) {
-        const batch = crypto.randomUUID();
+        const batch = localId();
         batchRef.current[batch] = {
           id: batch,
           pending: new Set(ids),
@@ -611,10 +614,7 @@ function App() {
         accept="image/*"
         capture="environment"
         hidden
-        onChange={(e) => {
-          if (e.target.files) void ingest(e.target.files);
-          e.target.value = "";
-        }}
+        onChange={handlePhotoSelection}
       />
       <input
         ref={fileRef}
@@ -622,10 +622,7 @@ function App() {
         accept="image/*"
         multiple
         hidden
-        onChange={(e) => {
-          if (e.target.files) void ingest(e.target.files);
-          e.target.value = "";
-        }}
+        onChange={handlePhotoSelection}
       />
       <Tabs.Root
         value={page}
