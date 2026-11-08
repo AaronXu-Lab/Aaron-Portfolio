@@ -619,7 +619,7 @@ function App() {
       <input
         ref={fileRef}
         type="file"
-        accept="image/*"
+        accept="image/*,.heic,.heif"
         multiple
         hidden
         onChange={handlePhotoSelection}

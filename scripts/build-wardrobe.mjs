@@ -28,6 +28,10 @@ function visit(path) {
     if (entry.kind === "import-statement") visit(entry.path);
 }
 visit("public/tools/wardrobe/app.js");
+await writeFile(
+  "public/tools/wardrobe/heic-decoder-notice.txt",
+  `heic-to: https://github.com/hoppergee/heic-to\n\n${await readFile("node_modules/heic-to/LICENSE", "utf8")}`,
+);
 const files = [
   "index.html",
   "theme.js",

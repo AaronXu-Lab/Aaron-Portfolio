@@ -52,26 +52,37 @@ export function dataURL(blob) {
 }
 export async function prepareImage(file) {
   if (file.size > 30 * 1024 * 1024) throw new Error("单张图片不能超过 30 MB。");
-  if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type))
-    throw new Error(
-      "请选择 JPEG、PNG 或 WebP 图片。HEIC 请在设备上转换后重试。",
-    );
+  const heic =
+    /^image\/hei[cf](?:-sequence)?$/i.test(file.type) ||
+    /\.hei[cf]$/i.test(file.name);
+  const standard =
+    /^image\/(jpeg|png|webp)$/i.test(file.type) ||
+    ((!file.type || file.type === "application/octet-stream") &&
+      /\.(jpe?g|png|webp)$/i.test(file.name));
+  if (!heic && !standard)
+    throw new Error("请选择 JPEG、PNG、WebP、HEIC 或 HEIF 图片。");
   const url = URL.createObjectURL(file);
+  let bitmap;
   try {
     const img = new Image();
     img.src = url;
-    await img.decode();
-    const scale = Math.min(
-      1,
-      2048 / Math.max(img.naturalWidth, img.naturalHeight),
-    );
+    try {
+      await img.decode();
+    } catch (error) {
+      if (!heic) throw error;
+      const { heicTo } = await import("heic-to/csp");
+      bitmap = await heicTo({ blob: file, type: "bitmap" });
+    }
+    const width = bitmap?.width ?? img.naturalWidth;
+    const height = bitmap?.height ?? img.naturalHeight;
+    const scale = Math.min(1, 2048 / Math.max(width, height));
     const c = document.createElement("canvas");
-    c.width = Math.round(img.naturalWidth * scale);
-    c.height = Math.round(img.naturalHeight * scale);
+    c.width = Math.max(1, Math.round(width * scale));
+    c.height = Math.max(1, Math.round(height * scale));
     const ctx = c.getContext("2d");
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, c.width, c.height);
-    ctx.drawImage(img, 0, 0, c.width, c.height);
+    ctx.drawImage(bitmap ?? img, 0, 0, c.width, c.height);
     return await new Promise((resolve, reject) =>
       c.toBlob(
         (b) => (b ? resolve(b) : reject(new Error("图片转换失败。"))),
@@ -80,8 +91,13 @@ export async function prepareImage(file) {
       ),
     );
   } catch {
-    throw new Error("此图片无法解码，请改用 JPEG、PNG 或 WebP。");
+    throw new Error(
+      heic
+        ? "此 HEIC 图片无法读取，请尝试重新导出为 JPEG。"
+        : "此图片无法读取，请尝试重新选择或导出为 JPEG。",
+    );
   } finally {
+    bitmap?.close();
     URL.revokeObjectURL(url);
   }
 }

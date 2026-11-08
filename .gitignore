@@ -14,6 +14,7 @@ output/playwright/
 /public/tools/wardrobe/app.js
 /public/tools/wardrobe/app.css
 /public/tools/wardrobe/sw.js
+/public/tools/wardrobe/heic-decoder-notice.txt
 /public/tools/wardrobe/chunks/
 
 # 专注森林：由 npm run build:forest 从完整 three 构建摇树生成
