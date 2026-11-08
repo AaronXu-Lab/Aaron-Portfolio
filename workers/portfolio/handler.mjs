@@ -117,7 +117,8 @@ export default {
       const response = await fetch(OPENAI + path, {
         ...payload,
         method: request.method,
-        redirect: "error",
+        // Workers supports manual redirects; the !response.ok check below rejects them.
+        redirect: "manual",
         headers: { ...payload.headers, Authorization: `Bearer ${key}` },
       });
       if (!response.ok) {
