@@ -5,6 +5,9 @@ const BASE = "https://api.openai.com/v1";
 export async function request(path, config, options = {}, timeoutMs = 240000) {
   const useWorker = config.apiMode === "default";
   const controller = new AbortController();
+  const cancel = () => controller.abort(options.signal.reason);
+  if (options.signal?.aborted) cancel();
+  else options.signal?.addEventListener("abort", cancel, { once: true });
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     let r;
@@ -17,6 +20,7 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
           : { headers: { ...options.headers, Authorization: `Bearer ${personalApiKey(config)}` } }),
       });
     } catch (e) {
+      if (options.signal?.aborted) throw e;
       throw new Error(
         e.name === "AbortError"
           ? "请求超时，请稍后重试。"
@@ -36,6 +40,7 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
     return data;
   } finally {
     clearTimeout(timer);
+    options.signal?.removeEventListener("abort", cancel);
   }
 }
 export async function listModels(config) {
@@ -101,14 +106,16 @@ export async function prepareImage(file) {
     URL.revokeObjectURL(url);
   }
 }
-export async function generateImage(original, config) {
+export async function generateImage(original, config, signal) {
   const d = await request("/images/edits", config, {
     method: "POST",
+    signal,
     body: imageRequestBody(original, {
       ...config,
       imageModel: config.apiMode === "default" ? config.defaultImageModel : config.imageModel,
     }),
   });
+  signal?.throwIfAborted();
   const b64 = d.data?.[0]?.b64_json;
   if (!b64) throw new Error("模型没有返回 PNG 图片，请检查图像模型。");
   const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
@@ -134,10 +141,11 @@ export async function generateImage(original, config) {
   }
   return blob;
 }
-export async function generateTags(original, config) {
+export async function generateTags(original, config, signal) {
   const image = await dataURL(original);
   const d = await request("/responses", config, {
     method: "POST",
+    signal,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(tagRequestBody(image, {
       ...config,

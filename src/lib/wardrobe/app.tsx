@@ -197,7 +197,8 @@ function App() {
     [offline, setOffline] = useState(!navigator.onLine);
   const fileRef = useRef<HTMLInputElement>(null),
     cameraRef = useRef<HTMLInputElement>(null),
-    running = useRef(new Set<string>()),
+    running = useRef(new Map<string, AbortController>()),
+    removing = useRef(new Set<string>()),
     pending = useRef<string[]>([]),
     configRef = useRef(config),
     detailRef = useRef(detail),
@@ -347,13 +348,28 @@ function App() {
         .flatMap((i) => i.fine),
     ),
   ].sort() as string[];
-  async function remove(ids) {
-    await deleteClothes(ids);
-    pending.current = pending.current.filter((id) => !ids.includes(id));
-    setQueue([...pending.current]);
-    setSelected((s) => s.filter((id) => !ids.includes(id)));
-    if (ids.includes(detail!)) setDetail(null);
-    await refresh();
+  async function remove(ids: string[]) {
+    const targets = new Set(ids.filter((id) => !removing.current.has(id)));
+    if (!targets.size) return;
+    for (const id of targets) removing.current.add(id);
+    try {
+      await deleteClothes(targets);
+      pending.current = pending.current.filter((id) => !targets.has(id));
+      setQueue([...pending.current]);
+      for (const batch of Object.values(batchRef.current) as any[]) {
+        batch.done = batch.done.filter((id) => !targets.has(id));
+      }
+      for (const id of targets) {
+        running.current.get(id)?.abort();
+        finishBatch(id, false);
+      }
+      setSelected((s) => s.filter((id) => !targets.has(id)));
+      setDetail((id) => id && targets.has(id) ? null : id);
+      await refresh();
+    } finally {
+      for (const id of targets) removing.current.delete(id);
+      pump();
+    }
   }
   function finishBatch(id, success) {
     const batch = Object.values(batchRef.current).find((b: any) =>
@@ -378,20 +394,22 @@ function App() {
     }
   }
   async function processItem(id, mode = "missing") {
-    if (running.current.has(id)) return;
-    running.current.add(id);
+    if (running.current.has(id) || removing.current.has(id)) return;
+    const controller = new AbortController();
+    const { signal } = controller;
+    running.current.set(id, controller);
     const cfg = configRef.current;
     let didComplete = false;
     try {
       let item = await getClothes(id);
-      if (!item) return;
+      if (!item || signal.aborted) return;
       if (
         mode === "missing" &&
         !item.transparentBlob &&
         !cfg.generateTransparent
       ) {
         item = await patchClothes(id, { imageSkipped: true, imageError: null });
-        if (!item) return;
+        if (!item || signal.aborted) return;
       }
       const steps = mode === "missing" ? missingSteps(item) : [mode];
       if (!steps.length) return;
@@ -405,7 +423,9 @@ function App() {
               const blob = await generateImage(
                 item.preparedBlob ?? item.originalBlob,
                 cfg,
+                signal,
               );
+              if (signal.aborted) return;
               await patchClothes(id, {
                 transparentBlob: blob,
                 imageSkipped: false,
@@ -415,7 +435,9 @@ function App() {
               const result = await generateTags(
                 item.preparedBlob ?? item.originalBlob,
                 cfg,
+                signal,
               );
+              if (signal.aborted) return;
               await patchClothes(id, {
                 ...result,
                 tagsDone: true,
@@ -423,6 +445,7 @@ function App() {
               });
             }
           } catch (e) {
+            if (signal.aborted) return;
             await patchClothes(id, {
               [step === "image" ? "imageError" : "tagError"]: e.message,
             });
@@ -431,12 +454,12 @@ function App() {
               ...b,
               [id]: (b[id] ?? []).filter((s) => s !== step),
             }));
-            await refresh();
+            if (!signal.aborted) await refresh();
           }
         }),
       );
       const updated = await getClothes(id);
-      if (updated) {
+      if (updated && !signal.aborted) {
         didComplete = !missingSteps(updated).length;
         if (
           steps.includes("tags") &&
@@ -458,7 +481,7 @@ function App() {
           );
       }
     } catch (e) {
-      fail(e);
+      if (!signal.aborted) fail(e);
     } finally {
       running.current.delete(id);
       setBusy((b) => {
@@ -469,8 +492,8 @@ function App() {
       const belongsToBatch = Object.values(batchRef.current).some(
         (batch: any) => batch.pending.has(id),
       );
-      finishBatch(id, didComplete);
-      if (didComplete && mode === "missing" && !belongsToBatch) {
+      finishBatch(id, didComplete && !signal.aborted);
+      if (didComplete && !signal.aborted && mode === "missing" && !belongsToBatch) {
         toast.add({
           title: "衣服已存入相册",
           timeout: 10000,
@@ -487,7 +510,9 @@ function App() {
   }
   function pump() {
     if (running.current.size >= 2) return;
-    const id = pending.current.shift();
+    const next = pending.current.findIndex((id) => !removing.current.has(id));
+    if (next < 0) return;
+    const [id] = pending.current.splice(next, 1);
     setQueue([...pending.current]);
     if (id) {
       void processItem(id);
@@ -906,14 +931,8 @@ function App() {
                               ? () => void exportItems(selected)
                               : undefined
                           }
-                          deleteDisabled={
-                            !selected.length ||
-                            selected.some(
-                              (id) =>
-                                running.current.has(id) || queue.includes(id),
-                            )
-                          }
-                          deleteTitle="请先选择衣服，并等待处理完成。"
+                          deleteDisabled={!selected.length}
+                          deleteTitle="请先选择衣服。"
                           onDelete={() => {
                             setDeleteError("");
                             setConfirmDelete([...selected]);
@@ -1456,7 +1475,6 @@ function App() {
             <Button
               variant="ghost"
               size="sm"
-              disabled={!!busy[current.id] || queue.includes(current.id)}
               onClick={() => {
                 setDeleteError("");
                 setConfirmDelete([current.id]);
