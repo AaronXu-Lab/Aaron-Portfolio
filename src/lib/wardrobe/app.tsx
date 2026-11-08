@@ -668,6 +668,15 @@ function App() {
           files[`${name}.png`] = new Uint8Array(
             await i.transparentBlob.arrayBuffer(),
           );
+        if (i.originalBlob) {
+          const format = i.originalBlob.type.match(
+            /^image\/(jpeg|png|webp|heic|heif)(?:-sequence)?$/i,
+          )?.[1];
+          const suffix = i.sourceName?.match(/\.(jpe?g|png|webp|heic|heif)$/i)?.[1];
+          const extension = (format ?? suffix ?? "bin").toLowerCase();
+          files[`${name}-原图.${extension === "jpeg" ? "jpg" : extension}`] =
+            new Uint8Array(await i.originalBlob.arrayBuffer());
+        }
         files[`${name}.json`] = new TextEncoder().encode(
           JSON.stringify(exportMetadata(i), null, 2),
         );

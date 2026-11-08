@@ -37,7 +37,7 @@ test("retry only missing results, successful image never charged twice", () => {
     [],
   );
 });
-test("exports never contain original, credentials, or internal errors", () => {
+test("export metadata excludes photo blobs, credentials, and internal errors", () => {
   const i = {
     id: "abc",
     coarse: "上衣",
