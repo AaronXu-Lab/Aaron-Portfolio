@@ -694,14 +694,12 @@ function App() {
     setTakingPhoto(true);
     try {
       const canvas = document.createElement("canvas");
-      const preview = video.getBoundingClientRect();
-      if (!preview.width || !preview.height) throw new Error("无法拍照，请重试。");
-      const aspect = preview.width / preview.height;
-      // Match the centered cover crop and zoom shown in the preview.
-      const width = Math.min(video.videoWidth, video.videoHeight * aspect) / cameraZoom;
-      const height = width / aspect;
-      canvas.width = Math.max(1, Math.round(width));
-      canvas.height = Math.max(1, Math.round(height));
+      // Match the preview's centered 4:5 crop, with exact 4:5 output dimensions.
+      const unit = Math.min(video.videoWidth / 4, video.videoHeight / 5) / cameraZoom;
+      const width = 4 * unit;
+      const height = 5 * unit;
+      canvas.width = 4 * Math.max(1, Math.floor(unit));
+      canvas.height = 5 * Math.max(1, Math.floor(unit));
       const ctx = canvas.getContext("2d");
       if (!ctx) throw new Error("无法拍照，请重试。");
       ctx.drawImage(video, (video.videoWidth - width) / 2, (video.videoHeight - height) / 2,
@@ -759,7 +757,8 @@ function App() {
       setExporting(false);
     }
   }
-  const activeCount = Object.keys(busy).length + queue.length;
+  const processingCount = Object.keys(busy).length;
+  const activeCount = processingCount + queue.length;
   const isProcessing = adding || activeCount > 0;
   useEffect(() => {
     if (isProcessing) return keepScreenAwake(navigator, document);
@@ -806,18 +805,23 @@ function App() {
               <Loading label="正在打开本地相册" />
             ) : page === "capture" && cameraOpen ? (
               <Tabs.Panel value="capture" className="camera-screen" aria-label="相机">
-                <video
-                  ref={videoRef}
-                  className="capture-video"
-                  aria-label="相机预览"
-                  hidden={cameraStatus !== "ready"}
-                  style={{ transform: `scale(${cameraZoom})` }}
-                  playsInline
-                  muted
-                />
+                <div className="camera-frame">
+                  <video
+                    ref={videoRef}
+                    className="capture-video"
+                    aria-label="相机预览"
+                    hidden={cameraStatus !== "ready"}
+                    style={{ transform: `scale(${cameraZoom})` }}
+                    playsInline
+                    muted
+                  />
+                </div>
                 <Button className="camera-back" variant="fill" aria-label="返回" autoFocus onClick={() => setCameraOpen(false)}>
                   <ArrowLeftIcon size={22} />
                 </Button>
+                <p className="camera-progress" role="status">
+                  正在处理 {processingCount} 张 · 排队 {queue.length} 张
+                </p>
                 {cameraStatus !== "ready" && (
                   <p className="camera-message" role="status">
                     {cameraStatus === "opening" ? "正在打开相机…" : "无法打开网页相机，可以改用系统相机。"}

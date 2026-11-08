@@ -165,8 +165,18 @@ h3 {
   max-width: 700px;
   margin-inline: auto;
   overflow: hidden;
+  container-type: size;
   z-index: 19;
   background: var(--wardrobe-viewfinder);
+}
+.camera-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100%, 80cqh);
+  aspect-ratio: 4 / 5;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
 }
 .capture-video {
   position: absolute;
@@ -179,6 +189,18 @@ h3 {
   position: absolute;
   top: calc(12px + env(safe-area-inset-top));
   left: calc(16px + env(safe-area-inset-left));
+}
+.camera-progress {
+  position: absolute;
+  top: calc(18px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: var(--wardrobe-camera-control);
+  color: var(--wardrobe-camera-ink);
+  font-size: 12px;
+  white-space: nowrap;
 }
 .camera-message {
   position: absolute;
