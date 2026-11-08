@@ -2,7 +2,15 @@ import { personalApiKey, validateTags, responseText } from "./core.mjs";
 import { imageRequestBody, tagRequestBody } from "./request-body.mjs";
 const BASE = "https://api.openai.com/v1";
 
+class ProcessingError extends Error {
+  constructor(code, message) {
+    super(message);
+    this.code = code;
+  }
+}
+
 export async function request(path, config, options = {}, timeoutMs = 240000) {
+  const { trace, ...init } = options;
   const useWorker = config.apiMode === "default";
   const controller = new AbortController();
   const cancel = () => controller.abort(options.signal.reason);
@@ -10,10 +18,11 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
   else options.signal?.addEventListener("abort", cancel, { once: true });
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
+    trace?.("request_started");
     let r;
     try {
       r = await fetch((useWorker ? "/api/wardrobe" : BASE) + path, {
-        ...options,
+        ...init,
         signal: controller.signal,
         ...(useWorker
           ? { redirect: "manual" }
@@ -21,22 +30,36 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
       });
     } catch (e) {
       if (options.signal?.aborted) throw e;
-      throw new Error(
-        e.name === "AbortError"
+      const timedOut = controller.signal.aborted;
+      throw new ProcessingError(timedOut ? "timeout" : "network_error",
+        timedOut
           ? "请求超时，请稍后重试。"
           : "连接 OpenAI 失败，请检查网络。",
       );
     }
+    const upstreamStatus = r.headers.get("x-wardrobe-upstream-status");
+    const ray = r.headers.get("cf-ray");
+    trace?.("response_headers", {
+      status: r.status,
+      upstreamStatus: /^\d{3}$/.test(upstreamStatus ?? "") ? Number(upstreamStatus) : undefined,
+      upstreamConnectionError: r.headers.get("x-wardrobe-upstream-error") === "connection",
+      ray: /^[a-f0-9]{16}-[A-Z]{3}$/.test(ray ?? "") ? ray : undefined,
+    });
     if (useWorker && (r.type === "opaqueredirect" || r.status === 404))
-      throw new Error("默认模式暂不可用，可切换到 BYOK。");
+      throw new ProcessingError("worker_unavailable", "默认模式暂不可用，可切换到 BYOK。");
     let data;
     try {
       data = await r.json();
-    } catch {
-      throw new Error("OpenAI 返回无法读取的响应。");
+    } catch (error) {
+      if (options.signal?.aborted) throw error;
+      if (controller.signal.aborted)
+        throw new ProcessingError("timeout", "请求超时，请稍后重试。");
+      throw new ProcessingError(error instanceof SyntaxError ? "invalid_json" : "response_interrupted",
+        "OpenAI 返回无法读取的响应。");
     }
     if (!r.ok)
-      throw new Error(data.error?.message ?? `请求失败（${r.status}）`);
+      throw new ProcessingError("http_error", data.error?.message ?? `请求失败（${r.status}）`);
+    trace?.("response_received");
     return data;
   } finally {
     clearTimeout(timer);
@@ -106,10 +129,11 @@ export async function prepareImage(file) {
     URL.revokeObjectURL(url);
   }
 }
-export async function generateImage(original, config, signal) {
+export async function generateImage(original, config, signal, trace) {
   const d = await request("/images/edits", config, {
     method: "POST",
     signal,
+    trace,
     body: imageRequestBody(original, {
       ...config,
       imageModel: config.apiMode === "default" ? config.defaultImageModel : config.imageModel,
@@ -117,7 +141,7 @@ export async function generateImage(original, config, signal) {
   });
   signal?.throwIfAborted();
   const b64 = d.data?.[0]?.b64_json;
-  if (!b64) throw new Error("模型没有返回 PNG 图片，请检查图像模型。");
+  if (!b64) throw new ProcessingError("missing_image", "模型没有返回 PNG 图片，请检查图像模型。");
   const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
   const blob = new Blob([bytes], { type: "image/png" });
   const bitmap = await createImageBitmap(blob);
@@ -135,17 +159,18 @@ export async function generateImage(original, config, signal) {
         break;
       }
     }
-    if (!alpha) throw new Error("生成图片没有透明区域，请重试或调整 Prompt。");
+    if (!alpha) throw new ProcessingError("missing_transparency", "生成图片没有透明区域，请重试或调整 Prompt。");
   } finally {
     bitmap.close();
   }
   return blob;
 }
-export async function generateTags(original, config, signal) {
+export async function generateTags(original, config, signal, trace) {
   const image = await dataURL(original);
   const d = await request("/responses", config, {
     method: "POST",
     signal,
+    trace,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(tagRequestBody(image, {
       ...config,

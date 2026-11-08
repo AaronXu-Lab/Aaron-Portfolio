@@ -122,10 +122,11 @@ export default {
         headers: { ...payload.headers, Authorization: `Bearer ${key}` },
       });
       if (!response.ok) {
+        const diagnostics = { "X-Wardrobe-Upstream-Status": String(response.status) };
         await response.body?.cancel();
         return response.status === 429
-          ? error(429, "默认模式额度不足或请求过于频繁，请稍后重试。")
-          : error(502, "OpenAI 未能完成请求，请重试或切换到 BYOK。");
+          ? error(429, "默认模式额度不足或请求过于频繁，请稍后重试。", diagnostics)
+          : error(502, "OpenAI 未能完成请求，请重试或切换到 BYOK。", diagnostics);
       }
       if (path === "/models") {
         const { data } = await response.json();
@@ -135,7 +136,7 @@ export default {
         headers: { ...noCache, "Content-Type": "application/json" },
       });
     } catch {
-      return error(502, "默认模式暂时无法连接 OpenAI，请稍后重试。");
+      return error(502, "默认模式暂时无法连接 OpenAI，请稍后重试。", { "X-Wardrobe-Upstream-Error": "connection" });
     }
   },
 };

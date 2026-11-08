@@ -20,6 +20,7 @@ export const DEFAULTS = {
   apiMode: "default",
   apiKey: "",
   generateTransparent: true,
+  trackProcessing: false,
   recognitionDefaultVersion: 1,
   imageDefaultVersion: 1,
   imageModel: "gpt-image-2.5-sunburst",

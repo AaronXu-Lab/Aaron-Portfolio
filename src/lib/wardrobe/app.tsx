@@ -62,6 +62,7 @@ import {
   generateImage,
   generateTags,
 } from "./api.mjs";
+import { appendProcessingLog, readProcessingLog } from "./diagnostics.mjs";
 import { ScrollArea } from "@base-ui/react/scroll-area";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { RadioGroup } from "@base-ui/react/radio-group";
@@ -159,6 +160,16 @@ function ScrollRegion({
   );
 }
 const MISSING_KEY_MESSAGE = "请先在设置中填写 API Key。";
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
 function localId() {
   // LAN previews use HTTP, where randomUUID is unavailable.
   return crypto.randomUUID?.() ?? Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) =>
@@ -228,6 +239,17 @@ function App() {
         : e.message || "操作失败，请重试。",
       "error",
     );
+  const logProcessing = (event: string, details = {}) => {
+    if (configRef.current.trackProcessing)
+      appendProcessingLog({ build: WARDROBE_BUILD, event, ...details });
+  };
+  function exportProcessingLog() {
+    const entries = readProcessingLog();
+    if (!entries.length) return notify("还没有处理日志。开启日志跟踪后处理一张照片即可记录。");
+    const exportedAt = new Date().toISOString();
+    const data = JSON.stringify({ version: 1, build: WARDROBE_BUILD, exportedAt, entries }, null, 2);
+    downloadBlob(new Blob([data], { type: "application/json" }), `衣集处理日志-${exportedAt.slice(0, 10)}.json`);
+  }
   useEffect(() => {
     Promise.all([allClothes(), loadSettings()])
       .then(([rows, c]) => {
@@ -240,10 +262,16 @@ function App() {
           "无法打开本地相册。请检查浏览器是否允许本地存储，然后重新打开。",
         ),
       );
-    const online = () => setOffline(!navigator.onLine);
+    const online = () => {
+      setOffline(!navigator.onLine);
+      logProcessing("connection_changed");
+    };
+    const visibilityChanged = () => logProcessing("visibility_changed");
+    document.addEventListener("visibilitychange", visibilityChanged);
     window.addEventListener("online", online);
     window.addEventListener("offline", online);
     return () => {
+      document.removeEventListener("visibilitychange", visibilityChanged);
       window.removeEventListener("online", online);
       window.removeEventListener("offline", online);
     };
@@ -442,6 +470,8 @@ function App() {
     const { signal } = controller;
     running.current.set(id, controller);
     const cfg = configRef.current;
+    const attempt = cfg.trackProcessing ? localId() : null;
+    const started = performance.now();
     let didComplete = false;
     try {
       let item = await getClothes(id);
@@ -456,19 +486,33 @@ function App() {
       }
       const steps = mode === "missing" ? missingSteps(item) : [mode];
       if (!steps.length) return;
-      if (!canUseApi(cfg)) throw new Error(MISSING_KEY_MESSAGE);
-      if (!navigator.onLine) throw new Error("当前离线，联网后可重试。");
+      if (!canUseApi(cfg) || !navigator.onLine) {
+        if (attempt) logProcessing("processing_blocked", { attempt, item: id, reason: navigator.onLine ? "missing_key" : "offline" });
+        throw new Error(navigator.onLine ? MISSING_KEY_MESSAGE : "当前离线，联网后可重试。");
+      }
       setBusy((b) => ({ ...b, [id]: steps }));
       await Promise.all(
         steps.map(async (step) => {
+          const selectedModel = step === "image"
+            ? (cfg.apiMode === "default" ? cfg.defaultImageModel : cfg.imageModel)
+            : (cfg.apiMode === "default" ? cfg.defaultTagModel : cfg.tagModel);
+          const trace = attempt ? (event: string, details = {}) => logProcessing(event, {
+            attempt, item: id, step, mode: cfg.apiMode,
+            model: /^(?:gpt-|o\d)[a-z0-9._:-]{1,100}$/i.test(selectedModel) ? selectedModel : undefined,
+            elapsedMs: Math.round(performance.now() - started), ...details,
+          }) : undefined;
+          let stage = "model";
+          trace?.("step_started");
           try {
             if (step === "image") {
               const blob = await generateImage(
                 item.preparedBlob ?? item.originalBlob,
                 cfg,
                 signal,
+                trace,
               );
               if (signal.aborted) return;
+              stage = "storage";
               await patchClothes(id, {
                 transparentBlob: blob,
                 imageSkipped: false,
@@ -479,20 +523,25 @@ function App() {
                 item.preparedBlob ?? item.originalBlob,
                 cfg,
                 signal,
+                trace,
               );
               if (signal.aborted) return;
+              stage = "storage";
               await patchClothes(id, {
                 ...result,
                 tagsDone: true,
                 tagError: null,
               });
             }
+            trace?.("step_succeeded");
           } catch (e) {
             if (signal.aborted) return;
+            trace?.("step_failed", { reason: stage === "storage" ? "storage_error" : typeof e?.code === "string" ? e.code : "invalid_result" });
             await patchClothes(id, {
               [step === "image" ? "imageError" : "tagError"]: e.message,
             });
           } finally {
+            if (signal.aborted) trace?.("step_cancelled");
             setBusy((b) => ({
               ...b,
               [id]: (b[id] ?? []).filter((s) => s !== step),
@@ -524,6 +573,7 @@ function App() {
           );
       }
     } catch (e) {
+      if (!signal.aborted && attempt) logProcessing("processing_failed", { attempt, item: id });
       if (!signal.aborted) fail(e);
     } finally {
       running.current.delete(id);
@@ -701,14 +751,7 @@ function App() {
       );
       const blob = new Blob([bytes as BlobPart], { type: "application/zip" });
       const filename = `衣集-${new Date().toISOString().slice(0, 10)}.zip`;
-      const u = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = u;
-      a.download = filename;
-      document.body.append(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(u), 60000);
+      downloadBlob(blob, filename);
       notify(`已导出 ${rows.length} 件衣服`, "success");
     } catch (e) {
       if (e.name !== "AbortError") fail(e);
@@ -1424,6 +1467,21 @@ function App() {
           <Disclosure className="privacy-settings" title="数据与隐私">
             <p>相册保存在此浏览器，未加密。清除网站数据会删除相册，请定期导出。</p>
           </Disclosure>
+          <div className="settings-card">
+            <div className="processing-option">
+              <div>
+                <label htmlFor="track-processing">日志跟踪</label>
+                <p className="help">在本机保留最近 200 条处理记录，不包含原图、Prompt 或 API Key。</p>
+              </div>
+              <Switch
+                id="track-processing"
+                aria-label="日志跟踪"
+                checked={draft.trackProcessing}
+                onCheckedChange={(trackProcessing) => updateSettings((d) => ({ ...d, trackProcessing }))}
+              />
+            </div>
+            <Button variant="outline" size="sm" onClick={exportProcessingLog}>导出处理日志</Button>
+          </div>
           <p className="help">构建号 <code>{WARDROBE_BUILD}</code></p>
         </div>
       </SheetBasic>
