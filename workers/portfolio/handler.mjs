@@ -130,9 +130,9 @@ export default {
       return error(503, "暂时无法检查默认模式用量，请稍后重试。");
     }
     if (retryAfter > 0)
-      return error(429, "当前 IP 今日已用完 100 次默认模式请求。北京时间零点重置，也可切换到 BYOK。", {
+      return error(429, "今日默认模式额度已用完。每个 IP 每天限 100 次请求。", {
         "Retry-After": String(retryAfter),
-      });
+      }, "daily_quota_exhausted");
 
     try {
       const response = await fetch(OPENAI + path, {

@@ -222,6 +222,7 @@ function App() {
     configRef = useRef(config),
     detailRef = useRef(detail),
     modelRequest = useRef(0),
+    lastQuotaNotice = useRef(-Infinity),
     logGeneration = useRef(0),
     batchRef = useRef<any>({}),
     ingesting = useRef(false);
@@ -476,6 +477,7 @@ function App() {
     const canLogAttempt = () => attempt && generation === logGeneration.current;
     const started = performance.now();
     let didComplete = false;
+    let quotaExhausted = false;
     try {
       let item = await getClothes(id);
       if (!item || signal.aborted) return;
@@ -542,6 +544,20 @@ function App() {
             trace?.("step_succeeded");
           } catch (e) {
             if (signal.aborted) return;
+            if (e?.code === "daily_quota_exhausted") {
+              quotaExhausted = true;
+              const now = performance.now();
+              if (now - lastQuotaNotice.current >= 10000) {
+                lastQuotaNotice.current = now;
+                toast.add({
+                  title: "今日默认模式额度已用完",
+                  description: "每个 IP 每天限 100 次请求，原图已保留在相册。",
+                  info: "titleDescription",
+                  tone: "error",
+                  timeout: 10000,
+                });
+              }
+            }
             trace?.("step_failed", { reason: stage === "storage" ? "storage_error" : typeof e?.code === "string" ? e.code : "invalid_result" });
             await patchClothes(id, {
               [step === "image" ? "imageError" : "tagError"]: e.message,
@@ -567,9 +583,9 @@ function App() {
           setEditCategory(updated.coarse);
           setEditTags(updated.fine.join("，"));
         }
-        if (mode === "missing" && !didComplete)
+        if (!quotaExhausted && mode === "missing" && !didComplete)
           notify("部分处理未完成，已保留成功结果，可单独重试。", "error");
-        else if (mode !== "missing")
+        else if (!quotaExhausted && mode !== "missing")
           notify(
             (mode === "image" ? updated.imageError : updated.tagError) ||
               "已更新相册",
@@ -1366,7 +1382,7 @@ function App() {
               </Field>
             ) : (
               <p className="help">
-                照片经衣集转发给 OpenAI。每个 IP 每天 100 次请求，北京时间零点重置。
+                照片经衣集转发给 OpenAI。每个 IP 每天限 100 次请求。
               </p>
             )}
             {draft.apiMode === "byok" && connectionStatus && (

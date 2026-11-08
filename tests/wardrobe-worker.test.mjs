@@ -95,6 +95,7 @@ test("Wardrobe shares the 100-request quota across endpoints for each IP", async
   const denied = await call(tags, options);
   assert.equal(denied.status, 429);
   assert.equal(denied.headers.get("Retry-After"), "1");
+  assert.equal((await denied.json()).error.code, "daily_quota_exhausted");
   assert.equal(upstream.length, 100);
 
   assert.equal((await call(models, { address: "192.0.2.2" })).status, 200);
