@@ -1,6 +1,10 @@
 const STORAGE_KEY = "wardrobe-processing-log-v1";
 const LIMIT = 200;
 
+export function clearProcessingLog() {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
 export function readProcessingLog() {
   try {
     const entries = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");

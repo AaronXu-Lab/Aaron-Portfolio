@@ -62,7 +62,7 @@ import {
   generateImage,
   generateTags,
 } from "./api.mjs";
-import { appendProcessingLog, readProcessingLog } from "./diagnostics.mjs";
+import { appendProcessingLog, clearProcessingLog, readProcessingLog } from "./diagnostics.mjs";
 import { ScrollArea } from "@base-ui/react/scroll-area";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import { RadioGroup } from "@base-ui/react/radio-group";
@@ -222,6 +222,7 @@ function App() {
     configRef = useRef(config),
     detailRef = useRef(detail),
     modelRequest = useRef(0),
+    logGeneration = useRef(0),
     batchRef = useRef<any>({}),
     ingesting = useRef(false);
   configRef.current = config;
@@ -471,6 +472,8 @@ function App() {
     running.current.set(id, controller);
     const cfg = configRef.current;
     const attempt = cfg.trackProcessing ? localId() : null;
+    const generation = logGeneration.current;
+    const canLogAttempt = () => attempt && generation === logGeneration.current;
     const started = performance.now();
     let didComplete = false;
     try {
@@ -487,7 +490,7 @@ function App() {
       const steps = mode === "missing" ? missingSteps(item) : [mode];
       if (!steps.length) return;
       if (!canUseApi(cfg) || !navigator.onLine) {
-        if (attempt) logProcessing("processing_blocked", { attempt, item: id, reason: navigator.onLine ? "missing_key" : "offline" });
+        if (canLogAttempt()) logProcessing("processing_blocked", { attempt, item: id, reason: navigator.onLine ? "missing_key" : "offline" });
         throw new Error(navigator.onLine ? MISSING_KEY_MESSAGE : "当前离线，联网后可重试。");
       }
       setBusy((b) => ({ ...b, [id]: steps }));
@@ -496,11 +499,14 @@ function App() {
           const selectedModel = step === "image"
             ? (cfg.apiMode === "default" ? cfg.defaultImageModel : cfg.imageModel)
             : (cfg.apiMode === "default" ? cfg.defaultTagModel : cfg.tagModel);
-          const trace = attempt ? (event: string, details = {}) => logProcessing(event, {
-            attempt, item: id, step, mode: cfg.apiMode,
-            model: /^(?:gpt-|o\d)[a-z0-9._:-]{1,100}$/i.test(selectedModel) ? selectedModel : undefined,
-            elapsedMs: Math.round(performance.now() - started), ...details,
-          }) : undefined;
+          const trace = attempt ? (event: string, details = {}) => {
+            if (!canLogAttempt()) return;
+            logProcessing(event, {
+              attempt, item: id, step, mode: cfg.apiMode,
+              model: /^(?:gpt-|o\d)[a-z0-9._:-]{1,100}$/i.test(selectedModel) ? selectedModel : undefined,
+              elapsedMs: Math.round(performance.now() - started), ...details,
+            });
+          } : undefined;
           let stage = "model";
           trace?.("step_started");
           try {
@@ -573,7 +579,7 @@ function App() {
           );
       }
     } catch (e) {
-      if (!signal.aborted && attempt) logProcessing("processing_failed", { attempt, item: id });
+      if (!signal.aborted && canLogAttempt()) logProcessing("processing_failed", { attempt, item: id });
       if (!signal.aborted) fail(e);
     } finally {
       running.current.delete(id);
@@ -1475,13 +1481,23 @@ function App() {
             <div className="processing-option">
               <div>
                 <label htmlFor="track-processing">日志跟踪</label>
-                <p className="help">在本机保留最近 200 条处理记录，不包含原图、Prompt 或 API Key。</p>
+                <p className="help">在本机保留最近 200 条记录，关闭时清空。</p>
               </div>
               <Switch
                 id="track-processing"
                 aria-label="日志跟踪"
                 checked={draft.trackProcessing}
-                onCheckedChange={(trackProcessing) => updateSettings((d) => ({ ...d, trackProcessing }))}
+                onCheckedChange={(trackProcessing) => {
+                  updateSettings((d) => ({ ...d, trackProcessing }));
+                  if (!trackProcessing) {
+                    logGeneration.current++;
+                    try {
+                      clearProcessingLog();
+                    } catch {
+                      notify("无法清空处理日志，请检查浏览器的存储权限。", "error");
+                    }
+                  }
+                }}
               />
             </div>
             <Button variant="outline" size="sm" onClick={exportProcessingLog}>导出处理日志</Button>
