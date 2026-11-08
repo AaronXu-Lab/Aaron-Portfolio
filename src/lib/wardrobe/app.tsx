@@ -67,6 +67,8 @@ import { RadioGroup } from "@base-ui/react/radio-group";
 import { keepScreenAwake } from "./screen-wake-lock.mjs";
 import "./style.css";
 
+declare const WARDROBE_BUILD: string;
+
 function Photo({ blob, alt = "", className = "" }) {
   const [url, setURL] = useState("");
   useEffect(() => {
@@ -1383,6 +1385,7 @@ function App() {
           <Disclosure className="privacy-settings" title="数据与隐私">
             <p>相册保存在此浏览器，未加密。清除网站数据会删除相册，请定期导出。</p>
           </Disclosure>
+          <p className="help">构建号 <code>{WARDROBE_BUILD}</code></p>
         </div>
       </SheetBasic>
       <SheetBasic
