@@ -8,7 +8,7 @@ export function imageRequestBody(original, config) {
   form.append("background", "transparent");
   form.append("output_format", "png");
   form.append("size", "1024x1024");
-  form.append("quality", "high");
+  form.append("quality", config.imageModel === "gpt-image-2.6-flare" ? "medium" : "high");
   return form;
 }
 

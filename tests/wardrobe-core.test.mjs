@@ -1,4 +1,5 @@
 import test from "node:test";
+import { PREVIOUS_IMAGE_PROMPT } from "../src/lib/wardrobe/prompts.mjs";
 import assert from "node:assert/strict";
 import {
   validateTags,
@@ -68,6 +69,9 @@ test("settings default migration preserves edited prompts and key removal", () =
   });
   assert.equal(upgraded.defaultImageModel, "gpt-image-2.6-flare");
   assert.equal(upgraded.imageModel, "gpt-image-2.5-flare");
+  const previousSunburst = cleanSettings({ defaultImageModel: "gpt-image-2.6-sunburst" });
+  assert.equal(previousSunburst.defaultImageModel, "gpt-image-2.6-flare");
+  assert.equal(cleanSettings({ ...previousSunburst, defaultImageModel: "gpt-image-2.6-sunburst" }).defaultImageModel, "gpt-image-2.6-sunburst");
   assert.equal(
     cleanSettings({ apiKey: "", imagePrompt: "mine" }).imagePrompt,
     "mine",
@@ -117,7 +121,8 @@ test("new default replaces only the previous stock prompt, never a custom prompt
     "my custom prompt",
   );
   assert.match(DEFAULTS.imagePrompt, /1024 × 1024/);
-  const oldStock = DEFAULTS.imagePrompt.replace("1024 × 1024", "2048 × 2048");
+  assert.equal(cleanSettings({ imagePrompt: PREVIOUS_IMAGE_PROMPT }).imagePrompt, DEFAULTS.imagePrompt);
+  const oldStock = PREVIOUS_IMAGE_PROMPT.replace("1024 × 1024", "2048 × 2048");
   assert.equal(cleanSettings({ imagePrompt: oldStock }).imagePrompt, DEFAULTS.imagePrompt);
   assert.equal(cleanSettings({ imagePrompt: oldStock + "\n自定义要求。" }).imagePrompt, oldStock + "\n自定义要求。");
   assert.match(DEFAULTS.imagePrompt, /商品真实性 ＞ 结构完整性/);

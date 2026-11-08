@@ -1,5 +1,5 @@
-// User-supplied default. Keep the complete wording for generation and reset.
-export const IMAGE_PROMPT = `# 服装商品图标准化处理
+// Previous stock prompt, retained to migrate settings without overwriting custom text.
+export const PREVIOUS_IMAGE_PROMPT = `# 服装商品图标准化处理
 
 你是一名专业的电商服装商品摄影与图像修复专家。
 
@@ -108,3 +108,16 @@ export const IMAGE_PROMPT = `# 服装商品图标准化处理
 **优先级顺序：商品真实性 ＞ 结构完整性 ＞ 透明背景准确性 ＞ 构图规整性 ＞ 视觉美观。**
 
 直接输出处理完成的图片，不需要附加解释或文字说明。`;
+
+const SURFACE_CLEANUP = `## 5. 服装表面整理
+
+将服装呈现为已轻柔熨整、适合归档识别的状态。弱化堆放、悬挂或穿着造成的临时折痕、皱团和不规则折痕阴影，清理可明确判断为表面状态的灰尘、轻微污迹、起球与偶发旧痕。保留少量自然垂坠和接缝起伏，避免把面料磨平。
+
+保留原有压褶、抽褶、罗纹、华夫格、做旧水洗、设计性破洞、印花、文字、图案和真实色差。这些属于服装设计。无法判断是污迹还是设计时保留原状。清理不得改变版型、颜色、材质、图案或标志。`;
+
+export const IMAGE_PROMPT = PREVIOUS_IMAGE_PROMPT
+  .replace("拼接、褶皱、裁片", "拼接、压褶、抽褶、裁片")
+  .replace("## 5. 标准化构图", `${SURFACE_CLEANUP}\n\n## 6. 标准化构图`)
+  .replace("## 6. 输出规范", "## 7. 输出规范")
+  .replace("## 7. 输出前自检", "## 8. 输出前自检")
+  .replace("无人物、无衣架、无人台、无背景、无文字、无水印。", "无人物、无衣架、无人台、无背景、无新增文字或水印。保留服装原有的印花与文字。");
