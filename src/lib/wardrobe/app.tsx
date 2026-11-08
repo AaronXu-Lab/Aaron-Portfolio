@@ -169,6 +169,9 @@ function App() {
     [ready, setReady] = useState(false),
     [fatal, setFatal] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [cameraOpen, setCameraOpen] = useState(false),
+    [cameraStatus, setCameraStatus] = useState<"opening" | "ready" | "unavailable">("opening"),
+    [takingPhoto, setTakingPhoto] = useState(false);
   const [page, setPage] = useState("capture"),
     [draft, setDraft] = useState<any>(DEFAULTS),
     [models, setModels] = useState<string[]>([]),
@@ -197,6 +200,7 @@ function App() {
     [offline, setOffline] = useState(!navigator.onLine);
   const fileRef = useRef<HTMLInputElement>(null),
     cameraRef = useRef<HTMLInputElement>(null),
+    videoRef = useRef<HTMLVideoElement>(null),
     running = useRef(new Map<string, AbortController>()),
     removing = useRef(new Set<string>()),
     pending = useRef<string[]>([]),
@@ -240,6 +244,41 @@ function App() {
       window.removeEventListener("offline", online);
     };
   }, []);
+  useEffect(() => {
+    if (!cameraOpen) return;
+    const video = videoRef.current;
+    if (!video) return;
+    let closed = false;
+    let stream: MediaStream | undefined;
+    const stop = () => stream?.getTracks().forEach((track) => track.stop());
+    const unavailable = () => {
+      stop();
+      if (!closed) setCameraStatus("unavailable");
+    };
+    navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: {
+        facingMode: { ideal: "environment" },
+        width: { ideal: 1920 },
+        height: { ideal: 1920 },
+      },
+    }).then(async (media) => {
+      stream = media;
+      if (closed) {
+        stop();
+        return;
+      }
+      stream.getVideoTracks().forEach((track) => track.addEventListener("ended", unavailable));
+      video.srcObject = stream;
+      await video.play();
+      if (!closed && stream.active) setCameraStatus("ready");
+    }).catch(unavailable);
+    return () => {
+      closed = true;
+      stop();
+      video.srcObject = null;
+    };
+  }, [cameraOpen]);
   useEffect(() => {
     if (!settingsOpen) return;
     const current = configRef.current;
@@ -526,7 +565,7 @@ function App() {
     input.value = "";
     if (files.length) void ingest(files);
   }
-  async function ingest(files: File[]) {
+  async function ingest(files: File[], openAlbum = true) {
     if (ingesting.current) return;
     if (!canUseApi(configRef.current)) {
       notify(MISSING_KEY_MESSAGE);
@@ -571,7 +610,7 @@ function App() {
           done: [],
         };
         await refresh();
-        setPage("album");
+        if (openAlbum) setPage("album");
         pending.current.push(...ids);
         setQueue([...pending.current]);
         pump();
@@ -582,6 +621,36 @@ function App() {
     } finally {
       ingesting.current = false;
       setAdding(false);
+    }
+  }
+  function openCamera() {
+    if (!canConnect) {
+      openSettings();
+    } else if (!navigator.mediaDevices?.getUserMedia) {
+      cameraRef.current?.click();
+    } else {
+      setCameraStatus("opening");
+      setCameraOpen(true);
+    }
+  }
+  async function takePhoto() {
+    const video = videoRef.current;
+    if (takingPhoto || adding || !video?.videoWidth || !video.videoHeight) return;
+    setTakingPhoto(true);
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("无法拍照，请重试。");
+      ctx.drawImage(video, 0, 0);
+      const photo = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.95));
+      if (!photo) throw new Error("无法保存照片，请重试。");
+      await ingest([new File([photo], `衣集-${Date.now()}.jpg`, { type: "image/jpeg" })], false);
+    } catch (error) {
+      fail(error);
+    } finally {
+      setTakingPhoto(false);
     }
   }
   async function exportItems(ids) {
@@ -652,6 +721,7 @@ function App() {
       <Tabs.Root
         value={page}
         onValueChange={(value) => {
+          if (value !== "capture") setCameraOpen(false);
           setPage(String(value));
           setSelecting(false);
           setSelected([]);
@@ -684,8 +754,25 @@ function App() {
                 </div>
                 <div className="capture-content">
                   <div className="capture-target">
-                    <CoatHangerIcon size={88} weight="thin" />
-                    <p>拍下完整衣服</p>
+                    {cameraOpen ? (
+                      <>
+                        <video
+                          ref={videoRef}
+                          className="capture-video"
+                          aria-label="相机预览"
+                          hidden={cameraStatus !== "ready"}
+                          playsInline
+                          muted
+                        />
+                        {cameraStatus === "opening" && <p role="status">正在打开相机…</p>}
+                        {cameraStatus === "unavailable" && <p role="status">无法打开网页相机，可以改用系统相机。</p>}
+                      </>
+                    ) : (
+                      <>
+                        <CoatHangerIcon size={88} weight="thin" />
+                        <p>拍下完整衣服</p>
+                      </>
+                    )}
                   </div>
                   {!canConnect && (
                     <Alert
@@ -714,29 +801,37 @@ function App() {
                     <Button
                       variant="fill"
                       size="lg"
-                      disabled={adding || offline}
-                      onClick={() =>
-                        canConnect
-                          ? cameraRef.current?.click()
-                          : openSettings()
-                      }
+                      disabled={adding || takingPhoto || offline || (cameraOpen && cameraStatus === "opening")}
+                      onClick={() => {
+                        if (!cameraOpen) openCamera();
+                        else if (cameraStatus === "ready") void takePhoto();
+                        else {
+                          setCameraOpen(false);
+                          cameraRef.current?.click();
+                        }
+                      }}
                     >
                       <CameraIcon size={22} />
-                      拍照
+                      {cameraOpen && cameraStatus === "unavailable" ? "用系统相机拍照" : "拍照"}
                     </Button>
                     <Button
                       variant="outline"
                       size="lg"
-                      disabled={adding || offline}
-                      onClick={() =>
-                        canConnect
-                          ? fileRef.current?.click()
-                          : openSettings()
-                      }
+                      disabled={adding || takingPhoto || offline}
+                      onClick={() => {
+                        if (!canConnect) return openSettings();
+                        setCameraOpen(false);
+                        fileRef.current?.click();
+                      }}
                     >
                       <ImagesIcon size={22} />
                       从相册选择
                     </Button>
+                    {cameraOpen && (
+                      <Button variant="ghost" onClick={() => setCameraOpen(false)}>
+                        关闭相机
+                      </Button>
+                    )}
                   </div>
                   {(activeCount > 0 || adding) && (
                     <p className="help" role="status">

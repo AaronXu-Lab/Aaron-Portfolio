@@ -3,5 +3,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
+/tools/wardrobe/*
+  ! Permissions-Policy
+  Permissions-Policy: camera=(self), microphone=(), geolocation=()
+
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
