@@ -160,6 +160,12 @@ h3 {
   color: var(--wardrobe-muted);
 }
 .camera-screen {
+  --camera-controls-bottom: 16px;
+  --camera-control-gap: 12px;
+  --camera-control-size: 44px;
+  --camera-shutter-size: 64px;
+  --camera-frame-top: calc(60px + env(safe-area-inset-top));
+  --camera-frame-bottom: calc(var(--camera-controls-bottom) + var(--camera-shutter-size) + var(--camera-control-gap) + var(--camera-control-size) + 8px);
   position: fixed;
   inset: 0 0 var(--wardrobe-tabs-height);
   max-width: 700px;
@@ -170,10 +176,16 @@ h3 {
   background: var(--wardrobe-viewfinder);
 }
 .camera-frame {
+  --frame-width: min(100cqw, max(0px, (100cqh - var(--camera-frame-top) - var(--camera-frame-bottom)) * 0.8));
+  --frame-half-height: calc(var(--frame-width) * 0.625);
   position: absolute;
-  top: 50%;
+  top: clamp(
+    calc(var(--camera-frame-top) + var(--frame-half-height)),
+    calc(50% - 20px),
+    calc(100% - var(--camera-frame-bottom) - var(--frame-half-height))
+  );
   left: 50%;
-  width: min(100%, 80cqh);
+  width: var(--frame-width);
   aspect-ratio: 4 / 5;
   transform: translate(-50%, -50%);
   overflow: hidden;
@@ -212,9 +224,9 @@ h3 {
 .camera-controls {
   position: absolute;
   inset-inline: calc(16px + env(safe-area-inset-left)) calc(16px + env(safe-area-inset-right));
-  bottom: 16px;
+  bottom: var(--camera-controls-bottom);
   display: grid;
-  gap: 12px;
+  gap: var(--camera-control-gap);
 }
 .camera-zoom {
   display: flex;
@@ -228,8 +240,8 @@ h3 {
   justify-items: start;
 }
 .camera-screen button {
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--camera-control-size);
+  min-height: var(--camera-control-size);
   padding: 0;
   border-radius: 50%;
   background: var(--wardrobe-camera-control);
@@ -256,8 +268,8 @@ h3 {
   opacity: 0.9;
 }
 .camera-screen .camera-shutter {
-  width: 64px;
-  height: 64px;
+  width: var(--camera-shutter-size);
+  height: var(--camera-shutter-size);
 }
 .camera-screen .camera-shutter:disabled {
   opacity: 0.5;
