@@ -33,6 +33,7 @@ import {
   TrashIcon,
   CoatHangerIcon,
   ArrowClockwiseIcon,
+  ArrowLeftIcon,
 } from "@phosphor-icons/react";
 import { zip } from "fflate";
 import {
@@ -173,6 +174,7 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [cameraOpen, setCameraOpen] = useState(false),
     [cameraStatus, setCameraStatus] = useState<"opening" | "ready" | "unavailable">("opening"),
+    [cameraZoom, setCameraZoom] = useState<1 | 2>(1),
     [takingPhoto, setTakingPhoto] = useState(false);
   const [page, setPage] = useState("capture"),
     [draft, setDraft] = useState<any>(DEFAULTS),
@@ -631,6 +633,7 @@ function App() {
     } else if (!navigator.mediaDevices?.getUserMedia) {
       cameraRef.current?.click();
     } else {
+      setCameraZoom(1);
       setCameraStatus("opening");
       setCameraOpen(true);
     }
@@ -641,11 +644,18 @@ function App() {
     setTakingPhoto(true);
     try {
       const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+      const preview = video.getBoundingClientRect();
+      if (!preview.width || !preview.height) throw new Error("无法拍照，请重试。");
+      const aspect = preview.width / preview.height;
+      // Match the centered cover crop and zoom shown in the preview.
+      const width = Math.min(video.videoWidth, video.videoHeight * aspect) / cameraZoom;
+      const height = width / aspect;
+      canvas.width = Math.max(1, Math.round(width));
+      canvas.height = Math.max(1, Math.round(height));
       const ctx = canvas.getContext("2d");
       if (!ctx) throw new Error("无法拍照，请重试。");
-      ctx.drawImage(video, 0, 0);
+      ctx.drawImage(video, (video.videoWidth - width) / 2, (video.videoHeight - height) / 2,
+        width, height, 0, 0, canvas.width, canvas.height);
       const photo = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.95));
       if (!photo) throw new Error("无法保存照片，请重试。");
       await ingest([new File([photo], `衣集-${Date.now()}.jpg`, { type: "image/jpeg" })], false);
@@ -751,6 +761,65 @@ function App() {
               />
             ) : !ready ? (
               <Loading label="正在打开本地相册" />
+            ) : page === "capture" && cameraOpen ? (
+              <Tabs.Panel value="capture" className="camera-screen" aria-label="相机">
+                <video
+                  ref={videoRef}
+                  className="capture-video"
+                  aria-label="相机预览"
+                  hidden={cameraStatus !== "ready"}
+                  style={{ transform: `scale(${cameraZoom})` }}
+                  playsInline
+                  muted
+                />
+                <Button className="camera-back" variant="fill" aria-label="返回" autoFocus onClick={() => setCameraOpen(false)}>
+                  <ArrowLeftIcon size={22} />
+                </Button>
+                {cameraStatus !== "ready" && (
+                  <p className="camera-message" role="status">
+                    {cameraStatus === "opening" ? "正在打开相机…" : "无法打开网页相机，可以改用系统相机。"}
+                  </p>
+                )}
+                <div className="camera-controls">
+                  {cameraStatus === "ready" && (
+                    <div className="camera-zoom" role="group" aria-label="取景倍率">
+                      {([1, 2] as const).map((zoom) => (
+                        <Button key={zoom} variant="fill" aria-pressed={cameraZoom === zoom} onClick={() => setCameraZoom(zoom)}>
+                          {zoom}×
+                        </Button>
+                      ))}
+                    </div>
+                  )}
+                  <div className="camera-actions">
+                    <Button
+                      variant="fill"
+                      aria-label="从相册选择"
+                      disabled={adding || takingPhoto || offline}
+                      onClick={() => {
+                        setCameraOpen(false);
+                        fileRef.current?.click();
+                      }}
+                    >
+                      <ImagesIcon size={24} />
+                    </Button>
+                    <Button
+                      className="camera-shutter"
+                      variant="fill"
+                      aria-label={cameraStatus === "unavailable" ? "用系统相机拍照" : "拍照"}
+                      disabled={adding || takingPhoto || offline || cameraStatus === "opening"}
+                      onClick={() => {
+                        if (cameraStatus === "ready") void takePhoto();
+                        else {
+                          setCameraOpen(false);
+                          cameraRef.current?.click();
+                        }
+                      }}
+                    >
+                      <CameraIcon size={27} />
+                    </Button>
+                  </div>
+                </div>
+              </Tabs.Panel>
             ) : page === "capture" ? (
               <Tabs.Panel value="capture" className="capture-page">
                 <div className="album-heading">
@@ -765,25 +834,8 @@ function App() {
                 </div>
                 <div className="capture-content">
                   <div className="capture-target">
-                    {cameraOpen ? (
-                      <>
-                        <video
-                          ref={videoRef}
-                          className="capture-video"
-                          aria-label="相机预览"
-                          hidden={cameraStatus !== "ready"}
-                          playsInline
-                          muted
-                        />
-                        {cameraStatus === "opening" && <p role="status">正在打开相机…</p>}
-                        {cameraStatus === "unavailable" && <p role="status">无法打开网页相机，可以改用系统相机。</p>}
-                      </>
-                    ) : (
-                      <>
-                        <CoatHangerIcon size={88} weight="thin" />
-                        <p>拍下完整衣服</p>
-                      </>
-                    )}
+                    <CoatHangerIcon size={88} weight="thin" />
+                    <p>拍下完整衣服</p>
                   </div>
                   {!canConnect && (
                     <Alert
@@ -812,18 +864,11 @@ function App() {
                     <Button
                       variant="fill"
                       size="lg"
-                      disabled={adding || takingPhoto || offline || (cameraOpen && cameraStatus === "opening")}
-                      onClick={() => {
-                        if (!cameraOpen) openCamera();
-                        else if (cameraStatus === "ready") void takePhoto();
-                        else {
-                          setCameraOpen(false);
-                          cameraRef.current?.click();
-                        }
-                      }}
+                      disabled={adding || takingPhoto || offline}
+                      onClick={openCamera}
                     >
                       <CameraIcon size={22} />
-                      {cameraOpen && cameraStatus === "unavailable" ? "用系统相机拍照" : "拍照"}
+                      拍照
                     </Button>
                     <Button
                       variant="outline"
@@ -831,18 +876,12 @@ function App() {
                       disabled={adding || takingPhoto || offline}
                       onClick={() => {
                         if (!canConnect) return openSettings();
-                        setCameraOpen(false);
                         fileRef.current?.click();
                       }}
                     >
                       <ImagesIcon size={22} />
                       从相册选择
                     </Button>
-                    {cameraOpen && (
-                      <Button variant="ghost" onClick={() => setCameraOpen(false)}>
-                        关闭相机
-                      </Button>
-                    )}
                   </div>
                   {(activeCount > 0 || adding) && (
                     <p className="help" role="status">

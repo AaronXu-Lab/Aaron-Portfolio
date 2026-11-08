@@ -12,6 +12,11 @@
   --wardrobe-capture-line: #d8ccd3;
   --wardrobe-capture-ink: #a58d9b;
   --wardrobe-capture-bg: #f5f0f2;
+  --wardrobe-viewfinder: #111;
+  --wardrobe-camera-control: #171717e8;
+  --wardrobe-camera-control-hover: #353535;
+  --wardrobe-camera-ink: #fff;
+  --wardrobe-tabs-height: calc(71px + env(safe-area-inset-bottom));
   --wardrobe-checker-bg: #f5f2f2;
   --wardrobe-checker-tile: #eae5e640;
   --wardrobe-selection-line: #decfd8;
@@ -154,11 +159,86 @@ h3 {
   font-size: 13px;
   color: var(--wardrobe-muted);
 }
+.camera-screen {
+  position: fixed;
+  inset: 0 0 var(--wardrobe-tabs-height);
+  max-width: 700px;
+  margin-inline: auto;
+  overflow: hidden;
+  z-index: 19;
+  background: var(--wardrobe-viewfinder);
+}
 .capture-video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: inherit;
+  object-fit: cover;
+}
+.camera-screen .camera-back {
+  position: absolute;
+  top: calc(12px + env(safe-area-inset-top));
+  left: calc(16px + env(safe-area-inset-left));
+}
+.camera-message {
+  position: absolute;
+  inset-inline: 24px;
+  top: 45%;
+  color: var(--wardrobe-camera-ink);
+  text-align: center;
+}
+.camera-controls {
+  position: absolute;
+  inset-inline: calc(16px + env(safe-area-inset-left)) calc(16px + env(safe-area-inset-right));
+  bottom: 16px;
+  display: grid;
+  gap: 12px;
+}
+.camera-zoom {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.camera-actions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: start;
+}
+.camera-screen button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--wardrobe-camera-control);
+  color: var(--wardrobe-camera-ink);
+}
+.camera-screen button:hover:not(:disabled) {
+  background: var(--wardrobe-camera-control-hover);
+}
+.camera-screen button:active:not(:disabled) {
+  opacity: 0.8;
+}
+.camera-screen button:focus-visible {
+  outline: 2px solid var(--wardrobe-camera-ink);
+  outline-offset: 3px;
+}
+.camera-screen button[aria-pressed="true"],
+.camera-screen .camera-shutter {
+  background: var(--wardrobe-camera-ink);
+  color: var(--wardrobe-viewfinder);
+}
+.camera-screen button[aria-pressed="true"]:hover:not(:disabled),
+.camera-screen .camera-shutter:hover:not(:disabled) {
+  background: var(--wardrobe-camera-ink);
+  opacity: 0.9;
+}
+.camera-screen .camera-shutter {
+  width: 64px;
+  height: 64px;
+}
+.camera-screen .camera-shutter:disabled {
+  opacity: 0.5;
 }
 .capture-actions {
   display: grid;
@@ -604,7 +684,7 @@ body,
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding-bottom: calc(71px + env(safe-area-inset-bottom));
+  padding-bottom: var(--wardrobe-tabs-height);
 }
 .capture-page {
   display: flex;
