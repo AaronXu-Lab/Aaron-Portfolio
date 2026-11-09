@@ -160,6 +160,7 @@ function ScrollRegion({
   );
 }
 const MISSING_KEY_MESSAGE = "请先在设置中填写 API Key。";
+type ProcessingJob = { id: string; mode: "missing" | "image" | "tags" };
 function downloadBlob(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -228,7 +229,7 @@ function App() {
     changeCameraZoom = useRef<((zoom: 1 | 2) => Promise<void>) | null>(null),
     running = useRef(new Map<string, AbortController>()),
     removing = useRef(new Set<string>()),
-    pending = useRef<string[]>([]),
+    pending = useRef<ProcessingJob[]>([]),
     configRef = useRef(config),
     detailRef = useRef(detail),
     modelRequest = useRef(0),
@@ -503,8 +504,8 @@ function App() {
     for (const id of targets) removing.current.add(id);
     try {
       await deleteClothes(targets);
-      pending.current = pending.current.filter((id) => !targets.has(id));
-      setQueue([...pending.current]);
+      pending.current = pending.current.filter(({ id }) => !targets.has(id));
+      setQueue(pending.current.map(({ id }) => id));
       for (const batch of Object.values(batchRef.current) as any[]) {
         batch.done = batch.done.filter((id) => !targets.has(id));
       }
@@ -542,7 +543,7 @@ function App() {
         });
     }
   }
-  async function processItem(id, mode = "missing") {
+  async function processItem({ id, mode }: ProcessingJob) {
     if (running.current.has(id) || removing.current.has(id)) return;
     const controller = new AbortController();
     const { signal } = controller;
@@ -572,7 +573,7 @@ function App() {
         throw new Error(navigator.onLine ? MISSING_KEY_MESSAGE : "当前离线，联网后可重试。");
       }
       setBusy((b) => ({ ...b, [id]: steps }));
-      await Promise.all(
+      const results = await Promise.allSettled(
         steps.map(async (step) => {
           const selectedModel = step === "image"
             ? (cfg.apiMode === "default" ? cfg.defaultImageModel : cfg.imageModel)
@@ -648,6 +649,8 @@ function App() {
           }
         }),
       );
+      const failed = results.find((result) => result.status === "rejected");
+      if (failed) throw failed.reason;
       const updated = await getClothes(id);
       if (updated && !signal.aborted) {
         didComplete = !missingSteps(updated).length;
@@ -699,16 +702,22 @@ function App() {
       pump();
     }
   }
-  function pump() {
-    if (running.current.size >= 2) return;
-    const next = pending.current.findIndex((id) => !removing.current.has(id));
-    if (next < 0) return;
-    const [id] = pending.current.splice(next, 1);
-    setQueue([...pending.current]);
-    if (id) {
-      void processItem(id);
-      if (running.current.size < 2) pump();
+  function enqueue(ids: string[], mode: ProcessingJob["mode"] = "missing") {
+    for (const id of ids) {
+      if (running.current.has(id) || removing.current.has(id) ||
+          pending.current.some((job) => job.id === id)) continue;
+      pending.current.push({ id, mode });
     }
+    setQueue(pending.current.map(({ id }) => id));
+    pump();
+  }
+  function pump() {
+    if (running.current.size) return;
+    const next = pending.current.findIndex(({ id }) => !removing.current.has(id));
+    if (next < 0) return;
+    const [job] = pending.current.splice(next, 1);
+    setQueue(pending.current.map(({ id }) => id));
+    void processItem(job);
   }
   function handlePhotoSelection(event: React.ChangeEvent<HTMLInputElement>) {
     const input = event.currentTarget;
@@ -763,9 +772,7 @@ function App() {
         };
         await refresh();
         if (openAlbum) setPage("album");
-        pending.current.push(...ids);
-        setQueue([...pending.current]);
-        pump();
+        enqueue(ids);
         navigator.storage?.persist?.().catch(() => {});
       }
     } catch (e) {
@@ -1343,7 +1350,7 @@ function App() {
                                 <Button
                                   size="xs"
                                   variant="light"
-                                  onClick={() => processItem(item.id)}
+                                  onClick={() => enqueue([item.id])}
                                 >
                                   继续处理
                                 </Button>
@@ -1760,7 +1767,7 @@ function App() {
                   disabled={
                     !!busy[current.id] || queue.includes(current.id) || offline
                   }
-                  onClick={() => processItem(current.id, "image")}
+                  onClick={() => enqueue([current.id], "image")}
                 >
                   <ArrowClockwiseIcon />
                   {current.transparentBlob ? "重新生成透明图" : "生成透明图"}
@@ -1784,7 +1791,7 @@ function App() {
                       queue.includes(current.id) ||
                       offline
                     }
-                    onClick={() => processItem(current.id)}
+                    onClick={() => enqueue([current.id])}
                   >
                     重试未完成步骤
                   </Button>
@@ -1793,6 +1800,7 @@ function App() {
               {busy[current.id] && (
                 <p role="status">正在处理，请保持页面打开…</p>
               )}
+              {queue.includes(current.id) && <p role="status">等待处理</p>}
             </div>
             <Button
               variant="ghost"
@@ -1821,7 +1829,7 @@ function App() {
           onClick: () => {
             const id = confirmRetag;
             setConfirmRetag(null);
-            if (id) void processItem(id, "tags");
+            if (id) enqueue([id], "tags");
           },
         }}
         secondaryAction={{
