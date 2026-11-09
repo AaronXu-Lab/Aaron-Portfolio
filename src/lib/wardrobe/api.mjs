@@ -9,9 +9,140 @@ class ProcessingError extends Error {
   }
 }
 
+function traceHeaders(trace, status, get, useWorker, details = {}) {
+  if (!trace) return;
+  const upstreamStatus = get("x-wardrobe-upstream-status");
+  const upstreamRequestId = get(useWorker ? "x-wardrobe-upstream-request-id" : "x-request-id");
+  const upstreamCode = get("x-wardrobe-upstream-code");
+  const ray = get("cf-ray");
+  trace("response_headers", {
+    status,
+    upstreamStatus: /^\d{3}$/.test(upstreamStatus ?? "") ? Number(upstreamStatus) : undefined,
+    upstreamRequestId: /^req_[a-z0-9]{8,64}$/i.test(upstreamRequestId ?? "") ? upstreamRequestId : undefined,
+    upstreamCode: /^[a-z][a-z0-9_]{1,63}$/.test(upstreamCode ?? "") ? upstreamCode : undefined,
+    upstreamConnectionError: get("x-wardrobe-upstream-error") === "connection",
+    ray: /^[a-f0-9]{16}-[A-Z]{3}$/.test(ray ?? "") ? ray : undefined,
+    ...details,
+  });
+}
+
+// Fetch doesn't expose upload progress. Use XHR only for opted-in BYOK processing.
+function requestByokWithProgress(path, config, { body, method, headers, signal, trace }, timeoutMs) {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) return reject(signal.reason);
+    const xhr = new XMLHttpRequest();
+    const started = performance.now();
+    let phase = "before_upload", phaseStarted = started;
+    let uploadedBytes = 0, uploadTotalBytes, downloadedBytes = 0, downloadTotalBytes;
+    let lastProgress;
+    const snapshot = () => {
+      const now = performance.now();
+      return {
+        networkPhase: phase,
+        requestElapsedMs: Math.round(now - started),
+        phaseElapsedMs: Math.round(now - phaseStarted),
+        sinceLastProgressMs: lastProgress === undefined ? undefined : Math.round(now - lastProgress),
+        uploadedBytes, uploadTotalBytes, downloadedBytes, downloadTotalBytes,
+      };
+    };
+    const enter = (next) => {
+      phase = next;
+      phaseStarted = performance.now();
+      lastProgress = undefined;
+    };
+    const cancel = () => xhr.abort();
+    const cleanup = () => signal?.removeEventListener("abort", cancel);
+    const failNetwork = (timedOut) => {
+      cleanup();
+      const reason = timedOut ? "timeout" : phase === "downloading" ? "response_interrupted" : "network_error";
+      trace("request_failed", { ...snapshot(), reason });
+      reject(new ProcessingError(reason, timedOut ? "请求超时，请稍后重试。" :
+        phase === "downloading" ? "OpenAI 响应下载中断。" : "连接 OpenAI 失败，请检查网络。"));
+    };
+    const recordUpload = (event) => {
+      if (event.lengthComputable) uploadTotalBytes = event.total;
+      if (event.loaded <= uploadedBytes) return;
+      uploadedBytes = event.loaded;
+      if (phase === "before_upload") {
+        enter("uploading");
+        trace("upload_started", snapshot());
+      }
+      if (phase === "uploading") lastProgress = performance.now();
+    };
+    xhr.upload.addEventListener("progress", recordUpload);
+    xhr.upload.addEventListener("load", (event) => {
+      recordUpload(event);
+      if (phase === "downloading") return;
+      trace("upload_completed", snapshot());
+      enter("awaiting_response");
+    });
+    const receivedHeaders = () => {
+      if (!xhr.status || phase === "downloading") return;
+      const before = snapshot();
+      enter("downloading");
+      traceHeaders(trace, xhr.status, (name) => xhr.getResponseHeader(name), false, {
+        ...snapshot(),
+        awaitingResponseMs: before.networkPhase === "awaiting_response" ? before.phaseElapsedMs : undefined,
+      });
+    };
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 2 || xhr.readyState === 3) receivedHeaders();
+    };
+    xhr.onprogress = (event) => {
+      receivedHeaders();
+      if (event.lengthComputable) downloadTotalBytes = event.total;
+      if (event.loaded <= downloadedBytes) return;
+      const first = downloadedBytes === 0;
+      downloadedBytes = event.loaded;
+      lastProgress = performance.now();
+      if (first) trace("download_started", snapshot());
+    };
+    xhr.onload = (event) => {
+      cleanup();
+      receivedHeaders();
+      downloadedBytes = Math.max(downloadedBytes, event.loaded);
+      if (event.lengthComputable) downloadTotalBytes = event.total;
+      trace("download_completed", snapshot());
+      let data;
+      try {
+        data = JSON.parse(xhr.responseText);
+      } catch {
+        reject(new ProcessingError("invalid_json", "OpenAI 返回无法读取的响应。"));
+        return;
+      }
+      if (xhr.status < 200 || xhr.status >= 300) {
+        reject(new ProcessingError("http_error", data?.error?.message ?? `请求失败（${xhr.status}）`));
+        return;
+      }
+      trace("response_received");
+      resolve(data);
+    };
+    xhr.onerror = () => failNetwork(false);
+    xhr.ontimeout = () => failNetwork(true);
+    xhr.onabort = () => {
+      cleanup();
+      if (signal?.aborted) reject(signal.reason);
+      else failNetwork(false);
+    };
+    try {
+      xhr.open(method, BASE + path);
+      xhr.timeout = timeoutMs;
+      for (const [name, value] of Object.entries(headers ?? {})) xhr.setRequestHeader(name, value);
+      xhr.setRequestHeader("Authorization", `Bearer ${personalApiKey(config)}`);
+      signal?.addEventListener("abort", cancel, { once: true });
+      trace("request_started", snapshot());
+      xhr.send(body);
+    } catch {
+      failNetwork(false);
+    }
+  });
+}
+
 export async function request(path, config, options = {}, timeoutMs = 240000) {
   const { trace, ...init } = options;
   const useWorker = config.apiMode === "default";
+  if (!useWorker && trace && init.method === "POST" && init.body && typeof XMLHttpRequest === "function")
+    return requestByokWithProgress(path, config, options, timeoutMs);
   const controller = new AbortController();
   const cancel = () => controller.abort(options.signal.reason);
   if (options.signal?.aborted) cancel();
@@ -37,18 +168,7 @@ export async function request(path, config, options = {}, timeoutMs = 240000) {
           : "连接 OpenAI 失败，请检查网络。",
       );
     }
-    const upstreamStatus = r.headers.get("x-wardrobe-upstream-status");
-    const upstreamRequestId = r.headers.get(useWorker ? "x-wardrobe-upstream-request-id" : "x-request-id");
-    const upstreamCode = r.headers.get("x-wardrobe-upstream-code");
-    const ray = r.headers.get("cf-ray");
-    trace?.("response_headers", {
-      status: r.status,
-      upstreamStatus: /^\d{3}$/.test(upstreamStatus ?? "") ? Number(upstreamStatus) : undefined,
-      upstreamRequestId: /^req_[a-z0-9]{8,64}$/i.test(upstreamRequestId ?? "") ? upstreamRequestId : undefined,
-      upstreamCode: /^[a-z][a-z0-9_]{1,63}$/.test(upstreamCode ?? "") ? upstreamCode : undefined,
-      upstreamConnectionError: r.headers.get("x-wardrobe-upstream-error") === "connection",
-      ray: /^[a-f0-9]{16}-[A-Z]{3}$/.test(ray ?? "") ? ray : undefined,
-    });
+    traceHeaders(trace, r.status, (name) => r.headers.get(name), useWorker);
     if (useWorker && (r.type === "opaqueredirect" || r.status === 404))
       throw new ProcessingError("worker_unavailable", "默认模式暂不可用，可切换到 BYOK。");
     let data;
