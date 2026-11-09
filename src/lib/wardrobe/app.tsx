@@ -176,6 +176,14 @@ function localId() {
     byte.toString(16).padStart(2, "0"),
   ).join("");
 }
+function findTelephoto(devices: MediaDeviceInfo[], primaryId?: string) {
+  const lenses = devices.filter(({ kind, label, deviceId }) =>
+    kind === "videoinput" && deviceId && deviceId !== primaryId &&
+    /\btelephoto\b|长焦|長焦|望遠|망원/i.test(label) &&
+    !/\b(front|dual|triple|virtual)\b|前置|双摄|雙鏡|三摄|三鏡|虚拟|虛擬/i.test(label),
+  );
+  return lenses.find(({ label }) => /\b2\s*[x×](?!\w)/i.test(label)) ?? lenses[0];
+}
 function App() {
   const toast = useToast();
   const [items, setItems] = useState<any[]>([]),
@@ -184,8 +192,9 @@ function App() {
     [fatal, setFatal] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [cameraOpen, setCameraOpen] = useState(false),
-    [cameraStatus, setCameraStatus] = useState<"opening" | "ready" | "unavailable">("opening"),
+    [cameraStatus, setCameraStatus] = useState<"opening" | "switching" | "ready" | "unavailable">("opening"),
     [cameraZoom, setCameraZoom] = useState<1 | 2>(1),
+    [digitalZoom, setDigitalZoom] = useState<1 | 2>(1),
     [takingPhoto, setTakingPhoto] = useState(false);
   const [page, setPage] = useState("capture"),
     [draft, setDraft] = useState<any>(DEFAULTS),
@@ -216,6 +225,7 @@ function App() {
   const fileRef = useRef<HTMLInputElement>(null),
     cameraRef = useRef<HTMLInputElement>(null),
     videoRef = useRef<HTMLVideoElement>(null),
+    changeCameraZoom = useRef<((zoom: 1 | 2) => Promise<void>) | null>(null),
     running = useRef(new Map<string, AbortController>()),
     removing = useRef(new Set<string>()),
     pending = useRef<string[]>([]),
@@ -284,33 +294,99 @@ function App() {
     if (!video) return;
     let closed = false;
     let stream: MediaStream | undefined;
-    const stop = () => stream?.getTracks().forEach((track) => track.stop());
+    let primaryId: string | undefined;
+    let telephotoActive = false;
+    let switching = false;
+    const stop = () => {
+      const previous = stream;
+      stream = undefined;
+      video.srcObject = null;
+      previous?.getTracks().forEach((track) => track.stop());
+    };
     const unavailable = () => {
       stop();
       if (!closed) setCameraStatus("unavailable");
     };
-    navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: {
-        facingMode: { ideal: "environment" },
-        width: { ideal: 1920 },
-        height: { ideal: 1920 },
-      },
-    }).then(async (media) => {
-      stream = media;
+    const attach = async (deviceId?: string, requireRear = false) => {
+      // Mobile browsers may only allow one camera stream at a time.
+      stop();
+      const media = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          ...(deviceId ? { deviceId: { exact: deviceId } } : { facingMode: { ideal: "environment" } }),
+          width: { ideal: 1920 },
+          height: { ideal: 1920 },
+        },
+      });
       if (closed) {
-        stop();
-        return;
+        media.getTracks().forEach((track) => track.stop());
+        return null;
       }
-      stream.getVideoTracks().forEach((track) => track.addEventListener("ended", unavailable));
-      video.srcObject = stream;
-      await video.play();
-      if (!closed && stream.active) setCameraStatus("ready");
-    }).catch(unavailable);
+      stream = media;
+      const track = media.getVideoTracks()[0];
+      try {
+        const facing = track?.getSettings().facingMode;
+        if (!track || (requireRear && facing && facing !== "environment")) throw new Error();
+        video.srcObject = media;
+        await video.play();
+        if (closed) return null;
+        if (!media.active) throw new Error();
+        track.addEventListener("ended", () => {
+          if (stream === media) unavailable();
+        });
+        return track;
+      } catch (error) {
+        if (stream === media) stop();
+        throw error;
+      }
+    };
+    const restorePrimary = async () => {
+      const track = await attach(primaryId).catch((error) => {
+        if (!closed && primaryId) return attach();
+        throw error;
+      });
+      if (track) primaryId = track.getSettings().deviceId;
+    };
+    changeCameraZoom.current = async (zoom) => {
+      if (closed || switching || !stream?.active) return;
+      switching = true;
+      setCameraStatus("switching");
+      try {
+        if (zoom === 2 && !telephotoActive) {
+          const devices = await navigator.mediaDevices.enumerateDevices?.().catch(() => []);
+          if (closed) return;
+          const lens = findTelephoto(devices ?? [], primaryId);
+          if (lens) {
+            try {
+              telephotoActive = Boolean(await attach(lens.deviceId, true));
+            } catch {
+              if (!closed) await restorePrimary();
+            }
+          }
+        } else if (zoom === 1 && telephotoActive) {
+          await restorePrimary();
+          telephotoActive = false;
+        }
+        if (closed) return;
+        if (!stream?.active) return unavailable();
+        setCameraZoom(zoom);
+        setDigitalZoom(telephotoActive ? 1 : zoom);
+        setCameraStatus("ready");
+      } catch {
+        if (!closed) unavailable();
+      } finally {
+        switching = false;
+      }
+    };
+    void restorePrimary().then(() => {
+      if (!closed && stream?.active) setCameraStatus("ready");
+    }).catch(() => {
+      if (!closed) unavailable();
+    });
     return () => {
       closed = true;
+      changeCameraZoom.current = null;
       stop();
-      video.srcObject = null;
     };
   }, [cameraOpen]);
   useEffect(() => {
@@ -706,18 +782,19 @@ function App() {
       cameraRef.current?.click();
     } else {
       setCameraZoom(1);
+      setDigitalZoom(1);
       setCameraStatus("opening");
       setCameraOpen(true);
     }
   }
   async function takePhoto() {
     const video = videoRef.current;
-    if (takingPhoto || adding || !video?.videoWidth || !video.videoHeight) return;
+    if (cameraStatus !== "ready" || takingPhoto || adding || !video?.videoWidth || !video.videoHeight) return;
     setTakingPhoto(true);
     try {
       const canvas = document.createElement("canvas");
       // Match the preview's centered 4:5 crop, with exact 4:5 output dimensions.
-      const unit = Math.min(video.videoWidth / 4, video.videoHeight / 5) / cameraZoom;
+      const unit = Math.min(video.videoWidth / 4, video.videoHeight / 5) / digitalZoom;
       const width = 4 * unit;
       const height = 5 * unit;
       canvas.width = 4 * Math.max(1, Math.floor(unit));
@@ -832,8 +909,8 @@ function App() {
                     ref={videoRef}
                     className="capture-video"
                     aria-label="相机预览"
-                    hidden={cameraStatus !== "ready"}
-                    style={{ transform: `scale(${cameraZoom})` }}
+                    hidden={cameraStatus === "opening" || cameraStatus === "unavailable"}
+                    style={{ transform: `scale(${digitalZoom})` }}
                     playsInline
                     muted
                   />
@@ -846,14 +923,19 @@ function App() {
                 </p>
                 {cameraStatus !== "ready" && (
                   <p className="camera-message" role="status">
-                    {cameraStatus === "opening" ? "正在打开相机…" : "无法打开网页相机，可以改用系统相机。"}
+                    {cameraStatus === "switching" ? "正在切换镜头…" :
+                      cameraStatus === "opening" ? "正在打开相机…" : "无法打开网页相机，可以改用系统相机。"}
                   </p>
                 )}
                 <div className="camera-controls">
-                  {cameraStatus === "ready" && (
+                  {(cameraStatus === "ready" || cameraStatus === "switching") && (
                     <div className="camera-zoom" role="group" aria-label="取景倍率">
                       {([1, 2] as const).map((zoom) => (
-                        <Button key={zoom} variant="fill" aria-pressed={cameraZoom === zoom} onClick={() => setCameraZoom(zoom)}>
+                        <Button key={zoom} variant="fill" aria-pressed={cameraZoom === zoom}
+                          disabled={takingPhoto || cameraStatus === "switching"}
+                          onClick={() => {
+                            if (zoom !== cameraZoom) void changeCameraZoom.current?.(zoom);
+                          }}>
                           {zoom}×
                         </Button>
                       ))}
@@ -875,7 +957,7 @@ function App() {
                       className="camera-shutter"
                       variant="fill"
                       aria-label={cameraStatus === "unavailable" ? "用系统相机拍照" : "拍照"}
-                      disabled={adding || takingPhoto || offline || cameraStatus === "opening"}
+                      disabled={adding || takingPhoto || offline || cameraStatus === "opening" || cameraStatus === "switching"}
                       onClick={() => {
                         if (cameraStatus === "ready") void takePhoto();
                         else {
