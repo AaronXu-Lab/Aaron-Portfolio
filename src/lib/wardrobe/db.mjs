@@ -1,11 +1,25 @@
+import { migrateClothesCategory } from "./core.mjs";
+
 const database = new Promise((resolve, reject) => {
-  const req = indexedDB.open("wardrobe-local", 1);
-  req.onupgradeneeded = () => {
+  const req = indexedDB.open("wardrobe-local", 2);
+  req.onupgradeneeded = ({ oldVersion }) => {
     const d = req.result;
-    const c = d.createObjectStore("clothes", { keyPath: "id" });
-    c.createIndex("coarse", "coarse");
-    c.createIndex("createdAt", "createdAt");
-    d.createObjectStore("settings");
+    if (oldVersion === 0) {
+      const c = d.createObjectStore("clothes", { keyPath: "id" });
+      c.createIndex("coarse", "coarse");
+      c.createIndex("createdAt", "createdAt");
+      d.createObjectStore("settings");
+    } else {
+      const cursor = req.transaction.objectStore("clothes").openCursor();
+      cursor.onsuccess = () => {
+        const row = cursor.result;
+        if (!row) return;
+        const previous = row.value;
+        const item = migrateClothesCategory(previous);
+        if (item !== previous) row.update(item);
+        row.continue();
+      };
+    }
   };
   req.onsuccess = () => {
     req.result.onversionchange = () => req.result.close();

@@ -4,9 +4,11 @@ import assert from "node:assert/strict";
 import {
   validateTags,
   matches,
+  matchesCategory,
   missingSteps,
   exportMetadata,
   exportName,
+  migrateClothesCategory,
   cleanSettings,
   personalApiKey,
   canUseApi,
@@ -15,17 +17,39 @@ import {
 } from "../src/lib/wardrobe/core.mjs";
 test("strict tag contract, whitespace and duplicates", () => {
   assert.deepEqual(
-    validateTags({ coarse: "上衣", fine: [" 黑色 ", "黑色", ""] }),
-    { coarse: "上衣", fine: ["黑色"] },
+    validateTags({ coarse: "T 恤", fine: [" 黑色 ", "黑色", ""] }),
+    { coarse: "T 恤", fine: ["黑色"] },
   );
   assert.throws(() => validateTags({ coarse: "未知", fine: [] }));
-  assert.throws(() => validateTags({ coarse: "上衣", fine: [3] }));
+  assert.throws(() => validateTags({ coarse: "上衣", fine: [] }));
+  assert.throws(() => validateTags({ coarse: "T 恤", fine: [3] }));
 });
 test("category AND all selected fine tags with text search", () => {
-  const i = { coarse: "上衣", fine: ["黑色", "短袖"] };
-  assert.ok(matches(i, "上衣", ["短袖", "黑色"], "黑"));
-  assert.equal(matches(i, "裤子", []), false);
+  const i = { coarse: "T 恤", fine: ["黑色", "短袖"] };
+  assert.ok(matches(i, "T 恤", ["短袖", "黑色"], "黑"));
+  assert.ok(matches(i, "", [], "上衣"));
+  assert.equal(matches(i, "短裤", []), false);
   assert.equal(matches(i, "", ["宽松"]), false);
+});
+test("parent filters include all children and can narrow to a child or an unclassified coat", () => {
+  const coat = { coarse: "外套" };
+  const vest = { coarse: "马甲" };
+  assert.ok(matchesCategory(coat, "外套"));
+  assert.ok(matchesCategory(vest, "外套"));
+  assert.ok(matchesCategory(vest, "外套", "马甲"));
+  assert.equal(matchesCategory(coat, "外套", "马甲"), false);
+  assert.equal(matchesCategory(vest, "外套", "外套"), false);
+  assert.equal(matchesCategory(vest, "上衣"), false);
+  assert.ok(matchesCategory({ coarse: "鞋子" }, "鞋子"));
+});
+test("saved garments migrate to flat categories without guessing an unknown pants length", () => {
+  assert.equal(migrateClothesCategory({ coarse: "上衣", fine: ["连帽卫衣"] }).coarse, "卫衣");
+  assert.equal(migrateClothesCategory({ coarse: "外套", fine: ["绗缝马甲", "加绒"] }).coarse, "马甲");
+  assert.equal(migrateClothesCategory({ coarse: "裤子", fine: ["牛仔短裤"] }).coarse, "短裤");
+  assert.equal(migrateClothesCategory({ coarse: "裤子", fine: ["牛仔裤"] }).coarse, "其他");
+  assert.deepEqual(migrateClothesCategory({ coarse: "外套", fine: ["飞行夹克"] }), {
+    coarse: "外套", fine: ["飞行夹克"],
+  });
 });
 test("retry only missing results, successful image never charged twice", () => {
   assert.deepEqual(
@@ -41,7 +65,7 @@ test("retry only missing results, successful image never charged twice", () => {
 test("export metadata excludes photo blobs, credentials, and internal errors", () => {
   const i = {
     id: "abc",
-    coarse: "上衣",
+    coarse: "T 恤",
     fine: ["黑色"],
     createdAt: 1,
     updatedAt: 2,
@@ -54,11 +78,16 @@ test("export metadata excludes photo blobs, credentials, and internal errors", (
   assert.deepEqual(Object.keys(exportMetadata(i)), [
     "id",
     "coarse",
+    "mainCategory",
+    "subCategory",
     "fine",
     "createdAt",
     "updatedAt",
   ]);
-  assert.equal(exportName(i), "上衣-abc");
+  assert.equal(exportMetadata(i).mainCategory, "上衣");
+  assert.equal(exportMetadata(i).subCategory, "T 恤");
+  assert.equal(exportMetadata({ ...i, coarse: "外套" }).subCategory, null);
+  assert.equal(exportName(i), "T 恤-abc");
   assert.equal(exportName({ ...i, coarse: "../../bad" }), "其他-abc");
 });
 test("settings default migration preserves edited prompts and key removal", () => {

@@ -38,6 +38,10 @@ import {
 import { zip } from "fflate";
 import {
   CATEGORIES,
+  MAIN_CATEGORIES,
+  mainCategoryFor,
+  matchesCategory,
+  subcategoriesFor,
   DEFAULTS,
   DEFAULT_MODE_MODELS,
   cleanSettings,
@@ -110,15 +114,18 @@ function Disclosure({
   title,
   children,
   className = "",
+  contentClassName,
 }: {
   title: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  contentClassName?: string;
 }) {
   return (
     <Collapsible
       retainActive={false}
       className={className}
+      contentClassName={contentClassName}
       header={
         <Collapsible.Trigger className="disclosure-trigger">
           <CaretRightIcon className="disclosure-icon" aria-hidden="true" />
@@ -204,6 +211,7 @@ function App() {
     [connectionStatus, setConnectionStatus] = useState(""),
     [saveError, setSaveError] = useState("");
   const [category, setCategory] = useState(""),
+    [subcategory, setSubcategory] = useState(""),
     [tags, setTags] = useState<string[]>([]),
     [query, setQuery] = useState(""),
     [selected, setSelected] = useState<string[]>([]),
@@ -490,13 +498,13 @@ function App() {
     setViewOriginal(false);
   };
   const current = items.find((i) => i.id === detail);
-  const visible = items.filter((i) => matches(i, category, tags, query));
+  const filteredByCategory = items.filter((i) => matchesCategory(i, category, subcategory));
+  const visible = filteredByCategory.filter((i) => matches(i, "", tags, query));
+  const subcategories = subcategoriesFor(category);
+  const editMainCategory = mainCategoryFor(editCategory);
+  const editSubcategories = subcategoriesFor(editMainCategory);
   const tagOptions = [
-    ...new Set(
-      items
-        .filter((i) => !category || i.coarse === category)
-        .flatMap((i) => i.fine),
-    ),
+    ...new Set(filteredByCategory.flatMap((i) => i.fine)),
   ].sort() as string[];
   async function remove(ids: string[]) {
     const targets = new Set(ids.filter((id) => !removing.current.has(id)));
@@ -830,10 +838,12 @@ function App() {
         const name = exportName(i);
         if (!i.transparentBlob && !i.tagsDone)
           throw new Error("请先完成标签识别后导出。");
-        if (i.transparentBlob)
-          files[`${name}.png`] = new Uint8Array(
+        if (i.transparentBlob) {
+          const extension = i.transparentBlob.type === "image/webp" ? "webp" : "png";
+          files[`${name}.${extension}`] = new Uint8Array(
             await i.transparentBlob.arrayBuffer(),
           );
+        }
         if (i.originalBlob) {
           const format = i.originalBlob.type.match(
             /^image\/(jpeg|png|webp|heic|heif)(?:-sequence)?$/i,
@@ -1132,23 +1142,41 @@ function App() {
                   )}
                   {!!items.length && (
                     <>
-                      <Field label="粗分类筛选">
+                      <Field label="主类">
                         <Dropdown
                           width="fill"
                           value={category || "all"}
                           items={[
                             { value: "all", label: "全部" },
-                            ...CATEGORIES.map((value) => ({
+                            ...MAIN_CATEGORIES.map((value) => ({
                               value,
                               label: value,
                             })),
                           ]}
                           onValueChange={(value) => {
                             setCategory(value === "all" ? "" : (value ?? ""));
+                            setSubcategory("");
                             setTags([]);
                           }}
                         />
                       </Field>
+                      {subcategories.length > 0 && (
+                        <Field label="子类">
+                          <Dropdown
+                            width="fill"
+                            value={subcategory || "all"}
+                            items={[
+                              { value: "all", label: "全部子类" },
+                              ...subcategories.map((value) => ({ value, label: value })),
+                              ...(category === "外套" ? [{ value: "外套", label: "未细分外套" }] : []),
+                            ]}
+                            onValueChange={(value) => {
+                              setSubcategory(value === "all" ? "" : (value ?? ""));
+                              setTags([]);
+                            }}
+                          />
+                        </Field>
+                      )}
                       {tagOptions.length > 0 && (
                         <Disclosure
                           className="fine-filter"
@@ -1275,6 +1303,7 @@ function App() {
                           variant="outline"
                           onClick={() => {
                             setCategory("");
+                            setSubcategory("");
                             setTags([]);
                             setQuery("");
                           }}
@@ -1391,6 +1420,7 @@ function App() {
         open={settingsOpen}
         onOpenChange={setSettingsOpen}
         title="设置"
+        aria-label="设置"
         closeLabel="关闭设置"
         width="xs"
         heightMode="auto"
@@ -1420,8 +1450,8 @@ function App() {
               }
             />
           )}
-          <div className="settings-card">
-            <Field label="API Key 模式">
+          <div className="settings-section settings-connection">
+            <Field label="OpenAI 连接方式">
               <RadioGroup
                 className="api-mode-options"
                 value={draft.apiMode}
@@ -1430,7 +1460,7 @@ function App() {
                 }
               >
                 <Radio value="default" label="默认" />
-                <Radio value="byok" label="BYOK" />
+                <Radio value="byok" label="自带密钥（BYOK）" />
               </RadioGroup>
             </Field>
             {draft.apiMode === "byok" ? (
@@ -1471,7 +1501,7 @@ function App() {
               </Field>
             ) : (
               <p className="help">
-                照片经衣集转发给 OpenAI。每个 IP 每天限 100 次请求。
+                100 请求/IP/天
               </p>
             )}
             {draft.apiMode === "byok" && connectionStatus && (
@@ -1483,25 +1513,25 @@ function App() {
                 {connectionStatus}
               </p>
             )}
-            <div className="processing-option">
-              <div>
-                <label htmlFor="generate-transparent">生成透明图</label>
-                <p className="help">关闭后仅识别标签，保留原图。</p>
-              </div>
-              <Switch
-                id="generate-transparent"
-                aria-label="生成透明图"
-                checked={draft.generateTransparent}
-                onCheckedChange={(checked) =>
-                  updateSettings((d) => ({
-                    ...d,
-                    generateTransparent: checked,
-                  }))
-                }
-              />
-            </div>
           </div>
-          <Disclosure className="settings-card" title="模型选择">
+          <div className="settings-section settings-switch-row">
+            <div>
+              <label htmlFor="generate-transparent">生成透明图</label>
+              <p id="generate-transparent-help" className="help">关闭后仅识别标签，保留原图。</p>
+            </div>
+            <Switch
+              id="generate-transparent"
+              aria-describedby="generate-transparent-help"
+              checked={draft.generateTransparent}
+              onCheckedChange={(checked) =>
+                updateSettings((d) => ({
+                  ...d,
+                  generateTransparent: checked,
+                }))
+              }
+            />
+          </div>
+          <Disclosure className="settings-section" contentClassName="settings-panel" title="模型选择">
             <Field label="透明图模型">
               <Combobox
                 disabled={!draft.generateTransparent}
@@ -1538,11 +1568,29 @@ function App() {
               </p>
             )}
           </Disclosure>
-          <Disclosure
-            className="settings-card prompt-settings"
-            title="自定义 Prompt"
-          >
-            <div className="row-between">
+          <Disclosure className="settings-section" contentClassName="settings-panel" title="自定义 Prompt">
+            <Field label="透明图 Prompt">
+              <InputArea
+                rows={7}
+                value={draft.imagePrompt}
+                onChange={(e) =>
+                  updateSettings((d) => ({ ...d, imagePrompt: e.target.value }))
+                }
+              />
+            </Field>
+            <Field
+              label="标签 Prompt"
+              hint="输出结构固定为 coarse 与 fine；分类使用相册里的分类。"
+            >
+              <InputArea
+                rows={6}
+                value={draft.tagPrompt}
+                onChange={(e) =>
+                  updateSettings((d) => ({ ...d, tagPrompt: e.target.value }))
+                }
+              />
+            </Field>
+            <div className="settings-actions">
               <Button
                 variant="ghost"
                 size="sm"
@@ -1557,40 +1605,19 @@ function App() {
                 恢复默认 Prompt
               </Button>
             </div>
-            <Field label="透明图 Prompt">
-              <InputArea
-                rows={7}
-                value={draft.imagePrompt}
-                onChange={(e) =>
-                  updateSettings((d) => ({ ...d, imagePrompt: e.target.value }))
-                }
-              />
-            </Field>
-            <Field
-              label="标签 Prompt"
-              hint="输出结构固定为 coarse 与 fine；粗分类使用相册内的八个分类。"
-            >
-              <InputArea
-                rows={6}
-                value={draft.tagPrompt}
-                onChange={(e) =>
-                  updateSettings((d) => ({ ...d, tagPrompt: e.target.value }))
-                }
-              />
-            </Field>
           </Disclosure>
-          <Disclosure className="privacy-settings" title="数据与隐私">
-            <p>相册保存在此浏览器，未加密。清除网站数据会删除相册，请定期导出。</p>
+          <Disclosure className="settings-section" contentClassName="settings-panel" title="数据与隐私">
+            <p className="help">相册保存在此浏览器，未加密。清除网站数据会删除相册，请定期导出。</p>
           </Disclosure>
-          <div className="settings-card">
-            <div className="processing-option">
+          <Disclosure className="settings-section" contentClassName="settings-panel" title="故障排查">
+            <div className="settings-switch-row">
               <div>
                 <label htmlFor="track-processing">日志跟踪</label>
-                <p className="help">在本机保留最近 200 条记录，关闭时清空。</p>
+                <p id="track-processing-help" className="help">在本机保留最近 200 条记录，关闭时清空。</p>
               </div>
               <Switch
                 id="track-processing"
-                aria-label="日志跟踪"
+                aria-describedby="track-processing-help"
                 checked={draft.trackProcessing}
                 onCheckedChange={(trackProcessing) => {
                   updateSettings((d) => ({ ...d, trackProcessing }));
@@ -1605,9 +1632,11 @@ function App() {
                 }}
               />
             </div>
-            <Button variant="outline" size="sm" onClick={exportProcessingLog}>导出处理日志</Button>
-          </div>
-          <p className="help">构建号 <code>{WARDROBE_BUILD}</code></p>
+            <div className="settings-actions">
+              <Button variant="outline" size="sm" onClick={exportProcessingLog}>导出日志</Button>
+              <p className="help">构建号 <code>{WARDROBE_BUILD}</code></p>
+            </div>
+          </Disclosure>
         </div>
       </SheetBasic>
       <SheetBasic
@@ -1659,21 +1688,36 @@ function App() {
               </Button>
               <small>
                 {current.transparentBlob
-                  ? "透明 PNG 已保存"
+                  ? "透明图已保存"
                   : current.imageSkipped
                     ? "仅识别标签"
                     : "透明图待生成"}
               </small>
             </div>
-            <Field label="粗分类">
+            <Field label="主类">
               <Dropdown
                 width="fill"
-                value={editCategory}
-                onValueChange={(value) => value && setEditCategory(value)}
+                value={editMainCategory}
+                onValueChange={(value) => value && value !== editMainCategory && setEditCategory(value)}
                 disabled={!!busy[current.id]?.includes("tags")}
-                items={CATEGORIES.map((value) => ({ value, label: value }))}
+                items={MAIN_CATEGORIES.map((value) => ({ value, label: value }))}
               />
             </Field>
+            {editSubcategories.length > 0 && (
+              <Field label="子类">
+                <Dropdown
+                  width="fill"
+                  value={CATEGORIES.includes(editCategory) ? editCategory : "choose"}
+                  onValueChange={(value) => value && value !== "choose" && setEditCategory(value)}
+                  disabled={!!busy[current.id]?.includes("tags")}
+                  items={[
+                    ...(!CATEGORIES.includes(editCategory) ? [{ value: "choose", label: "请选择子类" }] : []),
+                    ...editSubcategories.map((value) => ({ value, label: value })),
+                    ...(editMainCategory === "外套" ? [{ value: "外套", label: "未细分外套" }] : []),
+                  ]}
+                />
+              </Field>
+            )}
             <Field label="细标签" hint="使用逗号分隔，可自由增减。">
               <Input
                 value={editTags}
@@ -1684,7 +1728,7 @@ function App() {
             <div className="row">
               <Button
                 variant="fill"
-                disabled={!!busy[current.id]?.includes("tags")}
+                disabled={!!busy[current.id]?.includes("tags") || !CATEGORIES.includes(editCategory)}
                 state={detailSaving === current.id ? "loading" : "normal"}
                 onClick={async () => {
                   if (detailSaving === current.id) return;

@@ -71,11 +71,13 @@ async function upstreamPayload(path, request) {
       body: imageRequestBody(image, {
         imageModel: defaultModeModel("image", data.get("model")),
         imagePrompt: prompt,
-      }),
+      }, data.get("output_format") === "webp" ? "webp" : "png"),
     };
   }
   const data = await body.json();
-  const content = data?.input?.[0]?.content;
+  const content = Array.isArray(data?.input)
+    ? data.input.find((message) => message?.role === "user")?.content
+    : null;
   const prompt = content?.[0]?.text;
   const image = content?.[1]?.image_url;
   if (!validPrompt(prompt) || typeof image !== "string" || !validImageURL.test(image))

@@ -1,5 +1,5 @@
 import { personalApiKey, validateTags, responseText } from "./core.mjs";
-import { imageRequestBody, tagRequestBody } from "./request-body.mjs";
+import { imageRequestBody, tagRequestBody, WEBP_QUALITY } from "./request-body.mjs";
 const BASE = "https://api.openai.com/v1";
 
 class ProcessingError extends Error {
@@ -265,9 +265,14 @@ export async function generateImage(original, config, signal, trace) {
   });
   signal?.throwIfAborted();
   const b64 = d.data?.[0]?.b64_json;
-  if (!b64) throw new ProcessingError("missing_image", "模型没有返回 PNG 图片，请检查图像模型。");
+  if (!b64) throw new ProcessingError("missing_image", "模型没有返回图片，请检查图像模型。");
   const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
-  const blob = new Blob([bytes], { type: "image/png" });
+  const header = String.fromCharCode(...bytes.subarray(0, 12));
+  const isWebP = header.startsWith("RIFF") && header.slice(8) === "WEBP";
+  const isPng = header.startsWith("\x89PNG\r\n\x1a\n");
+  if (!isWebP && !isPng)
+    throw new ProcessingError("invalid_image", "模型返回的图片不是 WebP 或 PNG。");
+  const blob = new Blob([bytes], { type: isWebP ? "image/webp" : "image/png" });
   const bitmap = await createImageBitmap(blob);
   try {
     const c = document.createElement("canvas");
@@ -284,9 +289,17 @@ export async function generateImage(original, config, signal, trace) {
       }
     }
     if (!alpha) throw new ProcessingError("missing_transparency", "生成图片没有透明区域，请重试或调整 Prompt。");
+    if (!isWebP) {
+      const webp = await new Promise((resolve) =>
+        c.toBlob(resolve, "image/webp", WEBP_QUALITY / 100),
+      );
+      signal?.throwIfAborted();
+      if (webp?.type === "image/webp" && webp.size < blob.size) return webp;
+    }
   } finally {
     bitmap.close();
   }
+  signal?.throwIfAborted();
   return blob;
 }
 export async function generateTags(original, config, signal, trace) {

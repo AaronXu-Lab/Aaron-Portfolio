@@ -7,7 +7,6 @@
   --wardrobe-line: #e9e3e6;
   --wardrobe-accent: #654358;
   --wardrobe-bg: #faf8f7;
-  --wardrobe-paper: #fff;
   --wardrobe-processing: #edeef0;
   --wardrobe-capture-line: #d8ccd3;
   --wardrobe-capture-ink: #a58d9b;
@@ -29,7 +28,6 @@
   --wardrobe-line: #4e4049;
   --wardrobe-accent: #e0b4ce;
   --wardrobe-bg: #201a1e;
-  --wardrobe-paper: #292127;
   --wardrobe-processing: #332a31;
   --wardrobe-capture-line: #66515f;
   --wardrobe-capture-ink: #bd9aac;
@@ -418,17 +416,6 @@ h3 {
   box-shadow: 0 6px 24px var(--wardrobe-selection-shadow);
   font-size: 12px;
 }
-.settings-card {
-  border: 1px solid var(--wardrobe-line);
-  border-radius: 14px;
-  background: var(--wardrobe-paper);
-  padding: 18px;
-  margin-bottom: 16px;
-}
-.settings-card .row-between {
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
 .api-mode-options {
   display: flex;
   flex-wrap: wrap;
@@ -448,14 +435,6 @@ h3 {
   font-weight: 400;
   line-height: 1.7;
   margin: 8px 0;
-}
-.privacy-settings {
-  padding: 0 4px;
-}
-.privacy-settings p {
-  font-size: 12px;
-  color: var(--wardrobe-muted);
-  margin-bottom: 10px;
 }
 .detail {
   padding: 0 2px 8px;
@@ -512,9 +491,6 @@ h3 {
   .capture-page .album-heading {
     margin-inline: -2px;
   }
-  .settings-card {
-    padding: 22px;
-  }
 }
 @media (max-width: 359px) {
   .wardrobe-app main {
@@ -547,22 +523,50 @@ h3 {
   color: var(--wardrobe-ink);
 }
 .settings-sheet-body {
-  padding: 18px 20px 24px;
-}
-/* Sheet content must fit its viewport, including long model names. */
-.settings-sheet-body {
-  width: 100%;
+  padding: 0 20px 12px;
   min-width: 0;
-  max-width: 100%;
+  width: 100%;
 }
-.settings-sheet .settings-card,
+.settings-section {
+  min-width: 0;
+}
+.settings-section + .settings-section {
+  border-top: 1px solid var(--wardrobe-line);
+}
+.settings-connection,
+.settings-section.settings-switch-row {
+  padding-block: 16px;
+}
+.settings-sheet .settings-section .field {
+  margin-block: 0 12px;
+}
+.settings-connection > :last-child {
+  margin-bottom: 0;
+}
+.settings-section .disclosure-trigger {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  font-weight: 500;
+}
+.settings-panel {
+  padding-block-end: 12px;
+}
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-top: 12px;
+}
+.settings-actions .help {
+  margin: 0;
+}
 .settings-sheet .field {
   min-width: 0;
   max-width: 100%;
-}
-.settings-sheet .key-label {
-  justify-content: space-between;
-  margin: 0;
 }
 .settings-sheet .field > span {
   min-width: 0;
@@ -579,23 +583,20 @@ h3 {
   font-weight: 400;
   overflow-wrap: anywhere;
 }
-.processing-option {
+.settings-switch-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding-block-start: 16px;
-  border-top: 1px solid var(--wardrobe-line);
-  margin-top: 16px;
 }
-.processing-option label {
+.settings-switch-row label {
   font-weight: 500;
   font-size: 13px;
 }
-.processing-option .help {
+.settings-switch-row .help {
   margin: 4px 0 0;
 }
-.processing-option > button {
+.settings-switch-row > button {
   flex-shrink: 0;
 }
 
@@ -661,9 +662,6 @@ body,
 .disclosure-trigger:hover {
   color: var(--wardrobe-accent);
 }
-.prompt-settings .disclosure-trigger {
-  font-weight: 550;
-}
 .fine-filter {
   margin-bottom: 12px;
 }
@@ -681,10 +679,6 @@ body,
 .detail-sheet .field {
   margin-block: 16px;
 }
-.settings-card .field:last-child {
-  margin-bottom: 0;
-}
-
 /* Base UI Content defaults to fit-content; these Sheets only scroll vertically. */
 .settings-sheet .ui-scroll-content,
 .detail-sheet .ui-scroll-content {
