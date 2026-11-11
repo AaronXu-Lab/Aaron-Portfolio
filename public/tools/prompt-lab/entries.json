@@ -118,5 +118,15 @@
     "date": "2026-10-26",
     "promptVersion": "pelican-v1",
     "entry": "entries/gpt-6-1-terra-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "fable-5-2-pelican-run-01",
+    "model": "Fable 5.2",
+    "version": "claude-fable-5-2",
+    "reasoningEffort": "未提供",
+    "title": "小星球环骑 · Tiny Planet Tour",
+    "date": "2026-11-11",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/fable-5-2-pelican-run-01/index.html"
   }
 ]

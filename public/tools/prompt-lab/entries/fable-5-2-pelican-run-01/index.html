@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#2a86e6">
+<title>小星球环骑 · Tiny Planet Tour</title>
+<style>
+  :root {
+    --glass: rgba(14, 26, 52, 0.46);
+    --line: rgba(255, 255, 255, 0.22);
+    --ink: #ffffff;
+    --accent: #ffd23f;
+    --coral: #f2503f;
+    --sl: env(safe-area-inset-left, 0px);
+    --sr: env(safe-area-inset-right, 0px);
+    --st: env(safe-area-inset-top, 0px);
+    --sb: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    height: 100%; margin: 0; overflow: hidden; background: #8fd0ff; color: var(--ink);
+    font-family: ui-rounded, "SF Pro Rounded", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-user-select: none; user-select: none; touch-action: none; overscroll-behavior: none;
+  }
+  #c { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; opacity: 0; transition: opacity 0.35s ease; }
+  .ready #c { opacity: 1; }
+  #hud { position: fixed; inset: 0; pointer-events: none; }
+  #hud button { pointer-events: auto; font: inherit; color: inherit; border: 0; cursor: pointer; touch-action: none; }
+
+  .top {
+    position: absolute; left: calc(12px + var(--sl)); right: calc(12px + var(--sr)); top: calc(12px + var(--st));
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+  }
+  .glass {
+    background: var(--glass); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3); backdrop-filter: blur(12px) saturate(1.3);
+    box-shadow: 0 6px 20px rgba(6, 14, 34, 0.18);
+  }
+  .score { border-radius: 18px; padding: 8px 12px 9px; min-width: 112px; transform-origin: left top; }
+  .score.pop { animation: pop 0.36s cubic-bezier(0.2, 1.6, 0.4, 1); }
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.1); } 100% { transform: scale(1); } }
+  .score .row { display: flex; align-items: center; gap: 7px; line-height: 1; }
+  .score svg { width: 22px; height: 22px; flex: none; }
+  .score b { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .score span { font-size: 13px; opacity: 0.72; font-variant-numeric: tabular-nums; margin-left: -4px; align-self: flex-end; padding-bottom: 2px; }
+  .score em { margin-left: auto; font-style: normal; font-size: 12px; opacity: 0.85; padding: 3px 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); }
+  .bar { display: block; height: 4px; border-radius: 4px; margin-top: 8px; background: rgba(255, 255, 255, 0.2); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; border-radius: 4px; background: var(--accent); transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+  .tools { display: flex; gap: 8px; }
+  .tools button { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; transition: transform 0.12s ease, background 0.2s ease; }
+  .tools button:active { transform: scale(0.9); }
+  .tools svg { width: 21px; height: 21px; }
+  #btnSnd .x { display: none; }
+  #btnSnd.off .w { display: none; }
+  #btnSnd.off .x { display: block; }
+
+  #toast {
+    position: absolute; left: 50%; top: calc(84px + var(--st)); transform: translate(-50%, -8px);
+    max-width: calc(100% - 32px); padding: 9px 15px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    text-align: center; white-space: nowrap; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  #toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+  #stick {
+    position: fixed; left: -46px; top: -46px; width: 92px; height: 92px; border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.45); background: rgba(255, 255, 255, 0.08);
+    opacity: 0; transition: opacity 0.18s ease; will-change: transform;
+  }
+  #stick.on { opacity: 1; }
+  #stick i { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: rgba(255, 255, 255, 0.85); box-shadow: 0 4px 14px rgba(6, 14, 34, 0.25); }
+
+  .actions {
+    position: absolute; right: calc(16px + var(--sr)); bottom: calc(22px + var(--sb));
+    display: flex; align-items: flex-end; gap: 12px;
+  }
+  .actions button {
+    position: relative; border-radius: 50%; display: grid; place-items: center; align-content: center; gap: 1px;
+    font-weight: 800; transition: transform 0.1s ease, filter 0.2s ease;
+  }
+  .actions button:active, .actions button.down { transform: scale(0.9); }
+  #btnBell { width: 60px; height: 60px; font-size: 17px; margin-bottom: 6px; overflow: hidden; isolation: isolate; }
+  #btnBell::before {
+    content: ""; position: absolute; inset: 0; border-radius: 50%; z-index: -1;
+    background: conic-gradient(rgba(6, 14, 34, 0.55) calc(var(--cd, 0) * 360deg), transparent 0);
+    pointer-events: none;
+  }
+  #hud #btnJump {
+    width: 82px; height: 82px; font-size: 22px; color: #4a2410; border: 0;
+    background: radial-gradient(circle at 35% 28%, #ffe58a, var(--accent) 55%, #f5b21f);
+    box-shadow: 0 8px 22px rgba(6, 14, 34, 0.28), inset 0 -5px 0 rgba(170, 96, 0, 0.28);
+  }
+  kbd {
+    display: none; font: 700 10px/1 ui-monospace, "SF Mono", Menlo, monospace; padding: 2px 5px; border-radius: 5px;
+    background: rgba(0, 0, 0, 0.18); letter-spacing: 0.02em;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    kbd { display: inline-block; }
+    .tools button:hover { background: rgba(14, 26, 52, 0.66); }
+    .actions button:hover { filter: brightness(1.08); }
+  }
+
+  #help {
+    position: absolute; left: 50%; bottom: calc(118px + var(--sb)); transform: translateX(-50%);
+    width: min(340px, calc(100% - 24px)); border-radius: 22px; padding: 16px 16px 14px; pointer-events: auto;
+    background: rgba(14, 26, 52, 0.78);
+  }
+  #help[hidden] { display: none; }
+  #help h2 { margin: 0 0 10px; font-size: 15px; display: flex; align-items: center; justify-content: space-between; }
+  #help h2 button { width: 32px; height: 32px; margin: -6px -6px -6px 0; border-radius: 50%; background: rgba(255, 255, 255, 0.14); font-size: 16px; line-height: 1; }
+  #help dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 7px 12px; font-size: 13px; line-height: 1.35; }
+  #help dt { font-weight: 700; color: var(--accent); white-space: nowrap; }
+  #help dd { margin: 0; opacity: 0.92; }
+  #help p { margin: 11px 0 0; font-size: 12px; opacity: 0.7; }
+  #help code { font: 700 11px/1 ui-monospace, "SF Mono", Menlo, monospace; padding: 2px 5px; border-radius: 5px; background: rgba(255, 255, 255, 0.16); }
+
+  #nogl { position: fixed; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; background: #173a66; font-size: 15px; line-height: 1.6; }
+  #nogl[hidden] { display: none; }
+
+  @media (max-height: 420px) {
+    #btnJump { width: 68px; height: 68px; font-size: 19px; }
+    #btnBell { width: 52px; height: 52px; }
+    #help { bottom: calc(12px + var(--sb)); left: calc(12px + var(--sl)); transform: none; }
+    #toast { top: calc(66px + var(--st)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .score.pop { animation: none; }
+    #toast, #c, .bar i { transition: none; }
+  }
+</style>
+</head>
+<body>
+<canvas id="c" tabindex="0" aria-label="鹈鹕在小星球上骑自行车的 3D 场景"></canvas>
+
+<div id="hud">
+  <div class="top">
+    <div class="score glass" id="score" aria-live="polite">
+      <div class="row">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12c3-4.6 7.2-6 10.6-5.2 2.5.6 4.4 2.3 5.6 4l3-2.6-.9 3.8.9 3.8-3-2.6c-1.2 1.7-3.1 3.4-5.6 4-3.4.8-7.6-.6-10.6-5.2Z" fill="#ffd23f"/><circle cx="7.6" cy="10.8" r="1.2" fill="#1a1a22"/></svg>
+        <b id="n">0</b><span id="tot">/36</span>
+        <em id="phase">白昼</em>
+      </div>
+      <i class="bar"><i id="barFill"></i></i>
+    </div>
+    <div class="tools">
+      <button class="glass" id="btnCam" type="button" aria-label="切换镜头（C）" title="切换镜头（C）">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.2" r="3.4"/></svg>
+      </button>
+      <button class="glass" id="btnSnd" type="button" aria-label="声音开关（M）" title="声音开关（M）" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z"/><path class="w" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11"/><path class="x" d="m16 9.5 5 5m0-5-5 5"/></svg>
+      </button>
+      <button class="glass" id="btnHelp" type="button" aria-label="操作说明（H）" title="操作说明（H）">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9.2a3 3 0 1 1 4.6 2.5c-.9.6-1.6 1.2-1.6 2.3"/><circle cx="12" cy="17.6" r="0.6" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="toast" class="glass" role="status"></div>
+  <div id="stick" aria-hidden="true"><i></i></div>
+
+  <div class="actions">
+    <button class="glass" id="btnBell" type="button" aria-label="摇铃吸鱼（E）">铃<kbd>E</kbd></button>
+    <button id="btnJump" type="button" aria-label="跳跃、扑翼、按住滑翔（空格）">跳<kbd>空格</kbd></button>
+  </div>
+
+  <div id="help" class="glass" hidden>
+    <h2>怎么骑<button id="helpClose" type="button" aria-label="关闭说明">×</button></h2>
+    <dl>
+      <dt>踩踏板</dt><dd>按住屏幕，或 <code>W</code> <code>↑</code></dd>
+      <dt>转向</dt><dd>左右拖动，或 <code>A</code> <code>D</code> <code>←</code> <code>→</code></dd>
+      <dt>刹车</dt><dd>向下拖，或 <code>S</code> <code>↓</code></dd>
+      <dt>跳 · 扑翼</dt><dd>点「跳」，空中再点一次；按住不放展翅滑翔。键盘 <code>空格</code></dd>
+      <dt>摇铃</dt><dd>点「铃」把附近的鱼吸过来。键盘 <code>E</code></dd>
+      <dt>其他</dt><dd><code>C</code> 镜头　<code>M</code> 声音　<code>R</code> 回起点　<code>H</code> 说明</dd>
+    </dl>
+    <p>累计叼到 <b id="sum">0</b> 条鱼。骑远一点，星球另一面是夜晚。</p>
+  </div>
+</div>
+
+<div id="nogl" hidden>这台设备没能启动 WebGL，3D 场景无法运行。<br>请换一个较新的浏览器再试。</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
