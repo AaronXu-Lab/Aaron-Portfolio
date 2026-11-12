@@ -17,3 +17,9 @@
 iframe 的同源权限用于本地持久化，并不是安全隔离边界，只接入经过审阅的仓库作品。
 
 Service worker 初次安装缓存展示台和已登记入口，其他本地资源在访问后缓存；在线优先获取最新文件，离线使用已缓存资源。修改缓存策略时递增 `sw.js` 内 CACHE 版本，仅清理自身前缀缓存。
+
+## 模型菜单
+
+模型切换使用已安装 AaronUI 的 `Menu.Submenu` 与 `Menu.RadioItem`，按 ChatGPT、Claude、Grok、Gemini 分组。源文件位于 `src/lib/prompt-lab/model-menu.tsx`，运行 `npm run build:prompt-lab` 生成独立壳所需的 JS 与 CSS（完整构建也会执行）。新增模型沿用 `entries.json`；新增系列时同步菜单中的系列匹配规则。
+
+本次接入依据 AaronUI 0.9.0 已安装包的公开类型；本地知识 MCP 未连接，组件规范与 Gallery Example 对照待验证。

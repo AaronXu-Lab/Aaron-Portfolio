@@ -1,6 +1,6 @@
-const CACHE = 'prompt-lab-v8';
+const CACHE = 'prompt-lab-v9';
 const BASE = new URL('./', self.location).pathname;
-const SHELL = ['', 'index.html', 'style.css', 'app.js', 'prompt.txt', 'entries.json', 'manifest.webmanifest', 'pelican-v4-192.png', 'pelican-v4-512.png'];
+const SHELL = ['', 'index.html', 'style.css', 'app.js', 'model-menu.js', 'model-menu.css', 'prompt.txt', 'entries.json', 'manifest.webmanifest', 'pelican-v4-192.png', 'pelican-v4-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);

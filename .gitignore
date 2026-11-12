@@ -19,3 +19,7 @@ output/playwright/
 
 # 专注森林：由 npm run build:forest 从完整 three 构建摇树生成
 /public/tools/focus-forest/vendor/three.forest.min.js
+
+# Prompt 擂台：由 npm run build:prompt-lab 生成
+/public/tools/prompt-lab/model-menu.js
+/public/tools/prompt-lab/model-menu.css
