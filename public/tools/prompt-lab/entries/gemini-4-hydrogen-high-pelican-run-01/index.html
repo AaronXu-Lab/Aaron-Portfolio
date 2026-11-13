@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>海堤追风 · 鹈鹕骑自行车 3D</title>
+  <style>
+    :root {
+      --glass-bg: rgba(16, 28, 44, 0.42);
+      --glass-border: rgba(255, 255, 255, 0.24);
+      --glass-active: rgba(255, 255, 255, 0.26);
+      --accent: #ffcf56;
+      --accent-ink: #1a2433;
+      --text: #f9fbff;
+      --text-dim: rgba(244, 248, 255, 0.78);
+      --btn-size: 46px;
+      --top-btn-size: 36px;
+    }
+
+    @media (min-width: 375px) {
+      :root {
+        --btn-size: 52px;
+        --top-btn-size: 40px;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #143654;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      overscroll-behavior: none;
+    }
+
+    #stage {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    #stage:active {
+      cursor: grabbing;
+    }
+
+    /* === HUD Overlay === */
+    .hud {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: max(10px, env(safe-area-inset-top)) 10px 0;
+      width: 100%;
+    }
+
+    .stat-pill {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: var(--top-btn-size);
+      padding: 0 11px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 13px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(8, 20, 36, 0.22);
+    }
+
+    .stat-sep {
+      width: 1px;
+      height: 13px;
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      pointer-events: auto;
+      width: var(--top-btn-size);
+      height: var(--top-btn-size);
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--text);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 4px 16px rgba(8, 20, 36, 0.22);
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(25, 42, 65, 0.6);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.91);
+      background: var(--glass-active);
+    }
+
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Transient feedback toast */
+    .toast-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 0 16px;
+      pointer-events: none;
+    }
+
+    .hud-toast {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(16, 28, 44, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .hud-toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === Bottom Ergonomic Touch Controls === */
+    .bottom-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 12px max(12px, env(safe-area-inset-bottom));
+      width: 100%;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pad-btn {
+      pointer-events: auto;
+      position: relative;
+      width: var(--btn-size);
+      height: var(--btn-size);
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--text);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      padding: 0;
+      cursor: pointer;
+      touch-action: none;
+      box-shadow: 0 6px 20px rgba(8, 20, 36, 0.28);
+      transition: transform 0.1s ease, background 0.14s ease, border-color 0.14s ease;
+    }
+
+    .pad-btn:hover {
+      background: rgba(25, 42, 65, 0.6);
+    }
+
+    .pad-btn:active,
+    .pad-btn.active {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.55);
+    }
+
+    .pad-btn.accent {
+      background: rgba(255, 207, 86, 0.88);
+      color: var(--accent-ink);
+      border-color: rgba(255, 244, 200, 0.72);
+    }
+
+    .pad-btn.accent:hover {
+      background: rgba(255, 214, 108, 0.96);
+    }
+
+    .pad-btn.accent:active,
+    .pad-btn.accent.active {
+      background: #ffe08a;
+    }
+
+    .pad-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .kbd-hint {
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .top-bar {
+        padding: 16px 18px 0;
+      }
+      .bottom-bar {
+        padding: 0 20px 18px;
+      }
+      .pad-btn {
+        width: 58px;
+        height: 58px;
+      }
+      .kbd-hint {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: -5px;
+        right: -4px;
+        min-width: 18px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 5px;
+        background: rgba(12, 20, 32, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #f4f8ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 9.5px;
+        font-weight: 700;
+        line-height: 1;
+      }
+    }
+
+    /* === Shortcuts & Gesture Sheet === */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      background: rgba(8, 16, 28, 0.56);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 360px;
+      max-height: 84dvh;
+      overflow-y: auto;
+      border-radius: 18px;
+      background: rgba(18, 30, 46, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 16px 16px 14px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .help-section {
+      margin-bottom: 12px;
+    }
+
+    .help-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .help-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 12px;
+      font-size: 12.5px;
+      color: var(--text-dim);
+      align-items: center;
+    }
+
+    .help-key {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 2px 7px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hud-toast, .modal-backdrop, .icon-btn, .pad-btn {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stage" aria-label="鹈鹕骑自行车 3D 交互场景"></canvas>
+
+  <div class="hud">
+    <div class="top-bar">
+      <div class="stat-pill" aria-live="polite">
+        <span title="叼到的海鱼">🐟 <strong id="fish-count">0</strong></span>
+        <span class="stat-sep" aria-hidden="true"></span>
+        <span id="speed-readout">22 km/h</span>
+      </div>
+
+      <div class="top-actions">
+        <button id="btn-time" class="icon-btn" type="button" aria-label="切换天色">☀️</button>
+        <button id="btn-camera" class="icon-btn" type="button" aria-label="切换视角">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+        </button>
+        <button id="btn-mute" class="icon-btn" type="button" aria-label="静音">🔊</button>
+        <button id="btn-help" class="icon-btn" type="button" aria-label="快捷键与手势说明">?</button>
+      </div>
+    </div>
+
+    <div class="toast-wrap">
+      <div id="hud-toast" class="hud-toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="ctrl-group">
+        <button id="btn-left" class="pad-btn" type="button" aria-label="左转 (A / 左方向键)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span class="kbd-hint">A</span>
+        </button>
+        <button id="btn-right" class="pad-btn" type="button" aria-label="右转 (D / 右方向键)">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+          <span class="kbd-hint">D</span>
+        </button>
+      </div>
+
+      <div class="ctrl-group">
+        <button id="btn-bell" class="pad-btn" type="button" aria-label="按车铃 (B)">
+          🔔
+          <span class="kbd-hint">B</span>
+        </button>
+        <button id="btn-jump" class="pad-btn" type="button" aria-label="跳跃 / 空中振翅滑翔 (Space)">
+          🪽
+          <span class="kbd-hint">Space</span>
+        </button>
+        <button id="btn-sprint" class="pad-btn accent" type="button" aria-label="站立冲刺加速 (W / Shift)">
+          ⚡
+          <span class="kbd-hint">Shift</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="help-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="help-title" class="modal-title">交互与快捷键</h2>
+        <button id="help-close" class="modal-close" type="button" aria-label="关闭">✕</button>
+      </div>
+
+      <div class="help-section">
+        <div class="help-label">触控 / 鼠标交互</div>
+        <div class="help-grid">
+          <span>环绕观察 3D 模型</span><span class="help-key">单指拖拽</span>
+          <span>缩放远近</span><span class="help-key">双指捏合 / 滚轮</span>
+          <span>逗鹈鹕鼓喉囊 / 敲铃</span><span class="help-key">直接点按鹈鹕或车铃</span>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-label">键盘快捷键</div>
+        <div class="help-grid">
+          <span>左右转向</span><span class="help-key">A / D 或 ← / →</span>
+          <span>站立冲刺 / 滑行刹车</span><span class="help-key">W / S 或 ↑ / ↓</span>
+          <span>跳跃 / 空中二次振翅</span><span class="help-key">Space</span>
+          <span>按响铜铃 · 惊起海鸥</span><span class="help-key">B</span>
+          <span>鹈鹕叫声 · 鼓喉囊</span><span class="help-key">G / F</span>
+          <span>切换视角 / 回正视角</span><span class="help-key">C / R</span>
+          <span>切换午后 / 日落 / 夜航</span><span class="help-key">T</span>
+          <span>暂停定格观察 / 静音</span><span class="help-key">P / M</span>
+          <span>打开本面板</span><span class="help-key">H / ?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

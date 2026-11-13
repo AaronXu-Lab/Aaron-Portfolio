@@ -128,5 +128,15 @@
     "date": "2026-11-11",
     "promptVersion": "pelican-v1",
     "entry": "entries/fable-5-2-pelican-run-01/index.html"
+  },
+  {
+    "id": "gemini-4-hydrogen-high-pelican-run-01",
+    "model": "Gemini 4 Hydrogen",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "海堤追风 · Pier Cruiser",
+    "date": "2026-11-12",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gemini-4-hydrogen-high-pelican-run-01/index.html"
   }
 ]
