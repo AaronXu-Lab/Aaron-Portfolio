@@ -1,163 +1,604 @@
 ---
+/**
+ * 首页（2026 改版）—— 对应 Design 画板「xuweinan.com 首屏方案」的「已确定」页：
+ * 首屏 B1 卡片版 → 00 关于与经历（D-1）→ 01 精选作品 → 02 造物 → 03 博客 → 04 联系 + 页脚。
+ * 顶栏暂不改（子页面还没调整），首页沿用 Header 的锚点：#about / #experience / #projects / #contact。
+ */
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import MediaSlot from '../components/MediaSlot.astro';
-import CaseList from '../components/CaseList.astro';
+import Icon from '../components/Icon.astro';
+import { historical } from '../data/cases';
+import { products, tools, games } from '../data/products';
 import { formatDate } from '../utils';
 
+/* ---------- 03 博客：自动取最近 7 篇（简介缺省时由导入脚本取正文开头） ---------- */
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 4);
+  .slice(0, 7);
 
-const experience = [
+/* ---------- 首屏证据卡 ---------- */
+const figmaOf = (label: string) => historical.find((h) => h.label === label)?.figma ?? '/work/';
+const proofs = [
   {
+    title: 'App Store 4.8 分',
+    desc: '漫漫书架 · 原生手写的 iOS 漫画应用',
+    href: '/work/comic-manga/',
+    img: '/media/products/comic-manga-icon.jpg',
+  },
+  {
+    title: 'GitHub 66 Stars',
+    desc: 'Figma 开源插件 · 把 MasterGo 图层迁移到 Figma',
+    href: 'https://github.com/AaronXu-Lab/MasterGo2Figma',
+    img: '/media/products/mastergo2figma.png',
+    external: true,
+  },
+  {
+    title: 'ColorOS 极致体验奖',
+    desc: 'OPPO · 年度重点项目 跨屏互联（手机与电脑协同）',
+    href: figmaOf('跨屏互联创新项目'),
+    icon: 'trophy' as const,
+    external: true,
+  },
+];
+
+/* ---------- 00 关于：能力 ---------- */
+const skills = [
+  {
+    title: '设计工程化',
+    desc: '借助插件开发与自动化工具打通产研链路，让设计规范直接交付为代码。',
+    tools: 'Figma 插件 · Design to Code',
+    icon: 'code' as const,
+  },
+  {
+    title: '快速原型',
+    desc: '具备原生代码能力，用 Xcode 构建带真实业务逻辑的交互原型。',
+    tools: 'SwiftUI · Xcode',
+    icon: 'device-mobile' as const,
+  },
+  {
+    title: 'AI 工作流',
+    desc: '基于 ComfyUI 与 Agent Skill，搭建垂直领域的设计产出流程。',
+    tools: 'ComfyUI · Claude Code',
+    icon: 'sparkle' as const,
+  },
+  {
+    title: '动效与微交互',
+    desc: '用动效建立操作反馈与心理预期，让产品更连贯、更精致。',
+    tools: '',
+    icon: 'wave-sine' as const,
+  },
+];
+
+/* ---------- 00 关于：工作经历（core 默认显示，其余点「更多经历」展开） ---------- */
+interface Job {
+  span: string;
+  time: string;
+  company: string;
+  role: string;
+  domain: string;
+  points: string[];
+  core: boolean;
+  current?: boolean;
+  badge?: { text: string; tone: 'accent' | 'dark' };
+  link?: { href: string; label: string; external?: boolean };
+  /** 资料未补齐前不上线 */
+  draft?: boolean;
+}
+
+const jobs: Job[] = [
+  {
+    // TODO：职位、时间、业务方向与要点补齐后去掉 draft
+    span: '2026 - 今',
+    time: '2026 - 至今',
+    company: '实在智能',
+    role: '',
+    domain: '',
+    points: [],
+    core: true,
+    current: true,
+    badge: { text: 'NOW', tone: 'accent' },
+    draft: true,
+  },
+  {
+    span: '2025',
+    time: '2025.5 - 2025.12',
     company: 'flomo',
     role: '设计师',
-    dates: '2025.5 - 2025.12',
-    tags: ['产品策略', '全栈设计'],
-    body: '以全栈视角驱动独立产品的迭代，通过优化设计-开发协作流提升人效，并主导 AI 洞察功能的设计落地。在处理高频用户反馈中，通过设计手段解决数据安全、搜索优化等核心体验痛点。',
+    domain: '独立产品 · 全栈设计 · AI 洞察',
+    points: [
+      '以全栈视角推动独立产品迭代，梳理设计与开发的协作流程，提升交付效率',
+      '主导 AI 洞察功能从设计到上线',
+      '用设计手段消化高频用户反馈，改善数据安全、搜索等体验痛点',
+    ],
+    core: false,
   },
   {
+    span: '2024 - 25',
+    time: '2024.1 - 2025.3',
     company: 'Followup.AI',
     role: 'UX Designer',
-    dates: '2024.1 - 2025.3',
-    tags: ['B端', '设计系统', 'AI Agent'],
-    body: '在一家 AI 创业公司，我主导了项目管理平台从零到一的设计，建立了完整的设计体系，打通了开发与设计的协作流程。并将前沿技术与产品需求无缝结合，成功落地了多个 AI 特色功能。',
-    link: '/work/followup-ai/',
+    domain: 'B 端设计系统 · AI Agent',
+    points: [
+      '主导项目管理平台从 0 到 1 的全流程设计，建立完整的设计体系',
+      '打通设计与开发的协作流程',
+      '把前沿技术与产品需求结合，落地多个 AI 特色功能',
+    ],
+    core: true,
+    badge: { text: '从 0 到 1 · 初创团队', tone: 'dark' },
+    link: { href: '/work/followup-ai/', label: '阅读案例' },
   },
   {
+    span: '2022 - 23',
+    time: '2022.10 - 2023.5',
     company: '小鹏汇天',
     role: '交互高级设计师',
-    dates: '2022.10 - 2023.5',
-    tags: ['HMI', '智能座舱', '体验度量'],
-    body: '发起并建立了可量化的智能座舱体验度量体系，将复杂的感官体验拆解为可量化的技术指标，填补了公司座舱评价体系的空白。',
+    domain: 'HMI · 智能座舱体验度量',
+    points: [
+      '发起并建立可量化的智能座舱体验度量体系，把感官体验拆解为可测的技术指标',
+      '填补公司座舱体验评价体系的空白',
+    ],
+    core: false,
+    link: { href: figmaOf('智能座舱度量体系'), label: '查看案例', external: true },
   },
   {
+    span: '2018 - 22',
+    time: '2018.7 - 2022.9',
     company: 'OPPO',
     role: '用户体验设计师',
-    dates: '2018.7 - 2022.9',
-    tags: ['创新型项目', 'ColorOS', '设计洞察'],
-    body: '在多个创新型项目中发挥关键作用。在 ColorOS 跨屏互联项目中定义了跨端流转的交互底层逻辑，通过对技术的理解克服了多端连接的感知难题，该项目最终获得「极致体验奖」。在 OPPO 车机创新预研项目中，带领团队进行设计洞察，为新驾驶模式的落地和后续规划做出了重要贡献。',
+    domain: 'ColorOS · 创新项目设计洞察',
+    points: [
+      '在 ColorOS 跨屏互联项目中定义跨端流转的底层交互逻辑',
+      '带领团队完成车机创新预研的设计洞察，为新驾驶模式的落地与后续规划提供依据',
+    ],
+    core: true,
+    badge: { text: '★ 极致体验奖', tone: 'dark' },
+  },
+];
+const visibleJobs = jobs.filter((j) => !j.draft);
+const hasExtraJobs = visibleJobs.some((j) => !j.core);
+
+/* ---------- 01 精选作品 ---------- */
+const works = [
+  {
+    kicker: 'AI 时代的工作方式',
+    title: ['我的 Design Agent：', '让 AI 稳定产出可上线的设计稿'],
+    desc: '把设计系统、DESIGN.md 和一组自写的 Agent Skill 组合成一个设计 Agent，让 AI 的产出可执行、可校验，并能和开发并行协作。',
+    tags: ['DESIGN.md', 'Agent Skills', 'Claude Code'],
+    href: '/work/design-engineering-workflow/',
+    newTab: true,
+    media: { label: 'Design Agent 封面：Agent 工作流 / 产出设计稿' },
+  },
+  {
+    kicker: 'Followup.AI',
+    title: ['AI 项目管理平台：', '从 0 到 1 搭建完整设计体系'],
+    desc: '在初创团队中主导 AI 项目管理平台从 0 到 1 的全流程设计，搭建设计系统、定义 20+ 种 Column 类型，并探索「意图驱动」的 AI 交互方式。',
+    tags: ['初创团队', 'B 端 SaaS', '设计系统', 'AI Agent'],
+    href: '/work/followup-ai/',
+    media: { label: 'Followup.AI 产品界面', src: '/media/followup/overview.jpg' },
+  },
+  {
+    kicker: '独立设计与开发',
+    title: ['漫漫书架：', '一个人设计并写完的漫画阅读器'],
+    desc: '支持多格式与多网盘，借助 ComfyUI 把任意漫画页转换成特定画风。从交互到代码都由自己完成，已在 App Store 上线。',
+    tags: ['SwiftUI', 'ComfyUI', 'Design to Code'],
+    href: '/work/comic-manga/',
+    media: { label: '漫漫书架 App 截图', src: '/media/comic/collection.jpg' },
   },
 ];
 
-const capabilities = [
+const earlyWorks = [
   {
-    en: 'Design Engineering',
-    title: '设计工程化',
-    body: '利用插件开发与自动化工具打通产研链路，实现设计规范到代码逻辑的无缝交付。',
+    name: '智能座舱体验度量',
+    desc: '把座舱里的感官体验拆成可测的技术指标，填补公司座舱评价体系的空白。',
+    href: figmaOf('智能座舱度量体系'),
   },
   {
-    en: 'Rapid Prototyping',
-    title: '快速原型 Build',
-    body: '具备原生代码编写能力，能通过 Xcode 快速构建包含真实业务逻辑的交互原型。',
+    name: 'ColorOS 跨屏互联',
+    desc: '定义手机、平板与 PC 之间跨端流转的底层交互逻辑，获「极致体验奖」。',
+    href: figmaOf('跨屏互联创新项目'),
   },
   {
-    en: 'AI Workflow',
-    title: 'AI 工作流构建',
-    body: '能够基于 ComfyUI 搭建垂直领域的设计资源产出工作流，将生成式 AI 转为可落地的产品力。',
+    name: 'OPPO 车机设计洞察',
+    desc: '车机创新预研中的设计洞察，为新驾驶模式的落地与后续规划提供依据。',
+    href: figmaOf('OPPO 车机设计洞察'),
   },
   {
-    en: 'Motion & Micro-interaction',
-    title: '动效与微交互',
-    body: '运用动效建立直观的操作反馈与心理预期，在更多维度下提升产品的连贯性与精致感。',
+    name: '腾讯公益课件 AI 配图',
+    desc: '用 ComfyUI 工作流为公益课件生成配图。',
+    href: figmaOf('腾讯公益课件 AI 配图'),
   },
 ];
 
+/* ---------- 02 造物 ---------- */
+const productBySlug = (slug: string) => {
+  const p = products.find((x) => x.slug === slug);
+  if (!p) throw new Error(`products.ts 缺少 ${slug}`);
+  return p;
+};
+
+const mastergo = productBySlug('mastergo2figma');
+const featuredProduct = {
+  name: 'MasterGo Importer',
+  meta: 'Figma 插件 · 开源',
+  desc: 'MasterGo 不支持导出，我写了个 Figma 插件，支持直接解析 .mg 文件，导入回来继续编辑。',
+  stat: 'GitHub 66 Stars',
+  icon: mastergo.image,
+  href: mastergo.links[0].href,
+  /** 只放真实评论原文（Figma 社区 / GitHub Issues），注明来源；不要改写或编造 */
+  quotes: [] as { text: string; who: string }[],
+};
+
+const productCards = [
+  {
+    slug: 'comic-manga',
+    desc: '在 iPad 上收藏和阅读漫画，支持多种格式与云存储，还能用 AI 转换画风。',
+    kind: 'iOS / iPadOS · App Store 4.8 分',
+  },
+  {
+    slug: 'seal-note',
+    desc: 'macOS 菜单栏里的 Markdown 便签，可选端侧加密。',
+    kind: 'macOS · 开源',
+  },
+  {
+    slug: 'lyoon-garment',
+    desc: '面向海外客户的染整服装厂官网，展示产品、工艺与行业文章。',
+    kind: '品牌官网 · 设计与开发',
+  },
+].map((c) => {
+  const p = productBySlug(c.slug);
+  return { ...c, name: p.name, icon: p.image, href: p.links[0].href };
+});
+
+const allTools = [...tools, ...games];
+const toolPicks = [
+  { slug: 'wardrobe', name: '衣集', desc: '把衣服整理成透明底图片并打标签' },
+  { slug: 'prompt-lab', name: 'Prompt 擂台', desc: '同一段 Prompt 对比不同模型的实现' },
+  { slug: 'stash', name: '暂存箱', desc: '免登录的临时文本与文件中转' },
+  { slug: 'focus-forest', name: '专注森林', desc: '专注越久，树长得越高' },
+  { slug: 'travel-maps', name: '出发吧打工人', desc: '手账风格的等时旅行地图' },
+  { slug: 'mesh-gradient', name: '弥散渐变生成器', desc: '给截图加可调的渐变背景' },
+  { slug: 'flying-ninja-cat', name: '飞天忍者猫', desc: '用 Canvas 重制的童年 Flash 跑酷' },
+].map((t) => {
+  const entry = allTools.find((x) => x.slug === t.slug);
+  if (!entry) throw new Error(`products.ts 缺少 ${t.slug}`);
+  return {
+    ...t,
+    icon: entry.icon,
+    href: entry.href ?? `/tools/${entry.slug}/`,
+    newTab: entry.newTab ?? false,
+  };
+});
+
+const ext = { target: '_blank', rel: 'noopener' };
 ---
 
-<Base title="Aaron Xu - UX Engineer · 个人作品集" scrollspy>
-  <!-- ================= HERO ================= -->
+<Base title="Aaron Xu - 设计工程师 · 个人作品集" scrollspy footer="simple">
+  <!-- ================= 首屏 ================= -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-top mono-sm reveal">2025 EDITION · PORTFOLIO</div>
-      <h1 class="display reveal" style="--d:.05s">
-        Welcome to<br />My <span class="accent-text">Portfolio</span>.
+    <div class="wrap hero-inner">
+      <p class="hero-kicker mono-sm reveal">Aaron Xu <span aria-hidden="true">/</span> 设计工程师</p>
+      <h1 class="hero-title reveal" style="--d:.05s">
+        Design with Code,<br />Think with <span class="accent-text">AI</span>.
       </h1>
-      <p class="hero-sub lead reveal" style="--d:.12s">
-        你好，我是 Aaron Xu —— <strong>A UX Engineer</strong> · Design with Code, Think with
-        AI。一个懂技术的设计师，把体验问题转化成可落地的工程方案。
-      </p>
-      <div class="hero-cta reveal" style="--d:.2s">
-        <a class="btn" href="#projects">
-          查看精选案例 <span class="arrow" aria-hidden="true">→</span>
-        </a>
+      <div class="hero-body">
+        <div class="hero-left">
+          <p class="hero-intro reveal" style="--d:.12s">
+            从 OPPO 的手机系统、小鹏汇天的飞行汽车座舱，再到 flomo，我一直站在设计和工程中间，让想法更快、更准确地变成产品。
+          </p>
+          <a class="hero-chat reveal" style="--d:.16s" href="#contact">
+            <span>想一起做点什么？来聊聊</span><Icon name="arrow-right" size={14} />
+          </a>
+          <ul class="proofs" role="list">
+            {
+              proofs.map((p, i) => (
+                <li class="reveal" style={`--d:${0.2 + i * 0.06}s`}>
+                  <a class="proof" href={p.href} {...(p.external ? ext : {})}>
+                    {p.img ? (
+                      <img class="proof-icon" src={p.img} alt="" width="40" height="40" />
+                    ) : (
+                      <span class="proof-icon proof-icon-glyph" aria-hidden="true">
+                        <Icon name={p.icon!} size={20} />
+                      </span>
+                    )}
+                    <span class="proof-text">
+                      <span class="proof-title">{p.title}</span>
+                      <span class="proof-desc">{p.desc}</span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <!-- 静态 webp 先出（首屏 + 减少动态效果兜底），空闲时换成 Rive 导出的可动 SVG -->
+        <div class="hero-art reveal" style="--d:.18s" data-hero-art data-src="/media/home/quiet-work.json">
+          <img
+            src="/media/home/hero-illustration.webp"
+            alt="戴圆框眼镜、穿橙色毛衣的卡通形象盘腿坐着用笔记本电脑，身旁趴着一只睡着的柴犬，右边放着一杯冒热气的咖啡"
+            width="1094"
+            height="620"
+            fetchpriority="high"
+          />
+        </div>
       </div>
     </div>
+    <a class="hero-caret" href="#work" aria-label="向下滚动到精选作品">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+    </a>
   </section>
 
-  <!-- ================= ABOUT ================= -->
-  <section id="about" data-spy="about" class="about">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="num">01</span>
-        <span class="zh">关于我</span>
-        <span class="en">About</span>
+  <!-- ================= 00 关于与经历 ================= -->
+  <section id="about" data-spy="about" class="about" data-about aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="about-collapsed" data-about-collapsed hidden>
+        <div class="about-collapsed-label">
+          <span class="sec-num mono-sm">00</span><span class="strong">关于我</span><span>已收起</span>
+        </div>
+        <button type="button" class="text-btn" data-about-expand>展开 ↓</button>
       </div>
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <h2 class="h-section">你好，我是 Aaron Xu</h2>
-          <div class="mono-sm hi">Hi, Aaron Xu here</div>
-          <p>
-            一个懂技术的设计师，擅长在不确定性高的前沿领域中，将体验问题转化成<strong
-              >可落地的工程方案</strong
-            >。
-          </p>
-          <p>
-            曾在 OPPO、小鹏深度参与负责多个创新型项目的设计预研，也在 AI 创业公司主导过一个
-            SaaS 平台从 0 到 1 的全流程设计。
-          </p>
-          <p>
-            工作之外，我也会独立开发产品。开发的 Figma 插件已有近 <strong>6K</strong>
-            的使用量。正在开发的漫画收藏 APP 也有着不错的用户评价。
-          </p>
-          <div class="edu">
-            <span class="mono-label">Education</span>
-            <div class="edu-body">
-              <span>华中科技大学 · 2014 - 2018</span>
-              <span class="edu-degree">传播学（网络传播）/ 计算机科学与技术 · 双学位</span>
+
+      <div class="about-body" data-about-body>
+        <div class="about-top">
+          <div class="about-skip reveal">
+            <img src="/media/home/shiba-mark.svg" alt="" width="35" height="33" />
+            <button type="button" class="skip-btn" data-about-skip>
+              <span>不想看履历？直接看作品</span>
+              <Icon name="arrow-down" size={16} />
+            </button>
+          </div>
+
+          <div class="about-card reveal" style="--d:.06s">
+            <div class="about-head">
+              <h2 id="about-title" class="sec-label"><span class="sec-num mono-sm">00</span>关于我</h2>
+              <p class="about-hello">你好，我是 Aaron，一个<span class="accent-text">懂技术的设计师</span>。</p>
+              <p class="about-edu">
+                <Icon name="graduation-cap" size={18} />
+                <span><strong>华中科技大学</strong> · 传播学 / 计算机科学与技术 双学位 · 2014 - 2018</span>
+              </p>
             </div>
+            <ul class="skills" role="list">
+              {
+                skills.map((s) => (
+                  <li class="skill">
+                    <span class="skill-icon" aria-hidden="true">
+                      <Icon name={s.icon} size={22} />
+                    </span>
+                    <h3>{s.title}</h3>
+                    <p>{s.desc}</p>
+                    {s.tools && <span class="skill-tools mono-sm">{s.tools}</span>}
+                  </li>
+                ))
+              }
+            </ul>
           </div>
         </div>
-        <div class="about-portrait reveal" style="--d:.12s">
-          <MediaSlot label="虚构人物头像" node="539:8624" ratio="4 / 5" src="/media/temporary/portrait.png" temporary />
-        </div>
+
+        <section id="experience" data-spy="experience" class="exp" aria-labelledby="exp-title">
+          <h3 id="exp-title" class="exp-title reveal">工作经历</h3>
+          <ol class="jobs" data-jobs role="list">
+            {
+              visibleJobs.map((job) => (
+                <li class:list={['job', 'reveal', { 'job-extra': !job.core, current: job.current }]}>
+                  <div class="job-when">
+                    <span class="job-span">{job.span}</span>
+                    <span class="job-time mono-sm">{job.time}</span>
+                  </div>
+                  <div class="job-rail" aria-hidden="true">
+                    <span class="job-dot" />
+                  </div>
+                  <div class="job-main">
+                    <div class="job-info">
+                      <span class="job-company">{job.company}</span>
+                      <span class="job-role">{job.role}</span>
+                      {job.badge && (
+                        <span class:list={['job-badge', `tone-${job.badge.tone}`]}>{job.badge.text}</span>
+                      )}
+                      <span class="job-domain">{job.domain}</span>
+                      {job.link && (
+                        <a class="job-link" href={job.link.href} {...(job.link.external ? ext : {})}>
+                          {job.link.label} {job.link.external ? '↗' : '→'}
+                        </a>
+                      )}
+                    </div>
+                    <ul class="job-points" role="list">
+                      {job.points.map((p) => (
+                        <li>{p}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+          {
+            hasExtraJobs && (
+              <button type="button" class="ghost-btn jobs-toggle" data-jobs-toggle aria-expanded="false">
+                更多经历 ↓
+              </button>
+            )
+          }
+        </section>
       </div>
     </div>
   </section>
 
-  <!-- ================= EXPERIENCE ================= -->
-  <section id="experience" data-spy="experience" class="experience">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="num">02</span>
-        <span class="zh">经历</span>
-        <span class="en">Experience</span>
-        <span class="side mono-sm timeline-note">2018 - NOW</span>
+  <!-- ================= 01 精选作品 ================= -->
+  <section id="work" data-spy="projects" class="block work" aria-labelledby="work-title">
+    <span id="projects" class="anchor-alias" aria-hidden="true"></span>
+    <div class="wrap block-inner">
+      <div class="sec-head reveal">
+        <div class="sec-titles">
+          <h2 id="work-title" class="sec-label" tabindex="-1"><span class="sec-num mono-sm">01</span>精选作品</h2>
+          <p class="sec-statement">让设计与代码一起跳舞，把产品做完整。</p>
+        </div>
+        <a class="more-link" href="/work/">全部作品<Icon name="arrow-right" size={14} /></a>
       </div>
-      <ol class="timeline">
+
+      <div class="works">
         {
-          experience.map((job, i) => (
-            <li class="job reveal" style={`--d:${i * 0.07}s`}>
-              <div class="job-when mono-sm">{job.dates}</div>
-              <div class="job-dot" aria-hidden="true" />
-              <div class="job-body">
-                <div class="job-title">
-                  <h3>{job.company}</h3>
-                  <span class="role">{job.role}</span>
-                  {job.link && (
-                    <a class="job-link mono-sm" href={job.link}>
-                      查看案例 →
-                    </a>
-                  )}
-                </div>
-                <div class="job-tags">
-                  {job.tags.map((t) => (
-                    <span class="chip">{t}</span>
+          works.map((w, i) => (
+            <article class:list={['work-row', 'reveal', { flip: i % 2 === 1 }]}>
+              <a
+                class="work-cover"
+                href={w.href}
+                aria-label={`阅读案例：${w.title.join('')}`}
+                {...(w.newTab ? ext : {})}
+              >
+                <MediaSlot label={w.media.label} ratio="16 / 10" src={w.media.src} />
+              </a>
+              <div class="work-text">
+                <span class="work-kicker">{w.kicker}</span>
+                <h3 class="work-title">
+                  {w.title[0]}
+                  <br />
+                  {w.title[1]}
+                </h3>
+                <p class="work-desc">{w.desc}</p>
+                <ul class="tags" role="list">
+                  {w.tags.map((t) => (
+                    <li class="tag">{t}</li>
                   ))}
-                </div>
-                <p>{job.body}</p>
+                </ul>
               </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="early reveal">
+        <span class="early-label">更早的作品</span>
+        <ul class="early-list" role="list">
+          {
+            earlyWorks.map((e, i) => (
+              <li class="early-item">
+                <a href={e.href} {...ext} aria-describedby={`early-${i}`}>{e.name}</a>
+                <span class="early-pop" role="tooltip" id={`early-${i}`}>{e.desc}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 造物 ================= -->
+  <section id="lab" class="block lab" aria-labelledby="lab-title">
+    <div class="wrap block-inner">
+      <div class="sec-head reveal">
+        <div class="sec-titles">
+          <h2 id="lab-title" class="sec-label"><span class="sec-num mono-sm">02</span>造物</h2>
+          <p class="sec-statement">工作之外，我做的东西。</p>
+          <p class="sec-desc">从设计到代码都由我独立完成：四个长期维护的产品，和一些顺手做的小工具、小游戏。</p>
+        </div>
+        <a class="more-link" href="/products/">全部造物<Icon name="arrow-right" size={14} /></a>
+      </div>
+
+      <div class="lab-group">
+        <h3 class="group-title reveal">大产品</h3>
+        <a
+          class:list={['feature', 'reveal', { 'has-quotes': featuredProduct.quotes.length > 0 }]}
+          href={featuredProduct.href}
+          {...ext}
+        >
+          <div class="feature-main">
+            <div class="feature-meta">
+              <img src={featuredProduct.icon} alt="" width="44" height="44" />
+              <span>{featuredProduct.meta}</span>
+            </div>
+            <span class="feature-name">{featuredProduct.name}</span>
+            <span class="feature-desc">{featuredProduct.desc}</span>
+            <span class="feature-stat">{featuredProduct.stat}</span>
+          </div>
+          {
+            featuredProduct.quotes.length > 0 && (
+              <figure class="feature-quotes">
+                <figcaption>用户怎么说</figcaption>
+                {featuredProduct.quotes.map((q) => (
+                  <blockquote>
+                    <p>“{q.text}”</p>
+                    <cite>{q.who}</cite>
+                  </blockquote>
+                ))}
+              </figure>
+            )
+          }
+        </a>
+        <ul class="product-cards" role="list">
+          {
+            productCards.map((p, i) => (
+              <li class="reveal" style={`--d:${i * 0.06}s`}>
+                <a class="product-card" href={p.href} {...ext}>
+                  <span class="product-head">
+                    <img src={p.icon} alt="" width="40" height="40" />
+                    <span class="product-name">{p.name}</span>
+                  </span>
+                  <span class="product-desc">{p.desc}</span>
+                  <span class="product-kind">{p.kind}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="lab-group">
+        <h3 class="group-title reveal">小工具 <span>和游戏</span></h3>
+        <ul class="tool-list reveal" role="list">
+          {
+            toolPicks.map((t) => (
+              <li>
+                <a class="tool-row" href={t.href} {...(t.newTab ? ext : {})}>
+                  <img class="tool-icon" src={t.icon} alt="" width="32" height="32" />
+                  <span class="tool-text">
+                    <span class="tool-name">{t.name}</span>
+                    <span class="tool-desc">{t.desc}</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a class="tool-row tool-all" href="/products/#sec-tools">
+              <span class="tool-icon tool-icon-glyph" aria-hidden="true"><Icon name="squares-four" size={20} /></span>
+              <span class="tool-name">查看全部小工具</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 博客 ================= -->
+  <section id="blog" class="block blog" aria-labelledby="blog-title">
+    <div class="wrap block-inner">
+      <div class="sec-head reveal">
+        <div class="sec-titles">
+          <h2 id="blog-title" class="sec-label"><span class="sec-num mono-sm">03</span>博客</h2>
+          <p class="sec-statement">最近在想的事。</p>
+          <p class="sec-desc">一个设计师的笔记本：工作上的思考，也有工作之外的爱好。</p>
+        </div>
+        <a class="more-link" href="/blog/">全部文章<Icon name="arrow-right" size={14} /></a>
+      </div>
+
+      <ol class="posts" role="list">
+        {
+          posts.map((post, i) => (
+            <li class="reveal" style={`--d:${i * 0.04}s`}>
+              <a class="post" href={`/blog/${post.id}/`}>
+                <time class="post-date mono-sm" datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date)}
+                </time>
+                <span class="post-main">
+                  <span class="post-title">{post.data.title}</span>
+                  {post.data.excerpt && <span class="post-desc">{post.data.excerpt}</span>}
+                </span>
+                <span class="post-meta">
+                  {[post.data.categories[0], post.data.minutes && `${post.data.minutes} min`]
+                    .filter(Boolean)
+                    .join(' · ')}
+                </span>
+              </a>
             </li>
           ))
         }
@@ -165,638 +606,1738 @@ const capabilities = [
     </div>
   </section>
 
-  <!-- ================= CAPABILITIES ================= -->
-  <section id="capabilities" class="capabilities">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="num">03</span>
-        <span class="zh">能力</span>
-        <span class="en">Capabilities</span>
+  <!-- ================= 04 联系 ================= -->
+  <section id="contact" data-spy="contact" class="block contact" aria-labelledby="contact-title">
+    <div class="wrap block-inner contact-grid">
+      <div class="contact-lead reveal">
+        <p class="sec-label"><span class="sec-num mono-sm">04</span>联系</p>
+        <h2 id="contact-title" class="contact-title">Let's <span class="accent-text">talk</span>.</h2>
+        <p class="contact-copy">有合适的机会，或者想聊聊设计、代码和 AI，都欢迎来信。邮件是最快的方式。</p>
+        <a class="btn contact-mail" href="mailto:woshixwn@gmail.com">
+          woshixwn@gmail.com <span class="arrow" aria-hidden="true">→</span>
+        </a>
       </div>
-      <div class="cap-list">
-        {
-          capabilities.map((cap, i) => (
-            <div class="cap-item reveal" style={`--d:${i * 0.07}s`}>
-              <span class="mono-accent idx">{String(i + 1).padStart(2, '0')}</span>
-              <div class="cap-body">
-                <div class="cap-title-row">
-                  <h3>{cap.title}</h3>
-                  <span class="mono-sm">{cap.en}</span>
-                </div>
-                <p>{cap.body}</p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= FEATURED PROJECTS ================= -->
-  <section id="projects" data-spy="projects" class="projects">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="num">04</span>
-        <span class="zh">精选案例</span>
-        <span class="en">Featured Projects</span>
-      </div>
-
-      <p class="lead projects-intro reveal">
-        🧐 接下来，我将要讲述我近年来 <strong>2 个</strong>能定义我职业维度的核心项目。
-      </p>
-
-      <CaseList />
-    </div>
-  </section>
-
-  <!-- ================= BLOG ================= -->
-  <section id="blog-home" class="blog-home">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="num">05</span>
-        <span class="zh">博客</span>
-        <span class="en">Blog</span>
-        <a class="side mono-sm blog-all" href="/blog/">全部文章 →</a>
-      </div>
-      <div class="post-rows">
-        {
-          posts.map((post, i) => (
-            <a class="post-row reveal" style={`--d:${i * 0.06}s`} href={`/blog/${post.id}/`}>
-              <time class="mono-sm" datetime={post.data.date.toISOString()}>
-                {formatDate(post.data.date)}
-              </time>
-              <div class="post-main">
-                <h3>{post.data.title}</h3>
-                <p>{post.data.excerpt}</p>
-              </div>
-              <div class="post-side mono-sm">
-                {post.data.categories[0] && <span class="cat">{post.data.categories[0]}</span>}
-                <span class="min">{post.data.minutes} min</span>
-              </div>
-              <span class="post-arr" aria-hidden="true">→</span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-  <section id="contact" data-spy="contact" class="contact">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="num">06</span>
-        <span class="zh">联系我</span>
-        <span class="en">Contact</span>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-lead reveal">
-          <h2 class="h-section">Let's <span class="accent-text">talk</span>.</h2>
-          <p class="lead">
-            对设计工程、AI 工作流或任何有趣的产品想法感兴趣？随时联系我。
-          </p>
-          <a class="btn contact-mail" href="mailto:woshixwn@gmail.com">
-            woshixwn@gmail.com <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-        <ul class="contact-list reveal" style="--d:.1s">
-          <li>
-            <span class="mono-label">Website</span>
-            <a href="https://www.xuweinan.com/" target="_blank" rel="noopener"
-              >www.xuweinan.com ↗</a
-            >
-          </li>
-          <li>
-            <span class="mono-label">小红书</span>
-            <button type="button" data-copy="6364222434" aria-label="复制 6364222434">
+      <dl class="channels reveal" style="--d:.08s">
+        <div class="channel">
+          <dt><span class="channel-icon channel-icon-text" aria-hidden="true">书</span>小红书</dt>
+          <dd>
+            <button type="button" data-copy="6364222434" aria-label="复制小红书号 6364222434">
               <span data-copy-label>6364222434</span>
               <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
               <span class="copy-status" role="status"></span>
             </button>
-          </li>
-          <li>
-            <span class="mono-label">WeChat</span>
-            <button type="button" data-copy="woshixwn123" aria-label="复制 woshixwn123">
+          </dd>
+        </div>
+        <div class="channel">
+          <dt><span class="channel-icon" aria-hidden="true"><Icon name="github-logo" size={14} /></span>GitHub</dt>
+          <dd><a href="https://github.com/AaronXu-Lab" {...ext}>AaronXu-Lab ↗</a></dd>
+        </div>
+        <div class="channel">
+          <dt><span class="channel-icon" aria-hidden="true"><Icon name="wechat-logo" size={14} /></span>WeChat</dt>
+          <dd>
+            <button type="button" data-copy="woshixwn123" aria-label="复制微信号 woshixwn123">
               <span data-copy-label>woshixwn123</span>
               <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
               <span class="copy-status" role="status"></span>
             </button>
-          </li>
-          <li>
-            <span class="mono-label">Phone</span>
-            <button type="button" data-copy="+86 18507190926" aria-label="复制 +86 18507190926">
-              <span data-copy-label>+86 185 0719 0926</span>
-              <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="copy-status" role="status"></span>
-            </button>
-          </li>
-        </ul>
-      </div>
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 </Base>
 
+<script>
+  // ---- 首屏插图动画：重放 Rive 项目导出的关键帧（数据由 scripts/import-hero-animation.mjs 生成） ----
+  type Key = [number, number, [number, number, number, number] | 'hold' | null];
+  interface Anim {
+    dur: number;
+    fps: number;
+    tracks: { o: string; p: string; k: Key[] }[];
+  }
+  type Pose = Record<'x' | 'y' | 'rotation' | 'scaleX' | 'scaleY' | 'opacity', number>;
+  interface Pack {
+    viewBox: string;
+    svg: string;
+    anims: Anim[];
+    base: Record<string, Pose>;
+  }
+
+  /** cubic-bezier 缓动：解 x(t) = p，返回 y(t) */
+  const bezier = ([x1, y1, x2, y2]: [number, number, number, number], p: number) => {
+    const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+    const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+    const X = (t: number) => ((ax * t + bx) * t + cx) * t;
+    const dX = (t: number) => (3 * ax * t + 2 * bx) * t + cx;
+    let t = p;
+    for (let i = 0; i < 8; i++) {
+      const err = X(t) - p, d = dX(t);
+      if (Math.abs(err) < 1e-6 || Math.abs(d) < 1e-6) break;
+      t -= err / d;
+    }
+    if (t < 0 || t > 1 || Math.abs(X(t) - p) > 1e-4) {
+      let lo = 0, hi = 1;
+      t = p;
+      for (let i = 0; i < 30; i++) {
+        const x = X(t);
+        if (Math.abs(x - p) < 1e-6) break;
+        if (x < p) lo = t;
+        else hi = t;
+        t = (lo + hi) / 2;
+      }
+    }
+    return ((ay * t + by) * t + cy) * t;
+  };
+
+  const sample = (keys: Key[], f: number) => {
+    if (f <= keys[0][0]) return keys[0][1];
+    const last = keys[keys.length - 1];
+    if (f >= last[0]) return last[1];
+    for (let i = 0; i < keys.length - 1; i++) {
+      const a = keys[i], b = keys[i + 1];
+      if (f < b[0]) {
+        if (a[2] === 'hold') return a[1];
+        let p = (f - a[0]) / (b[0] - a[0]);
+        if (Array.isArray(a[2])) p = bezier(a[2], p);
+        return a[1] + (b[1] - a[1]) * p;
+      }
+    }
+    return last[1];
+  };
+
+  const mountHeroAnimation = async (holder: HTMLElement) => {
+    const pack: Pack = await fetch(holder.dataset.src!).then((r) => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    });
+    const img = holder.querySelector('img');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', pack.viewBox);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', img?.alt ?? '');
+    svg.innerHTML = pack.svg;
+
+    const els = new Map<string, Element>();
+    for (const id in pack.base) {
+      const el = svg.querySelector(`#qw-o${id.replace(':', '_')}`);
+      if (el) els.set(id, el);
+    }
+    const deg = 180 / Math.PI;
+    const render = (seconds: number) => {
+      const state: Record<string, Pose> = {};
+      for (const id in pack.base) state[id] = { ...pack.base[id] };
+      for (const a of pack.anims) {
+        const f = (seconds * a.fps) % a.dur;
+        for (const tr of a.tracks) {
+          if (state[tr.o]) state[tr.o][tr.p as keyof Pose] = sample(tr.k, f);
+        }
+      }
+      for (const [id, el] of els) {
+        const s = state[id];
+        el.setAttribute(
+          'transform',
+          `translate(${s.x} ${s.y}) rotate(${s.rotation * deg}) scale(${s.scaleX} ${s.scaleY})`
+        );
+        if (s.opacity !== 1 || el.hasAttribute('opacity')) el.setAttribute('opacity', String(s.opacity));
+      }
+    };
+
+    // 第 0 帧与静态插图一致，直接替换不跳位
+    render(0);
+    holder.append(svg);
+    img?.remove();
+
+    // 只在插图可见时播放；离开视口暂停，回来接着播
+    let raf = 0;
+    let elapsed = 0;
+    let last: number | null = null;
+    const tick = (now: number) => {
+      if (last !== null) elapsed += Math.min(now - last, 100);
+      last = now;
+      render(elapsed / 1000);
+      raf = requestAnimationFrame(tick);
+    };
+    new IntersectionObserver(([e]) => {
+      cancelAnimationFrame(raf);
+      last = null;
+      if (e.isIntersecting) raf = requestAnimationFrame(tick);
+    }).observe(holder);
+  };
+
+  const heroArt = document.querySelector<HTMLElement>('[data-hero-art]');
+  const still =
+    matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    document.documentElement.hasAttribute('data-qa');
+  if (heroArt && !still) {
+    const start = () =>
+      mountHeroAnimation(heroArt).catch(() => {
+        /* 加载失败就保留静态插图 */
+      });
+    const idle = () =>
+      'requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 600);
+    if (document.readyState === 'complete') idle();
+    else addEventListener('load', idle, { once: true });
+  }
+
+  // 00 关于：「直接看作品」收起整块并跳到 01；「更多经历」展开非核心经历
+  const about = document.querySelector<HTMLElement>('[data-about]');
+  const body = about?.querySelector<HTMLElement>('[data-about-body]');
+  const bar = about?.querySelector<HTMLElement>('[data-about-collapsed]');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const setCollapsed = (collapsed: boolean) => {
+    if (!body || !bar) return;
+    body.hidden = collapsed;
+    bar.hidden = !collapsed;
+  };
+
+  about?.querySelector('[data-about-skip]')?.addEventListener('click', () => {
+    setCollapsed(true);
+    document.getElementById('work')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    // 按钮随整块隐藏，焦点交给 01 的标题，键盘用户不会丢位置
+    document.getElementById('work-title')?.focus({ preventScroll: true });
+  });
+
+  about?.querySelector('[data-about-expand]')?.addEventListener('click', () => {
+    setCollapsed(false);
+    about.querySelector<HTMLElement>('[data-about-skip]')?.focus({ preventScroll: true });
+  });
+
+  // 从顶栏点「关于 / 经历」时自动展开
+  addEventListener('hashchange', () => {
+    if (location.hash === '#about' || location.hash === '#experience') {
+      setCollapsed(false);
+      document.querySelector(location.hash)?.scrollIntoView();
+    }
+  });
+
+  const jobs = document.querySelector<HTMLElement>('[data-jobs]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-jobs-toggle]');
+  toggle?.addEventListener('click', () => {
+    const open = !jobs?.classList.contains('show-all');
+    jobs?.classList.toggle('show-all', open);
+    // 展开出来的条目不等入场动画，直接可见
+    jobs?.querySelectorAll('.job-extra').forEach((el) => el.classList.add('in'));
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? '收起 ↑' : '更多经历 ↓';
+  });
+</script>
+
 <style>
-  section {
-    padding: clamp(72px, 10.5vw, 136px) 0 0;
+  /* ---------- 通用 ---------- */
+  .wrap {
+    --text-body: color-mix(in oklch, var(--text-2) 65%, var(--text));
+    width: min(var(--w-wide), 100% - 2 * var(--gutter));
+    margin-inline: auto;
   }
 
-  .contact {
-    padding-bottom: clamp(56px, 8vw, 96px);
+  section[id],
+  .anchor-alias {
+    scroll-margin-top: 60px;
   }
 
-  /* ---------- HERO ---------- */
-  .hero {
-    position: relative;
-    min-height: 86svh;
-    display: flex;
-    align-items: center;
-    padding: 108px 0 72px;
+  .anchor-alias {
+    display: block;
+    height: 0;
   }
 
-  .hero-top {
-    display: inline-block;
-    letter-spacing: 0.22em;
-    color: var(--text-mono);
-    margin-bottom: 32px;
-  }
-
-  .hero h1 {
-    max-width: 14ch;
-    font-size: clamp(42px, 7.2vw, 74px);
-    margin-bottom: 30px;
-  }
-
-  .hero-sub {
-    max-width: 56ch;
-  }
-
-  .hero-sub strong {
-    color: var(--text);
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-top: 46px;
-  }
-
-  /* ---------- ABOUT ---------- */
-  .about-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(220px, 1fr);
-    gap: clamp(36px, 6vw, 88px);
-    align-items: start;
-  }
-
-  .about-text h2 {
-    margin-bottom: 10px;
-  }
-
-  .about-text .hi {
-    color: var(--text-mono);
-    letter-spacing: 0.14em;
-    margin-bottom: 30px;
-  }
-
-  .about-text p {
-    color: var(--text-2);
-    margin-bottom: 1em;
-    max-width: 58ch;
-  }
-
-  .about-text strong {
-    color: var(--text);
-  }
-
-  .edu {
-    display: flex;
-    gap: 24px;
-    align-items: baseline;
-    margin-top: 34px;
-    padding-top: 26px;
+  .block {
     border-top: 1px solid var(--border);
-    flex-wrap: wrap;
   }
 
-  .edu-body {
+  .block-inner {
+    padding-block: clamp(64px, 8vw, 96px);
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: clamp(36px, 4.5vw, 48px);
+  }
+
+  .work .block-inner {
+    gap: clamp(48px, 6vw, 64px);
+  }
+
+  .sec-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px 32px;
+    flex-wrap: wrap;
+  }
+
+  .sec-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 640px;
+  }
+
+  .sec-label {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.5;
+    color: var(--text-2);
+  }
+
+  .sec-num {
+    color: var(--accent-strong);
+  }
+
+  .sec-statement {
+    font-size: clamp(26px, 3.4vw, 36px);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .sec-desc {
     font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-body);
   }
 
-  .edu-degree {
-    color: var(--text-3);
-    font-size: 13.5px;
+  .more-link,
+  .text-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 12px;
+    margin-right: -12px;
+    border: 0;
+    border-radius: var(--radius-btn);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  .about-portrait {
-    position: sticky;
-    top: 92px;
+  .more-link :global(svg) {
+    transition: transform 0.25s var(--ease-out);
   }
 
-  @media (max-width: 760px) {
-    .about-grid {
-      grid-template-columns: 1fr;
+  @media (hover: hover) and (pointer: fine) {
+    .more-link:hover,
+    .text-btn:hover {
+      background: color-mix(in oklch, var(--text) 6%, transparent);
     }
 
-    .about-portrait {
-      position: static;
-      max-width: 340px;
+    .more-link:hover :global(svg) {
+      transform: translateX(3px);
     }
   }
 
-  /* ---------- EXPERIENCE ---------- */
-  .timeline-note {
-    letter-spacing: 0.14em;
-    color: var(--text-mono);
+  .more-link:active,
+  .text-btn:active {
+    background: color-mix(in oklch, var(--text) 9%, transparent);
   }
 
-  .timeline {
+  .ghost-btn {
+    height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-btn);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .ghost-btn:hover {
+      border-color: var(--text-3);
+    }
+  }
+
+  .ghost-btn:active {
+    transform: scale(0.98);
+    background: color-mix(in oklch, var(--text) 5%, transparent);
+  }
+
+  .tags {
     list-style: none;
     margin: 0;
     padding: 0;
-    position: relative;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
-  .timeline::before {
-    content: '';
+  .tag {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--text) 6%, var(--bg));
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-body);
+  }
+
+  /* ---------- 首屏 ---------- */
+  .hero {
+    position: relative;
+    padding: clamp(96px, 9vw, 128px) 0 112px;
+  }
+
+  .hero-kicker {
+    margin-bottom: clamp(20px, 2.4vw, 30px);
+    color: var(--text-2);
+  }
+
+  .hero-kicker span {
+    color: var(--text-3);
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 7.2vw, 104px);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: initial;
+  }
+
+  .hero-body {
+    margin-top: clamp(24px, 2.6vw, 38px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 640px);
+    gap: 24px;
+    align-items: end;
+  }
+
+  .hero-left {
+    max-width: 567px;
+  }
+
+  .hero-intro {
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+
+  .hero-chat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-body);
+    text-decoration: underline dashed var(--text-3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .hero-chat :global(svg) {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-chat:hover {
+      color: var(--accent-strong);
+      text-decoration-color: var(--accent-border);
+    }
+
+    .hero-chat:hover :global(svg) {
+      transform: translateX(3px);
+    }
+  }
+
+  .hero-chat:active {
+    color: var(--accent-strong);
+  }
+
+  .proofs {
+    list-style: none;
+    margin: clamp(40px, 5.5vw, 76px) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 431px;
+  }
+
+  .proof {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 68px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    transition: border-color 0.2s ease, transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .proof:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+  }
+
+  .proof:active {
+    transform: scale(0.99);
+  }
+
+  .proof-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    object-fit: cover;
+  }
+
+  .proof-icon-glyph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+  }
+
+  .proof-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    line-height: 1.45;
+  }
+
+  .proof-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .proof-desc {
+    font-size: 13px;
+    color: var(--text-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero-art {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1094 / 620;
+    justify-self: end;
+  }
+
+  .hero-art > :global(img),
+  .hero-art > :global(svg) {
     position: absolute;
-    left: 148px;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: var(--border);
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-caret {
+    position: absolute;
+    left: 50%;
+    bottom: 32px;
+    width: 48px;
+    height: 48px;
+    margin-left: -24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    box-shadow: 0 2px 8px color-mix(in oklch, var(--text) 8%, transparent);
+    color: var(--text);
+    transition: border-color 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-caret {
+      animation: caret-nudge 1.6s ease-in-out infinite;
+    }
+  }
+
+  @keyframes caret-nudge {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(8px);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-caret:hover {
+      border-color: var(--text);
+    }
+  }
+
+  .hero-caret:active {
+    background: color-mix(in oklch, var(--text) 6%, var(--surface));
+  }
+
+  @media (max-width: 900px) {
+    .hero-body {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .hero-art {
+      justify-self: center;
+      max-width: 520px;
+    }
+
+    .hero-caret {
+      display: none;
+    }
+
+    .hero {
+      padding-bottom: 48px;
+    }
+  }
+
+  /* ---------- 00 关于 ---------- */
+  .about-collapsed {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-block: 1px solid var(--border);
+  }
+
+  .about-collapsed[hidden],
+  .about-body[hidden] {
+    display: none;
+  }
+
+  .about-collapsed-label {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+
+  .about-collapsed-label .strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .about-body {
+    padding: 40px 0 clamp(64px, 8vw, 96px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 72px);
+  }
+
+  .about-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .about-skip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .skip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    transition: color 0.2s ease;
+  }
+
+  .skip-btn span {
+    text-decoration: underline dashed var(--text-3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
+
+  .skip-btn :global(svg) {
+    flex-shrink: 0;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .skip-btn:hover {
+      color: var(--accent-strong);
+    }
+
+    .skip-btn:hover :global(svg) {
+      transform: translateY(2px);
+    }
+  }
+
+  .skip-btn:active {
+    color: var(--accent-strong);
+  }
+
+  .about-card {
+    align-self: stretch;
+    border-radius: var(--radius-panel);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: clamp(28px, 3.5vw, 40px) clamp(22px, 3.5vw, 48px) clamp(30px, 3.5vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .about-head {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .about-hello {
+    font-size: clamp(26px, 3.4vw, 36px);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+
+  .about-edu {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+
+  .about-edu :global(svg) {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .about-edu strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .skills {
+    list-style: none;
+    margin: 0;
+    padding: 32px 0 0;
+    border-top: 1px solid var(--border-subtle);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .skill {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .skill-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-card);
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skill h3 {
+    font-size: 17px;
+    letter-spacing: 0;
+  }
+
+  .skill p {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-body);
+  }
+
+  .skill-tools {
+    color: var(--text-2);
+  }
+
+  @media (max-width: 1000px) {
+    .skills {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .skills {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* 工作经历：竖轴 + 每段双栏（左信息，右要点） */
+  .exp {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .exp-title {
+    font-size: 28px;
+    letter-spacing: -0.015em;
+    font-weight: 800;
+  }
+
+  .jobs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 有 JS 时默认只显示核心经历 */
+  :global(.js) .jobs:not(.show-all) .job-extra {
+    display: none;
+  }
+
+  :global(html:not(.js)) .jobs-toggle {
+    display: none;
   }
 
   .job {
     display: grid;
-    grid-template-columns: 128px 40px minmax(0, 1fr);
-    padding: 26px 0;
-  }
-
-  .job + .job {
-    border-top: 1px solid var(--border-subtle);
+    grid-template-columns: 150px 28px minmax(0, 1fr);
   }
 
   .job-when {
-    color: var(--text-3);
-    font-size: 11.5px;
-    letter-spacing: 0.01em;
-    padding-top: 6px;
+    padding: 6px 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    text-align: right;
+  }
+
+  .job-span {
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.02em;
     white-space: nowrap;
+  }
+
+  .job.current .job-span {
+    color: var(--accent);
+  }
+
+  .job-time {
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+
+  .job-rail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .job-rail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .job:first-child .job-rail::before {
+    top: 12px;
   }
 
   .job-dot {
     position: relative;
-  }
-
-  .job-dot::before {
-    content: '';
-    position: absolute;
-    left: 15.5px;
-    top: 9px;
-    width: 9px;
-    height: 9px;
+    margin-top: 12px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-    transition: background-color 0.3s ease;
+    background: var(--text-3);
+    box-shadow: 0 0 0 5px var(--bg);
+    transition: background-color 0.2s ease;
   }
 
-  .job:hover .job-dot::before {
+  .job.current .job-dot,
+  .job:hover .job-dot {
     background: var(--accent);
   }
 
-  .job-title {
+  .job-main {
+    margin-left: 28px;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .job-info {
     display: flex;
-    align-items: baseline;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 10px;
+    line-height: 1.5;
   }
 
-  .job-title h3 {
-    font-size: 23px;
-    letter-spacing: -0.015em;
-    transition: color 0.2s ease;
+  .job-company {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
 
-  .job:hover .job-title h3 {
-    color: var(--accent-strong);
+  .job-role {
+    font-size: 15px;
+    color: var(--text-body);
   }
 
-  .job-title .role {
+  .job-badge {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .tone-dark {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+  }
+
+  .tone-accent {
+    background: var(--accent);
+    color: var(--btn-text);
+  }
+
+  .job-domain {
+    font-size: 13px;
+    line-height: 1.6;
     color: var(--text-2);
-    font-size: 14.5px;
   }
 
   .job-link {
+    align-self: flex-start;
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--accent-strong);
-    letter-spacing: 0.04em;
+    text-underline-offset: 4px;
   }
 
   .job-link:hover {
     text-decoration: underline;
-    text-underline-offset: 3px;
   }
 
-  .job-tags {
+  .job-link:active {
+    opacity: 0.7;
+  }
+
+  .job-points {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0 0;
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .job-body p {
-    color: var(--text-2);
-    max-width: 64ch;
-    font-size: 15px;
+  .job-points li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  .job-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.86em;
+    width: 12px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+  }
+
+  .jobs-toggle {
+    margin-left: 206px;
+    align-self: flex-start;
+  }
+
+  @media (max-width: 1000px) {
+    .job-main {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
   }
 
   @media (max-width: 640px) {
-    .timeline::before {
-      display: none;
+    .job {
+      grid-template-columns: 20px minmax(0, 1fr);
     }
 
-    .job {
-      grid-template-columns: 1fr;
-      gap: 8px;
+    .job-when {
+      grid-column: 2;
+      grid-row: 1;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 12px;
+      padding: 0 0 8px 16px;
+      text-align: left;
+    }
+
+    .job-rail {
+      grid-column: 1;
+      grid-row: 1 / span 2;
     }
 
     .job-dot {
+      margin-top: 10px;
+    }
+
+    .job-main {
+      grid-column: 2;
+      margin-left: 16px;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+    }
+
+    .jobs-toggle {
+      margin-left: 36px;
+    }
+  }
+
+  /* ---------- 01 精选作品 ---------- */
+  .works {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 64px);
+  }
+
+  .work-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(32px, 4.5vw, 56px);
+    align-items: center;
+  }
+
+  .work-row.flip {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  }
+
+  .work-row.flip .work-cover {
+    order: 2;
+  }
+
+  .work-cover {
+    display: block;
+    border-radius: var(--radius-media);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s ease, transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  }
+
+  .work-cover :global(.media-slot) {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .work-cover :global(img) {
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .work-cover:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-card);
+    }
+
+    .work-cover:hover :global(img) {
+      transform: scale(1.02);
+    }
+  }
+
+  .work-cover:active {
+    transform: scale(0.995);
+  }
+
+  .work-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .work-kicker {
+    font-size: 13px;
+    color: var(--text-2);
+  }
+
+  .work-title {
+    font-size: clamp(24px, 2.5vw, 32px);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+
+  .work-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  @media (max-width: 860px) {
+    .work-row,
+    .work-row.flip {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .work-row.flip .work-cover {
+      order: 0;
+    }
+
+    .work-title br {
       display: none;
     }
   }
 
-  /* ---------- CAPABILITIES(编辑部式细线列表,无卡片) ---------- */
-  .cap-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: clamp(40px, 7vw, 96px);
+  .early {
+    display: flex;
+    align-items: center;
+    gap: 8px 20px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
   }
 
-  .cap-item {
+  .early-label {
+    color: var(--text-2);
+  }
+
+  .early-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: clamp(18px, 3vw, 30px);
-    padding: 30px 0 36px;
+    gap: 0 20px;
+    flex-wrap: wrap;
+  }
+
+  .early-item {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .early-item a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 5px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .early-item a:hover {
+    color: var(--accent-strong);
+    text-decoration-color: var(--accent-border);
+  }
+
+  .early-item a:active {
+    opacity: 0.7;
+  }
+
+  .early-pop {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 4px);
+    z-index: 3;
+    width: 280px;
+    padding: 12px 14px;
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-body);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transform-origin: bottom left;
+    transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), visibility 0.18s;
+    pointer-events: none;
+  }
+
+  .early-item:hover .early-pop,
+  .early-item:focus-within .early-pop {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .early-pop {
+      transform: none;
+    }
+  }
+
+  @media (hover: none) {
+    .early-pop {
+      display: none;
+    }
+  }
+
+  /* ---------- 02 造物 ---------- */
+  .lab-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .group-title {
+    font-size: 16px;
+    letter-spacing: 0;
+    font-weight: 700;
+  }
+
+  .group-title span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+  }
+
+  .feature,
+  .product-card {
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s ease, transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .feature:hover,
+    .product-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+  }
+
+  .feature:active,
+  .product-card:active {
+    transform: scale(0.995);
+  }
+
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .feature.has-quotes {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  }
+
+  .feature-main {
+    padding: clamp(28px, 3.5vw, 40px) clamp(24px, 3.5vw, 44px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    max-width: 720px;
+  }
+
+  .feature-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+
+  .feature-meta img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .feature-name {
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .feature-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  .feature-stat {
+    margin-top: 4px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .feature-quotes {
+    margin: 0;
+    padding: 32px 36px;
+    background: var(--surface-2);
+    border-left: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .feature-quotes figcaption {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+  }
+
+  .feature-quotes blockquote {
+    margin: 0;
+    padding: 18px 20px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .feature-quotes p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .feature-quotes cite {
+    font-style: normal;
+    font-size: 12px;
+    color: var(--text-2);
+  }
+
+  .product-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .product-cards li {
+    display: flex;
+  }
+
+  .product-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .product-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .product-head img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    object-fit: cover;
+  }
+
+  .product-name {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .product-desc {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-body);
+  }
+
+  .product-kind {
+    font-size: 12px;
+    color: var(--text-2);
+  }
+
+  .tool-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 32px;
     border-top: 1px solid var(--border);
   }
 
-  .cap-item .idx {
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    padding-top: 5px;
+  .tool-list li {
+    border-bottom: 1px solid var(--border-subtle);
   }
 
-  .cap-title-row {
+  .tool-row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    min-height: 64px;
+    padding: 10px 0;
+    transition: color 0.2s ease;
+  }
+
+  .tool-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    object-fit: cover;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .tool-icon-glyph {
+    border: 0;
     display: flex;
-    align-items: baseline;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-  }
-
-  .cap-title-row .mono-sm {
-    color: var(--text-mono);
-  }
-
-  .cap-title-row h3 {
-    font-size: 21px;
-  }
-
-  .cap-body p {
-    font-size: 14.5px;
+    align-items: center;
+    justify-content: center;
     color: var(--text-2);
-    max-width: 44ch;
   }
 
-  @media (max-width: 720px) {
-    .cap-list {
+  .tool-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    line-height: 1.45;
+  }
+
+  .tool-name {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .tool-desc {
+    font-size: 13px;
+    color: var(--text-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tool-all .tool-name {
+    font-weight: 500;
+    color: var(--text-body);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tool-row:hover .tool-name {
+      color: var(--accent-strong);
+    }
+
+    .tool-row:hover .tool-icon {
+      transform: scale(1.06);
+    }
+  }
+
+  .tool-row:active .tool-icon {
+    transform: scale(0.94);
+  }
+
+  @media (max-width: 1000px) {
+    .product-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .tool-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature.has-quotes {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-quotes {
+      border-left: 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .tool-list {
       grid-template-columns: 1fr;
     }
   }
 
-  /* ---------- PROJECTS ---------- */
-  .projects-intro {
-    margin-bottom: clamp(30px, 4vw, 44px);
-    max-width: 56ch;
+  /* ---------- 03 博客 ---------- */
+  .blog .block-inner {
+    gap: 40px;
   }
 
-  .projects-intro strong {
-    color: var(--accent-strong);
+  .posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid var(--text);
   }
 
-  /* ---------- BLOG ---------- */
-  .blog-all {
-    color: var(--accent-strong);
-    letter-spacing: 0.06em;
+  .posts li {
+    border-bottom: 1px solid var(--border);
   }
 
-  .blog-all:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .post-rows {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .post-row {
+  .post {
     display: grid;
-    grid-template-columns: 96px minmax(0, 1fr) auto 20px;
-    gap: clamp(14px, 2.5vw, 28px);
+    grid-template-columns: 140px minmax(0, 1fr) 150px;
+    gap: 40px;
     align-items: baseline;
-    padding: 19px 6px;
-    border-bottom: 1px solid var(--border-subtle);
+    padding: 26px 0;
     transition: background-color 0.2s ease;
   }
 
-  .post-row:first-child {
-    border-top: 1px solid var(--border);
-  }
-
-  .post-row:hover {
-    background: color-mix(in oklch, var(--surface) 70%, transparent);
-  }
-
-  .post-row time {
-    color: var(--text-3);
-    letter-spacing: 0.04em;
+  .post-date {
+    color: var(--text-2);
   }
 
   .post-main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     min-width: 0;
   }
 
-  .post-main h3 {
-    font-size: 16.5px;
-    line-height: 1.45;
-    margin-bottom: 4px;
+  .post-title {
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     transition: color 0.2s ease;
   }
 
-  .post-row:hover .post-main h3 {
-    color: var(--accent-strong);
-  }
-
-  .post-main p {
-    font-size: 13px;
-    color: var(--text-3);
+  .post-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-body);
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .post-side {
-    display: flex;
-    gap: 16px;
-    align-items: baseline;
+  .post-meta {
+    justify-self: end;
+    font-size: 13px;
+    color: var(--text-2);
     white-space: nowrap;
   }
 
-  .post-side .cat {
-    color: var(--accent-strong);
-  }
-
-  .post-side .min {
-    color: var(--text-mono);
-  }
-
-  .post-arr {
-    color: var(--text-3);
-    transition: transform 0.25s var(--ease-out), color 0.2s ease;
-  }
-
-  .post-row:hover .post-arr {
-    color: var(--accent-strong);
-  }
-
   @media (hover: hover) and (pointer: fine) {
-    .post-row:hover .post-arr {
-      transform: translateX(4px);
+    .post:hover .post-title {
+      color: var(--accent-strong);
     }
   }
 
-  .post-row:active {
-    background: color-mix(in oklch, var(--surface) 45%, transparent);
+  .post:active {
+    background: color-mix(in oklch, var(--text) 4%, transparent);
   }
 
-  @media (max-width: 720px) {
-    .post-row {
-      grid-template-columns: minmax(0, 1fr) 20px;
+  @media (max-width: 760px) {
+    .post {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 6px 16px;
+      padding: 22px 0;
     }
 
-    .post-row time {
+    .post-date {
+      grid-row: 1;
       grid-column: 1;
+    }
+
+    .post-meta {
+      grid-row: 1;
+      grid-column: 2;
     }
 
     .post-main {
-      grid-column: 1;
+      grid-column: 1 / -1;
     }
 
-    .post-side {
-      grid-column: 1;
-    }
-
-    .post-arr {
-      grid-row: 2;
-      grid-column: 2;
+    .post-title {
+      font-size: 18px;
     }
   }
 
-  /* ---------- CONTACT ---------- */
+  /* ---------- 04 联系 ---------- */
   .contact-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    gap: clamp(36px, 6vw, 96px);
-    align-items: start;
+    grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+    gap: 48px;
+    align-items: end;
   }
 
-  .contact-lead h2 {
-    font-size: clamp(38px, 6vw, 58px);
-    margin-bottom: 20px;
+  .contact-lead {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
 
-  .contact-lead .lead {
-    max-width: 40ch;
-    margin-bottom: 36px;
+  .contact-title {
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-copy {
+    max-width: 420px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-2);
   }
 
   .contact-mail {
+    min-height: 44px;
+    padding: 10px 20px;
     font-family: var(--font-mono);
-    font-size: 15px;
-    letter-spacing: 0.01em;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
   }
 
-  .contact-list {
-    list-style: none;
+  .channels {
     margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
   }
 
-  .contact-list li {
+  .channel {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 18px 2px;
-    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    min-height: 56px;
+    padding: 6px 0;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 14px;
   }
 
-  .contact-list li:first-child {
-    border-top: 1px solid var(--border);
+  .channel:last-child {
+    border-bottom: 1px solid var(--border-subtle);
   }
 
-  .contact-list a,
-  .contact-list button {
+  .channel dt {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-2);
+  }
+
+  .channel-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+  }
+
+  .channel-icon-text {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .channel dd {
+    margin: 0;
+  }
+
+  .channel a,
+  .channel button {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: none;
-    border: none;
+    min-height: 44px;
     padding: 0;
-    font-size: 15px;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 14px;
     color: var(--text);
-    font-family: var(--font-sans);
     transition: color 0.2s ease, transform 0.15s var(--ease-out);
   }
 
-  .contact-list button:active {
-    transform: scale(0.98);
+  .channel a:hover,
+  .channel button:hover {
+    color: var(--accent-strong);
   }
 
-  .contact-list a:hover,
-  .contact-list button:hover {
-    color: var(--accent-strong);
+  .channel button:active,
+  .channel a:active {
+    transform: scale(0.98);
   }
 
   .copy-hint {
     color: var(--text-mono);
     border: 1px solid var(--border-strong);
     border-radius: 3px;
-    padding: 3px 8px;
-    letter-spacing: 0.08em;
+    padding: 2px 8px;
     transition: color 0.2s ease, border-color 0.2s ease;
   }
 
-  .contact-list button:hover .copy-hint {
+  .channel button:hover .copy-hint {
     color: var(--accent-strong);
     border-color: var(--accent-border);
   }
 
-  .contact-list button.copied .copy-hint {
+  .channel button:global(.copied) .copy-hint {
     color: var(--success);
     border-color: var(--success);
-  }
-
-  @media (max-width: 720px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

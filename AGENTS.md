@@ -23,6 +23,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
 | `src/pages/design.astro` | `/design/` 活体样式指南：全部 token 与组件的实渲染；底部「其他组件库」读 `src/data/libraries.ts`，无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
 | `scripts/` | 新建/导入/标点脚本 |
+| `public/media/home/quiet-work.json` | 首页首屏插图动画（Rive 项目 rive-quiet-work 导出的网页版转成的数据包）；由 `node scripts/import-hero-animation.mjs <web-animation/index.html>` 生成，勿手改。静态兜底图是同目录的 `hero-illustration.webp`，两者裁切框必须一致 |
 | `workflows/` | 沉淀工作流：新增案例（AI 剧本）、新增博客（脚本） |
 
 ## 常用命令

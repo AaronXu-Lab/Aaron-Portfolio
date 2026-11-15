@@ -1,9 +1,23 @@
 ---
 import { cases } from '../data/cases';
+import Icon from './Icon.astro';
 
+interface Props {
+  /** simple:只留版权 + 回到顶部，不重复顶部导航（首页改版用） */
+  variant?: 'full' | 'simple';
+}
+const { variant = 'full' } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
+{variant === 'simple' ? (
+<footer class="site-footer simple">
+  <div class="simple-inner">
+    <span>© {year} Aaron Xu</span>
+    <a class="to-top" href="#top">回到顶部<Icon name="arrow-up" size={14} /></a>
+  </div>
+</footer>
+) : (
 <footer class="site-footer">
   <div class="container">
     <div class="top">
@@ -44,6 +58,7 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
+)}
 
 <style>
   .site-footer {
@@ -124,6 +139,56 @@ const year = new Date().getFullYear();
     padding: 22px 0 30px;
     border-top: 1px solid var(--border-subtle);
     color: var(--text-3);
+  }
+
+  /* ---- simple 变体 ---- */
+  .site-footer.simple {
+    margin-top: 0;
+    background: var(--bg);
+  }
+
+  .simple-inner {
+    width: min(var(--w-wide), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 32px 0;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+
+  .to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    padding: 0 12px;
+    margin-right: -12px;
+    border-radius: var(--radius-btn);
+    font-weight: 500;
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .to-top :global(svg) {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .to-top:hover {
+      background: color-mix(in oklch, var(--text) 6%, transparent);
+    }
+
+    .to-top:hover :global(svg) {
+      transform: translateY(-2px);
+    }
+  }
+
+  .to-top:active {
+    background: color-mix(in oklch, var(--text) 9%, transparent);
   }
 
   .bottom .mono-sm {

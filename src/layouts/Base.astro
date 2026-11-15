@@ -10,12 +10,15 @@ interface Props {
   description?: string;
   /** 首页启用导航 scrollspy */
   scrollspy?: boolean;
+  /** 页脚形态：full 为全站完整页脚；simple 只留版权 + 回到顶部（首页改版用） */
+  footer?: 'full' | 'simple';
 }
 
 const {
   title,
   description = 'UX Engineer · Design with Code, Think with AI。Aaron Xu 的个人作品集与博客。',
   scrollspy = false,
+  footer = 'full',
 } = Astro.props;
 ---
 
@@ -54,13 +57,13 @@ const {
     </script>
   </head>
   <body>
-    <div class="scroll-sentinel" aria-hidden="true"></div>
+    <div id="top" class="scroll-sentinel" aria-hidden="true"></div>
     <a class="skip-link" href="#main">跳到主要内容</a>
     <Header scrollspy={scrollspy} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer variant={footer} />
     <script src="../scripts/global.js"></script>
   </body>
 </html>
