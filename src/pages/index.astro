@@ -10,12 +10,14 @@ import MediaSlot from '../components/MediaSlot.astro';
 import Icon from '../components/Icon.astro';
 import { historical } from '../data/cases';
 import { products, tools, games } from '../data/products';
-import { formatDate } from '../utils';
+import { formatDate, postSummary } from '../utils';
+import { skills, jobs, profile, RESUME_PDF } from '../data/about';
 
-/* ---------- 03 博客：自动取最近 7 篇（简介缺省时由导入脚本取正文开头） ---------- */
+/* ---------- 03 博客：自动取最近 7 篇；简介 = 开头引用块，没写就取正文第一段（显示两行） ---------- */
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 7);
+  .slice(0, 7)
+  .map((post) => ({ ...post, summary: postSummary(post.body) }));
 
 /* ---------- 首屏证据卡 ---------- */
 const figmaOf = (label: string) => historical.find((h) => h.label === label)?.figma ?? '/work/';
@@ -42,119 +44,6 @@ const proofs = [
   },
 ];
 
-/* ---------- 00 关于：能力 ---------- */
-const skills = [
-  {
-    title: '设计工程化',
-    desc: '借助插件开发与自动化工具打通产研链路，让设计规范直接交付为代码。',
-    tools: 'Figma 插件 · Design to Code',
-    icon: 'code' as const,
-  },
-  {
-    title: '快速原型',
-    desc: '具备原生代码能力，用 Xcode 构建带真实业务逻辑的交互原型。',
-    tools: 'SwiftUI · Xcode',
-    icon: 'device-mobile' as const,
-  },
-  {
-    title: 'AI 工作流',
-    desc: '基于 ComfyUI 与 Agent Skill，搭建垂直领域的设计产出流程。',
-    tools: 'ComfyUI · Claude Code',
-    icon: 'sparkle' as const,
-  },
-  {
-    title: '动效与微交互',
-    desc: '用动效建立操作反馈与心理预期，让产品更连贯、更精致。',
-    tools: '',
-    icon: 'wave-sine' as const,
-  },
-];
-
-/* ---------- 00 关于：工作经历（core 默认显示，其余点「更多经历」展开） ---------- */
-interface Job {
-  span: string;
-  time: string;
-  company: string;
-  role: string;
-  domain: string;
-  points: string[];
-  core: boolean;
-  current?: boolean;
-  badge?: { text: string; tone: 'accent' | 'dark' };
-  link?: { href: string; label: string; external?: boolean };
-  /** 资料未补齐前不上线 */
-  draft?: boolean;
-}
-
-const jobs: Job[] = [
-  {
-    // TODO：职位、时间、业务方向与要点补齐后去掉 draft
-    span: '2026 - 今',
-    time: '2026 - 至今',
-    company: '实在智能',
-    role: '',
-    domain: '',
-    points: [],
-    core: true,
-    current: true,
-    badge: { text: 'NOW', tone: 'accent' },
-    draft: true,
-  },
-  {
-    span: '2025',
-    time: '2025.5 - 2025.12',
-    company: 'flomo',
-    role: '设计师',
-    domain: '独立产品 · 全栈设计 · AI 洞察',
-    points: [
-      '以全栈视角推动独立产品迭代，梳理设计与开发的协作流程，提升交付效率',
-      '主导 AI 洞察功能从设计到上线',
-      '用设计手段消化高频用户反馈，改善数据安全、搜索等体验痛点',
-    ],
-    core: false,
-  },
-  {
-    span: '2024 - 25',
-    time: '2024.1 - 2025.3',
-    company: 'Followup.AI',
-    role: 'UX Designer',
-    domain: 'B 端设计系统 · AI Agent',
-    points: [
-      '主导项目管理平台从 0 到 1 的全流程设计，建立完整的设计体系',
-      '打通设计与开发的协作流程',
-      '把前沿技术与产品需求结合，落地多个 AI 特色功能',
-    ],
-    core: true,
-    badge: { text: '从 0 到 1 · 初创团队', tone: 'dark' },
-    link: { href: '/work/followup-ai/', label: '阅读案例' },
-  },
-  {
-    span: '2022 - 23',
-    time: '2022.10 - 2023.5',
-    company: '小鹏汇天',
-    role: '交互高级设计师',
-    domain: 'HMI · 智能座舱体验度量',
-    points: [
-      '发起并建立可量化的智能座舱体验度量体系，把感官体验拆解为可测的技术指标',
-      '填补公司座舱体验评价体系的空白',
-    ],
-    core: false,
-    link: { href: figmaOf('智能座舱度量体系'), label: '查看案例', external: true },
-  },
-  {
-    span: '2018 - 22',
-    time: '2018.7 - 2022.9',
-    company: 'OPPO',
-    role: '用户体验设计师',
-    domain: 'ColorOS · 创新项目设计洞察',
-    points: [
-      '在 ColorOS 跨屏互联项目中定义跨端流转的底层交互逻辑',
-      '带领团队完成车机创新预研的设计洞察，为新驾驶模式的落地与后续规划提供依据',
-    ],
-    core: true,
-    badge: { text: '★ 极致体验奖', tone: 'dark' },
-  },
-];
 const visibleJobs = jobs.filter((j) => !j.draft);
 const hasExtraJobs = visibleJobs.some((j) => !j.core);
 
@@ -323,25 +212,18 @@ const ext = { target: '_blank', rel: 'noopener' };
         </div>
       </div>
     </div>
-    <a class="hero-caret" href="#work" aria-label="向下滚动到精选作品">
+    <a class="hero-caret" href="#about" aria-label="向下滚动到关于我">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
     </a>
   </section>
 
   <!-- ================= 00 关于与经历 ================= -->
-  <section id="about" data-spy="about" class="about" data-about aria-labelledby="about-title">
+  <section id="about" data-spy="about" class="about" aria-labelledby="about-title">
     <div class="wrap">
-      <div class="about-collapsed" data-about-collapsed hidden>
-        <div class="about-collapsed-label">
-          <span class="sec-num mono-sm">00</span><span class="strong">关于我</span><span>已收起</span>
-        </div>
-        <button type="button" class="text-btn" data-about-expand>展开 ↓</button>
-      </div>
-
-      <div class="about-body" data-about-body>
+      <div class="about-body">
         <div class="about-top">
           <div class="about-skip reveal">
-            <img src="/media/home/shiba-mark.svg" alt="" width="35" height="33" />
+            <span class="shiba-mark" aria-hidden="true"></span>
             <button type="button" class="skip-btn" data-about-skip>
               <span>不想看履历？直接看作品</span>
               <Icon name="arrow-down" size={16} />
@@ -350,11 +232,18 @@ const ext = { target: '_blank', rel: 'noopener' };
 
           <div class="about-card reveal" style="--d:.06s">
             <div class="about-head">
-              <h2 id="about-title" class="sec-label"><span class="sec-num mono-sm">00</span>关于我</h2>
-              <p class="about-hello">你好，我是 Aaron，一个<span class="accent-text">懂技术的设计师</span>。</p>
+              <div class="about-head-row">
+                <h2 id="about-title" class="sec-label"><span class="sec-num mono-sm">00</span>关于我</h2>
+                <a class="ghost-btn resume-btn" href={RESUME_PDF} download="Aaron Xu 简历.pdf">
+                  <Icon name="download-simple" size={16} />下载简历
+                </a>
+              </div>
+              <p class="about-hello">
+                {profile.hello.before}<span class="accent-text">{profile.hello.accent}</span>{profile.hello.after}
+              </p>
               <p class="about-edu">
                 <Icon name="graduation-cap" size={18} />
-                <span><strong>华中科技大学</strong> · 传播学 / 计算机科学与技术 双学位 · 2014 - 2018</span>
+                <span><strong>{profile.education.school}</strong> · {profile.education.detail}</span>
               </p>
             </div>
             <ul class="skills" role="list">
@@ -591,7 +480,7 @@ const ext = { target: '_blank', rel: 'noopener' };
                 </time>
                 <span class="post-main">
                   <span class="post-title">{post.data.title}</span>
-                  {post.data.excerpt && <span class="post-desc">{post.data.excerpt}</span>}
+                  {post.summary && <span class="post-desc">{post.summary}</span>}
                 </span>
                 <span class="post-meta">
                   {[post.data.categories[0], post.data.minutes && `${post.data.minutes} min`]
@@ -779,36 +668,12 @@ const ext = { target: '_blank', rel: 'noopener' };
     else addEventListener('load', idle, { once: true });
   }
 
-  // 00 关于：「直接看作品」收起整块并跳到 01；「更多经历」展开非核心经历
-  const about = document.querySelector<HTMLElement>('[data-about]');
-  const body = about?.querySelector<HTMLElement>('[data-about-body]');
-  const bar = about?.querySelector<HTMLElement>('[data-about-collapsed]');
+  // 00 关于：「直接看作品」滚到 01 精选作品（不折叠本屏）；「更多经历」展开非核心经历
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const setCollapsed = (collapsed: boolean) => {
-    if (!body || !bar) return;
-    body.hidden = collapsed;
-    bar.hidden = !collapsed;
-  };
-
-  about?.querySelector('[data-about-skip]')?.addEventListener('click', () => {
-    setCollapsed(true);
-    document.getElementById('work')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-    // 按钮随整块隐藏，焦点交给 01 的标题，键盘用户不会丢位置
+  document.querySelector('[data-about-skip]')?.addEventListener('click', () => {
+    // 先把焦点交给 01 的标题（键盘用户接着往下 Tab），再平滑滚动；顺序反过来 focus 会打断滚动
     document.getElementById('work-title')?.focus({ preventScroll: true });
-  });
-
-  about?.querySelector('[data-about-expand]')?.addEventListener('click', () => {
-    setCollapsed(false);
-    about.querySelector<HTMLElement>('[data-about-skip]')?.focus({ preventScroll: true });
-  });
-
-  // 从顶栏点「关于 / 经历」时自动展开
-  addEventListener('hashchange', () => {
-    if (location.hash === '#about' || location.hash === '#experience') {
-      setCollapsed(false);
-      document.querySelector(location.hash)?.scrollIntoView();
-    }
+    document.getElementById('work')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
   });
 
   const jobs = document.querySelector<HTMLElement>('[data-jobs]');
@@ -839,10 +704,6 @@ const ext = { target: '_blank', rel: 'noopener' };
   .anchor-alias {
     display: block;
     height: 0;
-  }
-
-  .block {
-    border-top: 1px solid var(--border);
   }
 
   .block-inner {
@@ -901,8 +762,7 @@ const ext = { target: '_blank', rel: 'noopener' };
     color: var(--text-body);
   }
 
-  .more-link,
-  .text-btn {
+  .more-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -924,8 +784,7 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .more-link:hover,
-    .text-btn:hover {
+    .more-link:hover {
       background: color-mix(in oklch, var(--text) 6%, transparent);
     }
 
@@ -934,8 +793,7 @@ const ext = { target: '_blank', rel: 'noopener' };
     }
   }
 
-  .more-link:active,
-  .text-btn:active {
+  .more-link:active {
     background: color-mix(in oklch, var(--text) 9%, transparent);
   }
 
@@ -982,13 +840,26 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   /* ---------- 首屏 ---------- */
+  /*
+   * 首屏独占一屏：至少 100svh，第 0 屏永远从折线以下开始。
+   * 字号与竖向间距同时受屏宽（vw）和屏高（svh）约束，矮屏也能把整块内容 + 向下按钮装进一屏；
+   * 高屏时内容在顶栏与按钮之间垂直居中。
+   */
   .hero {
     position: relative;
-    padding: clamp(96px, 9vw, 128px) 0 112px;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding: calc(60px + clamp(8px, 3svh, 40px)) 0 clamp(76px, 10.5svh, 112px);
+  }
+
+  .hero-inner {
+    margin-block: auto;
   }
 
   .hero-kicker {
-    margin-bottom: clamp(20px, 2.4vw, 30px);
+    margin-bottom: clamp(10px, 2.6svh, 30px);
     color: var(--text-2);
   }
 
@@ -997,17 +868,17 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   .hero-title {
-    font-size: clamp(44px, 7.2vw, 104px);
-    line-height: 1.2;
+    font-size: clamp(36px, min(7.2vw, 9.4svh), 104px);
+    line-height: 1.15;
     font-weight: 800;
     letter-spacing: -0.02em;
     text-wrap: initial;
   }
 
   .hero-body {
-    margin-top: clamp(24px, 2.6vw, 38px);
+    margin-top: clamp(12px, 3svh, 38px);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 640px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(640px, 66svh));
     gap: 24px;
     align-items: end;
   }
@@ -1017,7 +888,7 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   .hero-intro {
-    font-size: clamp(17px, 1.5vw, 20px);
+    font-size: clamp(16px, min(1.5vw, 2.1svh), 20px);
     line-height: 1.6;
     color: var(--text-body);
   }
@@ -1058,11 +929,11 @@ const ext = { target: '_blank', rel: 'noopener' };
 
   .proofs {
     list-style: none;
-    margin: clamp(40px, 5.5vw, 76px) 0 0;
+    margin: clamp(14px, min(5.5vw, 5svh), 76px) 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: clamp(8px, 1.2svh, 12px);
     max-width: 431px;
   }
 
@@ -1070,8 +941,8 @@ const ext = { target: '_blank', rel: 'noopener' };
     display: flex;
     align-items: center;
     gap: 14px;
-    min-height: 68px;
-    padding: 12px 14px;
+    min-height: clamp(56px, 6.8svh, 68px);
+    padding: clamp(8px, 1.2svh, 12px) 14px;
     border: 1px solid var(--border);
     border-radius: var(--radius-card);
     background: var(--surface);
@@ -1147,7 +1018,7 @@ const ext = { target: '_blank', rel: 'noopener' };
   .hero-caret {
     position: absolute;
     left: 50%;
-    bottom: 32px;
+    bottom: clamp(16px, 3.2svh, 32px);
     width: 48px;
     height: 48px;
     margin-left: -24px;
@@ -1194,48 +1065,61 @@ const ext = { target: '_blank', rel: 'noopener' };
       gap: 40px;
     }
 
+    /* 竖屏：证据卡横排三格，插图宽度随屏高收缩，整块尽量装进一屏 */
+    .hero-body {
+      gap: clamp(12px, 2.4svh, 40px);
+    }
+
+    .proofs {
+      flex-direction: row;
+      max-width: none;
+    }
+
+    .proofs li {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+    }
+
+    .proof {
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      min-height: 0;
+      padding: 10px 12px;
+    }
+
+    .proof-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .proof-title {
+      font-size: 14px;
+    }
+
+    .proof-desc {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
     .hero-art {
       justify-self: center;
-      max-width: 520px;
+      max-width: min(520px, 36svh);
     }
+  }
 
-    .hero-caret {
+  @media (max-width: 560px) {
+    .proof-desc {
       display: none;
-    }
-
-    .hero {
-      padding-bottom: 48px;
     }
   }
 
   /* ---------- 00 关于 ---------- */
-  .about-collapsed {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 12px 0;
-    border-block: 1px solid var(--border);
-  }
-
-  .about-collapsed[hidden],
-  .about-body[hidden] {
-    display: none;
-  }
-
-  .about-collapsed-label {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    font-size: 14px;
-    color: var(--text-2);
-  }
-
-  .about-collapsed-label .strong {
-    font-weight: 600;
-    color: var(--text);
-  }
-
   .about-body {
     padding: 40px 0 clamp(64px, 8vw, 96px);
     display: flex;
@@ -1254,6 +1138,16 @@ const ext = { target: '_blank', rel: 'noopener' };
     display: inline-flex;
     align-items: center;
     gap: 10px;
+  }
+
+  /* 柴犬线稿：用 mask 着色，跟随主题文字色 */
+  .shiba-mark {
+    width: 35px;
+    height: 33px;
+    flex-shrink: 0;
+    background: var(--text);
+    -webkit-mask: url('/media/home/shiba-mark.svg') center / contain no-repeat;
+    mask: url('/media/home/shiba-mark.svg') center / contain no-repeat;
   }
 
   .skip-btn {
@@ -1311,6 +1205,30 @@ const ext = { target: '_blank', rel: 'noopener' };
     display: flex;
     flex-direction: column;
     gap: 14px;
+  }
+
+  .about-head-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: -8px;
+  }
+
+  .resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resume-btn :global(svg) {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .resume-btn:hover :global(svg) {
+      transform: translateY(2px);
+    }
   }
 
   .about-hello {
@@ -1798,6 +1716,13 @@ const ext = { target: '_blank', rel: 'noopener' };
     transform-origin: bottom left;
     transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), visibility 0.18s;
     pointer-events: none;
+  }
+
+  /* 靠右的条目浮层向左展开，避免越出视口撑出横向滚动 */
+  .early-item:nth-last-child(-n + 2) .early-pop {
+    left: auto;
+    right: 0;
+    transform-origin: bottom right;
   }
 
   .early-item:hover .early-pop,

@@ -1,0 +1,381 @@
+---
+/**
+ * 简历打印源：首页「00 关于与经历」的 A4 排版版本（不含顶部的狗头 + 跳转文字）。
+ * `npm run build:resume` 用本机 Chrome 无头打印本页，产出 public/media/resume/aaron-xu-resume.pdf；
+ * 首页「下载简历」按钮下载的就是那份 PDF。数据与首页共用 src/data/about.ts。
+ */
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { profile, skills, jobs } from '../data/about';
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{profile.name} · 简历</title>
+  </head>
+  <body>
+    <main class="paper">
+      <header class="head">
+        <div class="who">
+          <h1>{profile.name}</h1>
+          <p class="role">{profile.title}</p>
+        </div>
+        <ul class="contact mono-sm" role="list">
+          <li>{profile.email}</li>
+          <li>{profile.site}</li>
+          <li>{profile.github}</li>
+        </ul>
+      </header>
+
+      <section class="intro">
+        <p class="hello">
+          {profile.hello.before}<span class="accent-text">{profile.hello.accent}</span>{profile.hello.after}
+        </p>
+        <p class="edu">
+          <Icon name="graduation-cap" size={15} />
+          <span><strong>{profile.education.school}</strong> · {profile.education.detail}</span>
+        </p>
+      </section>
+
+      <section class="block" aria-labelledby="r-skills">
+        <h2 id="r-skills" class="block-title">能力</h2>
+        <ul class="skills" role="list">
+          {
+            skills.map((s) => (
+              <li class="skill">
+                <span class="skill-icon" aria-hidden="true">
+                  <Icon name={s.icon} size={16} />
+                </span>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+                {s.tools && <span class="mono-sm tools">{s.tools}</span>}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="block" aria-labelledby="r-jobs">
+        <h2 id="r-jobs" class="block-title">工作经历</h2>
+        <ol class="jobs" role="list">
+          {
+            jobs
+              .filter((j) => !j.draft)
+              .map((job) => (
+                <li class:list={['job', { current: job.current }]}>
+                  <div class="when">
+                    <span class="span">{job.span}</span>
+                    <span class="mono-sm time">{job.time}</span>
+                  </div>
+                  <div class="main">
+                    <div class="title-row">
+                      <span class="company">{job.company}</span>
+                      <span class="job-role">{job.role}</span>
+                      {job.badge && <span class:list={['badge-tag', `tone-${job.badge.tone}`]}>{job.badge.text}</span>}
+                    </div>
+                    <p class="domain">{job.domain}</p>
+                    <ul class="points" role="list">
+                      {job.points.map((p) => (
+                        <li>{p}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))
+          }
+        </ol>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  @page {
+    size: A4;
+    margin: 14mm 15mm;
+  }
+
+  :global(html),
+  :global(body) {
+    background: var(--bg);
+  }
+
+  .paper {
+    --text-body: color-mix(in oklch, var(--text-2) 65%, var(--text));
+    width: min(210mm, 100% - 32px);
+    margin: 32px auto;
+    padding: 14mm 15mm;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  @media print {
+    :global(html),
+    :global(body) {
+      background: var(--surface);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .paper {
+      width: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  /* ---- 页头 ---- */
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--text);
+  }
+
+  .head h1 {
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .role {
+    margin-top: 4px;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+
+  .contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    color: var(--text-body);
+    line-height: 1.7;
+  }
+
+  /* ---- 开场 ---- */
+  .intro {
+    padding: 12px 0 2px;
+  }
+
+  .hello {
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .edu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    color: var(--text-body);
+  }
+
+  .edu strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ---- 区块 ---- */
+  .block {
+    margin-top: 14px;
+  }
+
+  .block-title {
+    font-size: 15px;
+    letter-spacing: 0;
+    font-weight: 800;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skills {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .skill {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    break-inside: avoid;
+  }
+
+  .skill-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skill h3 {
+    font-size: 13.5px;
+    letter-spacing: 0;
+  }
+
+  .skill p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-body);
+  }
+
+  .tools {
+    font-size: 10.5px;
+    color: var(--text-2);
+  }
+
+  .jobs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .job {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    break-inside: avoid;
+  }
+
+  .job:last-child {
+    border-bottom: 0;
+  }
+
+  .when {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .span {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .job.current .span {
+    color: var(--accent);
+  }
+
+  .time {
+    font-size: 10.5px;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .company {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .job-role {
+    color: var(--text-body);
+  }
+
+  .badge-tag {
+    align-self: center;
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+
+  .tone-dark {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+  }
+
+  .tone-accent {
+    background: var(--accent);
+    color: var(--btn-text);
+  }
+
+  .domain {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--text-2);
+  }
+
+  .points {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .points li {
+    position: relative;
+    padding-left: 16px;
+    color: var(--text-body);
+  }
+
+  .points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: 8px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .contact {
+      text-align: left;
+    }
+
+    .skills {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .job {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+</style>

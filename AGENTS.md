@@ -23,6 +23,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
 | `src/pages/design.astro` | `/design/` 活体样式指南：全部 token 与组件的实渲染；底部「其他组件库」读 `src/data/libraries.ts`，无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
 | `scripts/` | 新建/导入/标点脚本 |
+| `src/data/about.ts` | 首页「00 关于与经历」的数据（个人信息、能力、工作经历），首页与简历打印页 `/resume/` 共用。改完要跑 `npm run build:resume` 重新生成并提交 `public/media/resume/aaron-xu-resume.pdf`（首页「下载简历」下载的就是它；Cloudflare 构建环境没有 Chrome，不在线上生成） |
 | `public/media/home/quiet-work.json` | 首页首屏插图动画（Rive 项目 rive-quiet-work 导出的网页版转成的数据包）；由 `node scripts/import-hero-animation.mjs <web-animation/index.html>` 生成，勿手改。静态兜底图是同目录的 `hero-illustration.webp`，两者裁切框必须一致 |
 | `workflows/` | 沉淀工作流：新增案例（AI 剧本）、新增博客（脚本） |
 
@@ -34,6 +35,7 @@ npm run build        # 必须零错误才算完成
 npm run test:flypy   # flypy 逻辑核测试（node:test,跑 tests/flypy-core.test.mjs）;单测某条用 node --test --test-name-pattern '<名>' tests/flypy-core.test.mjs
 npm run test:forest  # 专注森林逻辑核测试(tests/focus-forest-core.test.mjs)
 npm run test:grid    # Grid 断点计算器逻辑核测试(tests/grid-breakpoint-core.test.mjs)
+npm run build:resume # 构建并用本机 Chrome 无头打印 /resume/，生成简历 PDF
 npm run new          # 一键新建文章：询问文章名 → 生成空笔记；输入 .md 路径 → 导入发布
 npm run add:post -- <文章.md>   # 新增博客（见 workflows/add-post.md）
 npm run import:blog  # 全量重导 Hexo 博客（重建目录，慎用）
