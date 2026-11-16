@@ -164,7 +164,7 @@ const ext = { target: '_blank', rel: 'noopener' };
 
 <Base title="Aaron Xu - 设计工程师 · 个人作品集" scrollspy footer="simple">
   <!-- ================= 首屏 ================= -->
-  <section class="hero">
+  <section class="hero" data-home-snap>
     <div class="wrap hero-inner">
       <p class="hero-kicker mono-sm reveal">Aaron Xu <span aria-hidden="true">/</span> 设计工程师</p>
       <h1 class="hero-title reveal" style="--d:.05s">
@@ -699,6 +699,22 @@ const ext = { target: '_blank', rel: 'noopener' };
   section[id],
   .anchor-alias {
     scroll-margin-top: 60px;
+  }
+
+  /* 整屏吸附：滚动停下时总落在某一屏的起点，不会停在两屏中间。
+     比一屏高的区块（如 00），浏览器允许在区块内部自由滚动，滚出边界再吸附到下一屏 */
+  :global(html:has([data-home-snap])) {
+    scroll-snap-type: y mandatory;
+  }
+
+  .hero,
+  .about,
+  .block {
+    scroll-snap-align: start;
+  }
+
+  :global(html:has([data-home-snap]) .site-footer) {
+    scroll-snap-align: end;
   }
 
   .anchor-alias {
