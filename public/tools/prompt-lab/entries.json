@@ -138,5 +138,15 @@
     "date": "2026-11-12",
     "promptVersion": "pelican-v1",
     "entry": "entries/gemini-4-hydrogen-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "deepseek-v4-1-flash-pelican-run-01",
+    "model": "DeepSeek V4.1 Flash",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "盐月骑行 · Salt Moon Ride",
+    "date": "2026-11-15",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/deepseek-v4-1-flash-pelican-run-01/index.html"
   }
 ]

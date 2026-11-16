@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#0a0f1e">
+  <title>盐月骑行 · Salt Moon Ride</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0f1e'/%3E%3Ccircle cx='36' cy='30' r='16' fill='%23f5e3c1'/%3E%3Ccircle cx='25' cy='24' r='14' fill='%230a0f1e'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <canvas id="scene" aria-label="一只戴护目镜的鹈鹕在月夜盐湖上骑着自行车的 3D 场景"></canvas>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <main class="hud">
+    <div class="hud__top">
+      <div class="pouch" id="pouch" aria-label="喉囊收集进度">
+        <span class="pouch__label">喉囊</span>
+        <span class="pouch__dots" id="dots" aria-hidden="true"></span>
+        <span class="pouch__count" aria-live="polite">×<b id="total">0</b></span>
+      </div>
+      <div class="tools">
+        <button class="tool" id="sound" type="button" aria-label="开启声音" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path class="wave" d="M15.6 9.2a4 4 0 0 1 0 5.6M18.2 6.8a7.4 7.4 0 0 1 0 10.4"/></svg>
+        </button>
+        <button class="tool" id="dawn" type="button" aria-label="切换月夜与拂晓" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.4 8.4 0 0 1 9.4 4a8.6 8.6 0 1 0 10.6 10.6z"/></svg>
+        </button>
+        <button class="tool tool--text" id="help" type="button" aria-label="查看操作指南" aria-haspopup="dialog">?</button>
+      </div>
+    </div>
+
+    <p class="hint" id="hint">拖动转向 · 上滑跃起 · 轻点摇铃</p>
+
+    <button class="hop" id="hop" type="button" aria-label="跃起，快捷键空格">
+      <span class="hop__ring" aria-hidden="true"></span>
+      <span class="hop__label">跃</span>
+    </button>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <dialog class="sheet" id="helpDialog" aria-labelledby="helpTitle">
+    <div class="sheet__head">
+      <h2 id="helpTitle">骑行指南</h2>
+      <button class="sheet__close" id="closeHelp" type="button" aria-label="关闭指南">×</button>
+    </div>
+    <div class="sheet__body">
+      <section>
+        <h3>触控</h3>
+        <ul class="keys">
+          <li><span>左右拖动</span><em>转动车把，横向穿过盐湖</em></li>
+          <li><span>快速上滑</span><em>带车跃起，落地溅起盐水</em></li>
+          <li><span>轻点画面</span><em>摇铃，月光鱼会靠近</em></li>
+          <li><span>右下「跃」</span><em>单手也能跳</em></li>
+        </ul>
+      </section>
+      <section>
+        <h3>键盘</h3>
+        <ul class="keys keys--kb">
+          <li><span><kbd>←</kbd><kbd>→</kbd></span><em>转向</em></li>
+          <li><span><kbd>↑</kbd><kbd>↓</kbd></span><em>加力 / 收力</em></li>
+          <li><span><kbd>空格</kbd></span><em>跃起</em></li>
+          <li><span><kbd>B</kbd></span><em>摇铃</em></li>
+          <li><span><kbd>N</kbd></span><em>月夜 / 拂晓</em></li>
+          <li><span><kbd>M</kbd></span><em>声音开关</em></li>
+          <li><span><kbd>R</kbd></span><em>重新出发</em></li>
+          <li><span><kbd>H</kbd><kbd>?</kbd></span><em>本指南</em></li>
+        </ul>
+      </section>
+      <p class="sheet__tip">让鹈鹕穿过发光的月光鱼，喉囊会一点点鼓起来。集满六条，喉囊会替你亮一次灯。</p>
+      <p class="sheet__meta">按 <kbd>Esc</kbd> 或点空白处关闭</p>
+    </div>
+  </dialog>
+
+  <div class="boot" id="boot">
+    <div class="boot__moon" aria-hidden="true"></div>
+    <p id="bootText">正在铺开盐湖</p>
+  </div>
+
+  <noscript>
+    <p class="noscript">这个场景需要 JavaScript 与 WebGL 才能骑行。</p>
+  </noscript>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

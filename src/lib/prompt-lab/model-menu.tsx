@@ -9,6 +9,7 @@ const families = [
   { label: 'Claude', matches: (model: string) => /^(Opus|Fable|Sonnet|Haiku) /.test(model) },
   { label: 'Grok', matches: (model: string) => model.startsWith('Grok ') },
   { label: 'Gemini', matches: (model: string) => model.startsWith('Gemini ') },
+  { label: 'DeepSeek', matches: (model: string) => model.startsWith('DeepSeek ') },
 ];
 const label = (entry: Entry) => `${entry.model} · ${entry.reasoningEffort?.trim() || '未提供'}`;
 
