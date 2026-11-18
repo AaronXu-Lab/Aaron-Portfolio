@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f3e5"><title>Vélo Club Pélican · 鹈鹕赛车场</title><link rel="stylesheet" href="./style.css"></head>
+<body><main>
+<header><div class="identity"><span class="emblem" aria-hidden="true"><i></i></span><h1>Vélo Club <em>Pélican</em></h1></div><div class="session"><b>250 M</b><span>场地计时赛</span></div></header>
+<section class="stage" aria-label="鹈鹕骑行的三维赛车场">
+<canvas id="track" tabindex="0" aria-label="骑行画面，按住空格冲刺，C 切换视角，P 暂停，M 切换声音"></canvas>
+<div class="timing"><span class="lap">LAP <b id="lap">01</b></span><span id="clock">00:00.0</span></div>
+<div class="tools">
+<button id="camera" aria-label="切换视角（C）" title="切换视角（C）"><svg viewBox="0 0 24 24"><path d="M3 7.5h4l1.8-3h6.4l1.8 3h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg></button>
+<button id="sound" aria-label="开启场地声音（M）" aria-pressed="false" title="声音（M）"><svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z"/><path class="muted" d="m16 9 5 6m0-6-5 6"/><path class="loud" d="M16 8q4 4 0 8m3-11q7 7 0 14"/></svg></button></div>
+<div id="notice" role="status"></div><div class="best">最佳圈速 <b id="best">--:--.-</b></div>
+<div class="progress" role="progressbar" aria-label="本圈进度" aria-valuemin="0" aria-valuemax="250" aria-valuenow="0"><i></i></div>
+</section>
+<footer><div class="readouts"><div class="reading"><span>时速 <small>KM/H</small></span><strong id="speed">28</strong></div><div class="reading"><span>踏频 <small>RPM</small></span><strong id="rpm">78</strong></div></div>
+<div class="actions"><button id="pause" title="暂停或继续（P）" aria-label="暂停（P）"><svg viewBox="0 0 24 24"><path class="bars" d="M8 5v14m8-14v14"/><path class="play" d="m8 5 10 7-10 7z"/></svg></button><button id="sprint" aria-label="按住冲刺（空格）"><svg viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-8z"/></svg><span>按住冲刺</span><kbd>SPACE</kbd></button></div></footer>
+</main><script type="module" src="./ride.js"></script></body></html>

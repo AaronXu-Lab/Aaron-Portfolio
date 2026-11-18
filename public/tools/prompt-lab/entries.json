@@ -148,5 +148,15 @@
     "date": "2026-11-15",
     "promptVersion": "pelican-v1",
     "entry": "entries/deepseek-v4-1-flash-pelican-run-01/index.html"
+  },
+  {
+    "id": "gpt-6-pelican-run-03",
+    "model": "GPT-6.2 Astra",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "鹈鹕赛车场 · Vélo Club Pélican",
+    "date": "2026-11-17",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gpt-6-pelican-run-03/index.html"
   }
 ]
