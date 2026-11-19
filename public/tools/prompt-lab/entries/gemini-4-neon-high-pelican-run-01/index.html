@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>晴岬骑行 · Sunlit Cape</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <canvas id="stage" aria-label="鹈鹕骑自行车 3D 交互场景"></canvas>
+
+  <!-- Minimal Top HUD -->
+  <header class="hud-top">
+    <div class="telemetry" aria-live="off">
+      <span class="stat"><strong id="hud-speed">21</strong><small>km/h</small></span>
+      <span class="stat-sep" aria-hidden="true"></span>
+      <span class="stat stat-fish" title="衔到的鲜鱼">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+          <path d="M21 12c-2.6-3.4-6.4-5.2-10.3-5.2-2.2 0-4.2.7-5.9 1.9L2 6.8v10.4l2.8-1.9c1.7 1.2 3.7 1.9 5.9 1.9 3.9 0 7.7-1.8 10.3-5.2Zm-4.8-.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/>
+        </svg>
+        <strong id="hud-fish">0</strong>
+      </span>
+      <span class="stat-sep sep-dist" aria-hidden="true"></span>
+      <span class="stat stat-dist" id="hud-dist">0.00 km</span>
+    </div>
+
+    <div class="top-actions">
+      <button id="btn-camera" class="icon-btn" type="button" title="切换视角 (C)" aria-label="切换视角">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h2l1.2-1.8h4.6L15.5 6h2A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"/>
+          <circle cx="12" cy="12.5" r="3.2"/>
+        </svg>
+      </button>
+
+      <button id="btn-time" class="icon-btn" type="button" data-mode="morning" title="切换天色 (T)" aria-label="切换时段">
+        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6"/>
+        </svg>
+        <svg class="ic-sunset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+          <path d="M12 4v2.2M5.5 7.5l1.5 1.5M18.5 7.5l-1.5 1.5"/>
+          <path d="M7.5 15a4.5 4.5 0 1 1 9 0"/>
+          <path d="M3 15h18M5.5 18.5h13"/>
+        </svg>
+        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10Z"/>
+        </svg>
+      </button>
+
+      <button id="btn-audio" class="icon-btn" type="button" title="开关音效 (M)" aria-label="静音">
+        <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4.5 9.5h3.8L13 5.5v13l-4.7-4H4.5z"/>
+          <path d="M16.5 8.8a4.5 4.5 0 0 1 0 6.4M19.2 6.4a8 8 0 0 1 0 11.2"/>
+        </svg>
+        <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4.5 9.5h3.8L13 5.5v13l-4.7-4H4.5z"/>
+          <path d="M16.5 9.5l4 5M20.5 9.5l-4 5"/>
+        </svg>
+      </button>
+
+      <button id="btn-help" class="icon-btn" type="button" title="快捷键说明 (H)" aria-label="快捷键说明">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="6" width="18" height="12" rx="2.5"/>
+          <path d="M7 10h1M10.5 10h1M14 10h1M17 10h0.5M8 14h8"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Bottom Mobile-First Thumb Controls -->
+  <nav class="hud-bottom" aria-label="骑行触控操作">
+    <div id="steer-pad" class="steer-pad" role="slider" aria-label="左右转向滑条" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0">
+      <svg class="steer-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 6l-6 6 6 6"/>
+      </svg>
+      <div id="steer-thumb" class="steer-thumb"></div>
+      <svg class="steer-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 6l6 6-6 6"/>
+      </svg>
+    </div>
+
+    <div class="action-pad">
+      <button id="btn-bell" class="act-btn act-bell" type="button" title="按铃鸣叫 (B)" aria-label="按铃">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.5 15.5h11l-1.2-2.2V10a4.3 4.3 0 1 0-8.6 0v3.3l-1.2 2.2Z"/>
+          <path d="M10.2 18a1.9 1.9 0 0 0 3.6 0"/>
+        </svg>
+        <span>铃</span>
+      </button>
+
+      <button id="btn-hop" class="act-btn act-hop" type="button" title="跳跃/长按展翅滑翔 (Space)" aria-label="跳跃与滑翔">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3.5 14.5c2.8-5.5 7.2-6 8.5-2.5 1.3-3.5 5.7-3 8.5 2.5"/>
+          <path d="M12 12v7"/>
+          <path d="M9.5 16.5L12 19l2.5-2.5"/>
+        </svg>
+        <span>滑翔</span>
+      </button>
+
+      <button id="btn-sprint" class="act-btn act-sprint" type="button" title="长按冲刺加速 (W)" aria-label="冲刺加速">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M13.5 3.5 6.5 13h5l-1 7.5 7-9.5h-5l1-7.5Z"/>
+        </svg>
+        <span>冲刺</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Keyboard & Gesture Shortcuts Popover -->
+  <div id="help-popover" class="help-popover" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="help-card">
+      <div class="help-head">
+        <span id="help-title" class="help-title">操作与键盘快捷键</span>
+        <button id="help-close" class="help-close" type="button" aria-label="关闭">&times;</button>
+      </div>
+      <ul class="shortcut-list">
+        <li><span>左右转向</span><span class="keys"><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd></span></li>
+        <li><span>加速冲刺 / 滑行减速</span><span class="keys"><kbd>W</kbd><kbd>S</kbd> / <kbd>↑</kbd><kbd>↓</kbd></span></li>
+        <li><span>跳跃（长按展翅滑翔）</span><span class="keys"><kbd>Space</kbd></span></li>
+        <li><span>铜铃 &amp; 鹈鹕鸣叫</span><span class="keys"><kbd>B</kbd> / <kbd>E</kbd></span></li>
+        <li><span>切换镜头视角</span><span class="keys"><kbd>C</kbd></span></li>
+        <li><span>切换天色（晴午/落日/星夜）</span><span class="keys"><kbd>T</kbd></span></li>
+        <li><span>开关海风音效</span><span class="keys"><kbd>M</kbd></span></li>
+        <li><span>暂停 / 继续（环视细节）</span><span class="keys"><kbd>P</kbd></span></li>
+        <li><span>视角与车道复位</span><span class="keys"><kbd>R</kbd></span></li>
+        <li><span>打开 / 关闭此面板</span><span class="keys"><kbd>H</kbd> / <kbd>?</kbd></span></li>
+      </ul>
+      <p class="help-tip">触控提示：在画面任意处拖动可 360° 环视模型，双指捏合缩放，轻点鹈鹕可互动逗乐。</p>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

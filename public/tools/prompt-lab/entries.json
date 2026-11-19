@@ -150,6 +150,16 @@
     "entry": "entries/deepseek-v4-1-flash-pelican-run-01/index.html"
   },
   {
+    "id": "gpt-6-pelican-run-02",
+    "model": "GPT-6.2 Sol",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "海风邮签 · Tidepost",
+    "date": "2026-11-17",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gpt-6-pelican-run-02/index.html"
+  },
+  {
     "id": "gpt-6-pelican-run-03",
     "model": "GPT-6.2 Astra",
     "version": "未提供",
@@ -158,5 +168,15 @@
     "date": "2026-11-17",
     "promptVersion": "pelican-v1",
     "entry": "entries/gpt-6-pelican-run-03/index.html"
+  },
+  {
+    "id": "gemini-4-neon-high-pelican-run-01",
+    "model": "Gemini 4 Neon",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "晴岬骑行 · Sunlit Cape",
+    "date": "2026-11-18",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gemini-4-neon-high-pelican-run-01/index.html"
   }
 ]

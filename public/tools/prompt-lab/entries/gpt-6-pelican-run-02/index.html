@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f0dc">
+  <title>海风邮签</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+  <main class="ride">
+    <header class="masthead">
+      <div class="brand">
+        <span class="postmark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M6 19c3-2 5-5 7-9 1.5-3 6-3 7 0l7 4-7 2c-2 6-7 8-14 3Z" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="#f7f0dc"/><path d="M5 24c4 2 9 2 12 0m3-1 5-1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </span>
+        <h1>海风邮签 <em lang="en">Tidepost</em></h1>
+      </div>
+      <div class="speed">
+        <output id="speed" aria-label="速度">0</output>
+        <span>km/h</span>
+      </div>
+    </header>
+
+    <section class="viewport" aria-label="鹈鹕骑行场景">
+      <canvas id="canvas" tabindex="0" aria-label="3D 场景，拖动或按左右方向键环视"></canvas>
+      <div class="location">
+        <span class="location-dot"></span>
+        <span id="location">灯塔湾</span>
+      </div>
+      <button id="view" class="glass view" type="button" aria-pressed="false" aria-keyshortcuts="V">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.5 8v8l8.5 5 8.5-5V8L12 3Zm0 9 8.5-4M12 12 3.5 8m8.5 4v9"/></svg>
+        <span id="view-label">俯瞰</span><kbd>V</kbd>
+      </button>
+      <div class="view-bottom">
+        <span class="look-hint">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5 3 12l5 7m8-14 5 7-5 7M3 12h18"/></svg>
+          拖动环视
+        </span>
+        <button id="reset" class="glass reset" type="button" title="复位镜头" aria-label="复位镜头" aria-keyshortcuts="R" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2 6m-2-6V5m0 6h6"/></svg>
+          <kbd>R</kbd>
+        </button>
+      </div>
+      <p id="notice" class="notice" role="status"></p>
+      <p id="fallback" class="fallback" role="status">正在加载海岛…</p>
+    </section>
+
+    <section class="itinerary" aria-label="环岛投递">
+      <div class="itinerary-heading">
+        <h2><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg> 环岛投递</h2>
+        <span id="delivery">0 / 3 封</span>
+      </div>
+      <div class="track">
+        <div class="track-line"><span id="progress"></span></div>
+        <ol>
+          <li style="--stop: 0%"><span class="station" aria-hidden="true"></span><span>出发</span></li>
+          <li id="stop-1" style="--stop: 24%"><span class="station" aria-hidden="true">✓</span><span>灯塔湾</span></li>
+          <li id="stop-2" style="--stop: 55%"><span class="station" aria-hidden="true">✓</span><span>松风坡</span></li>
+          <li id="stop-3" style="--stop: 87%"><span class="station" aria-hidden="true">✓</span><span>白浪港</span></li>
+          <li style="--stop: 100%"><span class="station" aria-hidden="true"></span><span class="sr-only">返回出发点</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="骑行控制">
+      <button id="bell" class="control" type="button" aria-keyshortcuts="B">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14l-2-3V9a5 5 0 1 0-10 0v5l-2 3Zm5 3a2.4 2.4 0 0 0 4 0M3.5 8 5 5m15.5 3L19 5"/></svg>
+        <span>按铃</span><kbd>B</kbd>
+      </button>
+      <button id="brake" class="control" type="button" aria-pressed="false" aria-keyshortcuts="Space">
+        <svg id="brake-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H6v14h3zm9 0h-3v14h3z"/></svg>
+        <span id="brake-label">刹停</span><kbd>空格</kbd>
+      </button>
+      <button id="pedal" class="control pedal" type="button" aria-keyshortcuts="ArrowUp W">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 2-9 12h6l-1 8 9-12h-6l1-8Z"/></svg>
+        <span>踩踏 <small>长按加速</small></span><kbd>↑</kbd>
+      </button>
+    </section>
+  </main>
+</body>
+</html>
