@@ -21,6 +21,17 @@
         "dev"
       ],
       "port": 4321
+    },
+    {
+      "name": "astro-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "astro",
+        "preview",
+        "--port",
+        "4322"
+      ],
+      "port": 4322
     }
   ]
 }

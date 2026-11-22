@@ -324,15 +324,65 @@ button {
   transition: transform 0.25s var(--ease-out);
 }
 
-.btn-ghost {
+.btn-outline {
   background: transparent;
   border-color: var(--border-strong);
   color: var(--text);
 }
 
-.btn-ghost:hover {
+.btn-outline:hover {
   border-color: var(--text-3);
   box-shadow: none;
+}
+
+/* ghost：无描边无底色，悬停叠加 5% 黑色 */
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  background: rgb(0 0 0 / 5%);
+  box-shadow: none;
+}
+
+/* 小尺寸：44px 高一档（首页「下载简历」「更多经历」） */
+.btn-sm {
+  height: 44px;
+  gap: 8px;
+  padding: 0 18px;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* 纯图标按钮：正方形，宽度等于当前尺寸的高度 */
+.btn-icon {
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  justify-content: center;
+}
+
+.btn-icon.btn-sm {
+  width: 44px;
+  height: 44px;
+}
+
+/* 小按钮不做悬停上浮，只换描边色 */
+@media (hover: hover) and (pointer: fine) {
+  .btn-sm:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.btn-sm.btn-outline:active,
+.btn-sm.btn-ghost:active {
+  transform: scale(0.98);
+  background: color-mix(in oklch, var(--text) 5%, transparent);
 }
 
 /* ---------- Badges & chips ---------- */

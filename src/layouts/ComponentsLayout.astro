@@ -1,0 +1,71 @@
+---
+import Base from './Base.astro';
+import { components, groups } from '../data/components';
+
+/** /components/ 共用外壳：左侧组件列表 + 主区 */
+interface Props {
+  title: string;
+  description?: string;
+  current?: string;
+}
+const { title, description, current } = Astro.props;
+---
+
+<Base title={title} description={description} footer="simple">
+  <div class="container cx">
+    <aside class="cx-nav" aria-label="组件列表">
+      <a class:list={['cx-home', { on: !current }]} href="/components/" aria-current={!current ? 'page' : undefined}>全部组件</a>
+      {groups.map((g) => (
+        <div class="cx-group">
+          <span class="mono-label">{g}</span>
+          <ul>
+            {components.filter((c) => c.group === g).map((c) => (
+              <li>
+                <a class:list={[{ on: current === c.slug }]} href={`/components/${c.slug}/`} aria-current={current === c.slug ? 'page' : undefined}>{c.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </aside>
+    <main id="main" class="cx-main"><slot /></main>
+  </div>
+</Base>
+
+<style>
+  .cx {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 48px;
+    padding-top: 112px;
+    padding-bottom: 96px;
+    align-items: start;
+  }
+  .cx-nav { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 20px; }
+  .cx-home, .cx-nav li a {
+    display: block;
+    padding: 7px 12px;
+    margin-inline: -12px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    color: var(--text-2);
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s var(--ease-out);
+  }
+  .cx-home { font-weight: 600; color: var(--text); }
+  .cx-nav ul { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .cx-nav .on { background: var(--surface-accent); color: var(--accent-strong); font-weight: 600; }
+  @media (hover: hover) and (pointer: fine) {
+    .cx-home:hover, .cx-nav li a:hover { background: var(--surface-2); color: var(--text); }
+  }
+  .cx-home:active, .cx-nav li a:active { transform: scale(0.98); }
+
+  @media (max-width: 760px) {
+    .cx { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 96px; }
+    .cx-nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    .cx-group { display: contents; }
+    .cx-group > .mono-label { display: none; }
+    .cx-nav ul { display: contents; }
+    .cx-home, .cx-nav li a { margin: 0; border: 1px solid var(--border); background: var(--surface); padding: 6px 12px; font-size: 13px; border-radius: 100px; }
+    .cx-nav .on { border-color: var(--accent-border); }
+  }
+</style>

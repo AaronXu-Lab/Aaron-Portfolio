@@ -1,0 +1,108 @@
+---
+import Icon from './Icon.astro';
+
+/**
+ * 文字链接：虚线下划线文字 + 箭头图标。
+ * 有 href 渲染 <a>，没有则渲染 <button type="button">；其余属性（data-*、aria-*、class 等）透传。
+ * aria-expanded="true" 时图标旋转 180°（组件自带的展开状态）。
+ * 悬停位移方向随图标：arrow-right 向右、arrow-down 向下、arrow-bend-down-right 向右下。
+ */
+interface Props {
+  href?: string;
+  icon?: 'arrow-right' | 'arrow-down' | 'arrow-bend-down-right';
+  /** sm 14px / md 16px */
+  size?: 'sm' | 'md';
+  class?: string;
+  [attr: string]: unknown;
+}
+const { href, icon = 'arrow-right', size = 'sm', class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+const attrs = href ? { href, ...rest } : { type: 'button', ...rest };
+---
+
+<Tag class:list={['text-link', `tl-icon-${icon}`, { 'tl-md': size === 'md' }, className]} {...attrs}>
+  <span class="tl-text"><slot /></span>
+  <Icon name={icon} size={size === 'md' ? 18 : 14} />
+</Tag>
+
+<style>
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--tl-gap, 6px);
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: var(--tl-fs, 14px);
+    font-weight: 500;
+    color: var(--text-body);
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .tl-text {
+    text-decoration: underline dashed var(--text-3);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .text-link :global(svg) {
+    flex-shrink: 0;
+    width: var(--tl-icon, 14px);
+    height: var(--tl-icon, 14px);
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .tl-icon-arrow-right { --tl-shift: translateX(3px); }
+  .tl-icon-arrow-down { --tl-shift: translateY(3px); }
+  .tl-icon-arrow-bend-down-right { --tl-shift: translate(2px, 2px); }
+
+  .text-link[aria-expanded='true'] :global(svg) {
+    transform: rotate(180deg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .text-link:hover {
+      color: var(--accent-strong);
+    }
+    .text-link:hover .tl-text {
+      text-decoration-color: var(--accent-border);
+    }
+    .text-link:hover :global(svg) {
+      transform: var(--tl-shift);
+    }
+    .text-link[aria-expanded='true']:hover :global(svg) {
+      transform: rotate(180deg);
+    }
+  }
+
+  .text-link:active {
+    color: var(--accent-strong);
+  }
+  .text-link:active .tl-text {
+    text-decoration-color: var(--accent-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .text-link,
+    .tl-text,
+    .text-link :global(svg) {
+      transition: none;
+    }
+    .text-link:hover :global(svg) {
+      transform: none;
+    }
+  }
+</style>
+
+<!-- md 档用自定义属性传给子元素，预览容器也可直接挂 .tl-md -->
+<style is:global>
+  .tl-md {
+    --tl-fs: 16px;
+    --tl-gap: 10px;
+    --tl-icon: 18px;
+  }
+</style>

@@ -1,0 +1,99 @@
+---
+import Icon from './Icon.astro';
+import MediaSlot from './MediaSlot.astro';
+import SectionHead from './SectionHead.astro';
+import CaseList from './CaseList.astro';
+import Footer from './Footer.astro';
+import HeroCaret from './HeroCaret.astro';
+import TextLink from './TextLink.astro';
+
+/**
+ * /components/ 的预览渲染：按 slug 输出组件实例。
+ * cls / style 来自注册表 resolveVariant，落在预览根元素上；
+ * Playground 的原生 JS 也只切换根元素（容器的第一个子元素）的 class 与 style。
+ */
+interface Props {
+  slug: string;
+  cls?: string;
+  style?: string;
+}
+const { slug, cls = '', style = '' } = Astro.props;
+
+const iconNames = [
+  'arrow-bend-down-right', 'arrow-down', 'arrow-right', 'arrow-up', 'arrow-up-right',
+  'caret-down', 'download-simple', 'list', 'x', 'sun', 'moon',
+  'figma-logo', 'github-logo', 'app-store-logo', 'wechat-logo',
+  'game-controller', 'trophy', 'graduation-cap', 'code', 'device-mobile',
+  'sparkle', 'wave-sine', 'squares-four', 'book-open-text',
+] as const;
+const ratio = style.match(/aspect-ratio:\s*([^;]+)/)?.[1] ?? '16 / 9';
+---
+
+{slug === 'button' && (
+  <button type="button" class:list={['btn', cls]} aria-label="按钮文案">
+    <span class="pv-icon" aria-hidden="true"><Icon name="download-simple" size={18} /></span>
+    <span class="pv-label">按钮文案</span>
+    <span class="arrow pv-arrow-right" aria-hidden="true">→</span>
+    <span class="pv-arrow-upright" aria-hidden="true">↗</span>
+  </button>
+)}
+{slug === 'text-link' && (
+  <span class:list={['pv-tl', cls]}>
+    <TextLink class="pv-l-right" href="#text-link">文字链接</TextLink>
+    <TextLink class="pv-l-down" icon="arrow-down">文字链接</TextLink>
+    <TextLink class="pv-l-bend" icon="arrow-bend-down-right">文字链接</TextLink>
+  </span>
+)}
+{slug === 'badge' && <span class={cls}>示例标签</span>}
+{slug === 'card' && (
+  <div class:list={['card', 'sample-card', cls]}>
+    <span class="mono-sm">Card · Hover Me</span>
+    <strong>仅在层级需要时使用卡片</strong>
+    <span class="note">1px 描边；可交互时悬停上浮。</span>
+  </div>
+)}
+{slug === 'band' && (
+  <div class="band sample-band">
+    <span class="mono-label">Band</span>
+    <p>带区内使用独立的 band token，两种主题都保持深色。</p>
+  </div>
+)}
+{slug === 'section-head' && <SectionHead num="0X" zh="区块名" en="Section Label" />}
+{slug === 'media-slot' && <MediaSlot label="示例占位" node="000:0000" ratio={ratio} />}
+{slug === 'icon' && (
+  <ul class="icons">
+    {iconNames.map((n) => (
+      <li><Icon name={n} size={24} /><span class="mono-sm">{n}</span></li>
+    ))}
+  </ul>
+)}
+{slug === 'hero-caret' && <div class="rel"><HeroCaret /></div>}
+{slug === 'case-list' && <CaseList />}
+{slug === 'footer' && (
+  <div class="footers">
+    <Footer variant="simple" />
+    <Footer variant="full" />
+  </div>
+)}
+
+<style>
+  /* TextLink 预览：三个图标各渲染一份，由容器类名决定显示哪一个 */
+  .pv-tl { display: inline-flex; }
+  .pv-tl.pv-tl :global(.pv-l-down), .pv-tl.pv-tl :global(.pv-l-bend) { display: none; }
+  .pv-tl.pv-i-down :global(.pv-l-right), .pv-tl.pv-i-bend :global(.pv-l-right) { display: none; }
+  .pv-tl.pv-i-down.pv-i-down :global(.pv-l-down), .pv-tl.pv-i-bend.pv-i-bend :global(.pv-l-bend) { display: inline-flex; }
+  .pv-icon, .pv-arrow-right, .pv-arrow-upright { display: none; }
+  .pv-has-icon .pv-icon, .btn-icon .pv-icon { display: inline-flex; }
+  .pv-arrow-r .pv-arrow-right, .pv-arrow-ur .pv-arrow-upright { display: inline; }
+  .btn-icon .pv-label, .btn-icon .pv-arrow-right, .btn-icon .pv-arrow-upright { display: none; }
+  .note { font-size: 13px; color: var(--text-3); }
+  .sample-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; }
+  .sample-card .mono-sm { color: var(--text-mono); }
+  .sample-band { padding: 20px 22px; }
+  .sample-band p { color: var(--band-text-2); font-size: 13.5px; margin-top: 10px; }
+  .icons { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+  .icons li { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+  .icons .mono-sm { color: var(--text-mono); font-size: 11px; text-align: center; }
+  .rel { position: relative; width: 240px; height: 110px; }
+  .footers { display: flex; flex-direction: column; gap: 32px; }
+</style>

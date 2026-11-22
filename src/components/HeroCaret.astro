@@ -1,0 +1,53 @@
+---
+/** 首屏底部的「向下」圆形按钮：锚点跳到 #about，轻微上下浮动提示可滚动（reduced-motion 下静止） */
+---
+
+<a class="hero-caret" href="#about" aria-label="向下滚动到关于我">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+</a>
+
+<style>
+  .hero-caret {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(16px, 3.2svh, 32px);
+    width: 48px;
+    height: 48px;
+    margin-left: -24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    box-shadow: 0 2px 8px color-mix(in oklch, var(--text) 8%, transparent);
+    color: var(--text);
+    transition: border-color 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-caret {
+      animation: caret-nudge 1.6s ease-in-out infinite;
+    }
+  }
+
+  @keyframes caret-nudge {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(8px);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-caret:hover {
+      border-color: var(--text);
+    }
+  }
+
+  .hero-caret:active {
+    background: color-mix(in oklch, var(--text) 6%, var(--surface));
+  }
+</style>

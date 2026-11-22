@@ -1,0 +1,205 @@
+---
+import ComponentsLayout from '../../layouts/ComponentsLayout.astro';
+import ComponentPreview from '../../components/ComponentPreview.astro';
+import { components, resolveVariant, type ComponentDef } from '../../data/components';
+
+export function getStaticPaths() {
+  return components.map((def) => ({ params: { slug: def.slug }, props: { def } }));
+}
+
+const { def } = Astro.props as { def: ComponentDef };
+const props = def.props ?? [];
+const base = resolveVariant(def);
+const stageStyle = def.previewWidth ? `--pw:${def.previewWidth}px` : undefined;
+---
+
+<ComponentsLayout title={`${def.name} - 组件 - Aaron Xu`} description={def.summary} current={def.slug}>
+  <header class="pg-head">
+    <h1 class="display">{def.name}</h1>
+    <p class="lead">{def.summary}</p>
+    <span class="mono-sm src">{def.source}</span>
+  </header>
+
+  <section id="playground" class="sec" aria-labelledby="h-playground">
+    <h2 id="h-playground" class="sec-title">Playground</h2>
+    <div class:list={['pg', { 'pg-static': !props.length }]}>
+      <div class:list={['pg-stage', 'dots', { 'is-block': def.block }]}>
+        <div id="pg-preview" class="pg-preview" style={stageStyle}>
+          <ComponentPreview slug={def.slug} cls={base.cls} style={base.style} />
+        </div>
+      </div>
+      {props.length > 0 && (
+        <form class="pg-panel" aria-label="属性" onsubmit="return false">
+          {props.map((p) => (
+            <div class="ctl" data-ctl={p.name} data-when={p.enabledWhen ? JSON.stringify(p.enabledWhen) : undefined}>
+              <label for={`pg-${p.name}`}>{p.label}</label>
+              {p.type === 'switch' ? (
+                <input
+                  id={`pg-${p.name}`}
+                  type="checkbox"
+                  role="switch"
+                  class="sw"
+                  data-prop={p.name}
+                  data-options={JSON.stringify(p.options)}
+                  checked={p.default === p.options[1].value}
+                />
+              ) : (
+                <select id={`pg-${p.name}`} data-prop={p.name} data-options={JSON.stringify(p.options)}>
+                  {p.options.map((o) => (
+                    <option value={o.value} selected={o.value === p.default}>{o.label ?? o.value}</option>
+                  ))}
+                </select>
+              )}
+            </div>
+          ))}
+        </form>
+      )}
+    </div>
+  </section>
+
+  {props.length > 0 && (
+    <section id="properties" class="sec" aria-labelledby="h-properties">
+      <h2 id="h-properties" class="sec-title">Properties</h2>
+      {props.map((p) => (
+        <div class="matrix">
+          <h3 class="mx-title"><span>{p.label}</span> <span class="mono-sm">{p.name} · 默认 {p.default}</span></h3>
+          <div class="mx-grid dots" style={stageStyle}>
+            {p.options.map((o) => {
+              const v = resolveVariant(def, { [p.name]: o.value });
+              return (
+                <div class="mx-cell">
+                  <div class="mx-item"><ComponentPreview slug={def.slug} cls={v.cls} style={v.style} /></div>
+                  <span class="mono-sm">{o.label ?? o.value}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </section>
+  )}
+
+</ComponentsLayout>
+
+<script>
+  type Opt = { value: string; cls?: string; style?: Record<string, string> };
+  const preview = document.getElementById('pg-preview');
+  const root = () => preview?.firstElementChild as HTMLElement | null;
+
+  function apply(ctl: HTMLInputElement | HTMLSelectElement) {
+    const el = root();
+    if (!el) return;
+    const opts: Opt[] = JSON.parse(ctl.dataset.options ?? '[]');
+    const picked =
+      ctl instanceof HTMLInputElement ? opts[ctl.checked ? 1 : 0] : opts.find((o) => o.value === ctl.value);
+    for (const o of opts) {
+      o.cls?.split(' ').filter(Boolean).forEach((c) => el.classList.remove(c));
+      for (const k of Object.keys(o.style ?? {})) el.style.removeProperty(k);
+    }
+    picked?.cls?.split(' ').filter(Boolean).forEach((c) => el.classList.add(c));
+    for (const [k, v] of Object.entries(picked?.style ?? {})) el.style.setProperty(k, v);
+  }
+
+  const ctls = document.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-prop]');
+  // 依赖条件：被依赖的属性不满足时，控件禁用并用 title 说明原因
+  function syncEnabled() {
+    document.querySelectorAll<HTMLElement>('[data-when]').forEach((wrap) => {
+      const w = JSON.parse(wrap.dataset.when!) as { prop: string; values: string[]; disabledReason: string };
+      const dep = document.querySelector<HTMLSelectElement>(`[data-prop="${w.prop}"]`);
+      const ok = !dep || w.values.includes(dep.value);
+      const ctl = wrap.querySelector<HTMLInputElement | HTMLSelectElement>('[data-prop]')!;
+      ctl.disabled = !ok;
+      wrap.title = ok ? '' : w.disabledReason;
+    });
+  }
+  // 同一元素上多个属性共用类名时，按控件顺序重放一遍，保证组合正确
+  ctls.forEach((c) => c.addEventListener('change', () => { ctls.forEach(apply); syncEnabled(); }));
+  syncEnabled();
+
+</script>
+
+<style>
+  .pg-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; max-width: 720px; }
+  .src { color: var(--text-mono); }
+  .sec { margin-bottom: 56px; scroll-margin-top: 96px; }
+  .sec-title { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 18px; }
+
+  .dots {
+    background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+    background-size: 16px 16px;
+    background-color: var(--surface);
+  }
+
+  .pg { display: grid; grid-template-columns: minmax(0, 1fr) 240px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); }
+  .pg-static { grid-template-columns: minmax(0, 1fr); }
+  .pg-stage { display: flex; align-items: center; justify-content: center; min-height: 260px; padding: 32px; overflow: hidden; }
+  .pg-stage.is-block { display: block; }
+  .pg-preview { width: 100%; max-width: var(--pw, none); display: flex; align-items: center; justify-content: center; }
+  .pg-preview > :global(*) { max-width: 100%; }
+  .is-block .pg-preview { display: block; max-width: none; }
+  .pg-preview :global(.media-slot), .pg-preview :global(.card) { width: 100%; }
+  .pg-panel { padding: 20px; border-left: 1px solid var(--border); background: var(--surface-accent); display: flex; flex-direction: column; gap: 16px; }
+  .ctl { display: flex; flex-direction: column; gap: 6px; }
+  .ctl label { font-size: 13px; color: var(--text-2); }
+  .ctl:has(:disabled) { opacity: 0.45; }
+  select:disabled, .sw:disabled { cursor: not-allowed; }
+  select {
+    appearance: none;
+    font: inherit;
+    font-size: 14px;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface) no-repeat right 10px center / 12px
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    color: var(--text);
+    transition: border-color 0.2s ease, transform 0.15s var(--ease-out);
+  }
+  select:hover { border-color: var(--text-3); }
+  select:active { transform: scale(0.99); }
+  select:focus-visible, .sw:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sw {
+    appearance: none;
+    position: relative;
+    width: 40px;
+    height: 22px;
+    margin: 0;
+    border-radius: 100px;
+    background: var(--border-strong);
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+  }
+  .sw::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--surface);
+    transition: transform 0.2s var(--ease-out);
+  }
+  .sw:checked { background: var(--accent); }
+  .sw:checked::after { transform: translateX(18px); }
+  .sw:active::after { width: 20px; }
+
+  .matrix { margin-bottom: 28px; }
+  .mx-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .mx-title .mono-sm { color: var(--text-mono); font-weight: 400; }
+  .mx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--pw, 200px), 100%), 1fr)); gap: 1px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background-color: var(--border); }
+  .mx-cell { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; padding: 28px 20px 16px; background-color: var(--surface); background-image: radial-gradient(var(--border-strong) 1px, transparent 1px); background-size: 16px 16px; }
+  .mx-item { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; }
+  .mx-item > :global(*) { max-width: 100%; }
+  .mx-item :global(.media-slot), .mx-item :global(.card), .mx-item :global(.band) { width: 100%; }
+  .mx-cell .mono-sm { color: var(--text-mono); }
+
+  @media (max-width: 760px) {
+    .pg { grid-template-columns: minmax(0, 1fr); }
+    .pg-panel { border-left: 0; border-top: 1px solid var(--border); }
+    .pg-stage { padding: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    select, .sw, .sw::after { transition: none; }
+  }
+</style>
