@@ -8,6 +8,9 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import MediaSlot from '../components/MediaSlot.astro';
 import Icon from '../components/Icon.astro';
+import SkillIcon from '../components/SkillIcon.astro';
+import HeroCaret from '../components/HeroCaret.astro';
+import TextLink from '../components/TextLink.astro';
 import { historical } from '../data/cases';
 import { products, tools, games } from '../data/products';
 import { formatDate, postSummary } from '../utils';
@@ -39,7 +42,8 @@ const proofs = [
     title: 'ColorOS 极致体验奖',
     desc: 'OPPO · 年度重点项目 跨屏互联（手机与电脑协同）',
     href: figmaOf('跨屏互联创新项目'),
-    icon: 'trophy' as const,
+    img: '/media/products/coloros-icon.png',
+    softBorder: true,
     external: true,
   },
 ];
@@ -175,16 +179,16 @@ const ext = { target: '_blank', rel: 'noopener' };
           <p class="hero-intro reveal" style="--d:.12s">
             从 OPPO 的手机系统、小鹏汇天的飞行汽车座舱，再到 flomo，我一直站在设计和工程中间，让想法更快、更准确地变成产品。
           </p>
-          <a class="hero-chat reveal" style="--d:.16s" href="#contact">
-            <span>想一起做点什么？来聊聊</span><Icon name="arrow-right" size={14} />
-          </a>
+          <div class="hero-chat reveal" style="--d:.16s">
+            <TextLink href="#contact">想一起做点什么？来聊聊</TextLink>
+          </div>
           <ul class="proofs" role="list">
             {
               proofs.map((p, i) => (
                 <li class="reveal" style={`--d:${0.2 + i * 0.06}s`}>
                   <a class="proof" href={p.href} {...(p.external ? ext : {})}>
                     {p.img ? (
-                      <img class="proof-icon" src={p.img} alt="" width="40" height="40" />
+                      <img class:list={['proof-icon', p.softBorder ? 'proof-icon-soft' : 'proof-icon-bare']} src={p.img} alt="" width="40" height="40" />
                     ) : (
                       <span class="proof-icon proof-icon-glyph" aria-hidden="true">
                         <Icon name={p.icon!} size={20} />
@@ -212,29 +216,25 @@ const ext = { target: '_blank', rel: 'noopener' };
         </div>
       </div>
     </div>
-    <a class="hero-caret" href="#about" aria-label="向下滚动到关于我">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
-    </a>
+    <HeroCaret />
   </section>
 
+  <!-- 首屏之后的全部内容放进 .rest：整体算作一个吸附区，只有首屏与它之间会吸附，里面自由滚动 -->
+  <div class="rest">
   <!-- ================= 00 关于与经历 ================= -->
   <section id="about" data-spy="about" class="about" aria-labelledby="about-title">
     <div class="wrap">
       <div class="about-body">
         <div class="about-top">
           <div class="about-skip reveal">
-            <span class="shiba-mark" aria-hidden="true"></span>
-            <button type="button" class="skip-btn" data-about-skip>
-              <span>不想看履历？直接看作品</span>
-              <Icon name="arrow-down" size={16} />
-            </button>
+            <TextLink size="md" icon="arrow-bend-down-right" data-about-skip>不想看履历？直接看作品</TextLink>
           </div>
 
           <div class="about-card reveal" style="--d:.06s">
             <div class="about-head">
               <div class="about-head-row">
                 <h2 id="about-title" class="sec-label"><span class="sec-num mono-sm">00</span>关于我</h2>
-                <a class="ghost-btn resume-btn" href={RESUME_PDF} download="Aaron Xu 简历.pdf">
+                <a class="btn btn-ghost btn-sm resume-btn" href={RESUME_PDF} download="Aaron Xu 简历.pdf">
                   <Icon name="download-simple" size={16} />下载简历
                 </a>
               </div>
@@ -246,16 +246,15 @@ const ext = { target: '_blank', rel: 'noopener' };
                 <span><strong>{profile.education.school}</strong> · {profile.education.detail}</span>
               </p>
             </div>
-            <ul class="skills" role="list">
+            <ul class="skills" role="list" data-skills>
               {
                 skills.map((s) => (
                   <li class="skill">
                     <span class="skill-icon" aria-hidden="true">
-                      <Icon name={s.icon} size={22} />
+                      <SkillIcon name={s.icon} size={22} />
                     </span>
                     <h3>{s.title}</h3>
                     <p>{s.desc}</p>
-                    {s.tools && <span class="skill-tools mono-sm">{s.tools}</span>}
                   </li>
                 ))
               }
@@ -269,32 +268,34 @@ const ext = { target: '_blank', rel: 'noopener' };
             {
               visibleJobs.map((job) => (
                 <li class:list={['job', 'reveal', { 'job-extra': !job.core, current: job.current }]}>
-                  <div class="job-when">
-                    <span class="job-span">{job.span}</span>
-                    <span class="job-time mono-sm">{job.time}</span>
-                  </div>
-                  <div class="job-rail" aria-hidden="true">
-                    <span class="job-dot" />
-                  </div>
-                  <div class="job-main">
-                    <div class="job-info">
-                      <span class="job-company">{job.company}</span>
-                      <span class="job-role">{job.role}</span>
-                      {job.badge && (
-                        <span class:list={['job-badge', `tone-${job.badge.tone}`]}>{job.badge.text}</span>
-                      )}
-                      <span class="job-domain">{job.domain}</span>
-                      {job.link && (
-                        <a class="job-link" href={job.link.href} {...(job.link.external ? ext : {})}>
-                          {job.link.label} {job.link.external ? '↗' : '→'}
-                        </a>
-                      )}
+                  <div class="job-inner">
+                    <div class="job-when">
+                      <span class="job-span">{job.span}</span>
+                      <span class="job-time mono-sm">{job.time}</span>
                     </div>
-                    <ul class="job-points" role="list">
-                      {job.points.map((p) => (
-                        <li>{p}</li>
-                      ))}
-                    </ul>
+                    <div class="job-rail" aria-hidden="true">
+                      <span class="job-dot" />
+                    </div>
+                    <div class="job-main">
+                      <div class="job-info">
+                        <span class="job-company">{job.company}</span>
+                        <span class="job-role">{job.role}</span>
+                        {job.badge && (
+                          <span class:list={['job-badge', `tone-${job.badge.tone}`]}>{job.badge.text}</span>
+                        )}
+                        <span class="job-domain">{job.domain}</span>
+                        {job.link && (
+                          <a class="job-link" href={job.link.href} {...(job.link.external ? ext : {})}>
+                            {job.link.label} {job.link.external ? '↗' : '→'}
+                          </a>
+                        )}
+                      </div>
+                      <ul class="job-points" role="list">
+                        {job.points.map((p) => (
+                          <li>{p}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </li>
               ))
@@ -302,9 +303,9 @@ const ext = { target: '_blank', rel: 'noopener' };
           </ol>
           {
             hasExtraJobs && (
-              <button type="button" class="ghost-btn jobs-toggle" data-jobs-toggle aria-expanded="false">
-                更多经历 ↓
-              </button>
+              <TextLink icon="arrow-down" class="jobs-toggle" data-jobs-toggle aria-expanded="false">
+                <span data-jobs-label>更多经历</span>
+              </TextLink>
             )
           }
         </section>
@@ -319,7 +320,7 @@ const ext = { target: '_blank', rel: 'noopener' };
       <div class="sec-head reveal">
         <div class="sec-titles">
           <h2 id="work-title" class="sec-label" tabindex="-1"><span class="sec-num mono-sm">01</span>精选作品</h2>
-          <p class="sec-statement">让设计与代码一起跳舞，把产品做完整。</p>
+          <p class="sec-statement">一些值得拿出来讲的项目。</p>
         </div>
         <a class="more-link" href="/work/">全部作品<Icon name="arrow-right" size={14} /></a>
       </div>
@@ -534,6 +535,7 @@ const ext = { target: '_blank', rel: 'noopener' };
       </dl>
     </div>
   </section>
+  </div>
 </Base>
 
 <script>
@@ -677,6 +679,8 @@ const ext = { target: '_blank', rel: 'noopener' };
   });
 
   const jobs = document.querySelector<HTMLElement>('[data-jobs]');
+  // 折叠中的经历由 .job-inner 自己控制显隐，不再等入场动画
+  jobs?.querySelectorAll('.job-extra').forEach((el) => el.classList.add('in'));
   const toggle = document.querySelector<HTMLButtonElement>('[data-jobs-toggle]');
   toggle?.addEventListener('click', () => {
     const open = !jobs?.classList.contains('show-all');
@@ -684,8 +688,81 @@ const ext = { target: '_blank', rel: 'noopener' };
     // 展开出来的条目不等入场动画，直接可见
     jobs?.querySelectorAll('.job-extra').forEach((el) => el.classList.add('in'));
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? '收起 ↑' : '更多经历 ↓';
+    const label = toggle.querySelector('[data-jobs-label]');
+    if (label) label.textContent = open ? '收起' : '更多经历';
   });
+
+  /*
+   * 00 关于：四个能力图标轮流自动播放微动效（加 .si-play，动画本身在 SkillIcon.astro）。
+   * - 没有悬停时：第 1 个播完隔 GAP 播第 2 个……循环；区块不在视口内时暂停。
+   * - 悬停某一张：暂停轮播；正在播的那个照常播完，被悬停的那个同时开始播；
+   *   移开后从被悬停的下一个接着轮播。
+   * - prefers-reduced-motion 下不轮播（动效本身也已关闭）。
+   */
+  const skillList = document.querySelector<HTMLElement>('[data-skills]');
+  const skillItems = skillList ? [...skillList.querySelectorAll<HTMLElement>('.skill')] : [];
+  if (skillList && skillItems.length && !reduced) {
+    const GAP = 500;
+    const durRaw = getComputedStyle(skillList.querySelector('.si') ?? skillList).getPropertyValue('--si-dur').trim();
+    const DUR = (parseFloat(durRaw) || 0.9) * (durRaw.endsWith('ms') ? 1 : 1000);
+
+    const startedAt = new Map<HTMLElement, number>();
+    const endTimers = new Map<HTMLElement, number>();
+    let next = 0;
+    let loopTimer = 0;
+    let hovering = false;
+    let inView = false;
+
+    const isPlaying = (el: HTMLElement) => el.classList.contains('si-play');
+
+    const play = (el: HTMLElement) => {
+      clearTimeout(endTimers.get(el));
+      el.classList.remove('si-play');
+      void el.offsetWidth; // 移除再加，确保动画从头开始
+      el.classList.add('si-play');
+      startedAt.set(el, performance.now());
+      endTimers.set(el, window.setTimeout(() => el.classList.remove('si-play'), DUR));
+    };
+
+    const schedule = (delay: number) => {
+      clearTimeout(loopTimer);
+      if (hovering || !inView) return;
+      loopTimer = window.setTimeout(() => {
+        play(skillItems[next]);
+        next = (next + 1) % skillItems.length;
+        schedule(DUR + GAP);
+      }, delay);
+    };
+
+    skillItems.forEach((el, i) => {
+      const enter = () => {
+        hovering = true;
+        clearTimeout(loopTimer);
+        if (!isPlaying(el)) play(el);
+        next = (i + 1) % skillItems.length;
+      };
+      el.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && enter());
+      el.addEventListener('pointerleave', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        hovering = false;
+        const left = Math.max(0, DUR - (performance.now() - (startedAt.get(el) ?? 0)));
+        schedule(left + GAP);
+      });
+      // 触屏：按下即播，轮播从它的下一个接着走
+      el.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse') return;
+        if (!isPlaying(el)) play(el);
+        next = (i + 1) % skillItems.length;
+        schedule(DUR + GAP);
+      });
+    });
+
+    new IntersectionObserver(([e]) => {
+      inView = e.isIntersecting;
+      if (inView) schedule(GAP);
+      else clearTimeout(loopTimer);
+    }).observe(skillList);
+  }
 </script>
 
 <style>
@@ -701,15 +778,14 @@ const ext = { target: '_blank', rel: 'noopener' };
     scroll-margin-top: 60px;
   }
 
-  /* 整屏吸附：滚动停下时总落在某一屏的起点，不会停在两屏中间。
-     比一屏高的区块（如 00），浏览器允许在区块内部自由滚动，滚出边界再吸附到下一屏 */
+  /* 仅首屏与下方内容之间吸附：滚动停下时要么在首屏、要么在 00 的起点，不会停在两者中间。
+     .rest 远高于一屏，浏览器允许在它内部自由滚动，各区块之间不再吸附 */
   :global(html:has([data-home-snap])) {
     scroll-snap-type: y mandatory;
   }
 
   .hero,
-  .about,
-  .block {
+  .rest {
     scroll-snap-align: start;
   }
 
@@ -720,6 +796,16 @@ const ext = { target: '_blank', rel: 'noopener' };
   .anchor-alias {
     display: block;
     height: 0;
+  }
+
+  /* 区块之间的分隔线（首屏与 00 之间不加）：宽度与内容区一致 */
+  .rest > section + section::before {
+    content: '';
+    display: block;
+    width: min(var(--w-wide), 100% - 2 * var(--gutter));
+    height: 1px;
+    margin-inline: auto;
+    background: var(--border);
   }
 
   .block-inner {
@@ -813,30 +899,6 @@ const ext = { target: '_blank', rel: 'noopener' };
     background: color-mix(in oklch, var(--text) 9%, transparent);
   }
 
-  .ghost-btn {
-    height: 44px;
-    padding: 0 18px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-btn);
-    background: transparent;
-    color: var(--text);
-    font: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .ghost-btn:hover {
-      border-color: var(--text-3);
-    }
-  }
-
-  .ghost-btn:active {
-    transform: scale(0.98);
-    background: color-mix(in oklch, var(--text) 5%, transparent);
-  }
-
   .tags {
     list-style: none;
     margin: 0;
@@ -910,37 +972,8 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   .hero-chat {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    height: 44px;
     margin-top: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-body);
-    text-decoration: underline dashed var(--text-3);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 6px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-  }
-
-  .hero-chat :global(svg) {
-    transition: transform 0.25s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .hero-chat:hover {
-      color: var(--accent-strong);
-      text-decoration-color: var(--accent-border);
-    }
-
-    .hero-chat:hover :global(svg) {
-      transform: translateX(3px);
-    }
-  }
-
-  .hero-chat:active {
-    color: var(--accent-strong);
+    width: fit-content;
   }
 
   .proofs {
@@ -986,6 +1019,14 @@ const ext = { target: '_blank', rel: 'noopener' };
     object-fit: cover;
   }
 
+  .proof-icon-bare {
+    border-color: transparent;
+  }
+
+  .proof-icon-soft {
+    border-color: var(--border-subtle);
+  }
+
   .proof-icon-glyph {
     display: flex;
     align-items: center;
@@ -1029,50 +1070,6 @@ const ext = { target: '_blank', rel: 'noopener' };
     display: block;
     width: 100%;
     height: 100%;
-  }
-
-  .hero-caret {
-    position: absolute;
-    left: 50%;
-    bottom: clamp(16px, 3.2svh, 32px);
-    width: 48px;
-    height: 48px;
-    margin-left: -24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    box-shadow: 0 2px 8px color-mix(in oklch, var(--text) 8%, transparent);
-    color: var(--text);
-    transition: border-color 0.2s ease;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-caret {
-      animation: caret-nudge 1.6s ease-in-out infinite;
-    }
-  }
-
-  @keyframes caret-nudge {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(8px);
-    }
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .hero-caret:hover {
-      border-color: var(--text);
-    }
-  }
-
-  .hero-caret:active {
-    background: color-mix(in oklch, var(--text) 6%, var(--surface));
   }
 
   @media (max-width: 900px) {
@@ -1156,56 +1153,6 @@ const ext = { target: '_blank', rel: 'noopener' };
     gap: 10px;
   }
 
-  /* 柴犬线稿：用 mask 着色，跟随主题文字色 */
-  .shiba-mark {
-    width: 35px;
-    height: 33px;
-    flex-shrink: 0;
-    background: var(--text);
-    -webkit-mask: url('/media/home/shiba-mark.svg') center / contain no-repeat;
-    mask: url('/media/home/shiba-mark.svg') center / contain no-repeat;
-  }
-
-  .skip-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    height: 44px;
-    padding: 0;
-    border: 0;
-    background: none;
-    font: inherit;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text);
-    transition: color 0.2s ease;
-  }
-
-  .skip-btn span {
-    text-decoration: underline dashed var(--text-3);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 6px;
-  }
-
-  .skip-btn :global(svg) {
-    flex-shrink: 0;
-    transition: transform 0.25s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .skip-btn:hover {
-      color: var(--accent-strong);
-    }
-
-    .skip-btn:hover :global(svg) {
-      transform: translateY(2px);
-    }
-  }
-
-  .skip-btn:active {
-    color: var(--accent-strong);
-  }
-
   .about-card {
     align-self: stretch;
     border-radius: var(--radius-panel);
@@ -1229,22 +1176,6 @@ const ext = { target: '_blank', rel: 'noopener' };
     justify-content: space-between;
     gap: 16px;
     margin-top: -8px;
-  }
-
-  .resume-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .resume-btn :global(svg) {
-    transition: transform 0.25s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .resume-btn:hover :global(svg) {
-      transform: translateY(2px);
-    }
   }
 
   .about-hello {
@@ -1298,6 +1229,7 @@ const ext = { target: '_blank', rel: 'noopener' };
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 8px;
   }
 
   .skill h3 {
@@ -1310,10 +1242,6 @@ const ext = { target: '_blank', rel: 'noopener' };
     font-size: 14px;
     line-height: 1.7;
     color: var(--text-body);
-  }
-
-  .skill-tools {
-    color: var(--text-2);
   }
 
   @media (max-width: 1000px) {
@@ -1349,18 +1277,51 @@ const ext = { target: '_blank', rel: 'noopener' };
     flex-direction: column;
   }
 
-  /* 有 JS 时默认只显示核心经历 */
-  :global(.js) .jobs:not(.show-all) .job-extra {
-    display: none;
+  /* 有 JS 时默认只显示核心经历；展开/收起用 grid 行高 0fr ⇄ 1fr 做高度过渡，
+     收起后再切 visibility，避免折叠内容仍可被 Tab 聚焦 */
+  :global(.js) .job-extra {
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.45s var(--ease-out), visibility 0s linear 0.45s;
   }
 
-  :global(html:not(.js)) .jobs-toggle {
+  :global(.js) .jobs.show-all .job-extra {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows 0.45s var(--ease-out), visibility 0s;
+  }
+
+  :global(.js) .job-extra .job-inner {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  :global(.js) .jobs.show-all .job-extra .job-inner {
+    opacity: 1;
+    transition: opacity 0.35s ease 0.1s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .job-extra,
+    :global(.js) .job-extra .job-inner {
+      transition: none !important;
+    }
+  }
+
+  :global(html:not(.js)) :global(.jobs-toggle) {
     display: none;
   }
 
   .job {
     display: grid;
+    grid-template-rows: 1fr;
+  }
+
+  .job-inner {
+    display: grid;
     grid-template-columns: 150px 28px minmax(0, 1fr);
+    min-height: 0;
+    overflow: hidden;
   }
 
   .job-when {
@@ -1522,7 +1483,8 @@ const ext = { target: '_blank', rel: 'noopener' };
     background: var(--accent);
   }
 
-  .jobs-toggle {
+  /* 位置由这里管，样式由 TextLink 管 */
+  :global(.jobs-toggle) {
     margin-left: 206px;
     align-self: flex-start;
   }
@@ -1535,7 +1497,7 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   @media (max-width: 640px) {
-    .job {
+    .job-inner {
       grid-template-columns: 20px minmax(0, 1fr);
     }
 
@@ -1565,7 +1527,7 @@ const ext = { target: '_blank', rel: 'noopener' };
       margin-bottom: 32px;
     }
 
-    .jobs-toggle {
+    :global(.jobs-toggle) {
       margin-left: 36px;
     }
   }

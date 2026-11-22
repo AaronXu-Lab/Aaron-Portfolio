@@ -26,27 +26,23 @@ export const profile = {
 export const skills = [
   {
     title: '设计工程化',
-    desc: '借助插件开发与自动化工具打通产研链路，让设计规范直接交付为代码。',
-    tools: 'Figma 插件 · Design to Code',
-    icon: 'code' as const,
+    desc: '搭建设计系统、Figma 插件与自动化工具，持续提升设计师效率。',
+    icon: 'swatches' as const,
   },
   {
-    title: '快速原型',
-    desc: '具备原生代码能力，用 Xcode 构建带真实业务逻辑的交互原型。',
-    tools: 'SwiftUI · Xcode',
-    icon: 'device-mobile' as const,
+    title: '「超」保真原型',
+    desc: '原生代码手写原型，接入真实接口，体验接近上线，提前暴露问题。',
+    icon: 'hand-pointing' as const,
   },
   {
     title: 'AI 工作流',
-    desc: '基于 ComfyUI 与 Agent Skill，搭建垂直领域的设计产出流程。',
-    tools: 'ComfyUI · Claude Code',
+    desc: '基于 AI 搭建自动化工作流，快速批量产出标准化程度较高的设计。',
     icon: 'sparkle' as const,
   },
   {
     title: '动效与微交互',
-    desc: '用动效建立操作反馈与心理预期，让产品更连贯、更精致。',
-    tools: '',
-    icon: 'wave-sine' as const,
+    desc: '运用人因工程设计动效与微交互，建立反馈与预期，提升精致感。',
+    icon: 'path' as const,
   },
 ];
 

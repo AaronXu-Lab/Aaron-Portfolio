@@ -1,0 +1,258 @@
+---
+/**
+ * 首页「关于我」四项能力的图标，带悬停微动效。
+ * 图形取自 Phosphor regular（MIT）：需要分段动画的拆成几条 path，
+ * swatches / path 改写成描边几何（外观与原填充版一致），以便卡片转动、圆环沿线移动。
+ * 触发：鼠标悬停整张能力卡（.skill）、触屏按下，或首页脚本给 .skill 加 .si-play（自动轮播）；
+ * prefers-reduced-motion 下不播放。
+ */
+interface Props {
+  name: 'swatches' | 'hand-pointing' | 'sparkle' | 'path';
+  size?: number;
+}
+
+const { name, size = 22 } = Astro.props;
+
+/*
+ * 色板的单张色卡（描边中心线）：铆钉在原点，卡身竖直朝上，底部是绕铆钉的半圆。
+ * 三张卡分别转 10° / 70° / 90°，就与 Phosphor 原图重合；动画只改转角。
+ */
+const CARD = 'M-36,0V-145.3A8,8,0,0,1,-28,-153.3H28A8,8,0,0,1,36,-145.3V0A36,36,0,0,1,-36,0Z';
+
+/*
+ * path 图标：终点的空心圆环沿线走一遍。
+ * 圆心轨迹 = 线的中心线（上横线 → 右半圆 → 中横线 → 左半圆 → 下横线到圆环静止位 (200,200)），
+ * 构建时按弧长采样成 translate 关键帧，缓动直接烘进采样间距，各浏览器表现一致。
+ */
+function ringPointAt(s: number): [number, number] {
+  const segs: Array<[number, (u: number) => [number, number]]> = [
+    [96, (u) => [72 + u, 56]],
+    [Math.PI * 32, (u) => { const a = -Math.PI / 2 + u / 32; return [168 + 32 * Math.cos(a), 88 + 32 * Math.sin(a)]; }],
+    [96, (u) => [168 - u, 120]],
+    [Math.PI * 40, (u) => { const a = -Math.PI / 2 - u / 40; return [72 + 40 * Math.cos(a), 160 + 40 * Math.sin(a)]; }],
+    [128, (u) => [72 + u, 200]],
+  ];
+  for (const [len, at] of segs) {
+    if (s <= len) return at(s);
+    s -= len;
+  }
+  return [200, 200];
+}
+
+const RING_KEYFRAMES = (() => {
+  const total = 96 + Math.PI * 32 + 96 + Math.PI * 40 + 128;
+  const ease = (t: number) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
+  const f = (n: number) => +n.toFixed(2);
+  const frame = (pct: number, [x, y]: [number, number], scale = 1) =>
+    `${f(pct)}%{transform:translate(${f(x)}px,${f(y)}px) scale(${scale})}`;
+  // 0-8% 在终点缩没 → 9-16% 起点长出来 → 16-100% 沿线缓入缓出走回终点，原尺寸落定（不做放大回弹）
+  const frames = [frame(0, [200, 200]), frame(8, [200, 200], 0), frame(9, [72, 56], 0), frame(16, [72, 56])];
+  const N = 48;
+  for (let i = 1; i <= N; i++) frames.push(frame(16 + (84 * i) / N, ringPointAt(ease(i / N) * total)));
+  return `@keyframes si-ring{${frames.join('')}}`;
+})();
+---
+
+<svg
+  class:list={['si', `si-${name}`]}
+  width={size}
+  height={size}
+  viewBox="0 0 256 256"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  {
+    name === 'swatches' && (
+      <g transform="translate(76 180)">
+        <path class="si-card si-card-back" d={CARD} />
+        <path class="si-card si-card-mid" d={CARD} />
+        <path class="si-card si-card-front" d={CARD} />
+        <circle r="12" />
+      </g>
+    )
+  }
+  {
+    name === 'hand-pointing' && (
+      <>
+        <circle class="si-ripple" cx="116" cy="-14" r="36" fill="none" stroke="currentColor" stroke-width="10" />
+        <path class="si-hand" d="M196,88a27.86,27.86,0,0,0-13.35,3.39A28,28,0,0,0,144,74.7V44a28,28,0,0,0-56,0v80l-3.82-6.13A28,28,0,0,0,35.73,146l4.67,8.23C74.81,214.89,89.05,240,136,240a88.1,88.1,0,0,0,88-88V116A28,28,0,0,0,196,88Zm12,64a72.08,72.08,0,0,1-72,72c-37.63,0-47.84-18-81.68-77.68l-4.69-8.27,0-.05A12,12,0,0,1,54,121.61a11.88,11.88,0,0,1,6-1.6,12,12,0,0,1,10.41,6,1.76,1.76,0,0,0,.14.23l18.67,30A8,8,0,0,0,104,152V44a12,12,0,0,1,24,0v68a8,8,0,0,0,16,0V100a12,12,0,0,1,24,0v20a8,8,0,0,0,16,0v-4a12,12,0,0,1,24,0Z" />
+      </>
+    )
+  }
+  {
+    name === 'sparkle' && (
+      <>
+        <path class="si-star" d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z" />
+        <path class="si-twinkle si-twinkle-a" d="M144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40Z" />
+        <path class="si-twinkle si-twinkle-b" d="M248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z" />
+      </>
+    )
+  }
+  {
+    name === 'path' && (
+      <>
+        <path
+          class="si-route"
+          d="M72,56H168A32,32,0,0,1,168,120H72A40,40,0,0,0,72,200H168"
+          pathLength="1"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="16"
+          stroke-linecap="round"
+        />
+        <circle class="si-goal" r="24" stroke="currentColor" stroke-width="16" />
+        <style is:inline set:html={RING_KEYFRAMES} />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .si {
+    /* 四个图标统一时长；主动作落在前 30%-40%，其余时间做回弹与落定 */
+    --si-dur: 0.9s;
+    overflow: visible;
+  }
+
+  .si path,
+  .si circle {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /*
+   * 色板：后两张卡先收拢到最前那张后面，再弹开回扇形。
+   * 卡片用底色填充，叠放时遮住后面的卡，与原图的遮挡关系一致。
+   */
+  .si .si-card {
+    fill: var(--surface-accent);
+    stroke: currentColor;
+    stroke-width: 16;
+    stroke-linejoin: round;
+    transform-box: view-box;
+    transform-origin: 0 0;
+  }
+  .si .si-card-front { transform: rotate(10deg); }
+  .si .si-card-mid { transform: rotate(70deg); }
+  .si .si-card-back { transform: rotate(90deg); }
+
+  :global(.skill:hover) .si-card-front,
+  :global(.skill:active) .si-card-front,
+  :global(.skill.si-play) .si-card-front {
+    animation: si-fan-front var(--si-dur) var(--ease-out) both;
+  }
+  :global(.skill:hover) .si-card-mid,
+  :global(.skill:active) .si-card-mid,
+  :global(.skill.si-play) .si-card-mid {
+    animation: si-fan-mid var(--si-dur) var(--ease-out) both;
+  }
+  :global(.skill:hover) .si-card-back,
+  :global(.skill:active) .si-card-back,
+  :global(.skill.si-play) .si-card-back {
+    animation: si-fan-back var(--si-dur) var(--ease-out) both;
+  }
+
+  @keyframes si-fan-front {
+    0% { transform: rotate(10deg); }
+    35% { transform: rotate(2deg); }
+    70% { transform: rotate(13deg); }
+    100% { transform: rotate(10deg); }
+  }
+  @keyframes si-fan-mid {
+    0% { transform: rotate(70deg); }
+    35% { transform: rotate(4deg); }
+    70% { transform: rotate(78deg); }
+    86% { transform: rotate(67deg); }
+    100% { transform: rotate(70deg); }
+  }
+  @keyframes si-fan-back {
+    0% { transform: rotate(90deg); }
+    40% { transform: rotate(4deg); }
+    75% { transform: rotate(99deg); }
+    90% { transform: rotate(88deg); }
+    100% { transform: rotate(90deg); }
+  }
+
+  /* 手指：向上点一下，指尖处荡开一圈涟漪 */
+  .si-ripple {
+    opacity: 0;
+  }
+  :global(.skill:hover) .si-hand,
+  :global(.skill:active) .si-hand,
+  :global(.skill.si-play) .si-hand {
+    animation: si-tap var(--si-dur) var(--ease-out) both;
+  }
+  :global(.skill:hover) .si-ripple,
+  :global(.skill:active) .si-ripple,
+  :global(.skill.si-play) .si-ripple {
+    animation: si-ripple var(--si-dur) var(--ease-out) both;
+  }
+
+  @keyframes si-tap {
+    30% { transform: translateY(-34px) scale(0.94); }
+    55% { transform: translateY(6px); }
+    75% { transform: translateY(-3px); }
+  }
+  @keyframes si-ripple {
+    0%, 25% { opacity: 0; transform: scale(0.3); }
+    35% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1.7); }
+  }
+
+  /* 闪光：大星转 90°（四角星对称，首尾无跳变），小星依次闪烁 */
+  :global(.skill:hover) .si-star,
+  :global(.skill:active) .si-star,
+  :global(.skill.si-play) .si-star {
+    animation: si-star var(--si-dur) var(--ease-out) both;
+  }
+  :global(.skill:hover) .si-twinkle-a,
+  :global(.skill:active) .si-twinkle-a,
+  :global(.skill.si-play) .si-twinkle-a {
+    animation: si-twinkle-a var(--si-dur) var(--ease-out) both;
+  }
+  :global(.skill:hover) .si-twinkle-b,
+  :global(.skill:active) .si-twinkle-b,
+  :global(.skill.si-play) .si-twinkle-b {
+    animation: si-twinkle-b var(--si-dur) var(--ease-out) both;
+  }
+
+  @keyframes si-star {
+    0% { transform: rotate(0deg); }
+    35% { transform: rotate(50deg) scale(0.82); }
+    70% { transform: rotate(97deg); }
+    100% { transform: rotate(90deg); }
+  }
+  /* 两颗小星错开闪：错峰写进关键帧，保证同在 --si-dur 内结束 */
+  @keyframes si-twinkle-a {
+    30% { transform: scale(0); }
+    60%, 100% { transform: scale(1); }
+  }
+  @keyframes si-twinkle-b {
+    0%, 15% { transform: scale(1); }
+    45% { transform: scale(0); }
+    75%, 100% { transform: scale(1); }
+  }
+
+  /*
+   * 路径：线不动，终点的空心圆环先缩没，再从起点长出来，沿线走回终点落定。
+   * 圆环以底色填充，经过时盖住线，读起来是一颗空心珠子在线上滑。关键帧 si-ring 由 frontmatter 生成。
+   */
+  .si .si-goal {
+    fill: var(--surface-accent);
+    transform-box: view-box;
+    transform-origin: 0 0;
+    transform: translate(200px, 200px);
+  }
+  :global(.skill:hover) .si-goal,
+  :global(.skill:active) .si-goal,
+  :global(.skill.si-play) .si-goal {
+    animation: si-ring var(--si-dur) linear both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .si path,
+    .si circle {
+      animation: none !important;
+    }
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 /**
- * 简历打印源：首页「00 关于与经历」的 A4 排版版本（不含顶部的狗头 + 跳转文字）。
+ * 简历打印源：首页「00 关于与经历」的 A4 排版版本（不含顶部的跳转文字）。
  * `npm run build:resume` 用本机 Chrome 无头打印本页，产出 public/media/resume/aaron-xu-resume.pdf；
  * 首页「下载简历」按钮下载的就是那份 PDF。数据与首页共用 src/data/about.ts。
  */
@@ -55,7 +55,6 @@ import { profile, skills, jobs } from '../data/about';
                 </span>
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
-                {s.tools && <span class="mono-sm tools">{s.tools}</span>}
               </li>
             ))
           }
@@ -243,11 +242,6 @@ import { profile, skills, jobs } from '../data/about';
     font-size: 12px;
     line-height: 1.6;
     color: var(--text-body);
-  }
-
-  .tools {
-    font-size: 10.5px;
-    color: var(--text-2);
   }
 
   .jobs {
