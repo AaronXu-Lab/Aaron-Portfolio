@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
 import { formatDate, yearOf } from '../../utils';
 
 const posts = (await getCollection('blog')).sort(
@@ -32,25 +33,29 @@ const years = [...byYear.entries()];
 >
   <div class="blog-page container">
     <header class="blog-head">
-      <div class="mono-label reveal">Blog · Since 2015</div>
-      <h1 class="display reveal" style="--d:.05s">研究<span class="accent-text">笔记</span>.</h1>
-      <p class="lead reveal" style="--d:.1s">
-        设计、开发与 AI 的长期记录 —— 从交互设计入行时的实习日志，到如今的 AI
-        工作流研究，共 {posts.length} 篇。
-      </p>
+      <div class="mono-label reveal">Blog</div>
+      <h1 class="page-title reveal" style="--d:.05s">博客</h1>
+      <p class="lead reveal" style="--d:.1s">关于设计、代码和 AI 的随笔与研究笔记。</p>
     </header>
 
-    <div class="filters reveal" role="group" aria-label="按分类筛选">
-      <button class="chip filter on" type="button" data-cat="" aria-pressed="true">
-        全部 <span class="count mono-sm">{posts.length}</span>
-      </button>
-      {
-        categories.map(([cat, count]) => (
-          <button class="chip filter" type="button" data-cat={cat} aria-pressed="false">
-            {cat} <span class="count mono-sm">{count}</span>
-          </button>
-        ))
-      }
+    <div class="toolbar reveal">
+      <div class="filters" role="group" aria-label="按分类筛选">
+        <button class="chip filter on" type="button" data-cat="" aria-pressed="true">
+          全部 <span class="count mono-sm">{posts.length}</span>
+        </button>
+        {
+          categories.map(([cat, count]) => (
+            <button class="chip filter" type="button" data-cat={cat} aria-pressed="false">
+              {cat} <span class="count mono-sm">{count}</span>
+            </button>
+          ))
+        }
+      </div>
+      <label class="search">
+        <Icon name="magnifying-glass" size={14} />
+        <span class="sr-only">搜索文章标题</span>
+        <input type="search" placeholder="搜索文章标题" autocomplete="off" data-search />
+      </label>
     </div>
 
     <div class="post-list">
@@ -63,6 +68,7 @@ const years = [...byYear.entries()];
                 <li
                   class="row-wrap"
                   data-cats={post.data.categories.join('|')}
+                  data-title={post.data.title.toLowerCase()}
                 >
                   <a class="row" href={`/blog/${post.id}/`}>
                     <time class="mono-sm" datetime={post.data.date.toISOString()}>
@@ -88,7 +94,7 @@ const years = [...byYear.entries()];
       }
     </div>
 
-    <p class="empty mono-sm" hidden>该分类下暂无文章。</p>
+    <p class="empty mono-sm" hidden>没有符合条件的文章。</p>
   </div>
 </Base>
 
@@ -99,10 +105,17 @@ const years = [...byYear.entries()];
   const groups = [...document.querySelectorAll<HTMLElement>('.year-group')];
   const empty = document.querySelector<HTMLElement>('.empty');
 
-  const apply = (cat: string) => {
+  const search = document.querySelector<HTMLInputElement>('[data-search]');
+  let currentCat = '';
+
+  // 分类与标题搜索同时生效
+  const apply = () => {
+    const q = (search?.value ?? '').trim().toLowerCase();
     let visible = 0;
     for (const row of rows) {
-      const show = !cat || (row.dataset.cats ?? '').split('|').includes(cat);
+      const inCat = !currentCat || (row.dataset.cats ?? '').split('|').includes(currentCat);
+      const hit = !q || (row.dataset.title ?? '').includes(q);
+      const show = inCat && hit;
       row.hidden = !show;
       if (show) visible++;
     }
@@ -119,40 +132,106 @@ const years = [...byYear.entries()];
         b.classList.toggle('on', on);
         b.setAttribute('aria-pressed', String(on));
       });
-      apply(btn.dataset.cat ?? '');
+      currentCat = btn.dataset.cat ?? '';
+      apply();
     });
   }
+
+  search?.addEventListener('input', apply);
 </script>
 
 <style>
   .blog-page {
-    padding-top: clamp(112px, 15vw, 168px);
+    padding-top: clamp(112px, 15vw, 132px);
   }
 
   .blog-head {
-    margin-bottom: clamp(36px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
   }
 
-  .blog-head .mono-label {
-    display: block;
-    margin-bottom: 22px;
+  .page-title {
+    font-size: clamp(40px, 6vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    font-weight: 800;
   }
 
-  .blog-head h1 {
-    margin-bottom: 22px;
-  }
-
+  /* 子页面简介占满内容区宽度 */
   .blog-head .lead {
-    max-width: 52ch;
+    color: var(--text-2);
+  }
+
+  /* 分类 Chip + 标题搜索，同一行，下面一条分隔线 */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
   }
 
   .filters {
     display: flex;
     flex-wrap: wrap;
     gap: 9px;
-    padding-bottom: 26px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 10px;
+  }
+
+  .search {
+    flex: 0 1 280px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text-3);
+    transition: border-color 0.2s ease;
+  }
+
+  .search:hover {
+    border-color: var(--text-3);
+  }
+
+  .search:focus-within {
+    border-color: var(--accent);
+  }
+
+  .search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+  }
+
+  .search input::placeholder {
+    color: var(--text-3);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .search {
+      flex-basis: 100%;
+    }
   }
 
   .filter {

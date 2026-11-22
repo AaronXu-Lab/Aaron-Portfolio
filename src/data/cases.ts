@@ -113,16 +113,6 @@ export const cases: CaseEntry[] = [
     nextHint: 'Case 04',
     nextLine: '把设计带进真实产品 —— Design Agent 与设计迁移工作流',
   },
-  {
-    slug: 'other',
-    kind: 'minor',
-    title: '其他作品',
-    minorLabel: 'Other Work',
-    minorDesc: 'Figma 插件 · 技术分享 · 动效设计',
-    footerLabel: '其他作品',
-    nextHint: 'Other Work',
-    nextLine: '其他作品 —— Figma 插件 · 技术分享 · 动效设计',
-  },
 ];
 
 /** 历史作品集:每项跳转到 📝简历 Figma 文件里的对应画板(node-id 可后续细化到单项) */

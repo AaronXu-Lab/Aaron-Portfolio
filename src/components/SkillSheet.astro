@@ -1,0 +1,371 @@
+---
+/**
+ * Skill 介绍 Sheet：点击带 data-skill-sheet 的 SkillCard 打开（SkillCard 传 sheet 属性即可）。
+ * 桌面端居中弹出，窄屏（≤ 640px）从底部升起；原生 <dialog> + showModal 提供焦点陷阱与 Esc。
+ * 每个 Skill 的内容预渲染进 <template>，打开时克隆进同一个 dialog；文案来自 src/data/skill-details.ts。
+ * 卡片本身仍是指向 GitHub 的链接：脚本未运行、或按住修饰键点击时照常打开 GitHub。
+ */
+import DuotoneIcon from './DuotoneIcon.astro';
+import Icon from './Icon.astro';
+import { skillDetails } from '../data/skill-details';
+import type { SkillEntry } from '../data/skills';
+
+interface Props {
+  skills: Pick<SkillEntry, 'slug' | 'name' | 'icon' | 'href'>[];
+}
+const { skills } = Astro.props;
+
+const entries = skills.map((skill) => {
+  const detail = skillDetails[skill.slug];
+  if (!detail) throw new Error(`skill-details.ts 缺少 ${skill.slug}`);
+  return { skill, detail };
+});
+---
+
+<dialog class="skill-sheet" aria-labelledby="skill-sheet-title" data-skill-sheet-dialog>
+  <button class="btn btn-ghost btn-icon btn-sm btn-capsule ss-close" type="button" aria-label="关闭" data-skill-sheet-close>
+    <Icon name="x" size={18} />
+  </button>
+  <div class="ss-content" data-skill-sheet-content></div>
+</dialog>
+
+{
+  entries.map(({ skill, detail }) => (
+    <template data-skill-sheet-template={skill.slug}>
+      <header class="ss-head">
+        <span class="ss-art">
+          <DuotoneIcon name={skill.icon} size={32} />
+        </span>
+        <h2 class="ss-name" id="skill-sheet-title">{skill.name}</h2>
+        <p class="ss-slug">{skill.slug}</p>
+      </header>
+      <div class="ss-body">
+        <section class="ss-section">
+          <h3>功能说明</h3>
+          {detail.features.map((p) => <p>{p}</p>)}
+        </section>
+        <section class="ss-section">
+          <h3>使用场景</h3>
+          <ul>
+            {detail.scenarios.map((s) => <li>{s}</li>)}
+          </ul>
+          {detail.notFor && <p class="ss-note">不适用：{detail.notFor}</p>}
+        </section>
+        <section class="ss-section">
+          <h3>我之前为什么做了这个 SKILL</h3>
+          <p>{detail.why}</p>
+        </section>
+      </div>
+      {skill.href && (
+        <footer class="ss-foot">
+          <a class="btn btn-sm" href={skill.href} target="_blank" rel="noopener">
+            <Icon name="github-logo" size={16} />
+            在 GitHub 查看
+            <Icon name="arrow-up-right" size={14} />
+          </a>
+        </footer>
+      )}
+    </template>
+  ))
+}
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-skill-sheet-dialog]');
+  const slot = dialog?.querySelector<HTMLElement>('[data-skill-sheet-content]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let opener: HTMLElement | null = null;
+  let closeTimer = 0;
+  let cancelPendingClose = () => {};
+
+  function openSheet(slug: string, trigger: HTMLElement) {
+    if (!dialog || !slot) return false;
+    const tpl = document.querySelector<HTMLTemplateElement>(
+      `template[data-skill-sheet-template="${CSS.escape(slug)}"]`,
+    );
+    if (!tpl) return false;
+    slot.replaceChildren(tpl.content.cloneNode(true));
+    opener = trigger;
+    dialog.classList.remove('is-closing');
+    dialog.showModal();
+    slot.scrollTop = 0;
+    return true;
+  }
+
+  // 关闭先播退场动画再真正 close；减弱动效时直接关
+  function requestClose() {
+    if (!dialog?.open || dialog.classList.contains('is-closing')) return;
+    if (reduceMotion.matches) {
+      dialog.close();
+      return;
+    }
+    dialog.classList.add('is-closing');
+    // 只认本次退场：重新打开后残留的监听和定时器都不能再关掉它
+    const done = () => {
+      if (dialog.open && dialog.classList.contains('is-closing')) dialog.close();
+    };
+    dialog.addEventListener('animationend', done, { once: true });
+    closeTimer = window.setTimeout(done, 400);
+    cancelPendingClose = () => {
+      dialog.removeEventListener('animationend', done);
+      window.clearTimeout(closeTimer);
+    };
+  }
+
+  if (dialog) {
+    document.addEventListener('click', (event) => {
+      const card = (event.target as Element | null)?.closest<HTMLElement>('[data-skill-sheet]');
+      if (!card) return;
+      // 修饰键 / 中键点击保留链接原意：直接去 GitHub
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (openSheet(card.dataset.skillSheet ?? '', card)) event.preventDefault();
+    });
+
+    dialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      requestClose();
+    });
+
+    dialog.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('[data-skill-sheet-close]')) {
+        requestClose();
+        return;
+      }
+      // 点遮罩：点击落在 dialog 面板矩形之外
+      const r = dialog.getBoundingClientRect();
+      const outside =
+        event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom;
+      if (outside && event.target === dialog) requestClose();
+    });
+
+    dialog.addEventListener('close', () => {
+      cancelPendingClose();
+      dialog.classList.remove('is-closing');
+      opener?.focus({ preventScroll: true });
+      opener = null;
+    });
+  }
+</script>
+
+<style>
+  /* 打开时锁住页面滚动 */
+  :global(html:has(dialog.skill-sheet[open])) {
+    overflow: hidden;
+  }
+
+  .skill-sheet {
+    position: fixed;
+    inset: 0;
+    width: min(560px, calc(100vw - 32px));
+    height: fit-content;
+    max-width: none;
+    max-height: calc(100dvh - 48px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
+
+  .skill-sheet[open] {
+    display: flex;
+    flex-direction: column;
+    animation: ss-in-center 0.36s var(--ease-out);
+  }
+
+  .skill-sheet::backdrop {
+    background: color-mix(in oklch, var(--band-bg) 40%, transparent);
+    animation: ss-fade-in 0.3s ease;
+  }
+
+  .skill-sheet.is-closing {
+    animation: ss-out-center 0.2s ease-in forwards;
+  }
+
+  .skill-sheet.is-closing::backdrop {
+    animation: ss-fade-out 0.24s ease-in forwards;
+  }
+
+  .ss-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    color: var(--text-2);
+  }
+
+  .ss-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .ss-head {
+    padding: 28px 28px 22px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* 与 SkillCard 顶部同一套淡蓝底 + 淡一档强调色 */
+  .ss-art {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    background: color-mix(in oklab, var(--surface-accent) 55%, var(--surface));
+    color: color-mix(in oklab, var(--accent) 75%, var(--surface));
+  }
+
+  .ss-name {
+    padding-right: 48px;
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .ss-slug {
+    margin: 6px 0 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent-strong);
+    overflow-wrap: anywhere;
+  }
+
+  .ss-body {
+    flex: 1;
+    padding: 6px 28px 28px;
+  }
+
+  .ss-section {
+    padding-top: 22px;
+  }
+
+  .ss-section h3 {
+    margin-bottom: 8px;
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+
+  .ss-section p,
+  .ss-section li {
+    color: var(--text-2);
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+
+  .ss-section p {
+    margin: 0;
+  }
+
+  .ss-section p + p {
+    margin-top: 8px;
+  }
+
+  .ss-section ul {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  .ss-section li::marker {
+    color: var(--text-3);
+  }
+
+  .ss-section .ss-note {
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--text-3);
+  }
+
+  .ss-foot {
+    position: sticky;
+    bottom: 0;
+    padding: 16px 28px 20px;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--surface);
+  }
+
+  /* 窄屏：底部 Sheet */
+  @media (max-width: 640px) {
+    .skill-sheet {
+      inset: auto 0 0 0;
+      width: 100%;
+      margin: 0;
+      max-height: 88dvh;
+      border-bottom: none;
+      border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+    }
+
+    .skill-sheet[open] {
+      animation-name: ss-in-bottom;
+    }
+
+    .skill-sheet.is-closing {
+      animation-name: ss-out-bottom;
+    }
+
+    .ss-head {
+      padding: 24px 20px 18px;
+    }
+
+    .ss-body {
+      padding: 2px 20px 24px;
+    }
+
+    .ss-foot {
+      padding: 14px 20px calc(16px + env(safe-area-inset-bottom));
+    }
+  }
+
+  @keyframes ss-in-center {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+  }
+
+  @keyframes ss-out-center {
+    to {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+  }
+
+  @keyframes ss-in-bottom {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes ss-out-bottom {
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes ss-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes ss-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* 减弱动效：只留淡入，关闭由脚本直接 close */
+  @media (prefers-reduced-motion: reduce) {
+    .skill-sheet[open],
+    .skill-sheet[open]::backdrop {
+      animation: ss-fade-in 0.15s ease;
+    }
+  }
+</style>

@@ -7,10 +7,12 @@ import Footer from './Footer.astro';
 import HeroCaret from './HeroCaret.astro';
 import TextLink from './TextLink.astro';
 import AutoBorderImage from './AutoBorderImage.astro';
+import SkillCard from './SkillCard.astro';
+import { skills } from '../data/skills';
 import { getEdge } from '../lib/edge-brightness';
 
 /**
- * /components/ 的预览渲染：按 slug 输出组件实例。
+ * /design/components/<slug>/ 的预览渲染：按 slug 输出组件实例。
  * cls / style 来自注册表 resolveVariant，落在预览根元素上；
  * Playground 的原生 JS 也只切换根元素（容器的第一个子元素）的 class 与 style。
  */
@@ -68,7 +70,9 @@ const ratio = style.match(/aspect-ratio:\s*([^;]+)/)?.[1] ?? '16 / 9';
     ))}
   </div>
 )}
-{slug === 'badge' && <span class={cls}>示例标签</span>}
+{slug === 'badge' && <span class:list={['badge', cls]}>示例标签</span>}
+{slug === 'skill-card' && <SkillCard skill={skills[0]} />}
+{slug === 'chip' && <span class:list={['chip', cls]}>示例标签</span>}
 {slug === 'card' && (
   <div class:list={['card', 'sample-card', cls]}>
     <span class="mono-sm">Card · Hover Me</span>

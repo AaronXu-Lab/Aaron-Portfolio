@@ -35,6 +35,7 @@ export interface ToolEntry {
   slug: string;
   name: string;
   en: string;
+  /** 造物页卡片描述：最多三行（约 45 个字） */
   description: string;
   /** 工具卡片使用的方形图标（public 路径） */
   icon: string;
@@ -50,6 +51,11 @@ export interface ToolEntry {
   href?: string;
   /** 在新标签页打开（独立壳工具，脱离主站导航） */
   newTab?: boolean;
+  /**
+   * 小游戏卡片的底：用游戏打开后看到的背景（取自游戏自己的资源 / CSS，属于工具独立视觉，不走主站 token），
+   * tone 决定卡片文字用深色还是浅色
+   */
+  cover?: { background: string; tone: 'dark' | 'light' };
 }
 
 export const products: ProductEntry[] = [
@@ -131,8 +137,7 @@ export const games: ToolEntry[] = [
     slug: 'flying-ninja-cat',
     name: '飞天忍者猫',
     en: 'FLYING NINJA CAT',
-    description:
-      '童年 Flash 页游的纯 H5 重制：以 Canvas 还原跑、跳、射绳、摆荡与吃金币的经典手感，不需要 Flash 或模拟器。点击起跳，再次点击发射绳索，在夜空中一路向前；成绩只存在本机，纯本地游玩。',
+    description: '童年 Flash 页游的 H5 重制：点击起跳、发射绳索，在夜空里一路摆荡向前，吃金币。',
     icon: '/tools/flying-ninja-cat/icon.png',
     iconAlt: '飞天忍者猫游戏图标',
     pwa: false,
@@ -142,13 +147,18 @@ export const games: ToolEntry[] = [
     date: '2026.07',
     href: '/tools/flying-ninja-cat/',
     newTab: true,
+    // 打开后的标题画面：夜空 + 屋顶；压一层夜空色渐变保证文字可读
+    cover: {
+      background:
+        "linear-gradient(180deg, rgb(6 20 38 / 0.2) 0%, rgb(6 20 38 / 0.86) 42%, rgb(6 20 38 / 0.95) 100%), url('/tools/flying-ninja-cat/assets/backgrounds/title-wide.jpg') 70% 0% / auto 160%",
+      tone: 'dark',
+    },
   },
   {
     slug: 'candy-match',
     name: '糖果漫游',
     en: 'CANDY MATCH',
-    description:
-      '一场装进口袋的无限流糖果三消：限时完成随机出现的收集、积分与技能任务，赢取糖果券来兑换提示、技能糖、任务跳过与延时；四消、L 形与五消也会生成带连锁效果的技能糖。成绩只存在本机，支持离线游玩。',
+    description: '无限流糖果三消：限时完成随机任务，赚糖果券换道具；四消、五消会生成连锁技能糖。',
     icon: '/tools/candy-match/icon.svg',
     iconAlt: '糖果漫游图标',
     pwa: true,
@@ -157,6 +167,12 @@ export const games: ToolEntry[] = [
     date: '2026.07',
     href: '/tools/candy-match/',
     newTab: true,
+    // 与 public/tools/candy-match/css/style.css 的 body 背景一致：奶油桃色 + 淡紫光斑
+    cover: {
+      background:
+        'radial-gradient(circle at 12% 5%, rgb(255 207 165 / 0.65), transparent 70%), radial-gradient(circle at 90% 8%, rgb(210 191 255 / 0.5), transparent 70%), linear-gradient(145deg, #fff9ef, #f8efff)',
+      tone: 'light',
+    },
   },
 ];
 
@@ -172,8 +188,7 @@ export const tools: ToolEntry[] = [
     slug: 'prompt-lab',
     name: 'Prompt 擂台',
     en: 'PROMPT ARENA',
-    description:
-      '同一段固定 Prompt，不同模型的产品实现：切换模型与版本，直接体验作品，一键复制测试题。支持安装与离线访问已缓存作品。',
+    description: '同一段 Prompt 交给不同模型实现，切换着直接体验各自的作品。',
     icon: '/tools/prompt-lab/pelican-v4-192.png',
     iconAlt: '鹈鹕骑自行车，Prompt 擂台图标',
     pwa: true,
@@ -187,8 +202,7 @@ export const tools: ToolEntry[] = [
     slug: 'stash',
     name: '暂存箱',
     en: 'STASH',
-    description:
-      '一个公共暂存箱：随手放下文字或一个文件，换台设备直接取用。无需登录，每次修改后保留 7 天，支持最大 10 MB 的文件。',
+    description: '免登录的公共暂存箱：放下一段文字或一个文件，换台设备直接取，保留 7 天。',
     icon: '/tools/stash/icon-192.png',
     iconAlt: '暂存箱图标',
     pwa: true,
@@ -202,8 +216,7 @@ export const tools: ToolEntry[] = [
     slug: 'flypy',
     name: '小鹤双拼练习器',
     en: 'FLYPY TRAINER',
-    description:
-      '专注小鹤双拼的离线练习器：支持实体键盘与可收起的触屏软键盘，逐键提示声母和韵母；也可以粘贴自己的中文文本反复练习。',
+    description: '小鹤双拼的离线练习器，支持实体键盘和触屏，逐键提示，也能练自己的文本。',
     icon: '/tools/flypy/icon-192.png',
     iconAlt: '小鹤双拼练习器图标',
     pwa: true,
@@ -215,8 +228,7 @@ export const tools: ToolEntry[] = [
     slug: 'focus-forest',
     name: '专注森林',
     en: 'FOCUS FOREST',
-    description:
-      '开始专注就种下一颗种子：一株低多边形 3D 植物随进度长过种子、发芽、幼苗、成长、成熟五个阶段，完成后种进你的森林，点开每棵树都能看到它对应的那次专注。数据只存在本机，离线可用。',
+    description: '专注时种下一株 3D 植物，随进度长大，完成后种进你的森林。数据只存在本机。',
     icon: '/tools/focus-forest/icon.svg',
     iconAlt: '专注森林图标',
     pwa: true,
@@ -230,8 +242,7 @@ export const tools: ToolEntry[] = [
     slug: 'grid-breakpoint',
     name: 'Grid 断点计算器',
     en: 'GRID BREAKPOINT',
-    description:
-      '不预设 768 / 1024 / 1280，而是从 max-width、列数与间距反推断点：让 Grid 每次减少一列时，切换前后的单列宽度相对默认列宽的偏差相等。带实时预览、逐档偏差表与可复制的 CSS。纯本地计算，离线可用。',
+    description: '从最大宽度、列数和间距反推响应式断点，带实时预览和可复制的 CSS。',
     icon: '/tools/grid-breakpoint/icon.svg',
     iconAlt: 'Grid 断点计算器图标',
     pwa: true,
@@ -245,8 +256,7 @@ export const tools: ToolEntry[] = [
     slug: 'travel-maps',
     name: '出发吧打工人！',
     en: 'TRAVEL MAPS',
-    description:
-      '一张手账风格的真实等时旅行地图：支持上海 / 北京 / 广州 / 深圳 / 杭州五个出发地，按高铁 / 飞机 / 驾车算出近 190 个城市的门到门耗时，配水彩等时圈与逐城攻略手账。',
+    description: '手账风格的等时旅行地图：从五个出发城市，看高铁、飞机、驾车到各城要多久。',
     icon: '/tools/travel-maps/travel-logo.png',
     iconAlt: '出发吧打工人旅行地图图标',
     pwa: false,
@@ -260,8 +270,7 @@ export const tools: ToolEntry[] = [
     slug: 'mesh-gradient',
     name: 'Mesh Gradient 图片生成器',
     en: 'MESH GRADIENT',
-    description:
-      '把一张截图放进可控的 Mesh Gradient 背景里：切换 2 / 3 / 4 个渐变点并各自调色，设置四周留白与柔和阴影，实时预览后按真实画布尺寸导出 PNG；编辑状态可连同图片一起存成配置文件，下次上传即还原。图片只在本机处理，不上传。',
+    description: '给截图加上可调的 Mesh Gradient 背景、留白与阴影，按原尺寸导出 PNG。',
     icon: '/tools/mesh-gradient/icon.svg',
     iconAlt: 'Mesh Gradient 图片生成器图标',
     pwa: false,

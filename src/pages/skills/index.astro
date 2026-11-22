@@ -1,5 +1,7 @@
 ---
 import Icon from '../../components/Icon.astro';
+import SkillCard from '../../components/SkillCard.astro';
+import SkillSheet from '../../components/SkillSheet.astro';
 import Base from '../../layouts/Base.astro';
 import { skills } from '../../data/skills';
 
@@ -15,6 +17,11 @@ const groups = [
 >
   <div class="skills-page container">
     <header class="page-head">
+      <!-- Skill 页是造物的子页面：顶部给一个返回上级的入口，回到造物页的 Agent Skills 区块 -->
+      <a class="back-link reveal" href="/products/#sec-skills">
+        <Icon name="arrow-left" size={14} />
+        造物
+      </a>
       <div class="mono-label reveal">Skills · Hand-crafted</div>
       <h1 class="display reveal" style="--d:.05s">自写<span class="accent-text"> Skill</span>.</h1>
       <p class="lead reveal" style="--d:.1s">
@@ -26,10 +33,9 @@ const groups = [
     {
       skills.length > 0 ? (
         <>
-          {groups.map((group, index) => (
+          {groups.map((group) => (
             <section class="block" aria-labelledby={`section-${group.id}`}>
               <button class="section-head section-toggle reveal" type="button" aria-expanded="true" aria-controls={`panel-${group.id}`}>
-                <span class="num">{String(index + 1).padStart(2, '0')}</span>
                 <span class="zh" id={`section-${group.id}`}>{group.title}</span>
                 <span class="en">{group.en}</span>
                 <Icon name="caret-down" size={15} class="toggle-caret" />
@@ -39,30 +45,7 @@ const groups = [
               <ol class="skill-list">
           {skills.filter((s) => s.group === group.id).map((s, i) => (
             <li class="reveal" style={`--d:${0.05 * i}s`}>
-              <article class="skill-card">
-                <div class="card-top">
-                  <span class="mono-sm num">{String(i + 1).padStart(2, '0')}</span>
-                  {s.status === 'wip' && <span class="chip wip mono-sm">打磨中</span>}
-                  {s.date && <span class="mono-sm date">{s.date}</span>}
-                </div>
-                <h3>
-                  {s.href ? (
-                    <a href={s.href} target="_blank" rel="noopener">
-                      {s.name} ↗
-                    </a>
-                  ) : (
-                    s.name
-                  )}
-                </h3>
-                <p>{s.description}</p>
-                {s.tags && s.tags.length > 0 && (
-                  <div class="tags">
-                    {s.tags.map((t) => (
-                      <span class="chip mono-sm">{t}</span>
-                    ))}
-                  </div>
-                )}
-              </article>
+              <SkillCard skill={s} sheet />
             </li>
           ))}
               </ol>
@@ -70,6 +53,7 @@ const groups = [
               </div>
             </section>
           ))}
+          <SkillSheet skills={skills} />
         </>
       ) : (
         <div class="empty-state reveal" style="--d:.15s">
@@ -106,6 +90,43 @@ const groups = [
 
   .page-head {
     margin-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 28px;
+    padding: 6px 12px 6px 10px;
+    border-radius: var(--radius-pill);
+    color: var(--text-2);
+    font-size: 14px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .back-link :global(svg) {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .back-link:hover {
+      color: var(--text);
+      background: color-mix(in oklch, var(--text) 6%, transparent);
+    }
+
+    .back-link:hover :global(svg) {
+      transform: translateX(-3px);
+    }
+  }
+
+  .back-link:active {
+    background: color-mix(in oklch, var(--text) 9%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-link :global(svg) {
+      transition: none;
+    }
   }
 
   .page-head .mono-label {
@@ -166,14 +187,17 @@ const groups = [
   }
 
   /* 裁剪层:不带内边距,才能被 0fr 轨道压到 0 */
+  /* 裁剪层向左右、下方各外扩一圈，卡片悬停的阴影（向下约 30px、两侧约 15px）不会被 overflow 切掉；
+     列表再用等量 padding 缩回来，版面位置不变 */
   .collapse-inner {
     min-height: 0;
     overflow: hidden;
+    margin: 0 -24px -40px;
   }
 
   /* 头与列表间距活在裁剪层内部,折叠时一并收起 */
   .collapse-inner > :global(ol) {
-    padding-top: clamp(28px, 4vw, 44px);
+    padding: clamp(28px, 4vw, 44px) 24px 40px;
   }
 
   .block.collapsed .collapse {
@@ -192,73 +216,9 @@ const groups = [
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-
-  .skill-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: clamp(20px, 3vw, 28px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    transition: border-color 0.2s ease, transform 0.3s var(--ease-out);
-  }
-
-  .skill-card:hover {
-    border-color: var(--accent-border);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .skill-card:hover {
-      transform: translateY(-2px);
-    }
-  }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-mono);
-  }
-
-  .card-top .date {
-    margin-left: auto;
-  }
-
-  .skill-card h3 {
-    font-size: 19px;
-    letter-spacing: -0.01em;
-  }
-
-  .skill-card h3 a {
-    color: inherit;
-  }
-
-  .skill-card h3 a:hover {
-    color: var(--accent-strong);
-  }
-
-  .skill-card p {
-    color: var(--text-2);
-    font-size: 14.5px;
-    line-height: 1.7;
-  }
-
-  .tags {
-    margin-top: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding-top: 8px;
-  }
-
-  .chip.wip {
-    color: var(--accent-strong);
-    border-color: var(--accent-border);
+    /* 内容区 1192px 下一行五张 */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 16px;
   }
 
   .empty-state {

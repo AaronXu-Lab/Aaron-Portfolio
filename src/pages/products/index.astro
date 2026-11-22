@@ -1,659 +1,693 @@
 ---
+/**
+ * /products/ 造物页 —— 对应 Design 画板「子页面 · 重设计 › 造物 /products」。
+ * 01 产品 → 02 小工具 → 03 玩个 Go → 04 Agent Skills（三个代表 + 查看全部）→ 05 设计系统。
+ * 大产品与 Skill 代表和首页 02 造物同源（src/data/showcase.ts）。
+ */
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import { products, tools, games } from '../../data/products';
+import AutoBorderImage from '../../components/AutoBorderImage.astro';
+import SkillCard from '../../components/SkillCard.astro';
+import SkillSheet from '../../components/SkillSheet.astro';
+import { tools, games } from '../../data/products';
+import { skills as agentSkills } from '../../data/skills';
+import { featuredProduct, productCards, skillPicks, designSystems, type Platform } from '../../data/showcase';
+
+const ext = { target: '_blank', rel: 'noopener' };
+const platformIcon: Record<Platform, string> = {
+  Web: 'globe',
+  SwiftUI: 'apple-logo',
+  iOS: 'apple-logo',
+  Android: 'android-logo',
+};
+/** PWA 徽标悬停时的说明 */
+const PWA_TIP = 'PWA（渐进式网页应用）：可以像 App 一样安装到手机主屏幕或电脑桌面，离线也能打开。';
+const toolHref = (t: { slug: string; href?: string }) => t.href ?? `/tools/${t.slug}/`;
 ---
 
 <Base
   title="造物 - Aaron Xu"
-  description="Aaron Xu 独立开发的产品与小工具：漫画阅读 App、Figma 插件套件、加密便签，以及一组解决日常小麻烦的工具。"
+  description="Aaron Xu 工作之外独立完成的产品、小工具、小游戏、Agent Skill 与设计系统。"
 >
   <div class="products-page container">
     <header class="page-head">
-      <div class="mono-label reveal">Creations · Built & Shipped</div>
-      <h1 class="display reveal" style="--d:.05s">自研<span class="accent-text">造物</span>.</h1>
+      <div class="mono-label reveal">Products</div>
+      <h1 class="page-title reveal" style="--d:.05s">造物</h1>
       <p class="lead reveal" style="--d:.1s">
-        工作之外，我也独立开发点东西 —— 从上架 App Store 的漫画阅读器，
-        到开源的设计迁移插件，再到解决日常小麻烦的小工具。
+        工作之外，从设计到代码都由自己完成的东西：认真维护的产品、顺手做的小工具和小游戏、给设计师用的 Agent Skill，以及几套设计系统。
       </p>
     </header>
 
     <!-- ============ 01 产品 ============ -->
-    <section class="block" aria-labelledby="sec-products">
-      <button
-        class="section-head section-toggle reveal"
-        type="button"
-        aria-expanded="true"
-        aria-controls="panel-products"
-      >
-        <span class="num">01</span>
-        <span class="zh" id="sec-products">大产品</span>
-        <span class="en">Big Products</span>
-        <Icon name="caret-down" size={15} class="toggle-caret" />
-      </button>
-      <div class="collapse" id="panel-products">
-      <div class="collapse-inner">
-      <ol class="product-list">
+    <section class="block" id="sec-products" aria-labelledby="h-products">
+      <div class="block-head reveal">
+        <h2 id="h-products">产品</h2>
+      </div>
+
+      <a class="feature reveal" href={featuredProduct.href} {...ext}>
+        <span class="feature-top">
+          <span class="feature-id">
+            <AutoBorderImage src={featuredProduct.icon} size={56} radius={14} />
+            <span class="feature-name-wrap">
+              <span class="feature-name">{featuredProduct.name}</span>
+              <span class="feature-kind">{featuredProduct.kind}</span>
+            </span>
+          </span>
+          <span class="feature-desc">{featuredProduct.desc}</span>
+        </span>
+        <span class="feature-numbers">
+          {
+            featuredProduct.numbers.map((n) => (
+              <span class="number">
+                <span class="number-value">{n.value}</span>
+                <span class="number-label">{n.label}</span>
+              </span>
+            ))
+          }
+        </span>
+      </a>
+
+      <ul class="product-grid" role="list">
         {
-          products.map((p, i) => {
-            const titleLink = p.links.find((link) => !link.href.startsWith('/'));
-            return (
-            <li class="reveal" style={`--d:${0.06 * i}s`}>
-              <article class="product-card card">
-                <img
-                  class="product-icon"
-                  src={p.image}
-                  alt={p.imageAlt}
-                  width="96"
-                  height="96"
-                  loading="lazy"
-                />
-                <div class="product-body">
-                  <div class="product-title">
-                    <h2>
-                      {titleLink ? (
-                        <a
-                          href={titleLink.href}
-                          target="_blank"
-                          rel="noopener"
-                          class="product-name-link"
-                        >
-                          {p.name}
-                        </a>
-                      ) : p.name}
-                    </h2>
-                    <span class="mono-sm en">{p.en}</span>
-                  </div>
-                  <p class="tagline">{p.tagline}</p>
-                  <p class="desc">{p.description}</p>
-                  <div class="product-meta">
-                    {p.tags.map((t) => (
-                      <span class="chip mono-sm">{t}</span>
-                    ))}
-                    <div class="links">
-                      {p.links.map((l) => (
-                        <a
-                          class="product-link mono-sm"
-                          href={l.href}
-                          target={l.href.startsWith('/') ? undefined : '_blank'}
-                          rel={l.href.startsWith('/') ? undefined : 'noopener'}
-                        >
-                          <Icon name={l.icon} size={14} />
-                          {l.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </article>
+          productCards.map((p, i) => (
+            <li class="reveal" style={`--d:${i * 0.06}s`}>
+              <a class="card-link product-card" href={p.href} {...(p.external ? ext : {})}>
+                <span class="product-top">
+                  <AutoBorderImage src={p.icon} size={48} radius={12} />
+                  <Icon name="arrow-up-right" size={16} class="arr" />
+                </span>
+                <span class="product-name">{p.name}</span>
+                <span class="product-desc">{p.desc}</span>
+                <span class="product-kind mono-sm">{p.kind}</span>
+              </a>
             </li>
-            );
-          })
+          ))
         }
-      </ol>
-      </div>
-      </div>
+      </ul>
     </section>
 
     <!-- ============ 02 小工具 ============ -->
-    <section class="block" aria-labelledby="sec-tools">
-      <button
-        class="section-head section-toggle reveal"
-        type="button"
-        aria-expanded="true"
-        aria-controls="panel-tools"
-      >
-        <span class="num">02</span>
-        <span class="zh" id="sec-tools">小工具</span>
-        <span class="en">Mini Tools</span>
-        <Icon name="caret-down" size={15} class="toggle-caret" />
-      </button>
-      <div class="collapse" id="panel-tools">
-      <div class="collapse-inner">
-      <ol class="tool-list">
+    <section class="block" id="sec-tools" aria-labelledby="h-tools">
+      <div class="block-head reveal">
+        <h2 id="h-tools">小工具</h2>
+      </div>
+      <ul class="tile-grid" role="list">
         {
           tools.map((t, i) => (
-            <li class="reveal" style={`--d:${0.06 * i}s`}>
-              <a
-                class="tool-card"
-                href={t.href ?? `/tools/${t.slug}/`}
-                target={t.newTab ? '_blank' : undefined}
-                rel={t.newTab ? 'noopener' : undefined}
-              >
-                <div class="card-top">
-                  <span class="mono-sm num">{String(i + 1).padStart(2, '0')}</span>
-                  <span class="mono-sm en">{t.en}</span>
-                  {t.pwa && <span class="chip pwa mono-sm">PWA</span>}
-                  {t.badge && <span class="chip tag mono-sm">{t.badge}</span>}
-                </div>
-                <div class="tool-heading">
-                  <img
-                    class="tool-icon"
-                    src={t.icon}
-                    alt={t.iconAlt}
-                    width="44"
-                    height="44"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <h3>
-                    {t.name}
-                    <span class="arr" aria-hidden="true">
-                      →
-                    </span>
-                  </h3>
-                </div>
-                <p>{t.description}</p>
+            <li class="reveal" style={`--d:${Math.min(i, 6) * 0.04}s`}>
+              <a class="card-link tile" href={toolHref(t)} {...(t.newTab ? ext : {})}>
+                <span class="tile-top">
+                  <AutoBorderImage src={t.icon} alt={t.iconAlt ?? ''} size={40} />
+                  {t.pwa && <span class="pwa mono-sm" data-tip={PWA_TIP}>PWA</span>}
+                </span>
+                <span class="tile-name">{t.name}</span>
+                <span class="tile-desc">{t.description}</span>
               </a>
             </li>
           ))
         }
-      </ol>
-      </div>
-      </div>
+      </ul>
     </section>
 
-    <!-- ============ 03 玩个 Go ============ -->
-    <section class="block" aria-labelledby="sec-games">
-      <button
-        class="section-head section-toggle reveal"
-        type="button"
-        aria-expanded="true"
-        aria-controls="panel-games"
-      >
-        <span class="num">03</span>
-        <span class="zh" id="sec-games">玩个 Go</span>
-        <span class="en">Play a Game</span>
-        <Icon name="caret-down" size={15} class="toggle-caret" />
-      </button>
-      <div class="collapse" id="panel-games">
-      <div class="collapse-inner">
-      <ol class="game-list">
+    <!-- ============ 03 玩个 Go：与小工具同一种卡片 ============ -->
+    <section class="block" id="sec-games" aria-labelledby="h-games">
+      <div class="block-head reveal">
+        <h2 id="h-games">玩个 Go</h2>
+      </div>
+      <ul class="tile-grid" role="list">
         {
           games.map((g, i) => (
-            <li class="reveal" style={`--d:${0.06 * i}s`}>
+            <li class="reveal" style={`--d:${i * 0.04}s`}>
               <a
-                class="game-card"
-                href={g.href ?? `/tools/${g.slug}/`}
-                target={g.newTab ? '_blank' : undefined}
-                rel={g.newTab ? 'noopener' : undefined}
+                class:list={['card-link', 'tile', g.cover && `game-${g.cover.tone}`]}
+                href={toolHref(g)}
+                style={g.cover ? `background: ${g.cover.background}` : undefined}
+                {...(g.newTab ? ext : {})}
               >
-                <div class="game-art">
-                  {g.pwa && <span class="chip pwa mono-sm">PWA</span>}
-                  {g.badge && <span class="chip tag mono-sm">{g.badge}</span>}
-                  <img
-                    class="game-icon"
-                    src={g.icon}
-                    alt=""
-                    width="88"
-                    height="88"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="game-body">
-                  <h3>{g.name}</h3>
-                  <p>{g.description}</p>
-                </div>
-                <span class="play mono-sm">
-                  <Icon name="game-controller" size={15} class="play-icon" />
-                  开始游戏
+                <span class="tile-top">
+                  <AutoBorderImage src={g.icon} size={40} />
+                  {g.pwa && <span class="pwa mono-sm" data-tip={PWA_TIP}>PWA</span>}
                 </span>
+                <span class="tile-name">{g.name}</span>
+                <span class="tile-desc">{g.description}</span>
               </a>
             </li>
           ))
         }
-      </ol>
+      </ul>
+    </section>
+
+    <!-- ============ 04 Agent Skills：三个代表 + 查看全部 ============ -->
+    <section class="block" id="sec-skills" aria-labelledby="h-skills">
+      <div class="block-head reveal">
+        <h2 id="h-skills">Agent Skills</h2>
       </div>
+      <ul class="tile-grid" role="list">
+        {
+          skillPicks.map((sk, i) => (
+            <li class="reveal" style={`--d:${i * 0.05}s`}>
+              <SkillCard skill={sk} sheet />
+            </li>
+          ))
+        }
+        <li class="reveal" style="--d:.15s">
+          <a class="card-link tile tile-more" href="/skills/">
+            <span class="more-icon" aria-hidden="true"><Icon name="squares-four" size={20} /></span>
+            <span class="more-cta">查看全部 {agentSkills.length} 个 Skill<Icon name="arrow-right" size={14} /></span>
+            <span class="tile-desc">越写越多，已经放不下了，所以单独收到一个页面里了。</span>
+          </a>
+        </li>
+      </ul>
+      <SkillSheet skills={skillPicks} />
+    </section>
+
+    <!-- ============ 05 设计系统 ============ -->
+    <section class="block" id="sec-design" aria-labelledby="h-design">
+      <div class="block-head reveal">
+        <h2 id="h-design">设计系统</h2>
       </div>
+      <ul class="ds-list reveal" role="list">
+        {
+          designSystems.map((d) => (
+            <li>
+              <a class="ds-row" href={d.href} {...(d.external ? ext : {})}>
+                {d.icon ? (
+                  <AutoBorderImage src={d.icon} size={40} radius={10} />
+                ) : (
+                  <span class="ds-mark" role="img" aria-label={`${d.name} 图标`}>{d.mark}</span>
+                )}
+                <span class="ds-id">
+                  <span class="ds-name">{d.name}</span>
+                  <span class="ds-platforms" aria-label="支持平台">
+                    {d.platforms.map((pf) => (
+                      <span class="ds-platform">
+                        <Icon name={platformIcon[pf]} size={13} />
+                        {pf}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+                <span class="ds-desc">{d.desc}</span>
+                <Icon name="arrow-up-right" size={16} class="arr" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </section>
   </div>
 </Base>
 
-<script>
-  // Section 折叠:grid-template-rows 0fr↔1fr 的可中断 transition,caret 旋转指示
-  for (const btn of document.querySelectorAll<HTMLButtonElement>('.section-toggle')) {
-    btn.addEventListener('click', () => {
-      const block = btn.closest('.block');
-      if (!block) return;
-      const collapsed = block.classList.toggle('collapsed');
-      btn.setAttribute('aria-expanded', String(!collapsed));
-    });
-  }
-</script>
-
 <style>
-  /* 页头节奏与博客/组件页保持一致 */
   .products-page {
-    padding-top: clamp(112px, 15vw, 168px);
+    padding-top: clamp(112px, 15vw, 132px);
+    padding-bottom: clamp(80px, 10vw, 120px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(56px, 8vw, 88px);
   }
 
   .page-head {
-    margin-bottom: clamp(40px, 6vw, 64px);
-  }
-
-  .page-head .mono-label {
-    display: block;
-    margin-bottom: 22px;
-  }
-
-  .page-head h1 {
-    margin-bottom: 22px;
-  }
-
-  .page-head .lead {
-    max-width: 58ch;
-  }
-
-  .block + .block {
-    margin-top: clamp(56px, 8vw, 88px);
-  }
-
-  /* ---- 可折叠 Section 头(button 化,复用 .section-head 视觉) ---- */
-  .section-toggle {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
-    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 40px;
     border-bottom: 1px solid var(--border);
-    text-align: left;
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
-    /* 头本身不再留下方间距,间距挪进可折叠区,折叠时一并收起 */
-    margin-bottom: 0;
-    transition: border-color 0.2s ease;
   }
 
-  /* caret 是 <Fragment set:html> 注入的原始 svg,拿不到 Astro 作用域属性,故用 :global */
-  .section-toggle :global(.toggle-caret) {
-    margin-left: auto;
-    align-self: center;
+  .page-title {
+    font-size: clamp(40px, 6vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+  }
+
+  /* 子页面简介占满内容区宽度 */
+  .page-head .lead {
+    color: var(--text-2);
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    scroll-margin-top: 80px;
+  }
+
+  .block-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .block-head h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    font-weight: 800;
+  }
+
+  .block-note {
     color: var(--text-3);
-    transition: transform 0.28s var(--ease-out), color 0.2s ease;
+    font-size: 14px;
   }
 
-  .section-toggle:hover :global(.toggle-caret) {
-    color: var(--accent-strong);
+  .block-note.strong {
+    color: var(--text);
+    font-weight: 700;
   }
 
-  /* 折叠态:caret 转到向上(默认向下 = 展开) */
-  .block.collapsed :global(.toggle-caret) {
-    transform: rotate(-180deg);
+  /* 共用卡片交互 */
+  .card-link {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s var(--ease-out);
   }
 
-  .collapse {
-    display: grid;
-    grid-template-rows: 1fr;
-    transition: grid-template-rows 0.34s var(--ease-out), opacity 0.26s ease;
+  .card-link :global(.arr) {
+    color: var(--text-3);
+    transition: transform 0.25s var(--ease-out), color 0.2s ease;
   }
 
-  /* 裁剪层:不带内边距,才能被 0fr 轨道压到 0 */
-  .collapse-inner {
-    min-height: 0;
-    overflow: hidden;
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .card-link:hover,
+    .feature:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
 
-  /* 头与列表间距活在裁剪层内部,折叠时一并收起 */
-  .collapse-inner > :global(ol) {
-    padding-top: clamp(28px, 4vw, 44px);
-  }
-
-  .block.collapsed .collapse {
-    grid-template-rows: 0fr;
-    opacity: 0;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .collapse {
-      transition: opacity 0.2s ease;
+    .card-link:hover :global(.arr),
+    .ds-row:hover :global(.arr) {
+      transform: translate(2px, -2px);
+      color: var(--accent-strong);
     }
   }
 
+  .card-link:active,
+  .feature:active {
+    transform: scale(0.995);
+  }
+
   /* ---- 01 产品 ---- */
-  .product-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .feature {
     display: flex;
     flex-direction: column;
+    gap: 28px;
+    padding: clamp(24px, 4vw, 36px) clamp(24px, 4vw, 40px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+    background: var(--surface);
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s var(--ease-out);
+  }
+
+  .feature-top {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .feature-id {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .feature-name-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .feature-name {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .feature-kind {
+    color: var(--text-3);
+    font-size: 13px;
+  }
+
+  .feature-desc {
+    color: var(--text-2);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* 一条分隔线 + 三个大数字，不加框。默认（窄）在介绍下方、上方一条横线，介绍占满整行；
+     区块够宽时数字移到右侧，分隔线变成左侧竖线 */
+  .feature-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  #sec-products {
+    container-type: inline-size;
+  }
+
+  @container (min-width: 880px) {
+    .feature {
+      flex-direction: row;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .feature-top {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .feature-numbers {
+      flex: none;
+      flex-wrap: nowrap;
+      gap: 48px;
+      align-self: stretch;
+      align-items: center;
+      padding: 0 0 0 48px;
+      border-top: 0;
+      border-left: 1px solid var(--border-subtle);
+    }
+  }
+
+  .number {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .number-value {
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .number-label {
+    color: var(--text-3);
+    font-size: 13px;
+  }
+
+  .product-grid,
+  .tile-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
     gap: 20px;
   }
 
   .product-card {
+    gap: 14px;
+    padding: 24px;
+  }
+
+  .product-top,
+  .tile-top {
     display: flex;
-    gap: clamp(20px, 3.5vw, 36px);
-    padding: clamp(22px, 3.5vw, 34px);
-    border-radius: var(--radius-lg);
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
 
-  .product-icon {
-    flex-shrink: 0;
-    width: clamp(72px, 10vw, 96px);
-    height: clamp(72px, 10vw, 96px);
-    border-radius: 22%;
-    object-fit: cover;
+  .product-name {
+    font-size: 18px;
+    font-weight: 700;
   }
 
-  .product-body {
+  .product-desc {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 0;
-  }
-
-  .product-title {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .product-title h2 {
-    font-size: clamp(19px, 2.4vw, 22px);
-    letter-spacing: -0.01em;
-  }
-
-  .product-name-link {
-    color: inherit;
-    text-decoration: none;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-  }
-
-  .product-name-link:hover {
-    color: var(--accent-strong);
-    text-decoration: underline;
-    text-decoration-color: var(--accent-border);
-  }
-
-  .product-title .en {
-    color: var(--text-mono);
-    letter-spacing: 0.12em;
-  }
-
-  .tagline {
-    color: var(--accent-strong);
-    font-size: 14.5px;
-    font-weight: 500;
-  }
-
-  .desc {
     color: var(--text-2);
-    font-size: 14.5px;
-    line-height: 1.75;
-  }
-
-  .product-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
-  }
-
-  .links {
-    display: flex;
-    gap: 6px;
-    margin-left: auto;
-  }
-
-  .product-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 13px;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    color: var(--text-2);
-    transition: color 0.2s ease, border-color 0.2s ease, transform 0.16s var(--ease-out);
-  }
-
-  .product-link:hover {
-    color: var(--accent-strong);
-    border-color: var(--accent-border);
-  }
-
-  .product-link:active {
-    transform: scale(0.96);
-  }
-
-  /* ---- 02 小工具 ---- */
-  .tool-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-  }
-
-  .tool-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: clamp(20px, 3vw, 28px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    color: inherit;
-    transition: border-color 0.2s ease, transform 0.3s var(--ease-out);
-  }
-
-  .tool-card:hover {
-    border-color: var(--accent-border);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .tool-card:hover {
-      transform: translateY(-2px);
-    }
-  }
-
-  .tool-card:active {
-    transform: translateY(0) scale(0.995);
-  }
-
-  .tool-heading {
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .tool-icon {
-    width: clamp(38px, 4vw, 44px);
-    height: clamp(38px, 4vw, 44px);
-    flex: 0 0 auto;
-    object-fit: cover;
-    border-radius: 22%;
-    background: var(--surface-2);
-    box-shadow: var(--shadow-card);
-  }
-
-  /* 固定高度:有无 PWA 徽标的卡片，标题与正文都能对齐 */
-  .card-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 22px;
-    color: var(--text-mono);
-  }
-
-  .card-top .en {
-    letter-spacing: 0.12em;
-  }
-
-  /* PWA / 技术徽标:紧凑填充式小胶囊,不撑高行,与 mono 文字基线齐平 */
-  .chip.pwa,
-  .chip.tag {
-    margin-left: auto;
-    gap: 0;
-    padding: 2px 8px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--accent-strong);
-    background: color-mix(in oklch, var(--accent) 12%, transparent);
-    border-color: transparent;
-  }
-
-  .tool-card h3 {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    font-size: 20px;
-    letter-spacing: -0.01em;
-  }
-
-  .tool-card .arr {
-    color: var(--accent);
-    transition: transform 0.3s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .tool-card:hover .arr {
-      transform: translateX(4px);
-    }
-  }
-
-  .tool-card p {
-    color: var(--text-2);
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.7;
   }
 
-  /* ---- 03 玩个 Go：与小工具同宽的竖版卡，顶部多一块图标展台 ---- */
-  .game-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+  .product-kind {
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-mono);
   }
 
-  .game-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    color: inherit;
-    overflow: hidden;
-    transition: border-color 0.2s ease, transform 0.3s var(--ease-out);
+  /* ---- 02 / 03 / 04 共用小卡片 ---- */
+  .tile-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
   }
 
-  .game-card:hover {
-    border-color: var(--accent-border);
+  .tile {
+    gap: 12px;
+    padding: 20px;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .game-card:hover {
-      transform: translateY(-2px);
-    }
+  .tile-name {
+    font-size: 16px;
+    font-weight: 700;
   }
 
-  .game-card:active {
-    transform: translateY(0) scale(0.995);
+  .tile-desc {
+    flex: 1;
+    color: var(--text-2);
+    font-size: 13px;
+    line-height: 1.65;
   }
 
-  /* 展台：图标居中的浅色底板，比小工具卡多出的那截高度就在这里 */
-  .game-art {
+  .pwa {
     position: relative;
-    display: grid;
-    place-items: center;
-    padding: clamp(26px, 4vw, 36px) 20px;
-    background: var(--surface-accent);
-    border-bottom: 1px solid var(--border-subtle);
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    color: var(--text-mono);
+    font-size: 11px;
+    cursor: help;
   }
 
-  .game-art .chip.pwa,
-  .game-art .chip.tag {
+  /* 悬停 PWA 徽标时的说明气泡，右对齐在徽标下方。徽标在卡片链接里面，不能再单独获得焦点，
+     所以只做鼠标悬停提示，属于补充说明 */
+  .pwa::after {
+    content: attr(data-tip);
     position: absolute;
-    top: 12px;
-    right: 14px;
-    margin-left: 0;
-  }
-
-  .game-icon {
-    width: clamp(76px, 9vw, 88px);
-    height: clamp(76px, 9vw, 88px);
-    border-radius: 22%;
-    object-fit: cover;
+    top: calc(100% + 8px);
+    right: -4px;
+    z-index: 5;
+    width: max-content;
+    max-width: 220px;
+    padding: 8px 10px;
+    border-radius: var(--radius-lg);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.55;
+    letter-spacing: 0;
+    text-align: left;
+    white-space: normal;
     box-shadow: var(--shadow-card);
-    transition: transform 0.36s var(--ease-out);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.22s var(--ease-out);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .game-card:hover .game-icon {
-      transform: scale(1.05) rotate(-3deg);
+    .pwa:hover::after {
+      opacity: 1;
+      transform: none;
     }
   }
 
-  .game-body {
-    flex: 1;
+  @media (prefers-reduced-motion: reduce) {
+    .pwa::after {
+      transition: opacity 0.18s ease;
+      transform: none;
+    }
+  }
+
+  /* 小游戏卡：底图 / 底色来自游戏本身（data 里的 cover），文字明暗随 tone 切换 */
+  .game-dark {
+    border-color: transparent;
+    color: var(--band-text);
+  }
+
+  .game-dark .tile-desc {
+    color: var(--band-text-2);
+  }
+
+  .game-dark .pwa {
+    border-color: var(--band-border);
+    color: var(--band-text-2);
+  }
+
+  .game-light {
+    border-color: transparent;
+    color: var(--text);
+  }
+
+  .game-light .tile-desc {
+    color: var(--text-2);
+  }
+
+  /* 浅色游戏卡在深色主题下仍保持浅底，所以文字固定用浅色主题的深色值 */
+  :global([data-theme='dark']) .game-light {
+    color: oklch(0.24 0.012 264);
+  }
+
+  :global([data-theme='dark']) .game-light .tile-desc,
+  :global([data-theme='dark']) .game-light .pwa {
+    color: oklch(0.46 0.012 264);
+    border-color: oklch(0.86 0.006 264);
+  }
+
+  /* 「查看全部」格：与另外三张同款白卡，用图标 + 蓝色标题区分（同首页「查看全部小工具」） */
+  .more-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+  }
+
+  .more-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-strong);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .more-cta :global(svg) {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tile-more:hover .more-cta :global(svg) {
+      transform: translateX(3px);
+    }
+  }
+
+  /* ---- 05 设计系统 ---- */
+  .ds-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .ds-list li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-row {
+    display: grid;
+    /* 名称列按内容宽度（最窄 180px，放得下三个平台），间距收紧：图标与名称 14px，名称与描述 40px */
+    grid-template-columns: 40px minmax(180px, max-content) minmax(0, 1fr) auto;
+    column-gap: 14px;
+    align-items: center;
+    padding: 16px 8px;
+    border-radius: var(--radius);
+    color: inherit;
+    transition: background-color 0.2s ease;
+  }
+
+  .ds-row :global(.arr) {
+    color: var(--text-3);
+    transition: transform 0.25s var(--ease-out), color 0.2s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .ds-row:hover {
+      background: color-mix(in oklch, var(--surface) 70%, transparent);
+    }
+  }
+
+  .ds-row:active {
+    background: color-mix(in oklch, var(--surface) 45%, transparent);
+  }
+
+  .ds-mark {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    background: var(--surface-2);
+    color: var(--text-2);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .ds-id {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: clamp(20px, 3vw, 26px) clamp(20px, 3vw, 28px) 0;
+    gap: 6px;
   }
 
-  .game-card h3 {
-    text-align: center;
-    font-size: 20px;
-    letter-spacing: -0.01em;
+  .ds-name {
+    font-size: 17px;
+    font-weight: 700;
   }
 
-  .game-card p {
+  .ds-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .ds-platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-mono);
+    font-size: 12px;
+  }
+
+  .ds-desc {
+    padding-left: 26px;
     color: var(--text-2);
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.7;
   }
 
-  .play {
-    align-self: center;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin: 18px clamp(20px, 3vw, 28px) clamp(20px, 3vw, 26px);
-    padding: 9px 18px;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    color: var(--text-2);
-    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-  }
+  @media (max-width: 720px) {
+    .ds-row {
+      grid-template-columns: 40px minmax(0, 1fr) auto;
+    }
 
-  .game-card:hover .play {
-    color: var(--btn-text);
-    border-color: var(--btn-bg);
-    background: var(--btn-bg);
-  }
-
-  /* Icon 是 <Fragment set:html> 注入的原始 svg，拿不到作用域属性，故用 :global */
-  .play :global(.play-icon) {
-    flex: 0 0 auto;
-    transition: transform 0.3s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .game-card:hover .play :global(.play-icon) {
-      transform: translateX(-2px) rotate(-8deg);
+    .ds-desc {
+      grid-column: 2 / 4;
+      padding-left: 0;
     }
   }
 
-  @media (max-width: 560px) {
-    .product-card {
-      flex-direction: column;
-    }
-
-    .links {
-      margin-left: 0;
+  @media (prefers-reduced-motion: reduce) {
+    .card-link,
+    .feature {
+      transition: none;
     }
   }
 </style>

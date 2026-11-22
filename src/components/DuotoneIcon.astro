@@ -1,0 +1,24 @@
+---
+/**
+ * Phosphor duotone 图标：按名字从 @phosphor-icons/core 的 duotone 目录按需读取，构建时内联，零运行时。
+ * 颜色跟随 currentColor（浅色层是同色 20% 透明度）。Skill 的图标名登记在 src/data/skills.ts 的 icon 字段。
+ */
+interface Props {
+  /** 图标名，不带 -duotone 后缀，如 'tree-structure' */
+  name: string;
+  size?: number;
+  class?: string;
+}
+const { name, size = 24, class: className } = Astro.props;
+
+const loaders = import.meta.glob<string>('/node_modules/@phosphor-icons/core/assets/duotone/*-duotone.svg', {
+  query: '?raw',
+  import: 'default',
+});
+const load = loaders[`/node_modules/@phosphor-icons/core/assets/duotone/${name}-duotone.svg`];
+if (!load) throw new Error(`DuotoneIcon：找不到 Phosphor duotone 图标「${name}」`);
+const cls = className ? ` class="${className}"` : '';
+const svg = (await load()).replace('<svg ', `<svg width="${size}" height="${size}" aria-hidden="true"${cls} `);
+---
+
+<Fragment set:html={svg} />

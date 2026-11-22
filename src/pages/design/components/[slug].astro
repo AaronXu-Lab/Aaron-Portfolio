@@ -1,7 +1,7 @@
 ---
-import ComponentsLayout from '../../layouts/ComponentsLayout.astro';
-import ComponentPreview from '../../components/ComponentPreview.astro';
-import { components, resolveVariant, type ComponentDef } from '../../data/components';
+import ComponentsLayout from '../../../layouts/ComponentsLayout.astro';
+import ComponentPreview from '../../../components/ComponentPreview.astro';
+import { components, resolveVariant, type ComponentDef } from '../../../data/components';
 
 export function getStaticPaths() {
   return components.map((def) => ({ params: { slug: def.slug }, props: { def } }));
@@ -13,7 +13,7 @@ const base = resolveVariant(def);
 const stageStyle = def.previewWidth ? `--pw:${def.previewWidth}px` : undefined;
 ---
 
-<ComponentsLayout title={`${def.name} - 组件 - Aaron Xu`} description={def.summary} current={def.slug}>
+<ComponentsLayout title={`${def.name} - 组件 - 设计系统 - Aaron Xu`} description={def.summary} current={def.slug}>
   <header class="pg-head">
     <h1 class="display">{def.name}</h1>
     <p class="lead">{def.summary}</p>

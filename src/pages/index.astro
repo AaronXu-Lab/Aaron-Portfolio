@@ -11,11 +11,12 @@ import Icon from '../components/Icon.astro';
 import SkillIcon from '../components/SkillIcon.astro';
 import HeroCaret from '../components/HeroCaret.astro';
 import TextLink from '../components/TextLink.astro';
+import DuotoneIcon from '../components/DuotoneIcon.astro';
 import AutoBorderImage from '../components/AutoBorderImage.astro';
 import ReviewWall from '../components/ReviewWall.astro';
 import { mastergoReviews, REVIEWS_ARE_SAMPLE } from '../data/reviews';
-import { historical } from '../data/cases';
-import { products, tools, games } from '../data/products';
+import { tools, games } from '../data/products';
+import { works, earlyWorks, nodeOf, featuredProduct, productCards, skillPicks } from '../data/showcase';
 import { formatDate, postSummary } from '../utils';
 import { skills, jobs, profile, RESUME_PDF } from '../data/about';
 import { skills as agentSkills } from '../data/skills';
@@ -28,11 +29,10 @@ const posts = (await getCollection('blog'))
   .map((post) => ({ ...post, summary: postSummary(post.body) }));
 
 /* ---------- 首屏证据卡 ---------- */
-const figmaOf = (label: string) => historical.find((h) => h.label === label)?.figma ?? '/work/';
 const proofs = [
   {
     title: 'App Store 4.8 分',
-    desc: '漫漫书架 · 原生手写的 iOS 漫画应用',
+    desc: '原生手写的 iOS 漫画应用',
     href: '/work/comic-manga/',
     img: '/media/products/comic-manga-icon.jpg',
   },
@@ -45,7 +45,7 @@ const proofs = [
   },
   {
     title: 'ColorOS 极致体验奖',
-    desc: 'OPPO · 年度重点项目 跨屏互联（手机与电脑协同）',
+    desc: 'OPPO 年度重点项目 跨屏互联（手机与电脑协同）',
     href: 'https://connect-pc.oppo.com/zh-CN/',
     img: '/media/products/coloros-icon.png',
     external: true,
@@ -55,110 +55,7 @@ const proofs = [
 const visibleJobs = jobs.filter((j) => !j.draft);
 const hasExtraJobs = visibleJobs.some((j) => !j.core);
 
-/* ---------- 01 精选作品 ---------- */
-const works = [
-  {
-    kicker: 'AI 时代的工作方式',
-    title: ['我的 Design Agent：', '让 AI 稳定产出可上线的设计稿'],
-    desc: '把设计系统、DESIGN.md 和一组自写的 Agent Skill 组合成一个设计 Agent，让 AI 的产出可执行、可校验，并能和开发并行协作。',
-    tags: ['DESIGN.md', 'Agent Skills', 'Claude Code'],
-    href: '/work/design-engineering-workflow/',
-    newTab: true,
-    media: { label: 'Design Agent 封面：Agent 工作流 / 产出设计稿' },
-  },
-  {
-    kicker: 'Followup.AI',
-    title: ['AI 项目管理平台：', '从 0 到 1 搭建完整设计体系'],
-    desc: '在初创团队中主导 AI 项目管理平台从 0 到 1 的全流程设计，搭建设计系统、定义 20+ 种 Column 类型，并探索「意图驱动」的 AI 交互方式。',
-    tags: ['初创团队', 'B 端 SaaS', '设计系统', 'AI Agent'],
-    href: '/work/followup-ai/',
-    media: { label: 'Followup.AI 产品界面', src: '/media/followup/overview.jpg' },
-  },
-  {
-    kicker: '独立设计与开发',
-    title: ['漫漫书架：', '一个人设计并写完的漫画阅读器'],
-    desc: '支持多格式与多网盘，借助 ComfyUI 把任意漫画页转换成特定画风。从交互到代码都由自己完成，已在 App Store 上线。',
-    tags: ['SwiftUI', 'ComfyUI', 'Design to Code'],
-    href: '/work/comic-manga/',
-    media: { label: '漫漫书架 App 截图', src: '/media/comic/collection.jpg' },
-  },
-];
-
-/* 更早作品的悬浮卡配图：img 为空时显示 MediaSlot 占位（Figma 节点取自链接里的 node-id），补图后填 img 即可 */
-const nodeOf = (href: string) => new URL(href).searchParams.get('node-id')?.replace('-', ':');
-const earlyWorks = [
-  {
-    name: '智能座舱体验度量',
-    desc: '把座舱里的感官体验拆成可测的技术指标，填补公司座舱评价体系的空白。',
-    href: figmaOf('智能座舱度量体系'),
-    img: undefined as string | undefined,
-  },
-  {
-    name: 'ColorOS 跨屏互联',
-    desc: '定义手机、平板与 PC 之间跨端流转的底层交互逻辑，获「极致体验奖」。',
-    href: figmaOf('跨屏互联创新项目'),
-    img: undefined as string | undefined,
-  },
-  {
-    name: 'OPPO 车机设计洞察',
-    desc: '车机创新预研中的设计洞察，为新驾驶模式的落地与后续规划提供依据。',
-    href: figmaOf('OPPO 车机设计洞察'),
-    img: undefined as string | undefined,
-  },
-  {
-    name: '腾讯公益课件 AI 配图',
-    desc: '用 ComfyUI 工作流为公益课件生成配图。',
-    href: figmaOf('腾讯公益课件 AI 配图'),
-    img: undefined as string | undefined,
-  },
-];
-
-/* ---------- 02 造物 ---------- */
-const productBySlug = (slug: string) => {
-  const p = products.find((x) => x.slug === slug);
-  if (!p) throw new Error(`products.ts 缺少 ${slug}`);
-  return p;
-};
-
-const mastergo = productBySlug('mastergo2figma');
-const featuredProduct = {
-  name: 'MasterGo Importer',
-  meta: '非常受欢迎的 Figma 插件（已开源）',
-  desc: 'MasterGo 不支持导出，我写了个 Figma 插件，支持直接解析 .mg 文件，导入回来继续编辑。',
-  /** 数据行：每项一行 */
-  stats: [`${figmaLikes} ${figmaUsers}`, `Github ${githubStars}`],
-  icon: mastergo.image,
-  href: mastergo.links[0].href,
-};
-
-const productCards = [
-  {
-    slug: 'comic-manga',
-    desc: '在 iPad 上收藏和阅读漫画，支持多种格式与云存储，还能用 AI 转换画风。',
-    kind: 'iOS / iPadOS · App Store 4.8 分',
-  },
-  {
-    slug: 'seal-note',
-    desc: 'iOS 与 macOS 的 Markdown 便签，快捷键唤起，标准 .md 文件，iCloud 同步，可选端侧加密。',
-    kind: 'iOS / macOS · 开源',
-  },
-  {
-    slug: 'lyoon-garment',
-    desc: '面向海外客户的染整服装厂官网，展示产品、工艺与行业文章。',
-    kind: '品牌设计 · 真实上线网站',
-  },
-].map((c) => {
-  const p = productBySlug(c.slug);
-  const href = p.links[0].href;
-  return { ...c, name: p.name, icon: p.image, href, external: !href.startsWith('/') };
-});
-
-/* ---------- 02 造物 · Skill：只放一行（3 个代表 + 一格「查看全部」）；介绍文章目前是占位稿，写好后用 add:post --force 覆盖 ---------- */
-const skillPicks = ['aw-ux-info-redundancy-audit', 'aw-canvas-design', 'aw-find-and-port-ui-component'].map((slug) => {
-  const entry = agentSkills.find((x) => x.slug === slug);
-  if (!entry) throw new Error(`skills.ts 缺少 ${slug}`);
-  return entry;
-});
+/* ---------- 01 精选作品 / 02 造物：数据与 /work/、/products/ 共用，见 src/data/showcase.ts ---------- */
 const SKILL_INTRO_POST = '/blog/how-i-write-agent-skills/';
 
 const allTools = [...tools, ...games];
@@ -182,6 +79,8 @@ const toolPicks = [
 });
 
 const ext = { target: '_blank', rel: 'noopener' };
+/** 经历徽章的颜色 → 徽章组件的颜色类 */
+const badgeTone = { dark: 'badge-dark', accent: 'badge-accent' } as const;
 ---
 
 <Base title="Aaron Xu - 设计工程师 · 个人作品集" scrollspy footer="simple">
@@ -245,7 +144,7 @@ const ext = { target: '_blank', rel: 'noopener' };
       <div class="about-body">
         <div class="about-top">
           <div class="about-skip reveal">
-            <TextLink size="md" icon="arrow-bend-down-right" data-about-skip>不想看履历？直接看作品</TextLink>
+            <TextLink size="md" icon="arrow-bend-right-down" data-about-skip>不想看履历？直接看作品</TextLink>
           </div>
 
           <div class="about-card reveal" style="--d:.06s">
@@ -299,7 +198,7 @@ const ext = { target: '_blank', rel: 'noopener' };
                         <span class="job-company">{job.company}</span>
                         <span class="job-role">{job.role}</span>
                         {job.badge && (
-                          <span class:list={['job-badge', `tone-${job.badge.tone}`]}>{job.badge.text}</span>
+                          <span class:list={['badge', 'badge-text', 'badge-fill', 'job-badge', badgeTone[job.badge.tone]]}>{job.badge.text}</span>
                         )}
                         <span class="job-domain">{job.domain}</span>
                         {job.link && (
@@ -352,7 +251,7 @@ const ext = { target: '_blank', rel: 'noopener' };
                 aria-label={`阅读案例：${w.title.join('')}`}
                 {...(w.newTab ? ext : {})}
               >
-                <MediaSlot label={w.media.label} ratio="16 / 10" src={w.media.src} />
+                <MediaSlot label={w.media.label} ratio="4 / 3" src={w.media.src} />
               </a>
               <div class="work-text">
                 <span class="work-kicker">{w.kicker}</span>
@@ -475,8 +374,11 @@ const ext = { target: '_blank', rel: 'noopener' };
             skillPicks.map((sk) => (
               <li>
                 <a class="skill-row" href={sk.href} {...ext}>
-                  <span class="skill-name">{sk.name}</span>
-                  <span class="skill-desc">{sk.description}</span>
+                  <span class="skill-symbol" aria-hidden="true"><DuotoneIcon name={sk.icon} size={22} /></span>
+                  <span class="skill-text">
+                    <span class="skill-name">{sk.name}</span>
+                    <span class="skill-desc">{sk.description}</span>
+                  </span>
                 </a>
               </li>
             ))
@@ -1198,7 +1100,8 @@ const ext = { target: '_blank', rel: 'noopener' };
 
   /* ---------- 00 关于 ---------- */
   .about-body {
-    padding: 40px 0 clamp(64px, 8vw, 96px);
+    /* 从首屏吸附下来时 00 的顶端贴着窗口顶，固定顶栏（60px）会盖住「不想看履历」：顶部留出顶栏高度再加 28px */
+    padding: 88px 0 clamp(64px, 8vw, 96px);
     display: flex;
     flex-direction: column;
     gap: clamp(48px, 6vw, 72px);
@@ -1433,6 +1336,17 @@ const ext = { target: '_blank', rel: 'noopener' };
     top: 12px;
   }
 
+  /* 时间轴收在最后一条分隔线处（.job-main 底边，下面还有 40px margin）：
+     收起时是最后一条核心经历，展开后（或无 JS）是最后一条经历 */
+  .job:last-child .job-rail::before {
+    bottom: 40px;
+  }
+
+  /* 单独一条规则：:has 不被支持时只丢这一条，不连累上面的 */
+  :global(.js) .jobs:not(.show-all) .job:not(.job-extra):not(:has(~ .job:not(.job-extra))) .job-rail::before {
+    bottom: 40px;
+  }
+
   .job-dot {
     position: relative;
     margin-top: 12px;
@@ -1478,22 +1392,9 @@ const ext = { target: '_blank', rel: 'noopener' };
     color: var(--text-body);
   }
 
+  /* 样式来自全局徽章组件（.badge.badge-text.badge-fill + 颜色），这里只管位置 */
   .job-badge {
     align-self: flex-start;
-    padding: 4px 10px;
-    border-radius: 3px;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .tone-dark {
-    background: var(--btn-bg);
-    color: var(--btn-text);
-  }
-
-  .tone-accent {
-    background: var(--accent);
-    color: var(--btn-text);
   }
 
   .job-domain {
@@ -1550,6 +1451,9 @@ const ext = { target: '_blank', rel: 'noopener' };
   /* 位置由这里管，样式由 TextLink 管 */
   :global(.jobs-toggle) {
     margin-left: 206px;
+    /* 文字离分隔线的距离 = 分隔线上方的留白（约 40px）：抵掉最后一条经历的 40px margin，
+       再扣掉 TextLink 点击区在文字上方多出的约 13px */
+    margin-top: -40px;
     align-self: flex-start;
   }
 
@@ -2009,14 +1913,40 @@ const ext = { target: '_blank', rel: 'noopener' };
     border-bottom: 1px solid var(--border-subtle);
   }
 
+  /* 左侧 Symbol 与上方小工具的图标同尺寸（43px、10px 圆角），右侧名称 + 两行描述 */
   .skill-row {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: 43px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
     min-height: 96px;
     padding: 20px 0;
     transition: color 0.2s ease;
+  }
+
+  .skill-symbol {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+    transition: background-color 0.2s ease;
+  }
+
+  .skill-symbol :global(svg) {
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .skill-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
   }
 
   .skill-name {
@@ -2041,6 +1971,16 @@ const ext = { target: '_blank', rel: 'noopener' };
   @media (hover: hover) and (pointer: fine) {
     .skill-row:hover .skill-name {
       color: var(--accent-strong);
+    }
+
+    .skill-row:hover .skill-symbol :global(svg) {
+      transform: scale(1.1) rotate(-4deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-symbol :global(svg) {
+      transition: none;
     }
   }
 

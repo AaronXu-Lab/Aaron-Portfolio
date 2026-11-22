@@ -100,7 +100,7 @@ export const jobs: Job[] = [
       '把前沿技术与产品需求结合，落地多个 AI 特色功能',
     ],
     core: true,
-    badge: { text: '从 0 到 1 · 初创团队', tone: 'dark' },
+    badge: { text: '创业项目', tone: 'dark' },
     link: { href: '/work/followup-ai/', label: '阅读案例' },
   },
   {

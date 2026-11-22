@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import MediaSlot from '../../components/MediaSlot.astro';
+import TextLink from '../../components/TextLink.astro';
 import { cases } from '../../data/cases';
 
 const nextCase = cases[cases.findIndex((entry) => entry.slug === 'ai-design-system') + 1];
@@ -193,6 +194,13 @@ const Dots = (n: number, danger = false) =>
       <p class="cover-sub lead reveal" style="--d:.08s">
         一次关于「复合设计系统」的探索 —— 把设计系统从一份交付物，做成一个 AI
         能执行、能验证的<strong>可运行约束系统</strong>。
+      </p>
+      <!-- 幻灯片版入口：Design Agent 工作流的演示稿（静态页 public/work/design-engineering-workflow/），新标签页打开 -->
+      <p class="slides-entry reveal" style="--d:.12s">
+        <TextLink href="/work/design-engineering-workflow/" icon="arrow-up-right" target="_blank" rel="noopener">
+          看幻灯片版：把设计带进真实产品
+        </TextLink>
+        <span class="mono-sm">Design Agent · 并行协作 · 设计迁移</span>
       </p>
       <div class="takeaway reveal" style="--d:.16s">
         <div class="mono-label">Core Takeaway</div>
@@ -2262,5 +2270,17 @@ const Dots = (n: number, danger = false) =>
   .case-next {
     margin: clamp(40px, 6vw, 64px) 0 0;
     display: grid;
+  }
+
+  .slides-entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 14px;
+    margin-top: 20px;
+  }
+
+  .slides-entry .mono-sm {
+    color: var(--text-mono);
   }
 </style>

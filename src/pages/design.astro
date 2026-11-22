@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import MediaSlot from '../components/MediaSlot.astro';
 import Icon from '../components/Icon.astro';
 import { libraries } from '../data/libraries';
+import { components, groups } from '../data/components';
 
 /**
- * 活体样式指南：本站全部 Design Token 与全局组件的实渲染展示。
+ * 设计系统唯一入口：Design Token 实渲染 + 组件库索引（卡片来自 src/data/components.ts，
+ * 单组件页在 /design/components/<slug>/，旧 /components/ 由 public/_redirects 301 过来）。
  * Token 定义唯一来源：src/styles/global.css(:root / [data-theme='dark'])。
  * 本页色块均通过 var() 引用，右上角切换主题即可查看两套色板。
  */
@@ -160,7 +161,7 @@ const patterns = [
 
 <Base
   title="设计系统 - Aaron Xu"
-  description="本站的活体样式指南：全部 Design Token（双主题 oklch 色板、字体、间距、动效）与全局组件的实渲染展示。"
+  description="本站的活体样式指南：全部 Design Token（双主题 oklch 色板、字体、间距、动效）与组件库，每个组件附可调属性的 Playground。"
 >
   <div class="ds-page container">
     <!-- ============ 页头 ============ -->
@@ -176,10 +177,9 @@ const patterns = [
       </p>
     </header>
 
-    <!-- ============ 01 色彩 ============ -->
+    <!-- ============ 色彩 ============ -->
     <section class="ds-section" aria-labelledby="t-color">
       <div class="section-head reveal">
-        <span class="num">01</span>
         <span class="zh" id="t-color">色彩</span>
         <span class="en">Color Tokens</span>
         <span class="side mono-sm hint">oklch · L C H</span>
@@ -216,10 +216,9 @@ const patterns = [
       }
     </section>
 
-    <!-- ============ 02 字体 ============ -->
+    <!-- ============ 字体 ============ -->
     <section class="ds-section" aria-labelledby="t-type">
       <div class="section-head reveal">
-        <span class="num">02</span>
         <span class="zh" id="t-type">字体</span>
         <span class="en">Typography</span>
       </div>
@@ -248,10 +247,9 @@ const patterns = [
       </div>
     </section>
 
-    <!-- ============ 03 间距与圆角 ============ -->
+    <!-- ============ 间距与圆角 ============ -->
     <section class="ds-section" aria-labelledby="t-space">
       <div class="section-head reveal">
-        <span class="num">03</span>
         <span class="zh" id="t-space">间距与圆角</span>
         <span class="en">Spacing & Radius</span>
       </div>
@@ -279,7 +277,7 @@ const patterns = [
             <span class="mono-label">Container & Rhythm</span>
           </div>
           <ul class="rhythm-list">
-            <li><span class="mono-sm">--w-page</span> 1120px · 页面容器</li>
+            <li><span class="mono-sm">--w-page</span> 1192px · 页面容器（全站统一）</li>
             <li><span class="mono-sm">--w-prose</span> 780px · 文章正文</li>
             <li><span class="mono-sm">首页区块</span> clamp(72px, 10.5vw, 136px)</li>
             <li><span class="mono-sm">案例区块</span> clamp(44px, 6.5vw, 78px)</li>
@@ -289,10 +287,9 @@ const patterns = [
       </div>
     </section>
 
-    <!-- ============ 04 动效 ============ -->
+    <!-- ============ 动效 ============ -->
     <section class="ds-section" aria-labelledby="t-motion">
       <div class="section-head reveal">
-        <span class="num">04</span>
         <span class="zh" id="t-motion">动效</span>
         <span class="en">Motion</span>
         <span class="side mono-sm hint">prefers-reduced-motion 全部降级</span>
@@ -323,145 +320,90 @@ const patterns = [
       </div>
     </section>
 
-    <!-- ============ 05 组件 ============ -->
-    <section class="ds-section" aria-labelledby="t-comp">
+    <!-- ============ 组件 ============ -->
+    <section class="ds-section" id="components" aria-labelledby="t-comp">
       <div class="section-head reveal">
-        <span class="num">05</span>
-        <span class="zh" id="t-comp">全局组件</span>
-        <span class="en">Primitives</span>
+        <span class="zh" id="t-comp">组件</span>
+        <span class="en">Components</span>
+        <span class="side mono-sm hint">{components.length} 个 · Playground</span>
       </div>
+      <p class="lead pattern-lead reveal">
+        本站实际使用的组件。每个组件页有可调属性的 Playground 与变体矩阵，右上角切换主题可检查深色。
+      </p>
 
-      <div class="comp-grid">
-        <div class="comp reveal">
-          <div class="comp-head">
-            <span class="comp-name">按钮</span>
-            <span class="mono-sm comp-cls">.btn / .btn-outline</span>
-          </div>
-          <div class="comp-stage">
-            <a class="btn" href="#t-comp">主按钮 <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-outline" href="#t-comp">次级按钮 <span aria-hidden="true">↗</span></a>
-          </div>
-          <p class="comp-note">悬停上浮 + 色调投影；按压 scale(0.98);箭头随悬停位移。</p>
-        </div>
-
-        <div class="comp reveal" style="--d:.05s">
-          <div class="comp-head">
-            <span class="comp-name">徽章与标签</span>
-            <span class="mono-sm comp-cls">.badge / .chip</span>
-          </div>
-          <div class="comp-stage">
-            <span class="badge badge-solid">EXPERIMENTAL</span>
-            <span class="badge">WORK IN PROGRESS</span>
-            <span class="chip">设计系统</span>
-            <span class="chip">AI Agent</span>
-          </div>
-          <p class="comp-note">badge 用于状态与分类（3px 角）;chip 用于关键词（全圆角）。</p>
-        </div>
-
-        <div class="comp reveal">
-          <div class="comp-head">
-            <span class="comp-name">卡片</span>
-            <span class="mono-sm comp-cls">.card</span>
-          </div>
-          <div class="comp-stage">
-            <a class="card sample-card" href="#t-comp">
-              <span class="mono-label">Card · Hover Me</span>
-              <span class="sample-card-title">仅在层级需要时使用卡片</span>
-              <p>否则用细线与留白分组（见能力区）。</p>
-            </a>
-          </div>
-          <p class="comp-note">1px 描边 + 4px 角；悬停 -4px 上浮 + 色调投影。</p>
-        </div>
-
-        <div class="comp reveal" style="--d:.05s">
-          <div class="comp-head">
-            <span class="comp-name">区块头</span>
-            <span class="mono-sm comp-cls">.section-head</span>
-          </div>
-          <div class="comp-stage stage-block">
-            <div class="section-head sample-head">
-              <span class="num">0X</span>
-              <span class="zh">区块名</span>
-              <span class="en">Section Label</span>
-              <span class="side mono-sm">右侧插槽</span>
+      {
+        groups.map((g, gi) => (
+          <div class="token-group reveal" style={`--d:${gi * 0.05}s`}>
+            <div class="group-title">
+              <span class="g-zh">{g}</span>
             </div>
+            <ul class="ix-grid">
+              {components
+                .filter((c) => c.group === g)
+                .map((c) => (
+                  <li>
+                    <a class="card ix-card" href={`/design/components/${c.slug}/`}>
+                      <strong>{c.name}</strong>
+                      <span class="mono-sm comp-cls">{c.source}</span>
+                      <span class="ix-sum">{c.summary}</span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </div>
-          <p class="comp-note">编号 + 中文名 + 英文 mono 标签，ds 分幕签名，全站统一。</p>
-        </div>
+        ))
+      }
 
-        <div class="comp reveal">
-          <div class="comp-head">
-            <span class="comp-name">媒体占位</span>
-            <span class="mono-sm comp-cls">MediaSlot.astro</span>
-          </div>
-          <div class="comp-stage stage-block">
-            <MediaSlot label="示例占位" node="000:0000" ratio="21 / 9" />
-          </div>
-          <p class="comp-note">斜纹底 + 节点标注；替换真实图片时换成 &lt;img&gt; 即可。</p>
+      <div class="token-group reveal">
+        <div class="group-title">
+          <span class="g-zh">未单独成页的原语</span>
         </div>
-
-        <div class="comp reveal" style="--d:.05s">
-          <div class="comp-head">
-            <span class="comp-name">深色带区</span>
-            <span class="mono-sm comp-cls">.band / --band-*</span>
+        <div class="comp-grid">
+          <div class="comp">
+            <div class="comp-head">
+              <span class="comp-name">复制按钮</span>
+              <span class="mono-sm comp-cls">.btn-ghost.btn-xs[data-copy]</span>
+            </div>
+            <div class="comp-stage">
+              <span class="sample-copy-row">
+              <span class="sample-copy-value">woshixwn@gmail.com</span>
+              <button type="button" class="btn btn-ghost btn-xs btn-icon" title="复制" data-copy="woshixwn@gmail.com" aria-label="复制 woshixwn@gmail.com">
+                <span class="copy-hint" aria-hidden="true"><span class="copy-text"><Icon name="copy" size={14} /></span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span>
+                <span class="copy-status" role="status"></span>
+              </button>
+              </span>
+            </div>
+            <p class="comp-note">点击写入剪贴板，按钮内显示绿色勾号，2 秒后恢复；文字与按钮宽度保持不变。按钮本身就是 ghost 样式的超小尺寸 .btn-xs。</p>
           </div>
-          <div class="comp-stage stage-block">
-            <div class="band sample-band">
-              <span class="mono-label">Band · 明暗节奏</span>
-              <div class="sample-band-inner">
-                <span class="mono-sm on-accent">05</span>
-                <p>带区内使用独立的 band token 族，两种主题下都保持深色。</p>
+
+          <div class="comp">
+            <div class="comp-head">
+              <span class="comp-name">正文排版</span>
+              <span class="mono-sm comp-cls">.prose</span>
+            </div>
+            <div class="comp-stage stage-block">
+              <div class="prose sample-prose">
+                <h3>三级标题</h3>
+                <p>
+                  正文 16px / 1.9,内联 <code>code 样式</code> 与
+                  <a href="#t-comp">链接下划线</a>。
+                </p>
+                <blockquote><p>引用块：左侧强调线 + 次级填充底。</p></blockquote>
+                <ul>
+                  <li>列表圆点使用 text-3</li>
+                  <li>图片自带描边与圆角，失效图降级为斜纹占位</li>
+                </ul>
               </div>
             </div>
+            <p class="comp-note">承载 105 篇博客正文（含 2015 年起的原始 HTML 存量文章）。</p>
           </div>
-          <p class="comp-note">用于案例页的关键幕（目标/Loop/转场）,源自 ds 原型深色帧。</p>
-        </div>
-
-        <div class="comp reveal">
-          <div class="comp-head">
-            <span class="comp-name">复制按钮</span>
-            <span class="mono-sm comp-cls">.btn-ghost.btn-xs[data-copy]</span>
-          </div>
-          <div class="comp-stage">
-            <span class="sample-copy-row">
-            <span class="sample-copy-value">woshixwn@gmail.com</span>
-            <button type="button" class="btn btn-ghost btn-xs btn-icon" title="复制" data-copy="woshixwn@gmail.com" aria-label="复制 woshixwn@gmail.com">
-              <span class="copy-hint" aria-hidden="true"><span class="copy-text"><Icon name="copy" size={14} /></span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span>
-              <span class="copy-status" role="status"></span>
-            </button>
-            </span>
-          </div>
-          <p class="comp-note">点击写入剪贴板，按钮内显示绿色勾号，2 秒后恢复；文字与按钮宽度保持不变。按钮本身就是 ghost 样式的超小尺寸 .btn-xs。</p>
-        </div>
-
-        <div class="comp reveal" style="--d:.05s">
-          <div class="comp-head">
-            <span class="comp-name">正文排版</span>
-            <span class="mono-sm comp-cls">.prose</span>
-          </div>
-          <div class="comp-stage stage-block">
-            <div class="prose sample-prose">
-              <h3>三级标题</h3>
-              <p>
-                正文 16px / 1.9,内联 <code>code 样式</code> 与
-                <a href="#t-comp">链接下划线</a>。
-              </p>
-              <blockquote><p>引用块：左侧强调线 + 次级填充底。</p></blockquote>
-              <ul>
-                <li>列表圆点使用 text-3</li>
-                <li>图片自带描边与圆角，失效图降级为斜纹占位</li>
-              </ul>
-            </div>
-          </div>
-          <p class="comp-note">承载 105 篇博客正文（含 2015 年起的原始 HTML 存量文章）。</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ 06 组合模式 ============ -->
+    <!-- ============ 组合模式 ============ -->
     <section class="ds-section" aria-labelledby="t-pattern">
       <div class="section-head reveal">
-        <span class="num">06</span>
         <span class="zh" id="t-pattern">组合模式</span>
         <span class="en">Patterns</span>
       </div>
@@ -483,10 +425,9 @@ const patterns = [
       </ul>
     </section>
 
-    <!-- ============ 07 其他组件库 ============ -->
+    <!-- ============ 其他组件库 ============ -->
     <section class="ds-section" aria-labelledby="t-libs">
       <div class="section-head reveal">
-        <span class="num">07</span>
         <span class="zh" id="t-libs">其他组件库</span>
         <span class="en">More Libraries</span>
       </div>
@@ -807,6 +748,30 @@ const patterns = [
     padding: 11px 18px;
   }
 
+  /* ---- 组件索引 ---- */
+  .ix-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+    gap: 16px;
+  }
+
+  .ix-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 20px;
+    height: 100%;
+  }
+
+  .ix-sum {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-2);
+  }
+
   /* ---- 组件 ---- */
   .comp-grid {
     display: grid;
@@ -861,58 +826,6 @@ const patterns = [
   .comp-note {
     font-size: 13px;
     color: var(--text-3);
-  }
-
-  .sample-card {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 20px 22px;
-    max-width: 320px;
-  }
-
-  .sample-card-title {
-    font-weight: 600;
-    font-size: 15.5px;
-  }
-
-  .sample-card p {
-    font-size: 13px;
-    color: var(--text-2);
-  }
-
-  .sample-head {
-    margin-bottom: 0;
-    padding-bottom: 14px;
-  }
-
-  .sample-band {
-    padding: 22px 24px;
-  }
-
-  .sample-band > .mono-label {
-    display: block;
-    margin-bottom: 14px;
-  }
-
-  .sample-band-inner {
-    display: flex;
-    gap: 14px;
-    align-items: baseline;
-    border: 1px solid var(--band-border);
-    background: var(--band-surface);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-  }
-
-  .sample-band-inner .on-accent {
-    color: var(--band-accent);
-    letter-spacing: 0.08em;
-  }
-
-  .sample-band-inner p {
-    color: var(--band-text-2);
-    font-size: 13.5px;
   }
 
   .sample-copy-row {

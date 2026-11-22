@@ -1,14 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>Aaron Xu</title>
   <style>
-    /* Standalone asset: match the site's light/dark accent tokens. */
-    :root { color: oklch(0.58 0.18 262); }
+    /* Standalone asset: 与站点 logo 同形；浅 / 深色取 27 号方案配色。 */
+    .a { stroke: #427be5; }
+    .b { stroke: #606776; }
     @media (prefers-color-scheme: dark) {
-      :root { color: oklch(0.7 0.15 262); }
+      .a { stroke: #6799f6; }
+      .b { stroke: #a5aebd; }
     }
   </style>
-  <g stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M17 15c10 8 20 26 30 34"/>
-    <path d="M47 15C37 23 27 41 17 49"/>
+  <g fill="none" stroke-linecap="round" stroke-width="8.5">
+    <path class="a" d="M11 11C34 11 30 53 53 53"/>
+    <path class="b" d="M53 11C30 11 34 53 11 53" pathLength="100" stroke-dasharray="18.6 22"/>
   </g>
 </svg>

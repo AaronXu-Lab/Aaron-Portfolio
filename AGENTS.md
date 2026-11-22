@@ -21,7 +21,7 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `public/tools/flying-ninja-cat/` | 独立静态壳小游戏「飞天忍者猫」：纯 HTML5 Canvas 重制版，运行时只加载目录内的 `game.js`、`style.css` 与 `assets/`,不依赖 SWF、Ruffle 或外部接口；最高分保存在浏览器 `localStorage`。源版本与永久回归测试位于本地 `Anti-SWF/h5/flying-ninja-cat/` |
 | `src/content/blog/` | 博客文章（脚本生成，**勿手改**） |
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
-| `src/pages/design.astro` | `/design/` 活体样式指南：全部 token 与组件的实渲染；底部「其他组件库」读 `src/data/libraries.ts`，无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
+| `src/pages/design.astro` | `/design/` 设计系统唯一入口：token 实渲染（色彩 / 字体 / 间距圆角 / 动效）+ 组件库索引（卡片读 `src/data/components.ts`，按分组排列）。单组件页是 `src/pages/design/components/[slug].astro` → `/design/components/<slug>/`（Playground + 变体矩阵，外壳 `src/layouts/ComponentsLayout.astro`，预览 `src/components/ComponentPreview.astro`）；旧 `/components/` 地址由 `public/_redirects` 301 到新路径。底部「其他组件库」读 `src/data/libraries.ts`，无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
 | `scripts/` | 新建/导入/标点脚本 |
 | `src/data/reviews.ts` | 首页 MasterGo Importer 评论墙的**唯一数据源**（用户评论原文、来源、来源链接、头像）。只放真实评论，不改写；评论取自作者整理的 MasterGo 评论合集（小红书 / Figma 社区）。`REVIEWS_ARE_SAMPLE` 为 true 时卡片上会显示「示例数据」标签 |
 | `src/components/ReviewWall.astro` + `src/lib/review-wall.mjs` | 评论墙组件与排布逻辑（评论是一条环形传送带，分三列滚动：向下 / 向上 / 向下，只有中间列居中抬起；窄屏只留一列）。`review-wall.mjs` 是纯函数，服务端首屏、浏览器脚本、`tests/` 共用，改它要跑 `npm run test:wall` |

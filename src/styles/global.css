@@ -50,9 +50,9 @@
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'SF Mono', ui-monospace,
     'PingFang SC', monospace;
 
-  --w-page: 1120px;
-  /* 首页（2026 改版）宽版内容区：1320 外框 - 两侧 64 */
-  --w-wide: 1192px;
+  /* 全站内容区统一宽度：1320 外框 - 两侧 64（原首页宽版，现所有页面一致） */
+  --w-page: 1192px;
+  --w-wide: var(--w-page);
   --w-prose: 780px;
   /* 左右安全边距:任何视口下内容与屏幕边缘的最小间距(随屏宽增大) */
   --gutter: clamp(24px, 5vw, 64px);
@@ -64,6 +64,7 @@
   --radius-card: 12px;
   --radius-media: 20px;
   --radius-panel: 24px;
+  --radius-pill: 999px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -388,6 +389,27 @@ button {
   height: 28px;
 }
 
+/* 胶囊形状：与尺寸（md / sm / xs）和变体（primary / outline / ghost）正交，可叠加。
+   完全圆角会让两端视觉上「吃掉」一部分内边距，所以左右 padding 比默认形状各多 6 - 8px：
+   md 26 → 34px、sm 18 → 24px、xs 10 → 14px。 */
+.btn.btn-capsule {
+  padding-inline: 34px;
+  border-radius: var(--radius-pill);
+}
+
+.btn-sm.btn-capsule {
+  padding-inline: 24px;
+}
+
+.btn-xs.btn-capsule {
+  padding-inline: 14px;
+}
+
+/* 图标按钮保持正圆：不加 padding，宽高沿用尺寸档 */
+.btn-icon.btn-capsule {
+  padding: 0;
+}
+
 /* 小按钮不做悬停上浮，只换描边色 */
 @media (hover: hover) and (pointer: fine) {
   .btn-sm:hover,
@@ -406,23 +428,55 @@ button {
 }
 
 /* ---------- Badges & chips ---------- */
+/* Badge 由三个互相独立的类组合：
+   字体 type：默认等宽小字（状态）｜ .badge-text 正文字体加粗（内容里的标注）
+   颜色 tone：默认 neutral ｜ .badge-accent ｜ .badge-dark
+   样式 style：默认 outline 描边 ｜ .badge-fill 实心
+   颜色类只设变量，样式类决定变量用在描边还是底色上，所以三者可以任意组合 */
 .badge {
+  --badge-fg: var(--text-2);
+  --badge-line: var(--border-strong);
+  --badge-bg: var(--surface-2);
+  --badge-on: var(--text);
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: var(--text-2);
-  border: 1px solid var(--border-strong);
+  color: var(--badge-fg);
+  border: 1px solid var(--badge-line);
   border-radius: 3px;
   padding: 5px 11px;
   white-space: nowrap;
 }
 
-.badge-solid {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+.badge-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.5;
+  padding: 3px 9px;
+}
+
+.badge-accent {
+  --badge-fg: var(--accent-strong);
+  --badge-line: var(--accent-border);
+  --badge-bg: var(--accent);
+  --badge-on: var(--btn-text);
+}
+
+.badge-dark {
+  --badge-fg: var(--text);
+  --badge-line: var(--text);
+  --badge-bg: var(--btn-bg);
+  --badge-on: var(--btn-text);
+}
+
+.badge-fill {
+  background: var(--badge-bg);
+  border-color: var(--badge-bg);
+  color: var(--badge-on);
 }
 
 .chip {

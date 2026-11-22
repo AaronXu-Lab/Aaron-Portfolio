@@ -1,0 +1,4 @@
+# 旧组件库地址并入 /design/（Cloudflare Workers Static Assets 重定向规则）
+/components/ /design/ 301
+/components /design/ 301
+/components/* /design/components/:splat 301

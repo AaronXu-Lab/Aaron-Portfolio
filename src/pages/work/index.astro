@@ -1,42 +1,410 @@
 ---
+/**
+ * /work/ 作品页 —— 对应 Design 画板「子页面 · 重设计 › 作品 /work」。
+ * 内容与首页 01 精选作品同源（src/data/showcase.ts）。
+ */
 import Base from '../../layouts/Base.astro';
-import CaseList from '../../components/CaseList.astro';
+import MediaSlot from '../../components/MediaSlot.astro';
+import Icon from '../../components/Icon.astro';
+import { works, earlyWorks, experiments } from '../../data/showcase';
+
+const ext = { target: '_blank', rel: 'noopener' };
 ---
 
-<Base title="案例 - Aaron Xu" description="Aaron Xu 的全部作品案例：长文案例、实验与历史作品集。">
+<Base title="作品 - Aaron Xu" description="Aaron Xu 做过的设计项目：AI 产品、独立应用，以及在 OPPO、小鹏汇天时期的作品。">
   <div class="work-page container">
     <header class="page-head">
-      <div class="mono-label reveal">Work · All Cases</div>
-      <h1 class="display reveal" style="--d:.05s">全部<span class="accent-text">案例</span>.</h1>
+      <div class="mono-label reveal">Work</div>
+      <h1 class="page-title reveal" style="--d:.05s">作品</h1>
       <p class="lead reveal" style="--d:.1s">
-        首页只放精选，这里是全部：长文案例、实验性探索，以及早年的历史作品集。
+        这里放我做过的设计项目。每个案例都会讲清楚当时要解决什么问题、怎么做，以及最后的结果。
       </p>
     </header>
 
-    <CaseList all />
+    {
+      experiments.length > 0 && (
+        <section class="experiments" aria-label="实验项目">
+          {experiments.map((x) => (
+            <a class="xp reveal" href={x.href}>
+              <span class="xp-text">
+                <span class="xp-kicker mono-label">Experiment · 实验项目</span>
+                <span class="xp-title">{x.title}</span>
+                <span class="xp-desc">{x.desc}</span>
+              </span>
+              <span class="xp-cta">
+                {x.cta ?? '查看实验'}
+                <Icon name="arrow-right" size={14} />
+              </span>
+            </a>
+          ))}
+        </section>
+      )
+    }
+
+    <section class="block" aria-labelledby="featured-title">
+      <h2 id="featured-title" class="block-title reveal">精选案例</h2>
+      <ul class="featured" role="list">
+        {
+          works.map((w, i) => (
+            <li class="reveal" style={`--d:${i * 0.06}s`}>
+              <a class="case" href={w.href} {...(w.newTab ? ext : {})}>
+                <MediaSlot class="case-cover" label={w.media.label} ratio="4 / 3" src={w.media.src} />
+                <span class="case-kicker mono-sm">{w.kicker}</span>
+                <span class="case-title">
+                  <span class="case-title-lead">{w.title[0]}</span>
+                  <br />
+                  {w.title[1]}
+                </span>
+                <span class="case-desc">{w.desc}</span>
+                <span class="case-tags">
+                  {w.tags.map((t) => (
+                    <span class="case-tag">{t}</span>
+                  ))}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="early-title">
+      <h2 id="early-title" class="block-title reveal">更早的作品</h2>
+      <ul class="early" role="list">
+        {
+          earlyWorks.map((e, i) => (
+            <li class="reveal" style={`--d:${i * 0.05}s`}>
+              <a class="early-card" href={e.href} {...ext}>
+                {e.logo ? (
+                  <img class="early-logo" src={e.logo} alt={`${e.org} logo`} width="48" height="48" loading="lazy" />
+                ) : (
+                  <span class="early-logo early-logo-mark" role="img" aria-label={`${e.org} logo`}>
+                    {e.mark}
+                  </span>
+                )}
+                <span class="early-body">
+                  <span class="early-head">
+                    <span class="early-name">{e.name}</span>
+                    {e.badge && <span class="early-badge">{e.badge}</span>}
+                  </span>
+                  <span class="early-desc">{e.detail}</span>
+                  <span class="early-foot">
+                    <span>{e.org}</span>
+                    <span class="early-figma">
+                      在 Figma 中查看
+                      <Icon name="arrow-up-right" size={12} />
+                    </span>
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   </div>
 </Base>
 
 <style>
-  /* 页头节奏与 Skill/博客页保持一致 */
   .work-page {
-    padding-top: clamp(112px, 15vw, 168px);
+    padding-top: clamp(112px, 15vw, 132px);
+    padding-bottom: clamp(80px, 10vw, 120px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(56px, 8vw, 80px);
   }
 
   .page-head {
-    margin-bottom: clamp(40px, 6vw, 64px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .page-head .mono-label {
-    display: block;
-    margin-bottom: 22px;
+  .page-title {
+    font-size: clamp(40px, 6vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    font-weight: 800;
   }
 
-  .page-head h1 {
-    margin-bottom: 22px;
-  }
-
+  /* 子页面简介占满内容区宽度 */
   .page-head .lead {
-    max-width: 58ch;
+    color: var(--text-2);
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .block-title {
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    font-weight: 800;
+  }
+
+  /* ---- 实验项目（深色带区） ---- */
+  .xp {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(24px, 4vw, 32px) clamp(24px, 4vw, 40px);
+    border-radius: var(--radius-panel);
+    background: var(--band-bg);
+    color: var(--band-text);
+    transition: background-color 0.2s ease;
+  }
+
+  .xp:hover {
+    background: var(--band-surface);
+  }
+
+  .xp-text {
+    flex: 1 1 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 680px;
+  }
+
+  .xp-kicker {
+    color: var(--band-accent);
+  }
+
+  .xp-title {
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 800;
+  }
+
+  .xp-desc {
+    color: var(--band-text-2);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .xp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    border-radius: var(--radius-pill);
+    background: var(--band-text);
+    color: var(--band-bg);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .xp:active .xp-cta {
+    transform: scale(0.97);
+  }
+
+  /* ---- 精选案例：三列卡片，整张可点 ---- */
+  .featured {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 28px;
+  }
+
+  .case {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: inherit;
+  }
+
+  .case :global(.case-cover) {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+
+  .case :global(.case-cover img) {
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .case-kicker {
+    color: var(--text-mono);
+  }
+
+  .case-title {
+    font-size: 20px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    font-weight: 800;
+    transition: color 0.2s ease;
+  }
+
+  .case-title-lead {
+    color: var(--text-2);
+  }
+
+  .case-desc {
+    color: var(--text-2);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .case-tag {
+    padding: 2px 9px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text-2);
+    font-size: 12px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .case:hover .case-title {
+      color: var(--accent-strong);
+    }
+
+    .case:hover :global(.case-cover img) {
+      transform: scale(1.03);
+    }
+  }
+
+  .case:active {
+    opacity: 0.85;
+  }
+
+  /* ---- 更早的作品 ---- */
+  .early {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+    gap: 16px;
+  }
+
+  .early-card {
+    height: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .early-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .early-card:hover .early-figma {
+      color: var(--accent-strong);
+    }
+  }
+
+  .early-card:active {
+    transform: scale(0.995);
+  }
+
+  .early-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    object-fit: cover;
+  }
+
+  .early-logo-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+    color: var(--text-mono);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .early-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .early-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .early-name {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .early-badge {
+    padding: 2px 8px;
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-pill);
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .early-desc {
+    color: var(--text-2);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .early-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+    color: var(--text-3);
+    font-size: 12px;
+  }
+
+  .early-figma {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  @media (max-width: 520px) {
+    .early-card {
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .early-logo {
+      width: 40px;
+      height: 40px;
+    }
   }
 </style>

@@ -2,7 +2,7 @@
 import Base from './Base.astro';
 import { components, groups } from '../data/components';
 
-/** /components/ 共用外壳：左侧组件列表 + 主区 */
+/** /design/components/<slug>/ 单组件页共用外壳：左侧组件列表 + 主区 */
 interface Props {
   title: string;
   description?: string;
@@ -14,14 +14,14 @@ const { title, description, current } = Astro.props;
 <Base title={title} description={description} footer="simple">
   <div class="container cx">
     <aside class="cx-nav" aria-label="组件列表">
-      <a class:list={['cx-home', { on: !current }]} href="/components/" aria-current={!current ? 'page' : undefined}>全部组件</a>
+      <a class:list={['cx-home', { on: !current }]} href="/design/">All Components</a>
       {groups.map((g) => (
         <div class="cx-group">
           <span class="mono-label">{g}</span>
           <ul>
             {components.filter((c) => c.group === g).map((c) => (
               <li>
-                <a class:list={[{ on: current === c.slug }]} href={`/components/${c.slug}/`} aria-current={current === c.slug ? 'page' : undefined}>{c.name}</a>
+                <a class:list={[{ on: current === c.slug }]} href={`/design/components/${c.slug}/`} aria-current={current === c.slug ? 'page' : undefined}>{c.name}</a>
               </li>
             ))}
           </ul>

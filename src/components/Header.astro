@@ -15,12 +15,11 @@ const homeMenu = [
   { href: '/#projects', id: 'projects', label: '精选案例' },
 ];
 
+/** 顶栏导航：作品 / 造物 / 博客 / 联系我（Skill、组件已收进造物页，从那里进入） */
 const nav = [
-  { href: '/work/', id: 'work', label: '案例' },
-  { href: '/blog/', id: 'blog', label: '博客' },
-  { href: '/skills/', id: 'skills', label: 'Skill' },
+  { href: '/work/', id: 'work', label: '作品' },
   { href: '/products/', id: 'products', label: '造物' },
-  { href: '/design/', id: 'design', label: '组件' },
+  { href: '/blog/', id: 'blog', label: '博客' },
 ];
 
 const path = Astro.url.pathname;
@@ -28,14 +27,10 @@ const path = Astro.url.pathname;
 const activeId = path.startsWith('/work')
   ? 'work'
   : path.startsWith('/blog')
-  ? 'blog'
-  : path.startsWith('/skills')
-    ? 'skills'
-    : path.startsWith('/products') || path.startsWith('/tools')
+    ? 'blog'
+    : ['/products', '/tools', '/skills', '/design'].some((p) => path.startsWith(p))
       ? 'products'
-      : path.startsWith('/design')
-        ? 'design'
-        : null;
+      : null;
 const isHome = path === '/';
 const currentLabel = activeId
   ? nav.find((item) => item.id === activeId)?.label
@@ -44,13 +39,13 @@ const currentLabel = activeId
     : '导航';
 ---
 
-<header class="site-header" data-scrollspy={scrollspy ? 'true' : undefined}>
+<header class:list={['site-header', { 'is-home': isHome }]} data-scrollspy={scrollspy ? 'true' : undefined}>
   <div class:list={['inner', 'container', { wide }]}>
     <a class="brand" href="/" aria-label="Aaron Xu 的个人网站，返回首页">
+      <Icon name="house-simple-bold" size={16} class="brand-icon" />
       <span>Aaron Xu 的 个人网站</span>
     </a>
     <nav class="desktop-nav" aria-label="主导航">
-      <a href="/" class:list={{ active: isHome }}>首页</a>
       {
         nav.map((item) => (
           <a
@@ -62,22 +57,9 @@ const currentLabel = activeId
           </a>
         ))
       }
-      <a class="contact-link" href="/#contact" data-nav="contact">
-        联系我
-        <Icon name="arrow-down" size={12} class="down" />
-      </a>
+      <a href="/#contact" data-nav="contact">联系我</a>
     </nav>
     <span class="mobile-current" data-mobile-current>{currentLabel}</span>
-    <button
-      id="theme-toggle"
-      class="btn btn-ghost btn-sm btn-icon"
-      type="button"
-      aria-label="切换深浅色主题"
-      title="切换深浅色主题"
-    >
-      <span class="icon-sun"><Icon name="sun" size={16} /></span>
-      <span class="icon-moon"><Icon name="moon" size={16} /></span>
-    </button>
     <button
       id="mobile-nav-toggle"
       type="button"
@@ -89,6 +71,17 @@ const currentLabel = activeId
       <span class="icon-close"><Icon name="x" size={20} /></span>
     </button>
   </div>
+  <!-- 主题切换：放在 .inner 之外，定位到窗口右上角（胶囊的 backdrop-filter 会成为 .inner 内绝对定位的包含块，所以不能放里面） -->
+  <button
+    id="theme-toggle"
+    class="btn btn-ghost btn-sm btn-icon btn-capsule"
+    type="button"
+    aria-label="切换深浅色主题"
+    title="切换深浅色主题"
+  >
+    <span class="icon-sun"><Icon name="sun" size={16} /></span>
+    <span class="icon-moon"><Icon name="moon" size={16} /></span>
+  </button>
   <div id="mobile-nav" class="mobile-nav-layer" aria-hidden="true">
     <nav class="mobile-nav-menu" aria-label="移动端主导航">
       <div class="mobile-nav-primary">
@@ -158,18 +151,58 @@ const currentLabel = activeId
 
   .brand {
     display: flex;
-    align-items: baseline;
-    gap: 9px;
+    align-items: center;
     font-weight: 600;
     font-size: 15px;
     letter-spacing: -0.01em;
     white-space: nowrap;
   }
 
+  /* 房子图标：非首页始终显示；首页只在滚动后（胶囊形态）出现，展开时宽度、间距、透明度一起过渡 */
+  /* 出现：先让出位置（宽度、间距 0.3s），图标稍后淡入并从缩小、略偏左的位置落定；
+     消失：图标先快速淡出缩小，再收起位置，文字平滑左移，不跳 */
+  .brand :global(.brand-icon) {
+    flex: none;
+    width: 16px;
+    margin-right: 8px;
+    color: inherit;
+    transform-origin: left center;
+    transition: width 0.3s var(--ease-out), margin-right 0.3s var(--ease-out),
+      opacity 0.24s ease 0.08s, transform 0.36s var(--ease-out) 0.06s, color 0.2s ease;
+  }
+
+  .site-header.is-home:not(.scrolled) .brand :global(.brand-icon) {
+    width: 0;
+    margin-right: 0;
+    opacity: 0;
+    transform: translateX(-4px) scale(0.6);
+    transition: width 0.3s var(--ease-out) 0.06s, margin-right 0.3s var(--ease-out) 0.06s,
+      opacity 0.14s ease, transform 0.2s ease, color 0.2s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand :global(.brand-icon),
+    .site-header.is-home:not(.scrolled) .brand :global(.brand-icon) {
+      transform: none;
+      transition: color 0.2s ease;
+    }
+  }
+
+  .brand:active {
+    color: var(--accent-strong);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .brand:hover {
+      color: var(--accent-strong);
+    }
+  }
+
   .desktop-nav {
     display: flex;
     align-items: center;
-    gap: clamp(4px, 1.6vw, 10px);
+    /* 胶囊按钮自带左右 padding，视觉间距已经够大，按钮之间不再额外留空 */
+    gap: 0;
     margin-left: auto;
   }
 
@@ -180,8 +213,9 @@ const currentLabel = activeId
     gap: 5px;
     font-size: 14px;
     color: var(--text-2);
-    padding: 7px 10px;
-    border-radius: var(--radius);
+    /* 胶囊形：左右 padding 比圆角版（10px）大，和 .btn-capsule 同一套视觉语言 */
+    padding: 7px 13px;
+    border-radius: var(--radius-pill);
     transition: color 0.2s ease, background-color 0.2s ease;
     white-space: nowrap;
   }
@@ -196,28 +230,40 @@ const currentLabel = activeId
     font-weight: 500;
   }
 
-  /* 联系我：向下箭头提示锚点在页尾 */
-  .contact-link :global(.down) {
-    color: var(--text-3);
-    transition: transform 0.25s var(--ease-out), color 0.2s ease;
-  }
-
   @media (hover: hover) and (pointer: fine) {
     .desktop-nav a:hover {
       color: var(--text);
       background: color-mix(in oklch, var(--text) 6%, transparent);
     }
+  }
 
-    .contact-link:hover :global(.down) {
-      transform: translateY(2px);
-      color: var(--accent-strong);
+  /* 主题切换：标准 ghost 胶囊图标按钮（.btn.btn-ghost.btn-sm.btn-icon.btn-capsule，44px 正圆），这里只管定位与颜色 */
+  /* 窗口右上角：44px 按钮图标中心距顶、距右都是 30px，与 60px 顶栏的垂直中线对齐；
+     胶囊形态（顶栏下移 8px、高 52px，中线在 34px）时同步移到 34px */
+  #theme-toggle {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+    color: var(--text-2);
+    transition: top 0.3s var(--ease-out), right 0.3s var(--ease-out), background-color 0.2s ease, color 0.2s ease;
+  }
+
+  @media (min-width: 900px) and (pointer: fine) {
+    .site-header.scrolled #theme-toggle {
+      top: 12px;
+      right: 12px;
     }
   }
 
-  /* 主题切换：标准 ghost 图标按钮（.btn.btn-ghost.btn-sm.btn-icon，44px），这里只管颜色与不收缩 */
-  #theme-toggle {
-    flex-shrink: 0;
-    color: var(--text-2);
+  /* 导航按钮左右 padding 13px：右缘外推 13px，让「联系我」的文字（而不是按钮底）对齐内容区右缘，与左边品牌名对称。
+     给右上角按钮让位：内容区右缘离窗口边缘 R = (100vw - 内容宽) / 2，不足 72px 时导航左移补足 */
+  .desktop-nav {
+    margin-right: calc(max(0px, calc(72px - (100vw - min(var(--w-page), 100vw - 2 * var(--gutter))) / 2)) - 13px);
+  }
+
+  .inner.wide .desktop-nav {
+    margin-right: calc(max(0px, calc(72px - (100vw - min(var(--w-wide), 100vw - 2 * var(--gutter))) / 2)) - 13px);
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -278,11 +324,21 @@ const currentLabel = activeId
       height: 52px;
       margin-top: 8px;
       box-sizing: content-box;
+      /* 左右对称各外扩 20px：品牌名对齐内容区左缘，导航右端对齐内容区右缘 */
       padding-inline: 20px;
       background: var(--header-bg);
       -webkit-backdrop-filter: blur(14px);
       backdrop-filter: blur(14px);
       box-shadow: inset 0 0 0 1px var(--border), var(--shadow-card);
+    }
+
+    /* 胶囊右缘在内容区外 20px，主题按钮（右 12px、宽 44px）再留 8px 间距：内容区右缘离窗口需 ≥ 84px，再加余量（100vw 含滚动条宽度） */
+    .site-header.scrolled .desktop-nav {
+      margin-right: calc(max(0px, calc(88px - (100vw - min(var(--w-page), 100vw - 2 * var(--gutter))) / 2)) - 13px);
+    }
+
+    .site-header.scrolled .inner.wide .desktop-nav {
+      margin-right: calc(max(0px, calc(88px - (100vw - min(var(--w-wide), 100vw - 2 * var(--gutter))) / 2)) - 13px);
     }
   }
 
@@ -310,10 +366,17 @@ const currentLabel = activeId
       display: none;
     }
 
+    /* 移动端：主题按钮贴在菜单按钮左侧，垂直居中于 60px 顶栏 */
+    #theme-toggle {
+      top: 8px;
+      right: calc(var(--gutter) + 44px + 4px);
+    }
+
     .mobile-current {
       display: block;
       min-width: 0;
       margin-left: auto;
+      margin-right: 48px;
       overflow: hidden;
       color: var(--text-3);
       font-family: var(--font-mono);

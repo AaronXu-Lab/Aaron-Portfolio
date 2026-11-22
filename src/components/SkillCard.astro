@@ -1,0 +1,145 @@
+---
+/**
+ * Skill 卡片：顶部居中放 Phosphor duotone 图标，下方标题 + 两行描述，整张卡片是链接。
+ * 悬停时标题向上滚动，换成 Skill 的真实名称（SKILL.md 的 name，即 slug）。
+ * 图标用 DuotoneIcon（Phosphor duotone，构建时内联）。
+ */
+import DuotoneIcon from './DuotoneIcon.astro';
+import type { SkillEntry } from '../data/skills';
+
+interface Props {
+  skill: Pick<SkillEntry, 'slug' | 'name' | 'description' | 'icon' | 'href'>;
+  class?: string;
+  /** 页面挂了 SkillSheet 时传 true：点击先打开介绍 Sheet，链接仍指向 GitHub 作为兜底 */
+  sheet?: boolean;
+}
+const { skill, class: className, sheet = false } = Astro.props;
+
+const Tag = skill.href ? 'a' : 'div';
+const linkAttrs = skill.href ? { href: skill.href, target: '_blank', rel: 'noopener' } : {};
+const sheetAttrs = sheet && skill.href ? { 'data-skill-sheet': skill.slug, 'aria-haspopup': 'dialog' } : {};
+---
+
+<Tag class:list={['skill-card', className]} {...linkAttrs} {...sheetAttrs} aria-label={`${skill.name}（${skill.slug}）`}>
+  <span class="sk-art"><DuotoneIcon name={skill.icon} size={40} /></span>
+  <span class="sk-body">
+    <span class="sk-title" aria-hidden="true">
+      <span class="sk-roll">
+        <span class="sk-name">{skill.name}</span>
+        <span class="sk-slug">{skill.slug}</span>
+      </span>
+    </span>
+    <span class="sk-desc">{skill.description}</span>
+  </span>
+</Tag>
+
+<style>
+  .skill-card {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  }
+
+  /* 内容区：比 --surface-accent 再淡一档的蓝底，图标也用淡一档的强调色；悬停只动图标，不换底色 */
+  .sk-art {
+    height: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in oklab, var(--surface-accent) 55%, var(--surface));
+    border-bottom: 1px solid var(--border-subtle);
+    color: color-mix(in oklab, var(--accent) 75%, var(--surface));
+  }
+
+  .sk-art :global(svg) {
+    transition: transform 0.45s var(--ease-out);
+  }
+
+  .sk-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px 18px;
+  }
+
+  /* 标题一行高的视窗，里面上下叠着中文名和真实名称，悬停时整体上移一行 */
+  .sk-title {
+    display: block;
+    height: 24px;
+    overflow: hidden;
+  }
+
+  .sk-roll {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .sk-name,
+  .sk-slug {
+    height: 24px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sk-name {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .sk-slug {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--accent-strong);
+  }
+
+  .sk-desc {
+    color: var(--text-2);
+    font-size: 12.5px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .skill-card:hover,
+    .skill-card:focus-visible {
+      border-color: var(--accent-border);
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .skill-card:hover .sk-art :global(svg) {
+      transform: scale(1.1) rotate(-4deg);
+    }
+
+    .skill-card:hover .sk-roll,
+    .skill-card:focus-visible .sk-roll {
+      transform: translateY(-24px);
+    }
+  }
+
+  .skill-card:active {
+    transform: scale(0.99);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-card,
+    .sk-art :global(svg),
+    .sk-roll {
+      transition: none;
+    }
+  }
+</style>
