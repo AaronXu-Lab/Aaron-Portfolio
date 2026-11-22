@@ -1,0 +1,38 @@
+# 每天同步首页的 GitHub stars：数字变了才提交 src/data/stats.json，
+# push 到 main 后由 Cloudflare Workers Builds 自动重新构建部署。
+name: Update stats
+
+on:
+  schedule:
+    - cron: '17 1 * * *' # 每天 UTC 01:17（北京时间 09:17）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-stats
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - run: node scripts/update-stats.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- src/data/stats.json; then
+            echo "stats.json 无变化"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add src/data/stats.json
+          git commit -m "首页：同步 GitHub stars"
+          git push

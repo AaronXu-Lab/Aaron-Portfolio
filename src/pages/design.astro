@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import MediaSlot from '../components/MediaSlot.astro';
+import Icon from '../components/Icon.astro';
 import { libraries } from '../data/libraries';
 
 /**
@@ -419,16 +420,18 @@ const patterns = [
         <div class="comp reveal">
           <div class="comp-head">
             <span class="comp-name">复制按钮</span>
-            <span class="mono-sm comp-cls">[data-copy]</span>
+            <span class="mono-sm comp-cls">.btn-ghost.btn-xs[data-copy]</span>
           </div>
           <div class="comp-stage">
-            <button type="button" class="sample-copy" data-copy="woshixwn@gmail.com" aria-label="复制 woshixwn@gmail.com">
-              <span data-copy-label>woshixwn@gmail.com</span>
-              <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+            <span class="sample-copy-row">
+            <span class="sample-copy-value">woshixwn@gmail.com</span>
+            <button type="button" class="btn btn-ghost btn-xs btn-icon" title="复制" data-copy="woshixwn@gmail.com" aria-label="复制 woshixwn@gmail.com">
+              <span class="copy-hint" aria-hidden="true"><span class="copy-text"><Icon name="copy" size={14} /></span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span>
               <span class="copy-status" role="status"></span>
             </button>
+            </span>
           </div>
-          <p class="comp-note">点击写入剪贴板，按钮内显示绿色勾号，2 秒后恢复；文字与按钮宽度保持不变。</p>
+          <p class="comp-note">点击写入剪贴板，按钮内显示绿色勾号，2 秒后恢复；文字与按钮宽度保持不变。按钮本身就是 ghost 样式的超小尺寸 .btn-xs。</p>
         </div>
 
         <div class="comp reveal" style="--d:.05s">
@@ -912,44 +915,15 @@ const patterns = [
     font-size: 13.5px;
   }
 
-  .sample-copy {
+  .sample-copy-row {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background: none;
-    border: none;
-    padding: 0;
+    gap: 4px;
+  }
+
+  .sample-copy-value {
     font-size: 15px;
     color: var(--text);
-    font-family: var(--font-sans);
-    transition: color 0.2s ease, transform 0.15s var(--ease-out);
-  }
-
-  .sample-copy:hover {
-    color: var(--accent-strong);
-  }
-
-  .sample-copy:active {
-    transform: scale(0.98);
-  }
-
-  .copy-hint {
-    color: var(--text-mono);
-    border: 1px solid var(--border-strong);
-    border-radius: 3px;
-    padding: 3px 8px;
-    letter-spacing: 0.08em;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .sample-copy:hover .copy-hint {
-    color: var(--accent-strong);
-    border-color: var(--accent-border);
-  }
-
-  .sample-copy.copied .copy-hint {
-    color: var(--success);
-    border-color: var(--success);
   }
 
   .sample-prose h3 {

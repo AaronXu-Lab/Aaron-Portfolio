@@ -82,11 +82,7 @@ export const products: ProductEntry[] = [
     image: '/media/products/comic-manga-icon.jpg',
     imageAlt: '漫漫书架 App 图标',
     links: [
-      {
-        label: 'App Store',
-        href: 'https://apps.apple.com/cn/app/id6743392463',
-        icon: 'app-store-logo',
-      },
+      // App Store 页面暂不可用，先不放跳转（恢复时在此补回 label: 'App Store' 的链接）
       { label: '设计案例', href: '/work/comic-manga/', icon: 'arrow-up-right' },
     ],
     tags: ['iOS / iPadOS', 'SwiftUI', 'AI 重绘'],
@@ -115,7 +111,7 @@ export const products: ProductEntry[] = [
     en: 'ENCRYPT NOTES',
     tagline: '快速记录，不打断当前工作',
     description:
-      'macOS 菜单栏 Markdown 便签：全局快捷键随时唤起悬浮便签；每篇笔记都是标准 Markdown 文件，不锁数据；敏感内容可选端侧 AES-GCM 加密，iCloud Drive 自然同步。SwiftUI + AppKit 原生体验，无账号、无追踪。',
+      'iOS / iPadOS 与 macOS 的 Markdown 便签：macOS 菜单栏常驻，全局快捷键随时唤起悬浮便签；iPhone 与 iPad 提供笔记列表和全屏编辑器。每篇笔记都是标准 Markdown 文件，不锁数据，iCloud Drive 跨设备自然同步；敏感内容可在 macOS 上选择端侧 AES-GCM 加密。SwiftUI + AppKit 原生体验，无账号、无追踪。',
     image: '/media/products/seal-note-icon.png',
     imageAlt: 'Seal Note App 图标',
     links: [
@@ -125,7 +121,7 @@ export const products: ProductEntry[] = [
         icon: 'github-logo',
       },
     ],
-    tags: ['macOS', 'Markdown', '端侧加密'],
+    tags: ['iOS / macOS', 'Markdown', '端侧加密'],
   },
 ];
 

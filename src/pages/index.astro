@@ -1,7 +1,7 @@
 ---
 /**
  * 首页（2026 改版）—— 对应 Design 画板「xuweinan.com 首屏方案」的「已确定」页：
- * 首屏 B1 卡片版 → 00 关于与经历（D-1）→ 01 精选作品 → 02 造物 → 03 博客 → 04 联系 + 页脚。
+ * 首屏 B1 卡片版 → 00 关于与经历（D-1）→ 01 精选作品 → 02 造物（大产品 / 小工具 / Skill）→ 03 博客 → 04 联系 + 页脚。
  * 顶栏暂不改（子页面还没调整），首页沿用 Header 的锚点：#about / #experience / #projects / #contact。
  */
 import { getCollection } from 'astro:content';
@@ -11,10 +11,15 @@ import Icon from '../components/Icon.astro';
 import SkillIcon from '../components/SkillIcon.astro';
 import HeroCaret from '../components/HeroCaret.astro';
 import TextLink from '../components/TextLink.astro';
+import AutoBorderImage from '../components/AutoBorderImage.astro';
+import ReviewWall from '../components/ReviewWall.astro';
+import { mastergoReviews, REVIEWS_ARE_SAMPLE } from '../data/reviews';
 import { historical } from '../data/cases';
 import { products, tools, games } from '../data/products';
 import { formatDate, postSummary } from '../utils';
 import { skills, jobs, profile, RESUME_PDF } from '../data/about';
+import { skills as agentSkills } from '../data/skills';
+import { githubStars, figmaUsers, figmaLikes } from '../data/stats';
 
 /* ---------- 03 博客：自动取最近 7 篇；简介 = 开头引用块，没写就取正文第一段（显示两行） ---------- */
 const posts = (await getCollection('blog'))
@@ -32,18 +37,17 @@ const proofs = [
     img: '/media/products/comic-manga-icon.jpg',
   },
   {
-    title: 'GitHub 66 Stars',
+    title: `${figmaUsers} · ${githubStars}`,
     desc: 'Figma 开源插件 · 把 MasterGo 图层迁移到 Figma',
-    href: 'https://github.com/AaronXu-Lab/MasterGo2Figma',
+    href: 'https://www.figma.com/community/plugin/1662512589841230294/mastergo-importer',
     img: '/media/products/mastergo2figma.png',
     external: true,
   },
   {
     title: 'ColorOS 极致体验奖',
     desc: 'OPPO · 年度重点项目 跨屏互联（手机与电脑协同）',
-    href: figmaOf('跨屏互联创新项目'),
+    href: 'https://connect-pc.oppo.com/zh-CN/',
     img: '/media/products/coloros-icon.png',
-    softBorder: true,
     external: true,
   },
 ];
@@ -80,26 +84,32 @@ const works = [
   },
 ];
 
+/* 更早作品的悬浮卡配图：img 为空时显示 MediaSlot 占位（Figma 节点取自链接里的 node-id），补图后填 img 即可 */
+const nodeOf = (href: string) => new URL(href).searchParams.get('node-id')?.replace('-', ':');
 const earlyWorks = [
   {
     name: '智能座舱体验度量',
     desc: '把座舱里的感官体验拆成可测的技术指标，填补公司座舱评价体系的空白。',
     href: figmaOf('智能座舱度量体系'),
+    img: undefined as string | undefined,
   },
   {
     name: 'ColorOS 跨屏互联',
     desc: '定义手机、平板与 PC 之间跨端流转的底层交互逻辑，获「极致体验奖」。',
     href: figmaOf('跨屏互联创新项目'),
+    img: undefined as string | undefined,
   },
   {
     name: 'OPPO 车机设计洞察',
     desc: '车机创新预研中的设计洞察，为新驾驶模式的落地与后续规划提供依据。',
     href: figmaOf('OPPO 车机设计洞察'),
+    img: undefined as string | undefined,
   },
   {
     name: '腾讯公益课件 AI 配图',
     desc: '用 ComfyUI 工作流为公益课件生成配图。',
     href: figmaOf('腾讯公益课件 AI 配图'),
+    img: undefined as string | undefined,
   },
 ];
 
@@ -113,13 +123,12 @@ const productBySlug = (slug: string) => {
 const mastergo = productBySlug('mastergo2figma');
 const featuredProduct = {
   name: 'MasterGo Importer',
-  meta: 'Figma 插件 · 开源',
+  meta: '非常受欢迎的 Figma 插件（已开源）',
   desc: 'MasterGo 不支持导出，我写了个 Figma 插件，支持直接解析 .mg 文件，导入回来继续编辑。',
-  stat: 'GitHub 66 Stars',
+  /** 数据行：每项一行 */
+  stats: [`${figmaLikes} ${figmaUsers}`, `Github ${githubStars}`],
   icon: mastergo.image,
   href: mastergo.links[0].href,
-  /** 只放真实评论原文（Figma 社区 / GitHub Issues），注明来源；不要改写或编造 */
-  quotes: [] as { text: string; who: string }[],
 };
 
 const productCards = [
@@ -130,18 +139,27 @@ const productCards = [
   },
   {
     slug: 'seal-note',
-    desc: 'macOS 菜单栏里的 Markdown 便签，可选端侧加密。',
-    kind: 'macOS · 开源',
+    desc: 'iOS 与 macOS 的 Markdown 便签，快捷键唤起，标准 .md 文件，iCloud 同步，可选端侧加密。',
+    kind: 'iOS / macOS · 开源',
   },
   {
     slug: 'lyoon-garment',
     desc: '面向海外客户的染整服装厂官网，展示产品、工艺与行业文章。',
-    kind: '品牌官网 · 设计与开发',
+    kind: '品牌设计 · 真实上线网站',
   },
 ].map((c) => {
   const p = productBySlug(c.slug);
-  return { ...c, name: p.name, icon: p.image, href: p.links[0].href };
+  const href = p.links[0].href;
+  return { ...c, name: p.name, icon: p.image, href, external: !href.startsWith('/') };
 });
+
+/* ---------- 02 造物 · Skill：只放一行（3 个代表 + 一格「查看全部」）；介绍文章目前是占位稿，写好后用 add:post --force 覆盖 ---------- */
+const skillPicks = ['aw-ux-info-redundancy-audit', 'aw-canvas-design', 'aw-find-and-port-ui-component'].map((slug) => {
+  const entry = agentSkills.find((x) => x.slug === slug);
+  if (!entry) throw new Error(`skills.ts 缺少 ${slug}`);
+  return entry;
+});
+const SKILL_INTRO_POST = '/blog/how-i-write-agent-skills/';
 
 const allTools = [...tools, ...games];
 const toolPicks = [
@@ -188,7 +206,7 @@ const ext = { target: '_blank', rel: 'noopener' };
                 <li class="reveal" style={`--d:${0.2 + i * 0.06}s`}>
                   <a class="proof" href={p.href} {...(p.external ? ext : {})}>
                     {p.img ? (
-                      <img class:list={['proof-icon', p.softBorder ? 'proof-icon-soft' : 'proof-icon-bare']} src={p.img} alt="" width="40" height="40" />
+                      <AutoBorderImage class="proof-icon" src={p.img} size={40} />
                     ) : (
                       <span class="proof-icon proof-icon-glyph" aria-hidden="true">
                         <Icon name={p.icon!} size={20} />
@@ -303,7 +321,7 @@ const ext = { target: '_blank', rel: 'noopener' };
           </ol>
           {
             hasExtraJobs && (
-              <TextLink icon="arrow-down" class="jobs-toggle" data-jobs-toggle aria-expanded="false">
+              <TextLink icon="caret-down" class="jobs-toggle" data-jobs-toggle aria-expanded="false">
                 <span data-jobs-label>更多经历</span>
               </TextLink>
             )
@@ -320,9 +338,8 @@ const ext = { target: '_blank', rel: 'noopener' };
       <div class="sec-head reveal">
         <div class="sec-titles">
           <h2 id="work-title" class="sec-label" tabindex="-1"><span class="sec-num mono-sm">01</span>精选作品</h2>
-          <p class="sec-statement">一些值得拿出来讲的项目。</p>
+          <p class="sec-statement">一些值得拿出来讲的项目</p>
         </div>
-        <a class="more-link" href="/work/">全部作品<Icon name="arrow-right" size={14} /></a>
       </div>
 
       <div class="works">
@@ -362,12 +379,16 @@ const ext = { target: '_blank', rel: 'noopener' };
           {
             earlyWorks.map((e, i) => (
               <li class="early-item">
-                <a href={e.href} {...ext} aria-describedby={`early-${i}`}>{e.name}</a>
-                <span class="early-pop" role="tooltip" id={`early-${i}`}>{e.desc}</span>
+                <TextLink href={e.href} icon="none" {...ext} aria-describedby={`early-${i}`}>{e.name}</TextLink>
+                <span class="early-pop" role="tooltip" id={`early-${i}`}>
+                  <MediaSlot class="early-pop-media" label={`${e.name} 配图`} node={nodeOf(e.href)} ratio="16 / 9" src={e.img} />
+                  <span class="early-pop-desc">{e.desc}</span>
+                </span>
               </li>
             ))
           }
         </ul>
+        <TextLink href="/work/">查看所有作品</TextLink>
       </div>
     </div>
   </section>
@@ -378,49 +399,38 @@ const ext = { target: '_blank', rel: 'noopener' };
       <div class="sec-head reveal">
         <div class="sec-titles">
           <h2 id="lab-title" class="sec-label"><span class="sec-num mono-sm">02</span>造物</h2>
-          <p class="sec-statement">工作之外，我做的东西。</p>
-          <p class="sec-desc">从设计到代码都由我独立完成：四个长期维护的产品，和一些顺手做的小工具、小游戏。</p>
+          <p class="sec-statement">工作之外做的东西</p>
+          <p class="sec-desc">设计和代码都自己动手，产品、工具、游戏等等都有。</p>
         </div>
         <a class="more-link" href="/products/">全部造物<Icon name="arrow-right" size={14} /></a>
       </div>
 
       <div class="lab-group">
         <h3 class="group-title reveal">大产品</h3>
-        <a
-          class:list={['feature', 'reveal', { 'has-quotes': featuredProduct.quotes.length > 0 }]}
-          href={featuredProduct.href}
-          {...ext}
-        >
-          <div class="feature-main">
-            <div class="feature-meta">
-              <img src={featuredProduct.icon} alt="" width="44" height="44" />
+        <div class="feature reveal">
+          <a class="feature-main" href={featuredProduct.href} {...ext}>
+            <span class="feature-meta">
+              <AutoBorderImage src={featuredProduct.icon} size={44} />
               <span>{featuredProduct.meta}</span>
-            </div>
+            </span>
             <span class="feature-name">{featuredProduct.name}</span>
             <span class="feature-desc">{featuredProduct.desc}</span>
-            <span class="feature-stat">{featuredProduct.stat}</span>
-          </div>
-          {
-            featuredProduct.quotes.length > 0 && (
-              <figure class="feature-quotes">
-                <figcaption>用户怎么说</figcaption>
-                {featuredProduct.quotes.map((q) => (
-                  <blockquote>
-                    <p>“{q.text}”</p>
-                    <cite>{q.who}</cite>
-                  </blockquote>
-                ))}
-              </figure>
-            )
-          }
-        </a>
+            <span class="feature-stat">
+              {featuredProduct.stats.map((line) => (
+                <span>{line}</span>
+              ))}
+            </span>
+          </a>
+          <!-- 评论墙：数据在 src/data/reviews.ts；目前是示例数据，会显示「示例数据」标签，上线前换成真实评论 -->
+          <ReviewWall reviews={mastergoReviews} sample={REVIEWS_ARE_SAMPLE} />
+        </div>
         <ul class="product-cards" role="list">
           {
             productCards.map((p, i) => (
               <li class="reveal" style={`--d:${i * 0.06}s`}>
-                <a class="product-card" href={p.href} {...ext}>
+                <a class="product-card" href={p.href} {...(p.external ? ext : {})}>
                   <span class="product-head">
-                    <img src={p.icon} alt="" width="40" height="40" />
+                    <AutoBorderImage src={p.icon} size={40} />
                     <span class="product-name">{p.name}</span>
                   </span>
                   <span class="product-desc">{p.desc}</span>
@@ -439,7 +449,7 @@ const ext = { target: '_blank', rel: 'noopener' };
             toolPicks.map((t) => (
               <li>
                 <a class="tool-row" href={t.href} {...(t.newTab ? ext : {})}>
-                  <img class="tool-icon" src={t.icon} alt="" width="32" height="32" />
+                  <AutoBorderImage class="tool-icon" src={t.icon} size={43} radius={10} />
                   <span class="tool-text">
                     <span class="tool-name">{t.name}</span>
                     <span class="tool-desc">{t.desc}</span>
@@ -450,9 +460,30 @@ const ext = { target: '_blank', rel: 'noopener' };
           }
           <li>
             <a class="tool-row tool-all" href="/products/#sec-tools">
-              <span class="tool-icon tool-icon-glyph" aria-hidden="true"><Icon name="squares-four" size={20} /></span>
+              <span class="tool-icon tool-icon-glyph" aria-hidden="true"><Icon name="squares-four" size={22} /></span>
               <span class="tool-name">查看全部小工具</span>
             </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Skill：只放一行（3 个代表 + 一格「查看全部」），下面是介绍文章的链接（文章目前是占位稿，写好后用 add:post --force 覆盖） -->
+      <div class="lab-group">
+        <h3 class="group-title reveal">Skill</h3>
+        <ul class="skill-strip reveal" role="list">
+          {
+            skillPicks.map((sk) => (
+              <li>
+                <a class="skill-row" href={sk.href} {...ext}>
+                  <span class="skill-name">{sk.name}</span>
+                  <span class="skill-desc">{sk.description}</span>
+                </a>
+              </li>
+            ))
+          }
+          <li class="skill-more">
+            <TextLink href="/skills/">查看全部 {agentSkills.length} 个 Skill</TextLink>
+            <TextLink href={SKILL_INTRO_POST}>不知道怎么用？</TextLink>
           </li>
         </ul>
       </div>
@@ -465,10 +496,9 @@ const ext = { target: '_blank', rel: 'noopener' };
       <div class="sec-head reveal">
         <div class="sec-titles">
           <h2 id="blog-title" class="sec-label"><span class="sec-num mono-sm">03</span>博客</h2>
-          <p class="sec-statement">最近在想的事。</p>
+          <p class="sec-statement">最近在想的事</p>
           <p class="sec-desc">一个设计师的笔记本：工作上的思考，也有工作之外的爱好。</p>
         </div>
-        <a class="more-link" href="/blog/">全部文章<Icon name="arrow-right" size={14} /></a>
       </div>
 
       <ol class="posts" role="list">
@@ -493,6 +523,8 @@ const ext = { target: '_blank', rel: 'noopener' };
           ))
         }
       </ol>
+
+      <TextLink href="/blog/" class="blog-all reveal">全部文章</TextLink>
     </div>
   </section>
 
@@ -502,32 +534,40 @@ const ext = { target: '_blank', rel: 'noopener' };
       <div class="contact-lead reveal">
         <p class="sec-label"><span class="sec-num mono-sm">04</span>联系</p>
         <h2 id="contact-title" class="contact-title">Let's <span class="accent-text">talk</span>.</h2>
-        <p class="contact-copy">有合适的机会，或者想聊聊设计、代码和 AI，都欢迎来信。邮件是最快的方式。</p>
-        <a class="btn contact-mail" href="mailto:woshixwn@gmail.com">
+        <p class="contact-copy"><span>有合适的机会，或者想聊聊设计、代码和 AI，都欢迎来信。</span><span>我的邮箱现在通过 AI 管理，所以通过邮件沟通会比较高效。</span></p>
+        <a class="btn btn-sm contact-mail" href="mailto:woshixwn@gmail.com">
           woshixwn@gmail.com <span class="arrow" aria-hidden="true">→</span>
         </a>
       </div>
       <dl class="channels reveal" style="--d:.08s">
         <div class="channel">
-          <dt><span class="channel-icon channel-icon-text" aria-hidden="true">书</span>小红书</dt>
+          <dt><span class="channel-icon" aria-hidden="true"><Icon name="book" size={14} /></span>小红书</dt>
           <dd>
-            <button type="button" data-copy="6364222434" aria-label="复制小红书号 6364222434">
-              <span data-copy-label>6364222434</span>
-              <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+            <!-- 与 GitHub 一行同一套交互：整行（数字 + 图标）都是一个可点的按钮，悬停时文字和图标一起变色；图标容器同为 28px -->
+            <button type="button" class="channel-copy" title="复制" data-copy="6364222434" aria-label="复制小红书号 6364222434">
+              <span class="channel-value">6364222434</span>
+              <span class="channel-arrow copy-hint" aria-hidden="true"><span class="copy-text"><Icon name="copy" size={14} /></span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span>
               <span class="copy-status" role="status"></span>
             </button>
           </dd>
         </div>
         <div class="channel">
           <dt><span class="channel-icon" aria-hidden="true"><Icon name="github-logo" size={14} /></span>GitHub</dt>
-          <dd><a href="https://github.com/AaronXu-Lab" {...ext}>AaronXu-Lab ↗</a></dd>
+          <dd>
+            <!-- 箭头容器与复制按钮同尺寸（28px）以便上下对齐；它不是按钮，没有底色效果，悬停时整行变色；整行仍是一个链接，整行都能点 -->
+            <a href="https://github.com/AaronXu-Lab" {...ext} aria-label="GitHub：AaronXu-Lab（新标签页打开）">
+              <span class="channel-value">AaronXu-Lab</span>
+              <span class="channel-arrow" aria-hidden="true"><Icon name="arrow-up-right" size={14} /></span>
+            </a>
+          </dd>
         </div>
         <div class="channel">
           <dt><span class="channel-icon" aria-hidden="true"><Icon name="wechat-logo" size={14} /></span>WeChat</dt>
           <dd>
-            <button type="button" data-copy="woshixwn123" aria-label="复制微信号 woshixwn123">
-              <span data-copy-label>woshixwn123</span>
-              <span class="copy-hint mono-sm" aria-hidden="true"><span class="copy-text">复制</span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+            <!-- 与 GitHub 一行同一套交互：整行（数字 + 图标）都是一个可点的按钮，悬停时文字和图标一起变色；图标容器同为 28px -->
+            <button type="button" class="channel-copy" title="复制" data-copy="woshixwn123" aria-label="复制微信号 woshixwn123">
+              <span class="channel-value">woshixwn123</span>
+              <span class="channel-arrow copy-hint" aria-hidden="true"><span class="copy-text"><Icon name="copy" size={14} /></span><svg class="copy-check" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></span>
               <span class="copy-status" role="status"></span>
             </button>
           </dd>
@@ -678,6 +718,32 @@ const ext = { target: '_blank', rel: 'noopener' };
     document.getElementById('work')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
   });
 
+  // 页内锚点（首屏向下箭头、「来聊聊」、顶栏「关于/联系我」、回到顶部）：平滑滚动到目标，但不把 #hash 留在地址栏。
+  // 否则刷新或从别的页面返回时，浏览器会按 hash 又跳回 00 的顶部。
+  document.addEventListener('click', (e) => {
+    const link = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
+    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (link.target === '_blank' || link.hasAttribute('download')) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash || url.hash === '#main') return;
+    const id = decodeURIComponent(url.hash.slice(1));
+    const target = id === 'top' ? null : document.getElementById(id);
+    if (id !== 'top' && !target) return;
+    e.preventDefault();
+    const behavior = reduced ? 'auto' : 'smooth';
+    if (target) target.scrollIntoView({ behavior, block: 'start' });
+    else scrollTo({ top: 0, behavior });
+    history.replaceState(null, '', url.pathname + url.search);
+  });
+
+  // 从别的页面带 #hash 进来时，落位后同样把 hash 去掉，刷新会按浏览器记住的滚动位置恢复，不再每次跳回锚点
+  const dropHash = () => {
+    if (location.hash && location.hash !== '#main') history.replaceState(null, '', location.pathname + location.search);
+  };
+  if (document.readyState === 'complete') dropHash();
+  else addEventListener('load', dropHash, { once: true });
+  addEventListener('hashchange', dropHash);
+
   const jobs = document.querySelector<HTMLElement>('[data-jobs]');
   // 折叠中的经历由 .job-inner 自己控制显隐，不再等入场动画
   jobs?.querySelectorAll('.job-extra').forEach((el) => el.classList.add('in'));
@@ -798,7 +864,7 @@ const ext = { target: '_blank', rel: 'noopener' };
     height: 0;
   }
 
-  /* 区块之间的分隔线（首屏与 00 之间不加）：宽度与内容区一致 */
+  /* 区块之间的分隔线（首屏与 00 之间不加）：宽度与内容区一致。02 造物与 03 博客的尾部自带分隔（Skill 一行的底线、博客列表的底线），所以 03、04 前面不再加 */
   .rest > section + section::before {
     content: '';
     display: block;
@@ -806,6 +872,11 @@ const ext = { target: '_blank', rel: 'noopener' };
     height: 1px;
     margin-inline: auto;
     background: var(--border);
+  }
+
+  .rest > #blog::before,
+  .rest > #contact::before {
+    display: none;
   }
 
   .block-inner {
@@ -1010,24 +1081,17 @@ const ext = { target: '_blank', rel: 'noopener' };
     transform: scale(0.99);
   }
 
-  .proof-icon {
-    width: 40px;
-    height: 40px;
+  /* 图标由 AutoBorderImage 渲染（尺寸、圆角、按边缘明暗自动描边都在组件里），这里只管布局 */
+  :global(.proof-icon) {
     flex-shrink: 0;
-    border-radius: 9px;
-    border: 1px solid var(--border);
     object-fit: cover;
   }
 
-  .proof-icon-bare {
-    border-color: transparent;
-  }
-
-  .proof-icon-soft {
-    border-color: var(--border-subtle);
-  }
-
   .proof-icon-glyph {
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1631,8 +1695,6 @@ const ext = { target: '_blank', rel: 'noopener' };
     align-items: center;
     gap: 8px 20px;
     flex-wrap: wrap;
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
     font-size: 14px;
   }
 
@@ -1654,33 +1716,16 @@ const ext = { target: '_blank', rel: 'noopener' };
     display: inline-flex;
   }
 
-  .early-item a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: var(--border-strong);
-    text-underline-offset: 5px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-  }
-
-  .early-item a:hover {
-    color: var(--accent-strong);
-    text-decoration-color: var(--accent-border);
-  }
-
-  .early-item a:active {
-    opacity: 0.7;
-  }
-
   .early-pop {
     position: absolute;
-    left: 0;
+    left: 50%;
     bottom: calc(100% + 4px);
     z-index: 3;
     width: 280px;
-    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 10px 12px;
     border-radius: var(--radius-card);
     background: var(--surface);
     border: 1px solid var(--border);
@@ -1690,29 +1735,31 @@ const ext = { target: '_blank', rel: 'noopener' };
     color: var(--text-body);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(4px);
-    transform-origin: bottom left;
+    transform: translate(-50%, 4px);
+    transform-origin: bottom center;
     transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), visibility 0.18s;
     pointer-events: none;
   }
 
-  /* 靠右的条目浮层向左展开，避免越出视口撑出横向滚动 */
-  .early-item:nth-last-child(-n + 2) .early-pop {
-    left: auto;
-    right: 0;
-    transform-origin: bottom right;
+  .early-pop :global(.early-pop-media) {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .early-pop-desc {
+    padding: 0 4px;
   }
 
   .early-item:hover .early-pop,
   .early-item:focus-within .early-pop {
     opacity: 1;
     visibility: visible;
-    transform: none;
+    transform: translateX(-50%);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .early-pop {
-      transform: none;
+      transform: translateX(-50%);
     }
   }
 
@@ -1750,27 +1797,26 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .feature:hover,
     .product-card:hover {
       border-color: var(--border-strong);
       transform: translateY(-2px);
       box-shadow: var(--shadow-card);
     }
+
+    .feature:hover {
+      border-color: var(--border-strong);
+    }
   }
 
-  .feature:active,
   .product-card:active {
     transform: scale(0.995);
   }
 
+  /* 主推产品：左边是产品介绍（整块是链接），右边是评论墙（每张评论各自是来源链接，所以外层不是链接） */
   .feature {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     overflow: hidden;
-  }
-
-  .feature.has-quotes {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
   }
 
   .feature-main {
@@ -1779,7 +1825,20 @@ const ext = { target: '_blank', rel: 'noopener' };
     flex-direction: column;
     justify-content: center;
     gap: 14px;
-    max-width: 720px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .feature-main:hover .feature-name {
+      color: var(--accent-strong);
+    }
+  }
+
+  .feature-main:active .feature-name {
+    color: var(--accent-strong);
+  }
+
+  .feature :global(.rw) {
+    border-left: 1px solid var(--border-subtle);
   }
 
   .feature-meta {
@@ -1790,18 +1849,13 @@ const ext = { target: '_blank', rel: 'noopener' };
     color: var(--text-2);
   }
 
-  .feature-meta img {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-  }
 
   .feature-name {
     font-size: 28px;
     line-height: 1.25;
     font-weight: 800;
     letter-spacing: -0.02em;
+    transition: color 0.2s ease;
   }
 
   .feature-desc {
@@ -1810,51 +1864,16 @@ const ext = { target: '_blank', rel: 'noopener' };
     color: var(--text-body);
   }
 
+  /* 与上面的描述同一种正文颜色、不加粗，字号小一号（14px） */
   .feature-stat {
+    display: flex;
+    flex-direction: column;
     margin-top: 4px;
     padding-top: 16px;
     border-top: 1px solid var(--border-subtle);
     font-size: 14px;
-    font-weight: 600;
-  }
-
-  .feature-quotes {
-    margin: 0;
-    padding: 32px 36px;
-    background: var(--surface-2);
-    border-left: 1px solid var(--border-subtle);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .feature-quotes figcaption {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-2);
-  }
-
-  .feature-quotes blockquote {
-    margin: 0;
-    padding: 18px 20px;
-    border-radius: 10px;
-    background: var(--surface);
-    border: 1px solid var(--border-subtle);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .feature-quotes p {
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .feature-quotes cite {
-    font-style: normal;
-    font-size: 12px;
-    color: var(--text-2);
+    line-height: 1.75;
+    color: var(--text-body);
   }
 
   .product-cards {
@@ -1884,12 +1903,8 @@ const ext = { target: '_blank', rel: 'noopener' };
     gap: 12px;
   }
 
-  .product-head img {
-    width: 40px;
-    height: 40px;
+  .product-head :global(img) {
     flex-shrink: 0;
-    border-radius: 9px;
-    border: 1px solid var(--border);
     object-fit: cover;
   }
 
@@ -1924,27 +1939,26 @@ const ext = { target: '_blank', rel: 'noopener' };
     border-bottom: 1px solid var(--border-subtle);
   }
 
+  /* 图标边长 = 名称 + 简介两行文字的总高（15px×1.45 + 2px + 13px×1.45 ≈ 43px）；改字号或行高时同步改这里和 AutoBorderImage 的 size */
   .tool-row {
+    --tool-icon: 43px;
     display: grid;
-    grid-template-columns: 32px minmax(0, 1fr);
+    grid-template-columns: var(--tool-icon) minmax(0, 1fr);
     gap: 12px;
     align-items: center;
-    min-height: 64px;
-    padding: 10px 0;
+    min-height: 80px;
+    padding: 18px 0;
     transition: color 0.2s ease;
   }
 
-  .tool-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
+  :global(.tool-icon) {
     object-fit: cover;
-    transition: transform 0.25s var(--ease-out);
   }
 
   .tool-icon-glyph {
-    border: 0;
+    width: var(--tool-icon);
+    height: var(--tool-icon);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1981,14 +1995,84 @@ const ext = { target: '_blank', rel: 'noopener' };
     .tool-row:hover .tool-name {
       color: var(--accent-strong);
     }
+  }
 
-    .tool-row:hover .tool-icon {
-      transform: scale(1.06);
+  /* ---------- 02 造物 · Skill ---------- */
+  .skill-strip {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 48px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .skill-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-height: 96px;
+    padding: 20px 0;
+    transition: color 0.2s ease;
+  }
+
+  .skill-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .skill-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-2);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .skill-row:hover .skill-name {
+      color: var(--accent-strong);
     }
   }
 
-  .tool-row:active .tool-icon {
-    transform: scale(0.94);
+  .skill-row:active .skill-name {
+    color: var(--accent-strong);
+  }
+
+  /* 最后一格：两个同级的文字链接 —— 全部 Skill 页、使用介绍文章；左侧用一条短竖线与前面的 Skill 区分（不拉通整行，线落在列间距 48px 的正中、垂直居中，左右各留 24px） */
+  .skill-more {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 96px;
+  }
+
+  .skill-more::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    width: 1px;
+    height: 56px;
+    transform: translateY(-50%);
+    background: var(--border);
+  }
+
+  /* 03 博客：「全部文章」放在列表最下方，与文章标题左对齐（日期列 140px + 间距 40px；窄屏标题顶格，不缩进） */
+  :global(.blog-all) {
+    align-self: flex-start;
+    margin-left: 180px;
   }
 
   @media (max-width: 1000px) {
@@ -1996,23 +2080,30 @@ const ext = { target: '_blank', rel: 'noopener' };
       grid-template-columns: 1fr;
     }
 
-    .tool-list {
+    .tool-list,
+    .skill-strip {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .feature.has-quotes {
+    .feature {
       grid-template-columns: 1fr;
     }
 
-    .feature-quotes {
+    .feature :global(.rw) {
+      --rw-h: 380px;
       border-left: 0;
       border-top: 1px solid var(--border-subtle);
     }
   }
 
   @media (max-width: 560px) {
-    .tool-list {
+    .tool-list,
+    .skill-strip {
       grid-template-columns: 1fr;
+    }
+
+    .skill-more::before {
+      display: none;
     }
   }
 
@@ -2088,6 +2179,10 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   @media (max-width: 760px) {
+    :global(.blog-all) {
+      margin-left: 0;
+    }
+
     .post {
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 6px 16px;
@@ -2135,19 +2230,22 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   .contact-copy {
-    max-width: 420px;
+    max-width: 480px;
     font-size: 16px;
     line-height: 1.6;
     color: var(--text-2);
+    /* 中文只在标点和空格处换行，不把「所以」这样的词拆到两行 */
+    word-break: keep-all;
   }
 
+  /* 两句话各占一行（宽度够时），窄屏才在标点处折行 */
+  .contact-copy span {
+    display: block;
+  }
+
+  /* 尺寸走标准 .btn-sm（44px 高）；邮箱地址用等宽字体是这个按钮自己的设置 */
   .contact-mail {
-    min-height: 44px;
-    padding: 10px 20px;
     font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0;
   }
 
   .channels {
@@ -2167,8 +2265,9 @@ const ext = { target: '_blank', rel: 'noopener' };
     font-size: 14px;
   }
 
-  .channel:last-child {
-    border-bottom: 1px solid var(--border-subtle);
+  /* 只保留三行之间的两根分隔线：第一行上方、最后一行下方都不画 */
+  .channel:first-child {
+    border-top: 0;
   }
 
   .channel dt {
@@ -2191,21 +2290,24 @@ const ext = { target: '_blank', rel: 'noopener' };
     color: var(--text);
   }
 
-  .channel-icon-text {
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 700;
-  }
-
   .channel dd {
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 44px;
+  }
+
+  .channel-value {
+    font-size: 14px;
+    color: inherit;
   }
 
   .channel a,
-  .channel button {
+  .channel .channel-copy {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 4px;
     min-height: 44px;
     padding: 0;
     border: 0;
@@ -2217,30 +2319,30 @@ const ext = { target: '_blank', rel: 'noopener' };
   }
 
   .channel a:hover,
-  .channel button:hover {
+  .channel .channel-copy:hover {
     color: var(--accent-strong);
   }
 
-  .channel button:active,
-  .channel a:active {
+
+  /* 行尾的图标容器（GitHub 的箭头、复制图标）：统一 28px 方块，三行的图标上下对齐；悬停是整行变色，没有底色效果 */
+  .channel-arrow {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 勾号与复制图标同为 14px，居中叠在同一个 28px 容器里 */
+  .channel-copy .copy-check {
+    width: 14px;
+    height: 14px;
+  }
+
+  .channel a:active,
+  .channel .channel-copy:active {
+    color: var(--accent-strong);
     transform: scale(0.98);
-  }
-
-  .copy-hint {
-    color: var(--text-mono);
-    border: 1px solid var(--border-strong);
-    border-radius: 3px;
-    padding: 2px 8px;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .channel button:hover .copy-hint {
-    color: var(--accent-strong);
-    border-color: var(--accent-border);
-  }
-
-  .channel button:global(.copied) .copy-hint {
-    color: var(--success);
-    border-color: var(--success);
   }
 </style>

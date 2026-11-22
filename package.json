@@ -12,6 +12,7 @@
     "test:forest": "node --test tests/focus-forest-core.test.mjs",
     "test:mesh": "node --test tests/mesh-gradient-core.test.mjs",
     "test:grid": "node --test tests/grid-breakpoint-core.test.mjs",
+    "test:wall": "node --test tests/review-wall.test.mjs",
     "import:blog": "node scripts/import-blog.mjs",
     "add:post": "node scripts/add-post.mjs",
     "new": "node scripts/new-post.mjs",

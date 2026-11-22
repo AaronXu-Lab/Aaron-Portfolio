@@ -1,0 +1,450 @@
+---
+import AutoBorderImage from './AutoBorderImage.astro';
+import Icon from './Icon.astro';
+import { centeredIndex, linesFor, planFor, place } from '../lib/review-wall.mjs';
+import type { Review } from '../data/reviews';
+
+/**
+ * 用户评论墙：一条首尾相接的评论队列分三列滚动（第一列向下、第二列向上、第三列向下）。
+ * 一张卡片先在第一列，滚出后接到第二列，再接到第三列；三列卡片同宽，第一、第三列只露出一半，可见宽度约 1:2:1。
+ * 只有第二列有「居中抬起」：卡片滚到面板正中时升起，其余卡片轻微降低不透明度。
+ * 每 2 秒滚一步；悬停或聚焦时整面墙暂停，当前悬停的卡片抬起，右上角显示来源；整张卡片是来源链接。
+ * 排布逻辑在 src/lib/review-wall.mjs（有 tests/review-wall.test.mjs），本文件只负责结构、样式和驱动。
+ * 窄屏（面板宽度 < 560px）只留中间一列。减少动态效果时不滚动。
+ */
+interface Props {
+  reviews: Review[];
+  /** 示例数据：显示「示例数据」标签，提醒上线前换成真实评论 */
+  sample?: boolean;
+  /** 面板高度（px），窄屏由样式覆盖 */
+  height?: number;
+}
+const { reviews, sample = false, height = 440 } = Astro.props;
+
+const H = height;
+// 卡片高度按评论文字长短估算（一句话的评论卡片矮，长评论卡片高），评论太少装不满时整份重复
+const plan = planFor(reviews.map((r) => r.text), { H, columns: 3 });
+const belt = plan?.belt ?? null;
+const cards = plan
+  ? plan.hs.map((h, i) => {
+      const r = reviews[i % reviews.length];
+      const p = place(plan.belt, i, 0);
+      return {
+        r,
+        h,
+        col: p.col,
+        y: Math.round(p.y * 10) / 10,
+        lines: linesFor(r.text, 20),
+        visible: p.y < H && p.y + h > 0,
+      };
+    })
+  : [];
+const lift = belt ? centeredIndex(belt, 0) : -1;
+---
+
+{
+  cards.length > 0 && (
+    <div class="rw" data-rw data-mode="3" style={`--rw-h:${H}px`} role="region" aria-label="用户评论">
+      <div class="rw-wall">
+        {cards.map((c, i) => (
+          <div class="rw-pos" data-col={c.col} data-h={c.h} style={`--y:${c.y}px`}>
+            <a
+              class:list={['rw-card', { 'is-lift': i === lift }]}
+              href={c.r.href}
+              target="_blank"
+              rel="noopener"
+              tabindex={c.visible ? undefined : -1}
+              style={`height:${c.h}px`}
+            >
+              <span class="rw-head">
+                {c.r.avatar ? (
+                  <AutoBorderImage src={c.r.avatar} size={30} radius={15} />
+                ) : (
+                  <span class="rw-av" aria-hidden="true">
+                    {c.r.name.slice(0, 1)}
+                  </span>
+                )}
+                <span class="rw-name">{c.r.name}</span>
+              </span>
+              <span class="rw-text" style={`-webkit-line-clamp:${c.lines}`}>
+                {c.r.text}
+              </span>
+              <span class="rw-src">
+                {c.r.source}
+                <Icon name="arrow-up-right" size={10} />
+              </span>
+            </a>
+          </div>
+        ))}
+      </div>
+      {sample && <span class="rw-sample mono-sm">示例数据 · 待换成真实评论</span>}
+    </div>
+  )
+}
+
+<style>
+  .rw {
+    position: relative;
+    min-width: 0;
+    --cw: calc((100% - 24px) / 2);
+    /* 未抬起的卡片的不透明度（抬起的为 1） */
+    --rw-dim: 0.72;
+  }
+
+  .rw-wall {
+    position: relative;
+    height: var(--rw-h);
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+
+  /* 位置：垂直方向由脚本写入 --y；水平方向由列决定。三列同宽，第一、第三列各被面板边缘裁掉一半 */
+  .rw-pos {
+    position: absolute;
+    top: 0;
+    width: var(--cw);
+    transform: translateY(var(--y, 0px));
+    transition: transform 0.7s cubic-bezier(0.45, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .rw-pos[data-col='0'] {
+    left: calc((100% - var(--cw)) / 2 - 12px - var(--cw));
+  }
+
+  .rw-pos[data-col='1'] {
+    left: calc((100% - var(--cw)) / 2);
+  }
+
+  .rw-pos[data-col='2'] {
+    left: calc((100% - var(--cw)) / 2 + 12px + var(--cw));
+  }
+
+  /* 窄屏：只有一列，铺满面板宽度 */
+  .rw[data-mode='1'] .rw-pos[data-col] {
+    left: 16px;
+    width: calc(100% - 32px);
+  }
+
+  .rw-card {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    overflow: hidden;
+    color: var(--text-body);
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    opacity: var(--rw-dim);
+    box-shadow: 0 0 0 transparent;
+    transition:
+      opacity 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      transform 0.35s var(--ease-out),
+      box-shadow 0.35s ease;
+  }
+
+  /* 抬起：居中的那张、悬停的那张、键盘聚焦的那张 */
+  .rw-card.is-lift,
+  .rw-card:focus-visible {
+    opacity: 1;
+    color: var(--text);
+    border-color: var(--border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .rw-card:hover {
+      opacity: 1;
+      color: var(--text);
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* 悬停别的卡片时，原本居中抬起的那张恢复成普通状态 */
+    .rw-wall:hover .rw-card.is-lift:not(:hover) {
+      opacity: var(--rw-dim);
+      color: var(--text-body);
+      border-color: var(--border-subtle);
+      transform: none;
+      box-shadow: 0 0 0 transparent;
+    }
+  }
+
+  .rw:focus-within .rw-card.is-lift:not(:focus-visible) {
+    opacity: var(--rw-dim);
+    color: var(--text-body);
+    border-color: var(--border-subtle);
+    transform: none;
+    box-shadow: 0 0 0 transparent;
+  }
+
+  .rw-card:active {
+    transform: translateY(-4px) scale(0.99);
+  }
+
+  .rw-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .rw-av {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--surface-accent);
+    color: var(--accent-strong);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .rw-head :global(img) {
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  .rw-name {
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rw-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* 来源：默认不显示，悬停或聚焦时在右上角淡入；只是一行小字，整张卡片本身就是链接 */
+  .rw-src {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--text-2);
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+    pointer-events: none;
+  }
+
+  .rw-card:hover .rw-src,
+  .rw-card:focus-visible .rw-src,
+  .rw-card:active .rw-src {
+    opacity: 1;
+    transform: none;
+  }
+
+  .rw-sample {
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    z-index: 5;
+    transform: translateX(-50%);
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--surface);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rw-pos,
+    .rw-card,
+    .rw-src {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { buildBelt, centeredIndex, heightForLines, LINE, move, place } from '../lib/review-wall.mjs';
+
+  const STEP_MS = 2000;
+  const MOVE_MS = 700;
+  const NARROW = 560;
+
+  function init(root: HTMLElement) {
+    const wall = root.querySelector<HTMLElement>('.rw-wall');
+    if (!wall) return;
+    const items = [...wall.querySelectorAll<HTMLElement>('.rw-pos')];
+    const serverHs = items.map((el) => Number(el.dataset.h));
+    let hs = serverHs;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    let belt: ReturnType<typeof buildBelt> = null;
+    let step = 0;
+    let paused = false;
+    let visible = true;
+    let settleTimer = 0;
+    let timer = 0;
+
+    const setPos = (el: HTMLElement, col: number, y: number, instant: boolean) => {
+      el.dataset.col = String(col);
+      if (instant) {
+        el.style.transition = 'none';
+        el.style.setProperty('--y', `${y.toFixed(1)}px`);
+        void el.offsetHeight; // 立即生效，再恢复过渡
+        el.style.transition = '';
+      } else {
+        el.style.setProperty('--y', `${y.toFixed(1)}px`);
+      }
+    };
+
+    const markLift = (s: number) => {
+      if (!belt) return;
+      const c = centeredIndex(belt, s);
+      items.forEach((el, i) => el.firstElementChild?.classList.toggle('is-lift', i === c));
+    };
+
+    // 面板之外的卡片不进 Tab 顺序，避免聚焦时把 overflow:hidden 的面板滚歪
+    const markFocusable = (s: number) => {
+      if (!belt) return;
+      const H = wall.clientHeight;
+      items.forEach((el, i) => {
+        const p = place(belt!, i, s);
+        const link = el.firstElementChild as HTMLAnchorElement | null;
+        if (link) link.tabIndex = p.y < H && p.y + hs[i] > 0 ? 0 : -1;
+      });
+    };
+
+    const snap = (s: number) => {
+      if (!belt) return;
+      items.forEach((el, i) => {
+        const p = place(belt!, i, s);
+        setPos(el, p.col, p.y, true);
+      });
+      markLift(s);
+      markFocusable(s);
+    };
+
+    // 按当前宽度实测每张卡片的文字行数，卡片高度随之调整；实测装不下带子时退回服务端估算的高度
+    const fit = (list: number[], lines?: number[]) => {
+      items.forEach((el, i) => {
+        const link = el.firstElementChild as HTMLElement | null;
+        const text = link?.querySelector<HTMLElement>('.rw-text');
+        if (!link || !text) return;
+        link.style.height = `${list[i]}px`;
+        if (lines) text.style.webkitLineClamp = String(lines[i]);
+      });
+    };
+    const measure = () => {
+      const lines = items.map((el) => {
+        const text = el.querySelector<HTMLElement>('.rw-text');
+        if (!text) return 1;
+        const keep = text.style.webkitLineClamp;
+        text.style.webkitLineClamp = 'unset';
+        const n = Math.min(4, Math.max(1, Math.round(text.scrollHeight / LINE)));
+        text.style.webkitLineClamp = keep;
+        return n;
+      });
+      return { lines, hs: lines.map(heightForLines) };
+    };
+    const build = () => {
+      const columns = wall.clientWidth < NARROW ? 1 : 3;
+      const H = wall.clientHeight;
+      const m = measure();
+      let b = buildBelt(m.hs, { H, columns });
+      if (b) {
+        hs = m.hs;
+        fit(hs, m.lines);
+      } else {
+        b = buildBelt(serverHs, { H, columns });
+        hs = serverHs;
+        fit(hs);
+      }
+      if (!b) return false;
+      belt = b;
+      root.dataset.mode = String(columns);
+      return true;
+    };
+
+    const advance = () => {
+      if (!belt) return;
+      clearTimeout(settleTimer);
+      const s = step + 1;
+      const pending: Array<[HTMLElement, number, number]> = [];
+      items.forEach((el, i) => {
+        const mv = move(belt!, i, s);
+        if (mv.via) {
+          // 换列：先在原来那一列里继续滑出面板，滑完再在面板之外瞬移到新位置
+          setPos(el, mv.from.col, mv.via.y, false);
+          pending.push([el, mv.to.col, mv.to.y]);
+        } else {
+          setPos(el, mv.to.col, mv.to.y, false);
+        }
+      });
+      step = s;
+      markLift(s);
+      markFocusable(s);
+      settleTimer = window.setTimeout(() => pending.forEach(([el, col, y]) => setPos(el, col, y, true)), MOVE_MS + 40);
+    };
+
+    const start = () => {
+      stop();
+      if (reduce.matches || !belt) return;
+      timer = window.setInterval(() => {
+        if (!paused && visible && !document.hidden) advance();
+      }, STEP_MS);
+    };
+    const stop = () => clearInterval(timer);
+
+    const boot = () => {
+      if (build()) snap(step);
+    };
+    if (!build()) return;
+    snap(step);
+    // 字体加载完后行数可能变化，再实测一次
+    document.fonts?.ready.then(() => {
+      clearTimeout(settleTimer);
+      boot();
+    });
+
+    // 宽度跨过窄屏阈值或高度变化时重新排布（保持当前步）
+    let lastKey = `${root.dataset.mode}:${wall.clientHeight}`;
+    new ResizeObserver(() => {
+      const key = `${wall.clientWidth < NARROW ? 1 : 3}:${wall.clientHeight}`;
+      if (key === lastKey) return;
+      lastKey = key;
+      clearTimeout(settleTimer);
+      if (build()) snap(step);
+    }).observe(wall);
+
+    new IntersectionObserver(([e]) => (visible = e.isIntersecting), { rootMargin: '80px' }).observe(root);
+
+    root.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') paused = true;
+    });
+    root.addEventListener('pointerleave', () => (paused = false));
+    root.addEventListener('focusin', () => (paused = true));
+    root.addEventListener('focusout', () => (paused = false));
+    reduce.addEventListener('change', start);
+    start();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-rw]').forEach(init);
+</script>

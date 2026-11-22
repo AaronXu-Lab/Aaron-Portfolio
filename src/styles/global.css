@@ -358,6 +358,18 @@ button {
   letter-spacing: 0;
 }
 
+/* 超小尺寸：28px 高一档（联系方式旁的「复制」这类附属操作） */
+.btn-xs {
+  height: 28px;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
 /* 纯图标按钮：正方形，宽度等于当前尺寸的高度 */
 .btn-icon {
   width: 54px;
@@ -371,16 +383,24 @@ button {
   height: 44px;
 }
 
+.btn-icon.btn-xs {
+  width: 28px;
+  height: 28px;
+}
+
 /* 小按钮不做悬停上浮，只换描边色 */
 @media (hover: hover) and (pointer: fine) {
-  .btn-sm:hover {
+  .btn-sm:hover,
+  .btn-xs:hover {
     transform: none;
     box-shadow: none;
   }
 }
 
 .btn-sm.btn-outline:active,
-.btn-sm.btn-ghost:active {
+.btn-sm.btn-ghost:active,
+.btn-xs.btn-outline:active,
+.btn-xs.btn-ghost:active {
   transform: scale(0.98);
   background: color-mix(in oklch, var(--text) 5%, transparent);
 }
@@ -791,6 +811,9 @@ button.chip:active,
 }
 [data-copy].copied .copy-text { visibility: hidden; }
 [data-copy].copied .copy-check { visibility: visible; }
+/* 复制成功：图标换成勾号（常规粗细），颜色不变，2 秒后恢复 */
+.btn-xs[data-copy] .copy-check { width: 14px; height: 14px; }
+.btn-xs[data-copy] .copy-text { display: inline-flex; }
 .copy-status {
   position: absolute;
   width: 1px;

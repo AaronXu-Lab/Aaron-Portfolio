@@ -59,7 +59,8 @@ const {
   <body>
     <div id="top" class="scroll-sentinel" aria-hidden="true"></div>
     <a class="skip-link" href="#main">跳到主要内容</a>
-    <Header scrollspy={scrollspy} />
+    <!-- 首页（启用 scrollspy）的内容区用 --w-wide，页眉同宽，左右边缘才与内容对齐 -->
+    <Header scrollspy={scrollspy} wide={scrollspy} />
     <main id="main">
       <slot />
     </main>

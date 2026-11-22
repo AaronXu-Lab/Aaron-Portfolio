@@ -70,7 +70,7 @@ AI 上手必读：[AGENTS.md](AGENTS.md)（`CLAUDE.md` 指向同一文件）。
 
 已通过 Figma MCP 从 📝简历 文件(key `S01WbvJxrtsbrUqbaF7sdT`)批量导出并填充 **30 处**真实图片（存放于 `public/media/`,`MediaSlot` 组件传 `src` 即渲染真图）。旧清单指向的 `Playground` 文件(key `cpxGuEaNoMIHF4IZcmbUfx`)已失效，539 系列节点不存在。首页历史作品集 4 项的 Figma 链接也已精确到各自画板（`data-node-id` 见 `src/pages/index.astro` 的 `historical`）。
 
-### 仍待真实素材替换（8 张，其中 4 张已接入 AI 临时图）
+### 仍待真实素材替换（12 张，其中 4 张已接入 AI 临时图）
 
 | 页面 | 用途 | 比例 | 说明 |
 | --- | --- | --- | --- |
@@ -80,6 +80,10 @@ AI 上手必读：[AGENTS.md](AGENTS.md)（`CLAUDE.md` 指向同一文件）。
 | /work/comic-manga/ | 组件拆分视觉 | 4/3 | 未找到对应素材 |
 | /work/ai-design-system/ | 结果示例 A/B/C（3 处） | 4/5 | A 仪表盘已接入 temporary/dashboard.png 概念图，带 HTML 水印；B/C 仍为空占位，三张均需真实脱敏截图 |
 | / | 个人头像 | 4/5 | 已接入 temporary/portrait.png 虚构人物插画，带 HTML 水印；仍需本人照片 |
+| / | 「更早的作品」悬浮卡配图：智能座舱体验度量 | 16/9 | 占位中，Figma 节点 2730:51623；补图后在 `src/pages/index.astro` 的 `earlyWorks` 里填 `img` |
+| / | 「更早的作品」悬浮卡配图：ColorOS 跨屏互联 | 16/9 | 占位中，Figma 节点 2730:51607；补图后在 `src/pages/index.astro` 的 `earlyWorks` 里填 `img` |
+| / | 「更早的作品」悬浮卡配图：OPPO 车机设计洞察 | 16/9 | 占位中，Figma 节点 2730:51627；补图后在 `src/pages/index.astro` 的 `earlyWorks` 里填 `img` |
+| / | 「更早的作品」悬浮卡配图：腾讯公益课件 AI 配图 | 16/9 | 占位中，Figma 节点 2730:51631；补图后在 `src/pages/index.astro` 的 `earlyWorks` 里填 `img` |
 
 > 补图方式：图片放入 `public/media/<分组>/`,给对应 `<MediaSlot … src="/media/…" />` 传 `src` 即可；`/design/` 页的 `node="000:0000"` 是样式指南演示占位，非真实待替换项。
 

@@ -3,8 +3,10 @@ import Icon from './Icon.astro';
 
 interface Props {
   scrollspy?: boolean;
+  /** 与内容区同宽（--w-wide，首页用）；默认 --w-page */
+  wide?: boolean;
 }
-const { scrollspy = false } = Astro.props;
+const { scrollspy = false, wide = false } = Astro.props;
 
 /** 首页 dropdown 内的锚点项（scrollspy 高亮靠 data-nav） */
 const homeMenu = [
@@ -43,28 +45,12 @@ const currentLabel = activeId
 ---
 
 <header class="site-header" data-scrollspy={scrollspy ? 'true' : undefined}>
-  <div class="inner container">
-    <a class="brand" href="/" aria-label="返回首页">
-      <span class="zh">Aaron Xu</span>
-      <span class="divider" aria-hidden="true">/</span>
-      <span class="en mono-sm">AARON XU</span>
+  <div class:list={['inner', 'container', { wide }]}>
+    <a class="brand" href="/" aria-label="Aaron Xu 的个人网站，返回首页">
+      <span>Aaron Xu 的 个人网站</span>
     </a>
     <nav class="desktop-nav" aria-label="主导航">
-      <div class="nav-drop">
-        <a class="trigger" href="/#about" aria-haspopup="true">
-          首页
-          <Icon name="caret-down" size={11} class="caret" />
-        </a>
-        <div class="menu">
-          {
-            homeMenu.map((item) => (
-              <a href={item.href} data-nav={item.id}>
-                {item.label}
-              </a>
-            ))
-          }
-        </div>
-      </div>
+      <a href="/" class:list={{ active: isHome }}>首页</a>
       {
         nav.map((item) => (
           <a
@@ -84,6 +70,7 @@ const currentLabel = activeId
     <span class="mobile-current" data-mobile-current>{currentLabel}</span>
     <button
       id="theme-toggle"
+      class="btn btn-ghost btn-sm btn-icon"
       type="button"
       aria-label="切换深浅色主题"
       title="切换深浅色主题"
@@ -165,6 +152,10 @@ const currentLabel = activeId
     height: 60px;
   }
 
+  .inner.wide {
+    width: min(var(--w-wide), 100% - 2 * var(--gutter));
+  }
+
   .brand {
     display: flex;
     align-items: baseline;
@@ -173,17 +164,6 @@ const currentLabel = activeId
     font-size: 15px;
     letter-spacing: -0.01em;
     white-space: nowrap;
-  }
-
-  .brand .divider {
-    color: var(--text-mono);
-    font-family: var(--font-mono);
-    font-size: 12px;
-  }
-
-  .brand .en {
-    color: var(--text-mono);
-    letter-spacing: 0.14em;
   }
 
   .desktop-nav {
@@ -216,65 +196,6 @@ const currentLabel = activeId
     font-weight: 500;
   }
 
-  /* ---- 首页 dropdown ---- */
-  .nav-drop {
-    position: relative;
-  }
-
-  .nav-drop .trigger :global(.caret) {
-    color: var(--text-3);
-    transition: transform 0.2s var(--ease-out);
-  }
-
-  .nav-drop .menu {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    min-width: 128px;
-    display: flex;
-    flex-direction: column;
-    padding: 6px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    /* 出现动效：从触发器一侧（上缘）缩放淡入；不从 scale(0) 起步 */
-    transform-origin: top left;
-    opacity: 0;
-    transform: scale(0.96) translateY(-4px);
-    pointer-events: none;
-    transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out);
-  }
-
-  /* hover 前后菜单之间的 6px 空隙用伪元素补上，避免移动途中菜单收起 */
-  .nav-drop .menu::before {
-    content: '';
-    position: absolute;
-    inset: -8px 0 auto;
-    height: 8px;
-  }
-
-  .nav-drop:focus-within .menu {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-
-  .nav-drop:focus-within .trigger :global(.caret) {
-    transform: rotate(180deg);
-  }
-
-  .nav-drop .menu a {
-    padding: 8px 12px;
-    font-size: 13.5px;
-  }
-
-  /* 当前滚动区块在菜单内高亮时，触发器同步点亮 */
-  .nav-drop:has(.menu a.active) .trigger {
-    color: var(--accent-strong);
-    font-weight: 500;
-  }
-
   /* 联系我：向下箭头提示锚点在页尾 */
   .contact-link :global(.down) {
     color: var(--text-3);
@@ -287,46 +208,22 @@ const currentLabel = activeId
       background: color-mix(in oklch, var(--text) 6%, transparent);
     }
 
-    .nav-drop:hover .menu {
-      opacity: 1;
-      transform: none;
-      pointer-events: auto;
-    }
-
-    .nav-drop:hover .trigger :global(.caret) {
-      transform: rotate(180deg);
-    }
-
     .contact-link:hover :global(.down) {
       transform: translateY(2px);
       color: var(--accent-strong);
     }
   }
 
+  /* 主题切换：标准 ghost 图标按钮（.btn.btn-ghost.btn-sm.btn-icon，44px），这里只管颜色与不收缩 */
   #theme-toggle {
     flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    background: transparent;
     color: var(--text-2);
-    transition: border-color 0.2s ease, color 0.2s ease, transform 0.3s var(--ease-out);
   }
 
   @media (hover: hover) and (pointer: fine) {
     #theme-toggle:hover {
       color: var(--text);
-      border-color: var(--text-3);
-      transform: none;
     }
-  }
-
-  #theme-toggle:active {
-    transform: scale(0.92);
   }
 
   #theme-toggle .icon-sun,
@@ -358,10 +255,40 @@ const currentLabel = activeId
     -webkit-user-drag: none;
   }
 
+  /* 滚动后顶栏收成胶囊（宽度 ≥900px 的精确指针才启用：更窄时品牌、导航、主题按钮已塞满，再内收 40px 会把按钮挤出胶囊；手机和触屏平板仍是整条顶栏）：
+     胶囊的左右边缘与内容区对齐（宽度仍是 .inner 的内容宽），内容向内收 20px；
+     胶囊整体下移 8px，顶部留出一点空隙；总高度仍是 60px，所以滚动时页面不会跳。
+     用 inset 阴影当描边，避免描边占位让内容在胶囊出现时偏移 1px。 */
+  @media (min-width: 900px) and (pointer: fine) {
+    .inner {
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 1px transparent;
+      transition: height 0.3s var(--ease-out), margin-top 0.3s var(--ease-out), padding 0.3s var(--ease-out),
+        background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-header.scrolled {
+      background: transparent;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      border-bottom-color: transparent;
+    }
+
+    .site-header.scrolled .inner {
+      height: 52px;
+      margin-top: 8px;
+      box-sizing: content-box;
+      padding-inline: 20px;
+      background: var(--header-bg);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      box-shadow: inset 0 0 0 1px var(--border), var(--shadow-card);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .nav-drop .menu {
-      transition: opacity 0.18s ease;
-      transform: none;
+    .inner {
+      transition: none !important;
     }
   }
 
@@ -377,11 +304,6 @@ const currentLabel = activeId
 
     .inner {
       gap: 8px;
-    }
-
-    .brand .en,
-    .brand .divider {
-      display: none;
     }
 
     .desktop-nav {
@@ -401,7 +323,6 @@ const currentLabel = activeId
       white-space: nowrap;
     }
 
-    #theme-toggle,
     #mobile-nav-toggle {
       width: 44px;
       height: 44px;

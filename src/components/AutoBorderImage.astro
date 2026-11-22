@@ -1,0 +1,65 @@
+---
+import { getEdge } from '../lib/edge-brightness';
+
+/**
+ * 图标类图片：构建时按边缘明暗自动决定是否描边（判断见 src/lib/edge-brightness.ts）。
+ * 透明抠图（cutout，边缘一圈不透明占比低）没有自己的边界，两种主题都描边。
+ * 浅色主题：边缘偏亮（light）才描边；深色主题相反：边缘偏深（dark）才描边；mid 不描边。
+ * border: 'auto' 按判断；'on' 始终描边；'off' 始终不描边。
+ * 描边始终占 1px（透明或 --border），盒模型 border-box，尺寸不变。
+ * class 与其余属性透传到 <img>；组件自身不设 transform，方便调用处做悬停缩放。
+ */
+interface Props {
+  /** public 下的路径，如 /tools/stash/icon-192.png */
+  src: string;
+  /** 边长 px */
+  size?: number;
+  /** 圆角 px，默认随尺寸：32→8、40→9、44→10，其余取 22% */
+  radius?: number;
+  alt?: string;
+  border?: 'auto' | 'on' | 'off';
+  class?: string;
+  [attr: string]: unknown;
+}
+const { src, size = 40, radius, alt = '', border = 'auto', class: className, style, ...rest } = Astro.props;
+const defaultRadius: Record<number, number> = { 32: 8, 40: 9, 44: 10 };
+const r = radius ?? defaultRadius[size] ?? Math.round(size * 0.22);
+const edge = await getEdge(src);
+const box = `width:${size}px;height:${size}px;border-radius:${r}px`;
+---
+
+<img
+  src={src}
+  alt={alt}
+  width={size}
+  height={size}
+  class:list={['abi', { 'abi-on': border === 'on', 'abi-off': border === 'off' }, className]}
+  data-edge={edge}
+  style={style ? `${box};${style}` : box}
+  {...rest}
+/>
+
+<style>
+  .abi {
+    box-sizing: border-box;
+    border: 1px solid transparent;
+  }
+  .abi[data-edge='light'],
+  .abi[data-edge='cutout'] {
+    border-color: var(--border);
+  }
+  :global([data-theme='dark']) .abi[data-edge='light'] {
+    border-color: transparent;
+  }
+  :global([data-theme='dark']) .abi[data-edge='dark'] {
+    border-color: var(--border);
+  }
+  .abi.abi-on,
+  :global([data-theme='dark']) .abi.abi-on {
+    border-color: var(--border);
+  }
+  .abi.abi-off,
+  :global([data-theme='dark']) .abi.abi-off {
+    border-color: transparent;
+  }
+</style>

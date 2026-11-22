@@ -44,7 +44,7 @@ export const components: ComponentDef[] = [
   {
     slug: 'button',
     name: '按钮',
-    source: '.btn / .btn-outline / .btn-ghost / .btn-sm / .btn-icon',
+    source: '.btn / .btn-outline / .btn-ghost / .btn-sm / .btn-xs / .btn-icon',
     group: '基础',
     summary: '触发主要或次要操作。主按钮用于页面唯一的核心行动，次级按钮用于并列的备选行动。',
     props: [
@@ -54,6 +54,7 @@ export const components: ComponentDef[] = [
         options: [
           { value: 'md', label: 'md · 54px' },
           { value: 'sm', label: 'sm · 44px', cls: 'btn-sm' },
+          { value: 'xs', label: 'xs · 28px', cls: 'btn-xs' },
         ],
         default: 'md',
       },
@@ -99,7 +100,7 @@ export const components: ComponentDef[] = [
     name: '文字链接',
     source: 'TextLink.astro',
     group: '基础',
-    summary: '虚线下划线文字加箭头。有 href 渲染为链接，没有则渲染为按钮；aria-expanded 为 true 时箭头旋转 180°。',
+    summary: '虚线下划线文字，尾部箭头可选。有 href 渲染为链接，没有则渲染为按钮；aria-expanded 为 true 时箭头旋转 180°。',
     props: [
       {
         name: 'size',
@@ -116,9 +117,30 @@ export const components: ComponentDef[] = [
         options: [
           { value: 'arrow-right' },
           { value: 'arrow-down', cls: 'pv-i-down' },
+          { value: 'arrow-up', cls: 'pv-i-up' },
           { value: 'arrow-bend-down-right', cls: 'pv-i-bend' },
+          { value: 'none', label: 'none · 无箭头', cls: 'pv-i-none' },
         ],
         default: 'arrow-right',
+      },
+    ],
+  },
+  {
+    slug: 'auto-border-image',
+    name: '自动描边图片',
+    source: 'AutoBorderImage.astro',
+    group: '基础',
+    summary: '图标类图片：构建时读取图片边缘亮度，浅色主题下边缘偏亮的加描边，深色主题下判断相反，边缘偏深的加描边，中间调不描边；四周是透明抠图的图（边缘一圈不透明占比低于 50%）两种主题都描边。border 可强制开或关。',
+    props: [
+      {
+        name: 'border',
+        label: '描边',
+        options: [
+          { value: 'auto' },
+          { value: 'on', cls: 'pv-b-on' },
+          { value: 'off', cls: 'pv-b-off' },
+        ],
+        default: 'auto',
       },
     ],
   },

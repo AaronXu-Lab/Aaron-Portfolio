@@ -6,6 +6,8 @@ import CaseList from './CaseList.astro';
 import Footer from './Footer.astro';
 import HeroCaret from './HeroCaret.astro';
 import TextLink from './TextLink.astro';
+import AutoBorderImage from './AutoBorderImage.astro';
+import { getEdge } from '../lib/edge-brightness';
 
 /**
  * /components/ 的预览渲染：按 slug 输出组件实例。
@@ -26,6 +28,16 @@ const iconNames = [
   'game-controller', 'trophy', 'graduation-cap', 'code', 'device-mobile',
   'sparkle', 'wave-sine', 'squares-four', 'book-open-text',
 ] as const;
+const abiSamples = [
+  ['/tools/wardrobe/icon-192.png', '衣集'],
+  ['/tools/stash/icon-192.png', '暂存箱'],
+  ['/tools/focus-forest/icon.svg', '专注森林'],
+  ['/tools/mesh-gradient/icon.svg', 'Mesh Gradient'],
+  ['/tools/travel-maps/travel-logo.png', '出发吧打工人'],
+  ['/tools/flying-ninja-cat/icon.png', '飞天忍者猫'],
+  ['/media/products/mastergo2figma.png', 'MasterGo2Figma'],
+];
+const abiEdges = slug === 'auto-border-image' ? await Promise.all(abiSamples.map(([s]) => getEdge(s))) : [];
 const ratio = style.match(/aspect-ratio:\s*([^;]+)/)?.[1] ?? '16 / 9';
 ---
 
@@ -41,8 +53,20 @@ const ratio = style.match(/aspect-ratio:\s*([^;]+)/)?.[1] ?? '16 / 9';
   <span class:list={['pv-tl', cls]}>
     <TextLink class="pv-l-right" href="#text-link">文字链接</TextLink>
     <TextLink class="pv-l-down" icon="arrow-down">文字链接</TextLink>
+    <TextLink class="pv-l-up" icon="arrow-up">文字链接</TextLink>
     <TextLink class="pv-l-bend" icon="arrow-bend-down-right">文字链接</TextLink>
+    <TextLink class="pv-l-none" icon="none">文字链接</TextLink>
   </span>
+)}
+{slug === 'auto-border-image' && (
+  <div class:list={['pv-abi', cls]}>
+    {abiSamples.map(([src, name], i) => (
+      <figure>
+        <AutoBorderImage src={src} size={44} alt={name} />
+        <figcaption><span class="mono-sm">{name}</span><span class="mono-sm">{abiEdges[i]}</span></figcaption>
+      </figure>
+    ))}
+  </div>
 )}
 {slug === 'badge' && <span class={cls}>示例标签</span>}
 {slug === 'card' && (
@@ -77,11 +101,19 @@ const ratio = style.match(/aspect-ratio:\s*([^;]+)/)?.[1] ?? '16 / 9';
 )}
 
 <style>
+  .pv-abi { display: flex; flex-wrap: wrap; gap: 20px 24px; justify-content: center; }
+  .pv-abi figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .pv-abi figcaption { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+  .pv-abi .mono-sm { color: var(--text-mono); font-size: 11px; }
+  .pv-abi .mono-sm + .mono-sm { color: var(--text-3); }
+  /* 预览容器上的强制开关：覆盖组件自身的自动判断 */
+  .pv-b-on :global(.abi) { border-color: var(--border) !important; }
+  .pv-b-off :global(.abi) { border-color: transparent !important; }
   /* TextLink 预览：三个图标各渲染一份，由容器类名决定显示哪一个 */
   .pv-tl { display: inline-flex; }
-  .pv-tl.pv-tl :global(.pv-l-down), .pv-tl.pv-tl :global(.pv-l-bend) { display: none; }
-  .pv-tl.pv-i-down :global(.pv-l-right), .pv-tl.pv-i-bend :global(.pv-l-right) { display: none; }
-  .pv-tl.pv-i-down.pv-i-down :global(.pv-l-down), .pv-tl.pv-i-bend.pv-i-bend :global(.pv-l-bend) { display: inline-flex; }
+  .pv-tl.pv-tl :global(.pv-l-down), .pv-tl.pv-tl :global(.pv-l-up), .pv-tl.pv-tl :global(.pv-l-bend), .pv-tl.pv-tl :global(.pv-l-none) { display: none; }
+  .pv-tl.pv-i-down :global(.pv-l-right), .pv-tl.pv-i-up :global(.pv-l-right), .pv-tl.pv-i-bend :global(.pv-l-right), .pv-tl.pv-i-none :global(.pv-l-right) { display: none; }
+  .pv-tl.pv-i-down.pv-i-down :global(.pv-l-down), .pv-tl.pv-i-up.pv-i-up :global(.pv-l-up), .pv-tl.pv-i-bend.pv-i-bend :global(.pv-l-bend), .pv-tl.pv-i-none.pv-i-none :global(.pv-l-none) { display: inline-flex; }
   .pv-icon, .pv-arrow-right, .pv-arrow-upright { display: none; }
   .pv-has-icon .pv-icon, .btn-icon .pv-icon { display: inline-flex; }
   .pv-arrow-r .pv-arrow-right, .pv-arrow-ur .pv-arrow-upright { display: inline; }

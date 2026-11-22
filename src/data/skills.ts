@@ -169,7 +169,7 @@ export const skills: SkillEntry[] = [
   {
     group: 'design-agent',
     slug: 'aw-ux-info-redundancy-audit',
-    name: 'UI/UX 重复信息审计',
+    name: 'UX 重复信息审计',
     description:
       '把界面内容归一为事实，标出每个事实的重复出现位置，判断哪些重复真正提供任务价值，再给出保留、合并、删除、缩短、移动或拆分的最小安全改动。',
     status: 'shipped',

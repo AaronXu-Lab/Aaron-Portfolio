@@ -1,6 +1,7 @@
 ---
 import { cases } from '../data/cases';
 import Icon from './Icon.astro';
+import TextLink from './TextLink.astro';
 
 interface Props {
   /** simple:只留版权 + 回到顶部，不重复顶部导航（首页改版用） */
@@ -14,7 +15,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer simple">
   <div class="simple-inner">
     <span>© {year} Aaron Xu</span>
-    <a class="to-top" href="#top">回到顶部<Icon name="arrow-up" size={14} /></a>
+    <TextLink href="#top" icon="arrow-up">回到顶部</TextLink>
   </div>
 </footer>
 ) : (
@@ -161,36 +162,6 @@ const year = new Date().getFullYear();
     color: var(--text-2);
   }
 
-  .to-top {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    height: 44px;
-    padding: 0 12px;
-    margin-right: -12px;
-    border-radius: var(--radius-btn);
-    font-weight: 500;
-    color: var(--text);
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-
-  .to-top :global(svg) {
-    transition: transform 0.25s var(--ease-out);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .to-top:hover {
-      background: color-mix(in oklch, var(--text) 6%, transparent);
-    }
-
-    .to-top:hover :global(svg) {
-      transform: translateY(-2px);
-    }
-  }
-
-  .to-top:active {
-    background: color-mix(in oklch, var(--text) 9%, transparent);
-  }
 
   .bottom .mono-sm {
     font-size: 11.5px;

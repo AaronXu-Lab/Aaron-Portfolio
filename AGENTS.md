@@ -23,6 +23,9 @@ Aaron Xu,UX Engineer 的作品集 + 站内博客 + Skill / 产品集。Astro 5 �
 | `src/content.config.ts` | 博客 frontmatter 的 zod schema;加字段要同时改这里和 `scripts/lib/post-utils.mjs`,否则 `npm run build` 直接报错 |
 | `src/pages/design.astro` | `/design/` 活体样式指南：全部 token 与组件的实渲染；底部「其他组件库」读 `src/data/libraries.ts`，无 `href` 的项由 `src/pages/design/[slug].astro` 渲染「施工中」页 |
 | `scripts/` | 新建/导入/标点脚本 |
+| `src/data/reviews.ts` | 首页 MasterGo Importer 评论墙的**唯一数据源**（用户评论原文、来源、来源链接、头像）。只放真实评论，不改写；评论取自作者整理的 MasterGo 评论合集（小红书 / Figma 社区）。`REVIEWS_ARE_SAMPLE` 为 true 时卡片上会显示「示例数据」标签 |
+| `src/components/ReviewWall.astro` + `src/lib/review-wall.mjs` | 评论墙组件与排布逻辑（评论是一条环形传送带，分三列滚动：向下 / 向上 / 向下，只有中间列居中抬起；窄屏只留一列）。`review-wall.mjs` 是纯函数，服务端首屏、浏览器脚本、`tests/` 共用，改它要跑 `npm run test:wall` |
+| `src/data/stats.json` + `src/data/stats.ts` | 首页 MasterGo Importer 统计数字（首屏证据卡、「大产品」主推卡）的唯一数据源。`github.stars` 由 `.github/workflows/update-stats.yml` 每天跑 `scripts/update-stats.mjs` 抓取，变了才提交；`figma.likes` / `figma.users` 手改（Figma 对非浏览器请求一律 403），改时连 `updatedAt` 一起改。格式化（1605 → 1.6k）在 `stats.ts` |
 | `src/data/about.ts` | 首页「00 关于与经历」的数据（个人信息、能力、工作经历），首页与简历打印页 `/resume/` 共用。改完要跑 `npm run build:resume` 重新生成并提交 `public/media/resume/aaron-xu-resume.pdf`（首页「下载简历」下载的就是它；Cloudflare 构建环境没有 Chrome，不在线上生成） |
 | `public/media/home/quiet-work.json` | 首页首屏插图动画（Rive 项目 rive-quiet-work 导出的网页版转成的数据包）；由 `node scripts/import-hero-animation.mjs <web-animation/index.html>` 生成，勿手改。静态兜底图是同目录的 `hero-illustration.webp`，两者裁切框必须一致 |
 | `workflows/` | 沉淀工作流：新增案例（AI 剧本）、新增博客（脚本） |
@@ -68,7 +71,7 @@ Astro 输出纯静态资源，不需要 Cloudflare Astro 适配器。`public/_he
 3. **中文排版**:文案用全角标点（，。：；？!）,写完跑 `npm run fix:punct`。中文破折号「——」（成对）允许；**孤立单个 em-dash「—」全站禁止**,区间用连字符(`2024.1 - 2025.3`)。
 4. **动效纪律**:禁止 `window.addEventListener('scroll')`（用 IntersectionObserver / CSS scroll-driven）;入场动画用 `.reveal` 类（+ 可选 `--d` 延迟）,交互元素需 `:hover` 与 `:active` 态；一切动效在 `prefers-reduced-motion` 下降级。
 5. **图片**:真实图未导出前用 `MediaSlot`（标注 Figma 节点号并登记进 `README.md` 的替换表）;禁止 div 拼假截图、手绘装饰 SVG。
-6. **验证**:每次改动后 `npm run build` 零错误；动到 `src/lib/flypy-core.mjs` 追加跑 `npm run test:flypy`,动到 `public/tools/focus-forest/js/core.js` 追加跑 `npm run test:forest`,动到 `public/tools/grid-breakpoint/js/core.js` 追加跑 `npm run test:grid`,动到 `public/tools/mesh-gradient/js/core.js` 追加跑 `npm run test:mesh`;视觉核对可给 URL 加 `?qa`（跳过入场动画，截图稳定）。注意 `astro dev` 不会为 `public/` 里的静态壳目录返回 index.html（`/tools/travel-maps/`、`/tools/focus-forest/`、`/tools/grid-breakpoint/`、`/tools/mesh-gradient/` 在 dev 下 404）,验证这类工具要用 `npm run build && npm run preview`。
+6. **验证**:每次改动后 `npm run build` 零错误；动到 `src/lib/flypy-core.mjs` 追加跑 `npm run test:flypy`,动到 `public/tools/focus-forest/js/core.js` 追加跑 `npm run test:forest`,动到 `public/tools/grid-breakpoint/js/core.js` 追加跑 `npm run test:grid`,动到 `public/tools/mesh-gradient/js/core.js` 追加跑 `npm run test:mesh`,动到 `src/lib/review-wall.mjs` 追加跑 `npm run test:wall`;视觉核对可给 URL 加 `?qa`（跳过入场动画，截图稳定）。注意 `astro dev` 不会为 `public/` 里的静态壳目录返回 index.html（`/tools/travel-maps/`、`/tools/focus-forest/`、`/tools/grid-breakpoint/`、`/tools/mesh-gradient/` 在 dev 下 404）,验证这类工具要用 `npm run build && npm run preview`。
 7. **不可 silent 更改**:路由 slug、导航文案、既有内容语态。
 8. **Eyebrow 只用于区块级**:大写 mono 引导标签（`.mono-label` 及各页 kicker）只允许出现在区块级——页头 kicker、`SectionHead`/section 头部、区块内的分组标题，每个区块至多一组；卡片内部、表格表头、图注、列表项、翻页链接一律不用大写 eyebrow——这些位置的小字用 `.mono-sm`（不大写，颜色可取 `--text-mono`）,表头用加粗小字。页面 scoped 的 kicker 类只管布局与颜色，字体字号字距一律组合 `.mono-label` / `.mono-sm` 原语提供，不得自行重定义。
 9. **PWA 安装入口**:PWA 工具相对独立（可能从主屏幕直接启动）,**不放「返回上级」链接**,顶栏左侧那个位置留给「安装应用」按钮。必须提供可见的「安装应用」按钮；在支持 `beforeinstallprompt` 的浏览器中仅由用户点击后调用安装提示，并监听 `appinstalled` 更新状态。iOS 等不支持主动提示的环境须给出「添加到主屏幕」步骤；三星浏览器须提示其 WebAPK 可能触发 Android 安全警告并建议改用最新版 Chrome。禁止页面加载后自动弹出安装提示。
