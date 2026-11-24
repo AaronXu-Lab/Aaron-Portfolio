@@ -178,5 +178,15 @@
     "date": "2026-11-18",
     "promptVersion": "pelican-v1",
     "entry": "entries/gemini-4-neon-high-pelican-run-01/index.html"
+  },
+  {
+    "id": "gemini-4-carbon-high-pelican-run-01",
+    "model": "Gemini 4 Carbon",
+    "version": "未提供",
+    "reasoningEffort": "High",
+    "title": "晴澜栈桥 · Breeze Causeway",
+    "date": "2026-11-23",
+    "promptVersion": "pelican-v1",
+    "entry": "entries/gemini-4-carbon-high-pelican-run-01/index.html"
   }
 ]

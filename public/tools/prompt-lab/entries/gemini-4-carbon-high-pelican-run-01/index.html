@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>晴澜栈桥 · Breeze Causeway</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <canvas id="scene-canvas" aria-label="鹈鹕骑自行车可交互 3D 场景"></canvas>
+
+  <!-- Minimal Top HUD (320px+ safe, tabular-nums, zero overflow) -->
+  <header class="hud-top" aria-label="骑行状态与场景设置">
+    <div class="stat-cluster">
+      <button type="button" class="pill stat-pill" id="mode-btn" title="切换骑行状态 (Q / S)">
+        <span class="pouch-dot" id="speed-dot" aria-hidden="true"></span>
+        <span class="stat-text" id="mode-label">巡航</span>
+        <span class="stat-num" id="speed-num">22</span>
+        <span class="stat-unit">km/h</span>
+      </button>
+
+      <div class="pill fish-pill" id="pouch-pill" aria-live="polite" title="喉囊存鱼与渔港累计投递">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12c-2.6-3.4-6.4-5.2-10.6-4.8-2.3.2-4.3 1.2-5.9 2.6L1.5 8v8l3-1.8c1.6 1.4 3.6 2.4 5.9 2.6C14.6 17.2 18.4 15.4 21 12Z" fill="currentColor"/>
+          <circle cx="15.5" cy="11" r="1.25" fill="#132538"/>
+        </svg>
+        <span class="stat-num" id="pouch-count">0</span>
+        <span class="stat-sep">/</span>
+        <span class="stat-sub" id="delivered-count" title="累计投递鲜鱼">0</span>
+      </div>
+    </div>
+
+    <div class="tool-cluster">
+      <button type="button" class="icon-btn" id="cam-btn" aria-label="切换视角 (C)" title="切换机位视角 (C / 1-4)">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h8A2.5 2.5 0 0 1 17 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-8A2.5 2.5 0 0 1 4 16.5v-9Zm14.5 2.3 3.2-2.1a.8.8 0 0 1 1.3.6v7.4a.8.8 0 0 1-1.3.6l-3.2-2.1V9.8Z" fill="currentColor"/>
+        </svg>
+        <span class="btn-badge" id="cam-label">3/4</span>
+      </button>
+
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="切换天色 (T)" title="切换昼夜天色 (T)">
+        <svg class="icon-svg" id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5" fill="currentColor"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <button type="button" class="icon-btn" id="sound-btn" aria-label="声音开关 (M)" aria-pressed="true" title="声音开关 (M)">
+        <svg class="icon-svg" id="sound-icon-on" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 9.5h3.6L12.5 5v14l-4.9-4.5H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1Z" fill="currentColor"/>
+          <path d="M16 8.8a4.5 4.5 0 0 1 0 6.4M18.8 6.2a8 8 0 0 1 0 11.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg class="icon-svg hidden" id="sound-icon-off" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 9.5h3.6L12.5 5v14l-4.9-4.5H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1Z" fill="currentColor"/>
+          <path d="m16.2 9.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <button type="button" class="icon-btn" id="help-btn" aria-label="快捷键与操控说明 (?)" aria-expanded="false" title="快捷键说明 (? / H)">
+        <span class="help-glyph" aria-hidden="true">?</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Subtle Floating Event Toast (e.g. Harbor delivery / Camera / Theme) -->
+  <div class="event-toast" id="event-toast" role="status" aria-live="polite"></div>
+
+  <!-- Bottom Ergonomic Mobile-First Controls (320-430px optimized) -->
+  <footer class="hud-bottom" aria-label="骑行操控台">
+    <!-- 1:1 Analog Thumb Steering Capsule -->
+    <div class="steer-pad" id="steer-pad" role="slider" aria-label="左右压弯转向" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+      <span class="steer-arrow" aria-hidden="true">‹</span>
+      <div class="steer-track">
+        <div class="steer-thumb" id="steer-thumb">
+          <span class="steer-grip" aria-hidden="true"></span>
+        </div>
+      </div>
+      <span class="steer-arrow" aria-hidden="true">›</span>
+      <span class="key-hint steer-keys" aria-hidden="true">A / D</span>
+    </div>
+
+    <!-- Tactile Action Buttons -->
+    <div class="action-group">
+      <button type="button" class="act-btn act-bell" id="bell-btn" aria-label="按响铜车铃引鱼并张喙捕鱼 (B)">
+        <svg class="act-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4a6.5 6.5 0 0 0-6.5 6.5c0 2.8-.9 4.4-1.8 5.3h16.6c-.9-.9-1.8-2.5-1.8-5.3A6.5 6.5 0 0 0 12 4Zm-2.2 13.8a2.2 2.2 0 0 0 4.4 0H9.8Z" fill="currentColor"/>
+        </svg>
+        <span class="act-label">车铃</span>
+        <kbd class="key-hint">B</kbd>
+      </button>
+
+      <button type="button" class="act-btn act-hop" id="hop-btn" aria-label="轻按兔跳，空中按住展翅滑翔 (Space)">
+        <svg class="act-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 16.5c3.5-4.8 7.4-7 12.2-6.5l5.8-3.5-2.6 5.9c-3.2 2.6-6.9 4.1-11.2 4.1H3Z" fill="currentColor"/>
+        </svg>
+        <span class="act-label" id="hop-label">跃·翔</span>
+        <kbd class="key-hint">Space</kbd>
+      </button>
+
+      <button type="button" class="act-btn act-sprint" id="sprint-btn" aria-label="按住站立摇车冲刺 (W / Shift)">
+        <svg class="act-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13.5 2.5 5.5 13h5.6l-1.1 8.5 8.5-10.8h-5.7l.7-8.2Z" fill="currentColor"/>
+        </svg>
+        <span class="act-label">摇车</span>
+        <kbd class="key-hint">W</kbd>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Compact Keyboard Shortcuts & Gesture Sheet -->
+  <aside class="shortcut-sheet" id="shortcut-sheet" aria-label="操控与键盘快捷键" hidden>
+    <div class="sheet-card">
+      <div class="sheet-head">
+        <h2>操控与快捷键</h2>
+        <button type="button" class="sheet-close" id="sheet-close" aria-label="关闭说明 (Esc)">✕</button>
+      </div>
+
+      <p class="sheet-tip">画面区单指拖动可 360° 环视，双指捏合缩放，点按鹈鹕可互动；经过灯塔渔港自动将喉囊鲜鱼抛入鱼篓。</p>
+
+      <dl class="key-grid">
+        <div><dt><kbd>A</kbd> <kbd>D</kbd> / <kbd>←</kbd> <kbd>→</kbd></dt><dd>左右压弯转向</dd></div>
+        <div><dt><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Shift</kbd></dt><dd>按住站立摇车冲刺</dd></div>
+        <div><dt><kbd>S</kbd> / <kbd>↓</kbd></dt><dd>棘轮滑行 / 刹停单脚撑地</dd></div>
+        <div><dt><kbd>Q</kbd></dt><dd>切换巡航 · 滑行 · 驻车</dd></div>
+        <div><dt><kbd>Space</kbd></dt><dd>兔跳（空中按住展翅滑翔）</dd></div>
+        <div><dt><kbd>B</kbd> / <kbd>F</kbd></dt><dd>铜车铃唤鱼跃起 · 张喙捕鱼</dd></div>
+        <div><dt><kbd>C</kbd> / <kbd>1</kbd>-<kbd>4</kbd></dt><dd>切换四种机位视角</dd></div>
+        <div><dt><kbd>T</kbd> / <kbd>M</kbd> / <kbd>R</kbd></dt><dd>天色 · 静音 · 重置</dd></div>
+      </dl>
+    </div>
+  </aside>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
