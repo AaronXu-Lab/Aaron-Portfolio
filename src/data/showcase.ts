@@ -145,6 +145,7 @@ export const featuredProduct = {
   ],
   icon: mastergo.image,
   href: mastergo.links[0].href,
+  figmaHref: 'https://www.figma.com/community/plugin/1662512589841230294/mastergo-importer',
 };
 
 function formatCount(n: number): string {

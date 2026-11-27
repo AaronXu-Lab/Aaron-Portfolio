@@ -39,7 +39,7 @@ const proofs = [
   {
     title: `${figmaUsers} · ${githubStars}`,
     desc: 'Figma 开源插件 · 把 MasterGo 图层迁移到 Figma',
-    href: 'https://www.figma.com/community/plugin/1662512589841230294/mastergo-importer',
+    href: featuredProduct.figmaHref,
     img: '/media/products/mastergo2figma.png',
     external: true,
   },
@@ -307,7 +307,7 @@ const badgeTone = { dark: 'badge-dark', accent: 'badge-accent' } as const;
       <div class="lab-group">
         <h3 class="group-title reveal">大产品</h3>
         <div class="feature reveal">
-          <a class="feature-main" href={featuredProduct.href} {...ext}>
+          <a class="feature-main" href={featuredProduct.figmaHref} {...ext}>
             <span class="feature-meta">
               <AutoBorderImage src={featuredProduct.icon} size={44} />
               <span>{featuredProduct.meta}</span>

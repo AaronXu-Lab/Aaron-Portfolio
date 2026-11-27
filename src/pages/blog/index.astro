@@ -508,15 +508,6 @@ const years = [...byYear.entries()];
     padding: 17px 6px;
     border-bottom: 1px solid var(--border-subtle);
     border-radius: var(--radius);
-    transition: background-color 0.2s ease;
-  }
-
-  .row:hover {
-    background: color-mix(in oklch, var(--surface) 70%, transparent);
-  }
-
-  .row:active {
-    background: color-mix(in oklch, var(--surface) 45%, transparent);
   }
 
   .row time {
@@ -539,8 +530,13 @@ const years = [...byYear.entries()];
     transition: color 0.2s ease;
   }
 
-  .row:hover .row-title {
+  .row:hover .row-title,
+  .row:focus-visible .row-title {
     color: var(--accent-strong);
+  }
+
+  .row:active .row-title {
+    color: var(--accent-deep);
   }
 
   .row-excerpt {
@@ -569,17 +565,6 @@ const years = [...byYear.entries()];
 
   .row-arr {
     color: var(--text-3);
-    transition: transform 0.25s var(--ease-out), color 0.2s ease;
-  }
-
-  .row:hover .row-arr {
-    color: var(--accent-strong);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .row:hover .row-arr {
-      transform: translateX(4px);
-    }
   }
 
   @media (max-width: 720px) {

@@ -54,6 +54,8 @@
   --w-page: 1192px;
   --w-wide: var(--w-page);
   --w-prose: 780px;
+  --post-head-gap: clamp(24px, 3vw, 32px);
+  --post-intro-gap: 24px;
   /* 左右安全边距:任何视口下内容与屏幕边缘的最小间距(随屏宽增大) */
   --gutter: clamp(24px, 5vw, 64px);
   --pad-x: var(--gutter); /* 兼容旧引用 */
