@@ -39,17 +39,23 @@ const years = [...byYear.entries()];
     </header>
 
     <div class="toolbar reveal">
-      <div class="filters" data-blog-filters role="group" aria-label="按分类筛选">
-        <button class="chip filter on" type="button" data-cat="" aria-pressed="true">
-          全部 <span class="count mono-sm">{posts.length}</span>
+      <div class="filter-bar" data-filter-bar role="group" aria-label="按分类筛选">
+        <div class="filters" data-blog-filters>
+          <button class="chip filter on" type="button" data-cat="" aria-pressed="true">
+            全部 <span class="count mono-sm">{posts.length}</span>
+          </button>
+          {
+            categories.map(([cat, count]) => (
+              <button class="chip filter" type="button" data-cat={cat} aria-pressed="false">
+                {cat} <span class="count mono-sm">{count}</span>
+              </button>
+            ))
+          }
+        </div>
+        <button class="chip filter" type="button" id="blog-filter-more" aria-haspopup="menu" aria-expanded="false" aria-controls="blog-filter-menu" hidden>
+          更多 <span class="count mono-sm" data-overflow-count></span>
         </button>
-        {
-          categories.map(([cat, count]) => (
-            <button class="chip filter" type="button" data-cat={cat} aria-pressed="false">
-              {cat} <span class="count mono-sm">{count}</span>
-            </button>
-          ))
-        }
+        <div class="filter-menu" id="blog-filter-menu" role="menu" aria-labelledby="blog-filter-more" hidden></div>
       </div>
       <label class="search">
         <Icon name="magnifying-glass" size={14} />
@@ -99,8 +105,11 @@ const years = [...byYear.entries()];
 </Base>
 
 <script>
-  // 分类筛选（客户端，不改路由）
-  const filters = [...document.querySelectorAll<HTMLButtonElement>('.filter')];
+  const bar = document.querySelector<HTMLElement>('[data-filter-bar]')!;
+  const filters = [...bar.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+  const more = document.querySelector<HTMLButtonElement>('#blog-filter-more')!;
+  const count = more.querySelector<HTMLElement>('[data-overflow-count]')!;
+  const menu = document.querySelector<HTMLElement>('#blog-filter-menu')!;
   const rows = [...document.querySelectorAll<HTMLElement>('.row-wrap')];
   const groups = [...document.querySelectorAll<HTMLElement>('.year-group')];
   const empty = document.querySelector<HTMLElement>('.empty');
@@ -125,18 +134,146 @@ const years = [...byYear.entries()];
     if (empty) empty.hidden = visible > 0;
   };
 
-  for (const btn of filters) {
-    btn.addEventListener('click', () => {
-      filters.forEach((b) => {
-        const on = b === btn;
-        b.classList.toggle('on', on);
-        b.setAttribute('aria-pressed', String(on));
-      });
-      currentCat = btn.dataset.cat ?? '';
-      apply();
+  const menuItems = filters.slice(1).map((filter) => {
+    const item = filter.cloneNode(true) as HTMLButtonElement;
+    item.className = 'filter-option';
+    item.setAttribute('role', 'menuitemradio');
+    item.removeAttribute('aria-pressed');
+    item.tabIndex = -1;
+    item.addEventListener('click', () => {
+      select(filter);
+      closeMenu(true);
     });
+    menu.append(item);
+    return item;
+  });
+  const visibleItems = () => menuItems.filter((item) => !item.hidden);
+
+  function syncSelection() {
+    for (const button of filters) {
+      const selected = button.dataset.cat === currentCat;
+      button.classList.toggle('on', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    }
+    for (const item of menuItems) item.setAttribute('aria-checked', String(item.dataset.cat === currentCat));
+    const selectedInMenu = visibleItems().find((item) => item.dataset.cat === currentCat);
+    more.classList.toggle('on', Boolean(selectedInMenu));
+    const label = `更多分类，${visibleItems().length} 项`;
+    more.setAttribute('aria-label', selectedInMenu ? `${label}，当前筛选：${currentCat}` : label);
+    more.title = selectedInMenu ? `当前筛选：${currentCat}` : '';
   }
 
+  function select(filter: HTMLButtonElement) {
+    currentCat = filter.dataset.cat ?? '';
+    syncSelection();
+    apply();
+  }
+
+  function closeMenu(restoreFocus = false) {
+    if (menu.hidden) return;
+    menu.hidden = true;
+    more.setAttribute('aria-expanded', 'false');
+    if (restoreFocus) more.focus();
+  }
+
+  function positionMenu() {
+    const space = bar.clientWidth - more.offsetLeft - more.offsetWidth;
+    const max = bar.clientWidth - menu.offsetWidth;
+    menu.style.insetInlineEnd = `${Math.max(0, Math.min(space, max))}px`;
+  }
+
+  function openMenu(last = false) {
+    const items = visibleItems();
+    if (!items.length) return;
+    menu.hidden = false;
+    more.setAttribute('aria-expanded', 'true');
+    positionMenu();
+    (last ? items.at(-1) : items.find((item) => item.getAttribute('aria-checked') === 'true') ?? items[0])?.focus();
+  }
+
+  function fitFilters() {
+    const width = bar.clientWidth;
+    if (!width) return;
+    const focused = document.activeElement;
+    for (const button of filters) button.hidden = false;
+    const widths = filters.map((button) => parseFloat(getComputedStyle(button).width));
+    const gap = parseFloat(getComputedStyle(bar).columnGap) || 0;
+    const total = widths.reduce((sum, value) => sum + value, gap * (widths.length - 1));
+    let visible = filters.length;
+
+    if (total > width) {
+      more.hidden = false;
+      count.textContent = `+${filters.length - 1}`;
+      const reserved = parseFloat(getComputedStyle(more).width) + gap;
+      let used = widths[0];
+      visible = 1;
+      while (visible < widths.length && used + gap + widths[visible] + reserved <= width) {
+        used += gap + widths[visible];
+        visible++;
+      }
+    }
+
+    const hidden = filters.length - visible;
+    more.hidden = hidden === 0;
+    count.textContent = `+${hidden}`;
+    filters.forEach((button, index) => { button.hidden = index >= visible; });
+    menuItems.forEach((item, index) => { item.hidden = index + 1 < visible; });
+    syncSelection();
+    if (hidden === 0) {
+      if (menu.contains(focused) || focused === more) (filters.find((button) => button.dataset.cat === currentCat) ?? filters[0]).focus();
+      closeMenu();
+    } else {
+      if (filters.some((button) => button === focused && button.hidden)) more.focus();
+      if (!menu.hidden) {
+        positionMenu();
+        if (menuItems.some((item) => item === focused && item.hidden)) visibleItems()[0]?.focus();
+      }
+    }
+  }
+
+  for (const button of filters) button.addEventListener('click', () => select(button));
+  more.addEventListener('click', () => {
+    if (menu.hidden) openMenu();
+    else closeMenu(true);
+  });
+  more.addEventListener('keydown', (event) => {
+    if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+    event.preventDefault();
+    openMenu(event.key === 'ArrowUp');
+  });
+  menu.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      closeMenu(true);
+      return;
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMenu(true);
+      return;
+    }
+    const items = visibleItems();
+    const index = items.findIndex((item) => item === document.activeElement);
+    const next = {
+      ArrowDown: (index + 1) % items.length,
+      ArrowUp: (index - 1 + items.length) % items.length,
+      Home: 0,
+      End: items.length - 1,
+    }[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    items[next]?.focus();
+  });
+  document.addEventListener('pointerdown', (event) => {
+    if (event.target instanceof Node && !menu.contains(event.target) && !more.contains(event.target)) closeMenu();
+  });
+  bar.addEventListener('focusout', (event) => {
+    if (event.relatedTarget && !bar.contains(event.relatedTarget as Node)) closeMenu();
+  });
+
+  bar.dataset.enhanced = '';
+  fitFilters();
+  new ResizeObserver(fitFilters).observe(bar);
+  void document.fonts.ready.then(fitFilters);
   search?.addEventListener('input', apply);
 </script>
 
@@ -176,11 +313,76 @@ const years = [...byYear.entries()];
     margin-bottom: 10px;
   }
 
+  .filter-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 37rem;
+    min-width: 0;
+    gap: 9px;
+  }
+
+  .filter-bar:focus-within,
+  .filter-bar:has(.filter-menu:not([hidden])) {
+    z-index: 1;
+  }
+
   .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 9px;
+    gap: inherit;
+    min-width: 0;
   }
+
+  .filter-bar[data-enhanced] .filters {
+    flex-wrap: nowrap;
+  }
+
+  .filter-bar .filter {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  .filter-bar [hidden] {
+    display: none;
+  }
+
+  .filter-menu {
+    position: absolute;
+    inset-block-start: calc(100% + 8px);
+    inset-inline-end: 0;
+    display: grid;
+    inline-size: min(100%, 15rem);
+    max-block-size: min(20rem, 45vh);
+    overflow-y: auto;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: var(--radius);
+    color: var(--text);
+    background: var(--surface);
+    font: inherit;
+    font-size: 13px;
+    text-align: start;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  .filter-option .count { flex: none; color: var(--text-mono); }
+  .filter-option:is(:hover, :focus-visible) { background: var(--surface-2); }
+  .filter-option[aria-checked='true'] { background: var(--surface-accent); color: var(--accent-strong); }
+  .filter-option:active { background: var(--surface-accent); }
 
   .search {
     flex: 0 1 280px;
