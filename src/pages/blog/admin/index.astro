@@ -1,0 +1,76 @@
+---
+import { maxAccessKeyLength, minAccessKeyLength } from '../../../../workers/blog/auth.mjs';
+import Base from '../../../layouts/Base.astro';
+import 'vditor/dist/index.css';
+import '../../../styles/blog-admin.css';
+---
+
+<Base title="博客管理 - Aaron Xu">
+  <div class="container blog-admin">
+    <header class="blog-admin-head">
+      <div>
+        <a href="/blog/" class="mono-sm admin-back">← 返回博客</a>
+        <h1 class="page-title">博客管理</h1>
+      </div>
+      <button class="btn btn-sm btn-ghost" id="sign-out" type="button" hidden>退出登录</button>
+    </header>
+
+    <p class="admin-status mono-sm" role="status" id="admin-status">正在连接后台…</p>
+    <form id="login" class="admin-login" hidden>
+      <label>
+        访问密钥
+        <input name="accessKey" type="password" autocomplete="current-password" minlength={minAccessKeyLength} maxlength={maxAccessKeyLength} required />
+      </label>
+      <button class="btn btn-sm" type="submit">登录</button>
+    </form>
+
+    <section id="manage" hidden aria-label="文章管理">
+      <div class="admin-actions">
+        <h2>文章</h2>
+        <button class="btn btn-sm" type="button" id="new-post">新建文章</button>
+      </div>
+      <ul id="admin-posts" class="admin-posts"></ul>
+      <p id="admin-empty" hidden>还没有通过后台创建的文章。</p>
+    </section>
+
+    <form id="article-editor" hidden>
+      <div class="admin-actions admin-edit-actions">
+        <button type="button" class="btn btn-sm btn-ghost" id="back-to-posts">返回文章</button>
+        <div class="admin-actions">
+          <button type="button" class="btn btn-sm btn-ghost admin-delete" id="delete-post" hidden>删除文章</button>
+          <a class="btn btn-sm btn-ghost" target="_blank" rel="noopener" id="view-post" hidden>查看文章 ↗</a>
+          <button type="submit" class="btn btn-sm btn-ghost" value="draft">保存为草稿</button>
+          <button type="submit" class="btn btn-sm" value="published" id="publish">发布文章</button>
+        </div>
+      </div>
+      <label class="admin-title">
+        <span>标题</span>
+        <input name="title" maxlength="160" required placeholder="输入文章标题" />
+      </label>
+      <details class="admin-options">
+        <summary>分类与标签</summary>
+        <div class="admin-fields">
+          <label>分类<input name="category" maxlength="40" placeholder="随笔" /></label>
+          <label>标签<input name="tags" placeholder="用逗号分隔" /></label>
+        </div>
+      </details>
+      <div class="admin-body-label" id="admin-body-label">正文</div>
+      <div id="vditor" aria-labelledby="admin-body-label"></div>
+    </form>
+
+    <dialog class="admin-delete-dialog" id="delete-dialog" aria-labelledby="delete-heading" aria-describedby="delete-description">
+      <form method="dialog">
+        <h2 id="delete-heading">删除文章</h2>
+        <p id="delete-description"></p>
+        <div class="admin-actions">
+          <button class="btn btn-sm btn-ghost" value="cancel" autofocus>取消</button>
+          <button class="btn btn-sm admin-delete-confirm" value="delete">确认删除</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+</Base>
+
+<script>
+  import '../../../lib/blog-admin';
+</script>

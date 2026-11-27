@@ -23,3 +23,6 @@ output/playwright/
 # Prompt 擂台：由 npm run build:prompt-lab 生成
 /public/tools/prompt-lab/model-menu.js
 /public/tools/prompt-lab/model-menu.css
+
+# 博客编辑器：由 npm run build:blog 复制
+/public/vendor/vditor/

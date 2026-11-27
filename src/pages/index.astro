@@ -403,7 +403,7 @@ const badgeTone = { dark: 'badge-dark', accent: 'badge-accent' } as const;
         </div>
       </div>
 
-      <ol class="posts" role="list">
+      <ol class="posts" data-blog-recent role="list">
         {
           posts.map((post, i) => (
             <li class="reveal" style={`--d:${i * 0.04}s`}>

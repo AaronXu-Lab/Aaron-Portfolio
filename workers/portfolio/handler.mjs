@@ -1,3 +1,4 @@
+import { blogRequest } from "../blog/worker.mjs";
 import { DEFAULT_MODE_MODELS, defaultModeModel } from "../../src/lib/wardrobe/core.mjs";
 import { imageRequestBody, tagRequestBody } from "../../src/lib/wardrobe/request-body.mjs";
 
@@ -97,7 +98,9 @@ async function upstreamPayload(path, request) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (!url.pathname.startsWith(PREFIX + "/")) return env.ASSETS.fetch(request);
+    if (!url.pathname.startsWith(PREFIX + "/")) {
+      return blogRequest(request, env, url);
+    }
 
     const path = url.pathname.slice(PREFIX.length);
     if (!METHODS.has(path)) return error(404, "此接口不存在。");

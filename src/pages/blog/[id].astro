@@ -7,21 +7,22 @@ export async function getStaticPaths() {
   const posts = (await getCollection('blog')).sort(
     (a, b) => a.data.date.getTime() - b.data.date.getTime()
   );
-  return posts.map((post, i) => ({
+  return [...posts.map((post, i) => ({
     params: { id: post.id },
     props: {
       post,
       prev: posts[i - 1] ?? null,
       next: posts[i + 1] ?? null,
     },
-  }));
+  })), { params: { id: "__online-template" }, props: { post: null, prev: null, next: null } }];
 }
 
 const { post, prev, next } = Astro.props;
-const { Content } = await render(post);
+const Content = post ? (await render(post)).Content : null;
+const data = post?.data ?? { title: '博客文章', excerpt: '', date: new Date(0), categories: [], tags: [], minutes: 0, author: 'Aaron Xu' };
 ---
 
-<Base title={`${post.data.title} - Aaron Xu 的博客`} description={post.data.excerpt}>
+<Base title={`${data.title} - Aaron Xu 的博客`} description={data.excerpt}>
   <div class="progress" aria-hidden="true"><span></span></div>
 
   <article class="post prose-width">
@@ -29,15 +30,15 @@ const { Content } = await render(post);
 
     <header class="post-head">
       <div class="post-meta mono-sm reveal">
-        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-        {post.data.categories[0] && <span class="cat">{post.data.categories[0]}</span>}
-        <span class="min">约 {post.data.minutes} 分钟</span>
+        <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+        {(data.categories[0] || !post) && <span class="cat">{data.categories[0]}</span>}
+        <span class="min">约 {data.minutes} 分钟</span>
       </div>
-      <h1 class="reveal" style="--d:.05s">{post.data.title}</h1>
+      <h1 class="reveal" style="--d:.05s">{data.title}</h1>
       {
-        post.data.tags.length > 0 && (
+        (data.tags.length > 0 || !post) && (
           <div class="tags reveal" style="--d:.1s">
-            {post.data.tags.map((t) => (
+            {data.tags.map((t) => (
               <span class="chip">{t}</span>
             ))}
           </div>
@@ -46,13 +47,13 @@ const { Content } = await render(post);
     </header>
 
     <div class="prose">
-      <Content />
+      {Content && <Content />}
     </div>
 
     <footer class="post-foot">
       <div class="author">
         <span class="mono-label">Written by</span>
-        <span class="name">{post.data.author ?? 'Aaron Xu'}</span>
+        <span class="name">{data.author ?? 'Aaron Xu'}</span>
       </div>
       <nav class="post-nav" aria-label="相邻文章">
         {

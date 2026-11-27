@@ -39,7 +39,7 @@ const years = [...byYear.entries()];
     </header>
 
     <div class="toolbar reveal">
-      <div class="filters" role="group" aria-label="按分类筛选">
+      <div class="filters" data-blog-filters role="group" aria-label="按分类筛选">
         <button class="chip filter on" type="button" data-cat="" aria-pressed="true">
           全部 <span class="count mono-sm">{posts.length}</span>
         </button>
@@ -58,7 +58,7 @@ const years = [...byYear.entries()];
       </label>
     </div>
 
-    <div class="post-list">
+    <div class="post-list" data-blog-list>
       {
         years.map(([year, list]) => (
           <section class="year-group" data-year={year}>

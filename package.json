@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run build:stash && npm run build:wardrobe && npm run build:forest && npm run build:prompt-lab && astro build",
+    "build": "npm run build:stash && npm run build:wardrobe && npm run build:forest && npm run build:prompt-lab && npm run build:blog && astro build",
     "preview": "astro preview",
     "test:candy": "node --test tests/candy-match-core.test.mjs",
     "test:flypy": "node --test tests/flypy-core.test.mjs",
@@ -29,7 +29,10 @@
     "test:wardrobe": "node --test tests/wardrobe-core.test.mjs tests/wardrobe-wake-lock.test.mjs tests/wardrobe-worker.test.mjs",
     "check:wardrobe": "tsc -p tsconfig.wardrobe.json && npm run test:wardrobe",
     "test:ninja": "node --test tests/flying-ninja-cat/*.test.cjs",
-    "build:resume": "astro build && node scripts/build-resume-pdf.mjs"
+    "build:resume": "astro build && node scripts/build-resume-pdf.mjs",
+    "build:blog": "node scripts/blog/vendor.mjs",
+    "blog:set-key": "node scripts/blog/credentials.mjs",
+    "dev:blog": "npm run build && wrangler d1 migrations apply BLOG_DB --local && wrangler dev --env-file .dev.vars.blog"
   },
   "dependencies": {
     "@aaronxu-lab/aaron-ui": "file:vendor/aaronxu-lab-aaron-ui-0.9.0.tgz",
@@ -42,10 +45,12 @@
     "astro": "^5.12.0",
     "fflate": "^0.8.3",
     "heic-to": "1.6.7",
+    "markdown-it": "^15.0.3",
     "pinyin-pro": "^3.28.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "remark-cjk-friendly": "2.3.4"
+    "remark-cjk-friendly": "2.3.4",
+    "vditor": "^4.0.1"
   },
   "devDependencies": {
     "@phosphor-icons/core": "^2.1.1",

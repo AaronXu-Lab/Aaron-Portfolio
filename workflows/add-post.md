@@ -56,3 +56,11 @@ npm run add:post -- ~/Desktop/当-App-开始融化(二).md
 - **勿手改 `src/content/blog/` 下的文件**;要改内容:改原稿 → `add:post --force` 重新导入。
 - `npm run import:blog` 是**全量重建**(读 Hexo 目录、清空重写整个 blog 目录),只在需要重同步存量文章时用;它不会知道 `add:post` 加的新文章 —— 全量重导后需把新文章的原稿重新 `add:post` 一遍。建议:新文章的原稿 .md 长期保留(或直接放进 Hexo 的 `_posts` 目录再 import,二选一)。
 - 文章正文遵循全站排版约定:全角标点、成对破折号「——」可用。
+
+## 浏览器后台发文
+
+在仓库根目录运行 `npm run blog:set-key`，输入并确认 8–20 个字符的访问密钥。终端输入不会回显，脚本只将随机盐和哈希写入 Git 忽略的 `.dev.vars.blog`。请把输入的原始密钥保存在密码管理器里。设置或更换之后，启动或重启 `npm run dev:blog`，打开 `http://localhost:8787/blog/admin/` 并输入访问密钥。更换密钥后需要重新登录。
+
+登录后点击「新建文章」，填写标题和正文，选择「保存为草稿」或「发布文章」。Vditor 使用 IR 模式，文章保存为 Markdown。已发布文章会出现在博客列表、详情和首页的最近文章中，已发布文章可以更新，也可以在弹窗确认后删除。草稿也可以删除。通过文件导入的存量文章继续通过原来的 Markdown 工作流维护。
+
+线上入口为 `/blog/admin/`。首次启用需在主站 Worker 所属 Cloudflare 账号创建 `aaron-portfolio-blog` D1 和同账户的 `aaron-portfolio-blog-media` R2，将 D1 ID 填入 `wrangler.jsonc`，执行 `wrangler d1 migrations apply BLOG_DB --remote`，并通过 `npx wrangler secret bulk .dev.vars.blog` 将两个 `BLOG_ACCESS_KEY_*` 值设为 `aaron-portfolio` Worker secrets。应用数据库迁移后再使用主站现有部署流程。上传的配图有公开访问地址。
