@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import remarkCjkFriendly from 'remark-cjk-friendly/parseOnly';
 
 export default defineConfig({
   site: 'https://www.xuweinan.com',
@@ -6,6 +7,7 @@ export default defineConfig({
   // 「工具」页已升级为「产品」页;/tools/ 下的具体工具(flypy、travel-maps)路径不变
   redirects: { '/tools/': '/products/' },
   markdown: {
+    remarkPlugins: [remarkCjkFriendly],
     shikiConfig: {
       themes: {
         light: 'github-light',
